@@ -1,18 +1,16 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.konafets.antlersidea</id>
-    <name>antlers-idea</name>
-    <vendor>konafets</vendor>
+    <id>de.arrobait.antlersidea</id>
+    <name>Antlers-Idea</name>
+    <vendor>Arroba IT</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.konafets.antlersidea.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.konafets.antlersidea.services.MyProjectService"/>
+        <applicationService serviceImplementation="de.arrobait.antlersidea.services.AntlersApplicationService"/>
+        <projectService serviceImplementation="de.arrobait.antlersidea.services.AntlersProjectService"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.konafets.antlersidea.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>

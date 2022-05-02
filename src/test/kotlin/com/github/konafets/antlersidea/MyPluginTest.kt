@@ -1,4 +1,4 @@
-package com.github.konafets.antlersidea
+package de.arrobait.antlersidea
 
 import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.psi.xml.XmlFile

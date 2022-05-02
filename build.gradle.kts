@@ -90,6 +90,10 @@ tasks {
         })
     }
 
+    buildSearchableOptions {
+        enabled = false
+    }
+
     // Configure UI tests plugin
     // Read more: https://github.com/JetBrains/intellij-ui-test-robot
     runIdeForUiTests {
