@@ -1,14 +1,14 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>de.arrobait.antlersidea</id>
-    <name>Antlers-Idea</name>
+    <id>de.arrobait.antlers</id>
+    <name>Antlers IDEA</name>
     <vendor>Arroba IT</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="de.arrobait.antlersidea.services.AntlersApplicationService"/>
-        <projectService serviceImplementation="de.arrobait.antlersidea.services.AntlersProjectService"/>
+        <applicationService serviceImplementation="de.arrobait.antlers.services.AntlersApplicationService"/>
+        <projectService serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>
     </extensions>
 
     <applicationListeners>

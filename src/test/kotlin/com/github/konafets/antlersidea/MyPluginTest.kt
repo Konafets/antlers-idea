@@ -1,4 +1,4 @@
-package de.arrobait.antlersidea
+package de.arrobait.antlers
 
 import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.psi.xml.XmlFile

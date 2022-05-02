@@ -1,6 +1,6 @@
-package de.arrobait.antlersidea.services;
+package de.arrobait.antlers.services;
 
-import de.arrobait.antlersidea.AntlersBundle;
+import de.arrobait.antlers.AntlersBundle;
 
 public class AntlersApplicationService {
     public AntlersApplicationService() {
