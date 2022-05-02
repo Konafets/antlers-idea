@@ -1,7 +1,10 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# antlers-idea Changelog
+# Antlers IDEA Changelog
 
 ## [Unreleased]
 ### Added
 - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+- Setup Changelog for Gradle
+- Rename the groupID and namespace
+- 
