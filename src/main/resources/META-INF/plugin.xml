@@ -7,6 +7,13 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <!-- File type -->
+        <fileType
+                name="Antlers"
+                implementationClass="de.arrobait.antlers.file.AntlersFileType"
+                fieldName="INSTANCE"
+                language="Antlers"
+                patterns="*.antlers.html"/>
         <applicationService serviceImplementation="de.arrobait.antlers.services.AntlersApplicationService"/>
         <projectService serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>
     </extensions>
