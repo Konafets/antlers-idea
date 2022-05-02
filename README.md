@@ -16,10 +16,6 @@
 
 <!-- Plugin description -->
 A RAD plugin which brings support for Antlers to your IDE.
-
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
-
-To keep everything working, do not remove `<!-- ... -->` sections. 
 <!-- Plugin description end -->
 
 ## Installation
