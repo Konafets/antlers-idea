@@ -25,6 +25,14 @@
 
         <applicationService serviceImplementation="de.arrobait.antlers.services.AntlersApplicationService"/>
         <projectService serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>
+        <!-- Syntax highlighting -->
+        <lang.syntaxHighlighterFactory
+                language="Antlers"
+                implementationClass="de.arrobait.antlers.highlighter.AntlersSyntaxHighlighterFactory"/>
+
+        <colorSettingsPage
+                implementation="de.arrobait.antlers.highlighter.AntlersColorSettingsPage"/>
+
     </extensions>
 
     <actions>
