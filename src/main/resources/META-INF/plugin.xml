@@ -17,7 +17,8 @@
                 fieldName="INSTANCE"
                 language="Antlers"
                 patterns="*.antlers.html"/>
-        <createFromTemplateHandler implementation="de.arrobait.antlers.file.CreateFromTemplateHandler" />
+
+        <createFromTemplateHandler implementation="de.arrobait.antlers.file.CreateNewAntlersFileFromTemplateHandler" />
 
         <applicationService serviceImplementation="de.arrobait.antlers.services.AntlersApplicationService"/>
         <projectService serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>

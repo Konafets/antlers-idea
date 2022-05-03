@@ -4,7 +4,7 @@ import com.intellij.ide.fileTemplates.DefaultCreateFromTemplateHandler;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import org.jetbrains.annotations.NotNull;
 
-public class CreateFromTemplateHandler extends DefaultCreateFromTemplateHandler {
+public class CreateNewAntlersFileFromTemplateHandler extends DefaultCreateFromTemplateHandler {
     @Override
     public boolean handlesTemplate(FileTemplate template) {
         return template.getName().equals("new.antlers");
