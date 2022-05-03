@@ -3,12 +3,14 @@ package de.arrobait.antlers.file;
 import com.intellij.ide.highlighter.XmlLikeFileType;
 import com.intellij.lang.Language;
 import com.intellij.openapi.fileTypes.CharsetUtil;
+import com.intellij.openapi.fileTypes.FileTypeEditorHighlighterProviders;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.fileTypes.TemplateLanguageFileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.templateLanguages.TemplateDataLanguageMappings;
 import de.arrobait.antlers.AntlersLanguage;
+import de.arrobait.antlers.highlighter.AntlersTemplateHighlighter;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,6 +30,8 @@ public class AntlersFileType extends XmlLikeFileType implements TemplateLanguage
 
     protected AntlersFileType(Language language) {
         super(language);
+
+        FileTypeEditorHighlighterProviders.INSTANCE.addExplicitExtension(this, ((project, fileType, virtualFile, colors) -> new AntlersTemplateHighlighter(project, virtualFile, colors)));
     }
 
     @NotNull
