@@ -6,14 +6,15 @@ import com.intellij.psi.tree.IElementType;
 import static com.intellij.psi.TokenType.BAD_CHARACTER;
 import static com.intellij.psi.TokenType.WHITE_SPACE;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import static de.arrobait.antlers.psi.AntlersTypes.*;
 
 %%
 
 %{
-    private final Stack<Integer> lexStateStack = new Stack<java.lang.Integer>();
+    private final Deque<Integer> lexStateStack = new ArrayDeque<Integer>();
 
     public AntlersLexer() {
         this((java.io.Reader)null);
@@ -25,7 +26,7 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
     }
 
     private void popState() {
-      if (lexStateStack.empty()) {
+      if (lexStateStack.isEmpty()) {
           yybegin(YYINITIAL);
       } else {
           yybegin(lexStateStack.pop());
