@@ -20,6 +20,9 @@
 
         <createFromTemplateHandler implementation="de.arrobait.antlers.file.CreateNewAntlersFileFromTemplateHandler" />
 
+        <!-- Template parser -->
+        <lang.parserDefinition language="Antlers" implementationClass="de.arrobait.antlers.parser.AntlersParserDefinition"/>
+
         <applicationService serviceImplementation="de.arrobait.antlers.services.AntlersApplicationService"/>
         <projectService serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>
     </extensions>

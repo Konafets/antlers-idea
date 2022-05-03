@@ -1,0 +1,34 @@
+{
+    parserClass="de.arrobait.antlers.parser.AntlersParser"
+    parserUtilClass="de.arrobait.antlers.parser.AntlersParserUtil"
+
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Antlers"
+    psiImplClassSuffix="Impl"
+    psiPackage="de.arrobait.antlers.psi"
+    psiImplPackage="de.arrobait.antlers.psi.impl"
+
+    elementTypeHolderClass="de.arrobait.antlers.psi.AntlersTypes"
+    elementTypeClass="de.arrobait.antlers.psi.AntlersElementType"
+    tokenTypeClass="de.arrobait.antlers.psi.AntlersTokenType"
+
+    tokens = [
+        T_LD = '{{'
+        T_RD = '}}'
+
+        T_COMMENT_OPEN='{{#'
+        T_COMMENT_CLOSE='#}}'
+    ]
+
+}
+
+antlersFile ::= nodes*
+private nodes ::= comment_block
+                | outer_content
+
+// Comments: {{# Here be dragons #}}
+comment_block ::= T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE { pin=1 }
+
+// HTML content
+private outer_content ::= OUTER_CONTENT
