@@ -8,9 +8,9 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.6.10"
+    id("org.jetbrains.kotlin.jvm") version "1.6.21"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.4.0"
+    id("org.jetbrains.intellij") version "1.5.3"
     // Gradle Changelog Plugin
     id("org.jetbrains.changelog") version "1.3.1"
     // Gradle Qodana Plugin
@@ -28,8 +28,13 @@ repositories {
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
     pluginName.set(properties("pluginName"))
-    version.set(properties("platformVersion"))
+
+    // Define IntelliJ Platform against which to build the plugin project.
     type.set(properties("platformType"))
+
+    // Use the IntelliJ Platform BRANCH.BUILD version matching
+    // "targetIDE" (PhpStorm):
+    version.set(properties("platformVersion"))
 
     // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
     plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
@@ -99,6 +104,10 @@ tasks {
 
     buildSearchableOptions {
         enabled = false
+    }
+
+    runIde {
+        ideDir.set(file("/Applications/PhpStorm.app/Contents"))
     }
 
     // Configure UI tests plugin

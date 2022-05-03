@@ -8,3 +8,5 @@
 - Setup Changelog for Gradle
 - Rename the groupID and namespace
 - Add plugin icon
+- Add Antlers file type and icons
+- Add action to create new Antlers file in project view

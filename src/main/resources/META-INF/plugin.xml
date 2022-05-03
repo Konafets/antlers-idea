@@ -2,9 +2,12 @@
 <idea-plugin>
     <id>de.arrobait.antlers</id>
     <name>Antlers IDEA</name>
-    <vendor>Arroba IT</vendor>
+    <vendor url="https://arroba-it.de">Arroba IT</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>org.intellij.intelliLang</depends>
+    <depends>com.jetbrains.php</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- File type -->

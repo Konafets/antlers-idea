@@ -6,12 +6,13 @@ import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.NonEmptyInputValidator;
 import com.intellij.psi.PsiDirectory;
+import de.arrobait.antlers.AntlersBundle;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
 public class CreateAntlersFileAction extends CreateFileFromTemplateAction implements DumbAware {
     public CreateAntlersFileAction() {
-        super("Antlers File", "Create a new Antlers file", AntlersIcons.FILE);
+        super("Antlers File", AntlersBundle.message("createNewAntlersFile"), AntlersIcons.FILE);
     }
 
     @Override
