@@ -71,13 +71,12 @@ public class AntlersLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\1\3\0\1\1\1\2\2\3\1\2\3\3\1\2"+
-    "\3\3\1\2\2\3\15\0\1\4\1\5\1\6\1\0"+
-    "\1\4\1\7\1\0\1\4\1\10\1\0\1\4\1\11"+
-    "\1\12\1\13";
+    "\1\1\3\0\1\1\1\2\7\3\12\0\1\4\1\5"+
+    "\1\6\1\0\1\7\1\0\1\10\1\0\1\11\1\12"+
+    "\1\13";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[46];
+    int [] result = new int[34];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -103,14 +102,13 @@ public class AntlersLexer implements FlexLexer {
 
   private static final String ZZ_ROWMAP_PACKED_0 =
     "\0\0\0\7\0\16\0\25\0\34\0\43\0\52\0\61"+
-    "\0\70\0\77\0\106\0\115\0\124\0\133\0\142\0\151"+
-    "\0\160\0\167\0\176\0\205\0\61\0\214\0\223\0\232"+
-    "\0\115\0\241\0\250\0\257\0\151\0\266\0\275\0\304"+
-    "\0\313\0\313\0\313\0\322\0\214\0\313\0\331\0\115"+
-    "\0\313\0\340\0\151\0\313\0\313\0\313";
+    "\0\70\0\77\0\106\0\115\0\124\0\133\0\61\0\142"+
+    "\0\151\0\77\0\160\0\167\0\115\0\176\0\205\0\214"+
+    "\0\214\0\214\0\223\0\214\0\232\0\214\0\241\0\214"+
+    "\0\214\0\214";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[46];
+    int [] result = new int[34];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -133,24 +131,19 @@ public class AntlersLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\5\1\6\1\7\4\5\1\10\1\11\1\12\1\13"+
-    "\3\10\1\14\1\15\1\16\3\14\1\17\1\20\1\21"+
-    "\1\22\2\20\1\23\1\20\2\5\1\0\5\5\1\6"+
-    "\1\0\4\5\2\0\1\24\4\0\3\25\1\26\4\25"+
-    "\1\11\1\25\1\26\5\25\1\27\1\26\6\25\1\26"+
-    "\1\30\2\25\6\31\1\32\1\31\1\15\4\31\1\32"+
-    "\2\31\1\33\3\31\1\32\4\31\1\34\1\31\1\32"+
-    "\5\35\1\36\2\35\1\21\3\35\1\36\3\35\1\37"+
-    "\2\35\1\36\5\35\1\40\1\36\1\35\3\0\1\41"+
-    "\1\0\1\42\1\43\3\25\1\26\1\44\5\25\1\45"+
-    "\6\25\1\26\1\46\2\25\4\31\1\47\1\31\1\32"+
-    "\3\31\1\50\2\31\1\32\4\31\1\51\1\31\1\32"+
-    "\4\35\1\52\1\36\4\35\1\53\1\35\1\36\5\35"+
-    "\1\54\1\36\1\35\7\0\3\25\1\26\1\55\2\25"+
-    "\4\31\1\56\1\31\1\32\4\35\1\56\1\36\1\35";
+    "\1\5\1\6\1\7\4\5\3\10\1\11\3\10\6\12"+
+    "\1\13\5\14\1\15\1\14\2\5\1\0\5\5\1\6"+
+    "\1\0\4\5\2\0\1\16\4\0\3\17\1\20\6\17"+
+    "\1\20\1\21\2\17\6\22\1\23\4\22\1\24\1\22"+
+    "\1\23\5\25\1\26\5\25\1\27\1\26\1\25\3\0"+
+    "\1\30\1\0\1\31\1\32\3\17\1\20\1\33\5\17"+
+    "\1\20\1\34\2\17\4\22\1\35\1\22\1\23\4\22"+
+    "\1\36\1\22\1\23\4\25\1\37\1\26\5\25\1\40"+
+    "\1\26\1\25\7\0\3\17\1\20\1\41\2\17\4\22"+
+    "\1\42\1\22\1\23\4\25\1\42\1\26\1\25";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[231];
+    int [] result = new int[168];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -188,11 +181,11 @@ public class AntlersLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\1\3\0\17\1\15\0\3\11\1\0\1\1\1\11"+
-    "\1\0\1\1\1\11\1\0\1\1\3\11";
+    "\1\1\3\0\11\1\12\0\3\11\1\0\1\11\1\0"+
+    "\1\11\1\0\3\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[46];
+    int [] result = new int[34];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
