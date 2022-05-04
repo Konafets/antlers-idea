@@ -19,12 +19,19 @@
 
         T_COMMENT_OPEN='{{#'
         T_COMMENT_CLOSE='#}}'
+
+        T_PHP_RAW_OPEN='{{?'
+        T_PHP_RAW_CLOSE='?}}'
+
+        T_PHP_ECHO_OPEN='{{$'
+        T_PHP_ECHO_CLOSE='$}}'
     ]
 
 }
 
 antlersFile ::= nodes*
 private nodes ::= comment_block
+                | php_node
                 | outer_content
 
 // Comments: {{# Here be dragons #}}
@@ -32,3 +39,8 @@ comment_block ::= T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE { pin=1 }
 
 // HTML content
 private outer_content ::= OUTER_CONTENT
+
+// PHP expressions
+private php_node ::= (php_raw_node | php_echo_node)
+php_raw_node   ::= "{{?" T_PHP_CONTENT* "?}}" { pin=1 }
+php_echo_node  ::= "{{$" T_PHP_CONTENT* "$}}" { pin=1 }

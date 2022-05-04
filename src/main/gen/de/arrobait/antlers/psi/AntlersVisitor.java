@@ -11,6 +11,14 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPhpEchoNode(@NotNull AntlersPhpEchoNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPhpRawNode(@NotNull AntlersPhpRawNode o) {
+    visitPsiElement(o);
+  }
+
   public void visitPsiElement(@NotNull PsiElement o) {
     visitElement(o);
   }

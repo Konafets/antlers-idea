@@ -75,12 +75,13 @@ public class AntlersParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // comment_block
+  //                 | php_node
   //                 | outer_content
   static boolean nodes(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "nodes")) return false;
-    if (!nextTokenIs(b, "", OUTER_CONTENT, T_COMMENT_OPEN)) return false;
     boolean r;
     r = comment_block(b, l + 1);
+    if (!r) r = php_node(b, l + 1);
     if (!r) r = outer_content(b, l + 1);
     return r;
   }
@@ -89,6 +90,69 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // OUTER_CONTENT
   static boolean outer_content(PsiBuilder b, int l) {
     return consumeToken(b, OUTER_CONTENT);
+  }
+
+  /* ********************************************************** */
+  // "{{$" T_PHP_CONTENT* "$}}"
+  public static boolean php_echo_node(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "php_echo_node")) return false;
+    if (!nextTokenIs(b, T_PHP_ECHO_OPEN)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, PHP_ECHO_NODE, null);
+    r = consumeToken(b, T_PHP_ECHO_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, php_echo_node_1(b, l + 1));
+    r = p && consumeToken(b, T_PHP_ECHO_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // T_PHP_CONTENT*
+  private static boolean php_echo_node_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "php_echo_node_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, T_PHP_CONTENT)) break;
+      if (!empty_element_parsed_guard_(b, "php_echo_node_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // php_raw_node | php_echo_node
+  static boolean php_node(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "php_node")) return false;
+    if (!nextTokenIs(b, "", T_PHP_ECHO_OPEN, T_PHP_RAW_OPEN)) return false;
+    boolean r;
+    r = php_raw_node(b, l + 1);
+    if (!r) r = php_echo_node(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // "{{?" T_PHP_CONTENT* "?}}"
+  public static boolean php_raw_node(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "php_raw_node")) return false;
+    if (!nextTokenIs(b, T_PHP_RAW_OPEN)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, PHP_RAW_NODE, null);
+    r = consumeToken(b, T_PHP_RAW_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, php_raw_node_1(b, l + 1));
+    r = p && consumeToken(b, T_PHP_RAW_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // T_PHP_CONTENT*
+  private static boolean php_raw_node_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "php_raw_node_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, T_PHP_CONTENT)) break;
+      if (!empty_element_parsed_guard_(b, "php_raw_node_1", c)) break;
+    }
+    return true;
   }
 
 }

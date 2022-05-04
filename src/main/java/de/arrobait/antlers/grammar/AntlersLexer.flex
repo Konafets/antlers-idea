@@ -49,18 +49,32 @@ COMMENT_CLOSE="#}}"
 
 // States
 %state IN_ANTLERS_COMMENT
+%state PHP_ECHO
+%state PHP_RAW
 
 %%
 <YYINITIAL> {
     {COMMENT_OPEN}       { yypushback(yylength() - 3); pushState(IN_ANTLERS_COMMENT); return T_COMMENT_OPEN;}
     {WHITE_SPACE}        { return WHITE_SPACE; }
 
+    "{{?"                       { pushState(PHP_RAW); return T_PHP_RAW_OPEN; }
+    "{{$"                       { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN; }
     !([^]*"{"[^]*)              { return OUTER_CONTENT; }
 }
 
 <IN_ANTLERS_COMMENT> {
     {COMMENT_CLOSE}             { popState(); return T_COMMENT_CLOSE; }
     ~{COMMENT_CLOSE}            { yypushback(3); return T_COMMENT_TEXT; }
+}
+
+<PHP_ECHO> {
+    "$}}"                       { popState(); return T_PHP_ECHO_CLOSE;}
+    ~"$}}"                      { yypushback(3); return T_PHP_CONTENT;}
+}
+
+<PHP_RAW> {
+    "?}}"                       { popState(); return T_PHP_RAW_CLOSE;}
+    ~"?}}"                      { yypushback(3); return T_PHP_CONTENT;}
 }
 
 [^] { yybegin(YYINITIAL); return OUTER_CONTENT; }

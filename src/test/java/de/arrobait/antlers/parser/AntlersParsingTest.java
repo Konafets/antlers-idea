@@ -10,6 +10,9 @@ public class AntlersParsingTest extends ParsingTestCase {
     public void testParseComments() {
         doTest(true);
     }
+    public void testParsePhp() {
+        doTest(true);
+    }
 
     @Override
     protected String getTestDataPath() {
