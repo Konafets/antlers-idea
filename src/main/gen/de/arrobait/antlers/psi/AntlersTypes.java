@@ -15,6 +15,7 @@ public interface AntlersTypes {
   IElementType LITERAL_EXPR = new AntlersElementType("LITERAL_EXPR");
   IElementType PHP_ECHO_NODE = new AntlersElementType("PHP_ECHO_NODE");
   IElementType PHP_RAW_NODE = new AntlersElementType("PHP_RAW_NODE");
+  IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
 
   IElementType OUTER_CONTENT = new AntlersTokenType("OUTER_CONTENT");
   IElementType T_COMMENT_CLOSE = new AntlersTokenType("#}}");
@@ -28,6 +29,9 @@ public interface AntlersTypes {
   IElementType T_PHP_RAW_CLOSE = new AntlersTokenType("?}}");
   IElementType T_PHP_RAW_OPEN = new AntlersTokenType("{{?");
   IElementType T_RD = new AntlersTokenType("}}");
+  IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
+  IElementType T_STRING_END = new AntlersTokenType("T_STRING_END");
+  IElementType T_STRING_START = new AntlersTokenType("T_STRING_START");
   IElementType T_TRUE = new AntlersTokenType("true");
 
   class Factory {
@@ -50,6 +54,9 @@ public interface AntlersTypes {
       }
       else if (type == PHP_RAW_NODE) {
         return new AntlersPhpRawNodeImpl(node);
+      }
+      else if (type == STRING_LITERAL) {
+        return new AntlersStringLiteralImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

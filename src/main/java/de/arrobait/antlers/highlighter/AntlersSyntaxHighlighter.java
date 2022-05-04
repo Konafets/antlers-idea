@@ -30,5 +30,6 @@ public class AntlersSyntaxHighlighter extends SyntaxHighlighterBase {
         fillMap(ATTRIBUTES, AntlersTokenSets.BOOLEANS, AntlersHighlighter.BOOLEAN);
         fillMap(ATTRIBUTES, AntlersTokenSets.BRACES, AntlersHighlighter.BRACES);
         fillMap(ATTRIBUTES, AntlersTokenSets.COMMENTS, AntlersHighlighter.COMMENT);
+        fillMap(ATTRIBUTES, AntlersTokenSets.STRINGS, AntlersHighlighter.STRING);
     }
 }

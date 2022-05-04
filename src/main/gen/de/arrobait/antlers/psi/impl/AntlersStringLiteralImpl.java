@@ -8,35 +8,23 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static de.arrobait.antlers.psi.AntlersTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersLiteralExprImpl extends AntlersExprImpl implements AntlersLiteralExpr {
+public class AntlersStringLiteralImpl extends ASTWrapperPsiElement implements AntlersStringLiteral {
 
-  public AntlersLiteralExprImpl(@NotNull ASTNode node) {
+  public AntlersStringLiteralImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitLiteralExpr(this);
+    visitor.visitStringLiteral(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof AntlersVisitor) accept((AntlersVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public AntlersBooleanLiteral getBooleanLiteral() {
-    return findChildByClass(AntlersBooleanLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersStringLiteral getStringLiteral() {
-    return findChildByClass(AntlersStringLiteral.class);
   }
 
 }

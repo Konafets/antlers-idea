@@ -39,7 +39,11 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 NL +
                 "{{# Boolean #}}" + NL +
                 "{{ true }}" + NL +
-                "{{ false }}";
+                "{{ false }}" + NL +
+                NL +
+                "{{# Strings #}}" + NL +
+                "{{ 'Welcome to Statamic' }}" + NL +
+                "{{ \"We hope you enjoy it so much as we do.\" }}";
     }
 
     @Override

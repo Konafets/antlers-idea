@@ -65,6 +65,8 @@ private group_primary ::= literal_expr
 
 // Basic
 literal_expr ::= boolean_literal
+                | string_literal
 
 // Literals
+string_literal  ::= T_STRING_START T_STRING_CONTENT* T_STRING_END
 boolean_literal ::= 'true' | 'false'

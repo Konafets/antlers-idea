@@ -50,9 +50,14 @@ RD="}}"
 COMMENT_OPEN="{{#"
 COMMENT_CLOSE="#}}"
 
+SINGLE_QUOTE="\'"
+DOUBLE_QUOTE="\""
+
 // States
 %state ANTLERS_COMMENT
 %state ANTLERS_NODE
+%state SINGLE_STRING
+%state DOUBLE_STRING
 %state PHP_ECHO
 %state PHP_RAW
 
@@ -79,11 +84,24 @@ COMMENT_CLOSE="#}}"
     // Boolean
     "true"               { return T_TRUE; }
     "false"              { return T_FALSE; }
+
+    {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
+    {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_STRING_START; }
 }
 
 <ANTLERS_COMMENT> {
     {COMMENT_CLOSE}             { popState(); return T_COMMENT_CLOSE; }
     ~{COMMENT_CLOSE}            { yypushback(3); return T_COMMENT_TEXT; }
+}
+
+<SINGLE_STRING> {
+    {SINGLE_QUOTE}  { popState(); return T_STRING_END; }
+    ~{SINGLE_QUOTE} { yypushback(1); return T_STRING_CONTENT; }
+}
+
+<DOUBLE_STRING> {
+    {DOUBLE_QUOTE}  { popState(); return T_STRING_END; }
+    ~{DOUBLE_QUOTE} { yypushback(1); return T_STRING_CONTENT; }
 }
 
 <PHP_ECHO> {

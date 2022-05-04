@@ -137,7 +137,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // group_primary
   public static boolean expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr")) return false;
-    if (!nextTokenIs(b, "<expr>", T_FALSE, T_TRUE)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _COLLAPSE_, EXPR, "<expr>");
     r = group_primary(b, l + 1);
@@ -153,12 +152,13 @@ public class AntlersParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // boolean_literal
+  //                 | string_literal
   public static boolean literal_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "literal_expr")) return false;
-    if (!nextTokenIs(b, "<literal expr>", T_FALSE, T_TRUE)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, LITERAL_EXPR, "<literal expr>");
     r = boolean_literal(b, l + 1);
+    if (!r) r = string_literal(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -245,6 +245,31 @@ public class AntlersParser implements PsiParser, LightPsiParser {
       int c = current_position_(b);
       if (!consumeToken(b, T_PHP_CONTENT)) break;
       if (!empty_element_parsed_guard_(b, "php_raw_node_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // T_STRING_START T_STRING_CONTENT* T_STRING_END
+  public static boolean string_literal(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "string_literal")) return false;
+    if (!nextTokenIs(b, T_STRING_START)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_STRING_START);
+    r = r && string_literal_1(b, l + 1);
+    r = r && consumeToken(b, T_STRING_END);
+    exit_section_(b, m, STRING_LITERAL, r);
+    return r;
+  }
+
+  // T_STRING_CONTENT*
+  private static boolean string_literal_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "string_literal_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, T_STRING_CONTENT)) break;
+      if (!empty_element_parsed_guard_(b, "string_literal_1", c)) break;
     }
     return true;
   }
