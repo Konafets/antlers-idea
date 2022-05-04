@@ -1,7 +1,7 @@
 package de.arrobait.antlers.lexer;
 
 import de.arrobait.antlers.parser.AntlersLexerAdapter;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static de.arrobait.antlers.psi.AntlersTypes.*;
 
