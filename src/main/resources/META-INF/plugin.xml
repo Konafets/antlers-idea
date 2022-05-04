@@ -18,13 +18,14 @@
                 language="Antlers"
                 patterns="*.antlers.html"/>
 
-        <createFromTemplateHandler implementation="de.arrobait.antlers.file.CreateNewAntlersFileFromTemplateHandler" />
+        <createFromTemplateHandler
+                implementation="de.arrobait.antlers.file.CreateNewAntlersFileFromTemplateHandler"/>
 
         <!-- Template parser -->
-        <lang.parserDefinition language="Antlers" implementationClass="de.arrobait.antlers.parser.AntlersParserDefinition"/>
+        <lang.parserDefinition
+                language="Antlers"
+                implementationClass="de.arrobait.antlers.parser.AntlersParserDefinition"/>
 
-        <applicationService serviceImplementation="de.arrobait.antlers.services.AntlersApplicationService"/>
-        <projectService serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>
         <!-- Syntax highlighting -->
         <lang.syntaxHighlighterFactory
                 language="Antlers"
@@ -33,6 +34,10 @@
         <colorSettingsPage
                 implementation="de.arrobait.antlers.highlighter.AntlersColorSettingsPage"/>
 
+        <applicationService
+                serviceImplementation="de.arrobait.antlers.services.AntlersApplicationService"/>
+        <projectService
+                serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>
     </extensions>
 
     <actions>
