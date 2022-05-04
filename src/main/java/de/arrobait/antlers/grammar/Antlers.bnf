@@ -28,6 +28,9 @@
 
         T_TRUE='true'
         T_FALSE='false'
+
+        T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
+        T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
     ]
 
     extends(".*expr")=expr
@@ -64,9 +67,11 @@ expr ::= group_primary
 private group_primary ::= literal_expr
 
 // Basic
-literal_expr ::= boolean_literal
+literal_expr ::= number_literal
+                | boolean_literal
                 | string_literal
 
 // Literals
+number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER
 string_literal  ::= T_STRING_START T_STRING_CONTENT* T_STRING_END
 boolean_literal ::= 'true' | 'false'

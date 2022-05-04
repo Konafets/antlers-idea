@@ -19,6 +19,10 @@ public class HighlightTest extends HighlightTestCase {
         doTest();
     }
 
+    public void testHighlightNumbers() {
+        doTest();
+    }
+
     @Override
     protected String getTestDataPath() {
         return "src/test/testData";

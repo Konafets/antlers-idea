@@ -27,6 +27,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitNumberLiteral(@NotNull AntlersNumberLiteral o) {
+    visitPsiElement(o);
+  }
+
   public void visitPhpEchoNode(@NotNull AntlersPhpEchoNode o) {
     visitPsiElement(o);
   }

@@ -151,13 +151,15 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // boolean_literal
+  // number_literal
+  //                 | boolean_literal
   //                 | string_literal
   public static boolean literal_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "literal_expr")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, LITERAL_EXPR, "<literal expr>");
-    r = boolean_literal(b, l + 1);
+    r = number_literal(b, l + 1);
+    if (!r) r = boolean_literal(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -177,6 +179,19 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!r) r = php_node(b, l + 1);
     if (!r) r = outer_content(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // T_INTEGER_NUMBER | T_FLOAT_NUMBER
+  public static boolean number_literal(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "number_literal")) return false;
+    if (!nextTokenIs(b, "<number literal>", T_FLOAT_NUMBER, T_INTEGER_NUMBER)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, NUMBER_LITERAL, "<number literal>");
+    r = consumeToken(b, T_INTEGER_NUMBER);
+    if (!r) r = consumeToken(b, T_FLOAT_NUMBER);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 

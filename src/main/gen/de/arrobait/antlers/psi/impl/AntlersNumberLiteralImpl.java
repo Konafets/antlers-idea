@@ -8,17 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static de.arrobait.antlers.psi.AntlersTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersLiteralExprImpl extends AntlersExprImpl implements AntlersLiteralExpr {
+public class AntlersNumberLiteralImpl extends ASTWrapperPsiElement implements AntlersNumberLiteral {
 
-  public AntlersLiteralExprImpl(@NotNull ASTNode node) {
+  public AntlersNumberLiteralImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitLiteralExpr(this);
+    visitor.visitNumberLiteral(this);
   }
 
   @Override
@@ -29,20 +29,14 @@ public class AntlersLiteralExprImpl extends AntlersExprImpl implements AntlersLi
 
   @Override
   @Nullable
-  public AntlersBooleanLiteral getBooleanLiteral() {
-    return findChildByClass(AntlersBooleanLiteral.class);
+  public PsiElement getTFloatNumber() {
+    return findChildByType(T_FLOAT_NUMBER);
   }
 
   @Override
   @Nullable
-  public AntlersNumberLiteral getNumberLiteral() {
-    return findChildByClass(AntlersNumberLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersStringLiteral getStringLiteral() {
-    return findChildByClass(AntlersStringLiteral.class);
+  public PsiElement getTIntegerNumber() {
+    return findChildByType(T_INTEGER_NUMBER);
   }
 
 }

@@ -5,15 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface AntlersLiteralExpr extends AntlersExpr {
+public interface AntlersNumberLiteral extends PsiElement {
 
   @Nullable
-  AntlersBooleanLiteral getBooleanLiteral();
+  PsiElement getTFloatNumber();
 
   @Nullable
-  AntlersNumberLiteral getNumberLiteral();
-
-  @Nullable
-  AntlersStringLiteral getStringLiteral();
+  PsiElement getTIntegerNumber();
 
 }

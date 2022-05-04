@@ -53,6 +53,9 @@ COMMENT_CLOSE="#}}"
 SINGLE_QUOTE="\'"
 DOUBLE_QUOTE="\""
 
+INTEGER_NUMBER=0|[1-9]\d*
+FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
+
 // States
 %state ANTLERS_COMMENT
 %state ANTLERS_NODE
@@ -87,6 +90,9 @@ DOUBLE_QUOTE="\""
 
     {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
     {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_STRING_START; }
+
+    {INTEGER_NUMBER}     { return T_INTEGER_NUMBER; }
+    {FLOAT_NUMBER}       { return T_FLOAT_NUMBER; }
 }
 
 <ANTLERS_COMMENT> {

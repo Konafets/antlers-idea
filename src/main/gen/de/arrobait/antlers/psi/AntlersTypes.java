@@ -13,6 +13,7 @@ public interface AntlersTypes {
   IElementType COMMENT_BLOCK = new AntlersElementType("COMMENT_BLOCK");
   IElementType EXPR = new AntlersElementType("EXPR");
   IElementType LITERAL_EXPR = new AntlersElementType("LITERAL_EXPR");
+  IElementType NUMBER_LITERAL = new AntlersElementType("NUMBER_LITERAL");
   IElementType PHP_ECHO_NODE = new AntlersElementType("PHP_ECHO_NODE");
   IElementType PHP_RAW_NODE = new AntlersElementType("PHP_RAW_NODE");
   IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
@@ -22,6 +23,8 @@ public interface AntlersTypes {
   IElementType T_COMMENT_OPEN = new AntlersTokenType("{{#");
   IElementType T_COMMENT_TEXT = new AntlersTokenType("T_COMMENT_TEXT");
   IElementType T_FALSE = new AntlersTokenType("false");
+  IElementType T_FLOAT_NUMBER = new AntlersTokenType("T_FLOAT_NUMBER");
+  IElementType T_INTEGER_NUMBER = new AntlersTokenType("T_INTEGER_NUMBER");
   IElementType T_LD = new AntlersTokenType("{{");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
   IElementType T_PHP_ECHO_CLOSE = new AntlersTokenType("$}}");
@@ -48,6 +51,9 @@ public interface AntlersTypes {
       }
       else if (type == LITERAL_EXPR) {
         return new AntlersLiteralExprImpl(node);
+      }
+      else if (type == NUMBER_LITERAL) {
+        return new AntlersNumberLiteralImpl(node);
       }
       else if (type == PHP_ECHO_NODE) {
         return new AntlersPhpEchoNodeImpl(node);

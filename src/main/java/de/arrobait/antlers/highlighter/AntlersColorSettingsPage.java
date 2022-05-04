@@ -41,9 +41,18 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ true }}" + NL +
                 "{{ false }}" + NL +
                 NL +
+                "{{# Numbers #}}" + NL +
+                "{{ 10 }}" + NL +
+                "{{ 42 }}" + NL +
+                "{{ 10003 }}" + NL +
+                "{{ .42 }}" + NL +
+                "{{ 0.42 }}" + NL +
+                "{{ 10.42 }}" + NL +
+                NL +
                 "{{# Strings #}}" + NL +
                 "{{ 'Welcome to Statamic' }}" + NL +
-                "{{ \"We hope you enjoy it so much as we do.\" }}";
+                "{{ \"We hope you enjoy it so much as we do.\" }}" + NL +
+                NL;
     }
 
     @Override
@@ -74,6 +83,8 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 new AttributesDescriptor("Boolean", AntlersHighlighter.BOOLEAN),
                 new AttributesDescriptor("Braces", AntlersHighlighter.BRACES),
                 new AttributesDescriptor("Comment", AntlersHighlighter.COMMENT),
+                new AttributesDescriptor("Number", AntlersHighlighter.NUMBER),
+                new AttributesDescriptor("String", AntlersHighlighter.STRING),
         };
 
         ourTags.put("outer_language", XmlHighlighterColors.HTML_TAG);
