@@ -44,11 +44,15 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 EOL=\R
 WHITE_SPACE=\s+
 
+LD="{{"
+RD="}}"
+
 COMMENT_OPEN="{{#"
 COMMENT_CLOSE="#}}"
 
 // States
 %state ANTLERS_COMMENT
+%state ANTLERS_NODE
 %state PHP_ECHO
 %state PHP_RAW
 
@@ -56,9 +60,25 @@ COMMENT_CLOSE="#}}"
 <YYINITIAL> {
     {WHITE_SPACE}        { return WHITE_SPACE; }
     {COMMENT_OPEN}       { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;}
+
+    // Antlers node
+    {LD}                 { pushState(ANTLERS_NODE); return T_LD; }
+
+    // PHP nodes
     "{{?"                { pushState(PHP_RAW); return T_PHP_RAW_OPEN; }
     "{{$"                { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN; }
+
+    // HTML content
     !([^]*"{"[^]*)       { return OUTER_CONTENT; }
+}
+
+<ANTLERS_NODE> {
+    {RD}                 { popState(); return T_RD; }
+    {WHITE_SPACE}        { return WHITE_SPACE; }
+
+    // Boolean
+    "true"               { return T_TRUE; }
+    "false"              { return T_FALSE; }
 }
 
 <ANTLERS_COMMENT> {

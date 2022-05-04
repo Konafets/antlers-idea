@@ -14,9 +14,6 @@
     tokenTypeClass="de.arrobait.antlers.psi.AntlersTokenType"
 
     tokens = [
-        T_LD = '{{'
-        T_RD = '}}'
-
         T_COMMENT_OPEN='{{#'
         T_COMMENT_CLOSE='#}}'
 
@@ -25,12 +22,20 @@
 
         T_PHP_ECHO_OPEN='{{$'
         T_PHP_ECHO_CLOSE='$}}'
+
+        T_LD='{{'
+        T_RD='}}'
+
+        T_TRUE='true'
+        T_FALSE='false'
     ]
 
+    extends(".*expr")=expr
 }
 
 antlersFile ::= nodes*
-private nodes ::= comment_block
+private nodes ::= antlers_node
+                | comment_block
                 | php_node
                 | outer_content
 
@@ -44,3 +49,22 @@ private outer_content ::= OUTER_CONTENT
 private php_node ::= (php_raw_node | php_echo_node)
 php_raw_node   ::= "{{?" T_PHP_CONTENT* "?}}" { pin=1 }
 php_echo_node  ::= "{{$" T_PHP_CONTENT* "$}}" { pin=1 }
+
+antlers_node ::= '{{' antlers_expression_or_statement  '}}' {
+    pin=2
+    recoverWhile=antlers_node_recover
+}
+private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$')
+
+private antlers_expression_or_statement ::= expr
+
+// Expressions
+expr ::= group_primary
+
+private group_primary ::= literal_expr
+
+// Basic
+literal_expr ::= boolean_literal
+
+// Literals
+boolean_literal ::= 'true' | 'false'

@@ -7,8 +7,24 @@ import com.intellij.psi.PsiElement;
 
 public class AntlersVisitor extends PsiElementVisitor {
 
+  public void visitAntlersNode(@NotNull AntlersAntlersNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBooleanLiteral(@NotNull AntlersBooleanLiteral o) {
+    visitPsiElement(o);
+  }
+
   public void visitCommentBlock(@NotNull AntlersCommentBlock o) {
     visitPsiElement(o);
+  }
+
+  public void visitExpr(@NotNull AntlersExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLiteralExpr(@NotNull AntlersLiteralExpr o) {
+    visitExpr(o);
   }
 
   public void visitPhpEchoNode(@NotNull AntlersPhpEchoNode o) {

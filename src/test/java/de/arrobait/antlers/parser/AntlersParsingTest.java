@@ -10,7 +10,12 @@ public class AntlersParsingTest extends ParsingTestCase {
     public void testParseComments() {
         doTest(true);
     }
+
     public void testParsePhp() {
+        doTest(true);
+    }
+
+    public void testParseBoolean() {
         doTest(true);
     }
 

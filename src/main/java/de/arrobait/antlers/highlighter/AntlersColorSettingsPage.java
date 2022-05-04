@@ -33,7 +33,13 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
 
     @Override
     public @NonNls @NotNull String getDemoText() {
-        return "{{# This is a comment #}}";
+        String NL = "\n";
+
+        return "{{# This is a comment #}}" + NL +
+                NL +
+                "{{# Boolean #}}" + NL +
+                "{{ true }}" + NL +
+                "{{ false }}";
     }
 
     @Override
@@ -61,6 +67,8 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
     static {
         SYNTAX_HIGHLIGHTER = SyntaxHighlighterFactory.getSyntaxHighlighter(AntlersLanguage.INSTANCE, null, null);
         DESCRIPTORS = new AttributesDescriptor[] {
+                new AttributesDescriptor("Boolean", AntlersHighlighter.BOOLEAN),
+                new AttributesDescriptor("Braces", AntlersHighlighter.BRACES),
                 new AttributesDescriptor("Comment", AntlersHighlighter.COMMENT),
         };
 
