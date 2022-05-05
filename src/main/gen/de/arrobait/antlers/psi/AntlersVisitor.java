@@ -11,6 +11,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitArray(@NotNull AntlersArray o) {
+    visitPsiElement(o);
+  }
+
   public void visitBooleanLiteral(@NotNull AntlersBooleanLiteral o) {
     visitPsiElement(o);
   }

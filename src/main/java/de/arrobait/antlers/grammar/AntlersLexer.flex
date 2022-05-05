@@ -98,11 +98,15 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {INTEGER_NUMBER}     { return T_INTEGER_NUMBER; }
     {FLOAT_NUMBER}       { return T_FLOAT_NUMBER; }
 
+    ","                  { return T_COMMA; }
+
     // Parens, Brackets and Braces
     "("                  { return T_LP; }
     ")"                  { return T_RP; }
     "{"                  { return T_LEFT_BRACE; }
     "}"                  { return T_RIGHT_BRACE; }
+    "["                  { return T_LEFT_BRACKET; }
+    "]"                  { return T_RIGHT_BRACKET; }
 
     "="                  { return T_OP_ASSIGN; }
 }

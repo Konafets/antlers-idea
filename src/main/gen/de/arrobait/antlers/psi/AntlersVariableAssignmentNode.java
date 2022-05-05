@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface AntlersVariableAssignmentNode extends PsiElement {
 
   @Nullable
+  AntlersArray getArray();
+
+  @Nullable
   AntlersBooleanLiteral getBooleanLiteral();
 
   @Nullable

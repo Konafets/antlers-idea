@@ -96,9 +96,69 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // '[' array_value (',' array_value*)* ']'
+  public static boolean array(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "array")) return false;
+    if (!nextTokenIs(b, T_LEFT_BRACKET)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_LEFT_BRACKET);
+    r = r && array_value(b, l + 1);
+    r = r && array_2(b, l + 1);
+    r = r && consumeToken(b, T_RIGHT_BRACKET);
+    exit_section_(b, m, ARRAY, r);
+    return r;
+  }
+
+  // (',' array_value*)*
+  private static boolean array_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "array_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!array_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "array_2", c)) break;
+    }
+    return true;
+  }
+
+  // ',' array_value*
+  private static boolean array_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "array_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && array_2_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // array_value*
+  private static boolean array_2_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "array_2_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!array_value(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "array_2_0_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // string_literal | number_literal | array
+  static boolean array_value(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "array_value")) return false;
+    boolean r;
+    r = string_literal(b, l + 1);
+    if (!r) r = number_literal(b, l + 1);
+    if (!r) r = array(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
   // boolean_literal
   //                            | number_literal
   //                            | string_literal
+  //                            | array
   //                            | interpolated_statement
   //                            | sub_expression
   static boolean assignable_items(PsiBuilder b, int l) {
@@ -107,6 +167,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = boolean_literal(b, l + 1);
     if (!r) r = number_literal(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
+    if (!r) r = array(b, l + 1);
     if (!r) r = interpolated_statement(b, l + 1);
     if (!r) r = sub_expression(b, l + 1);
     return r;

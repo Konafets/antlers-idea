@@ -29,6 +29,12 @@ public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement impl
 
   @Override
   @Nullable
+  public AntlersArray getArray() {
+    return findChildByClass(AntlersArray.class);
+  }
+
+  @Override
+  @Nullable
   public AntlersBooleanLiteral getBooleanLiteral() {
     return findChildByClass(AntlersBooleanLiteral.class);
   }

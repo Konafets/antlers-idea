@@ -57,6 +57,7 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ foo }}" + NL +
                 "{{ $foo }}" + NL +
                 "{{ $foo = true }}" + NL +
+                "{{ $foo = ['bar', 10, [2.4]] }}" + NL +
                 NL +
                 "{{# Sub-Expressions #}}" + NL +
                 "{{ (foo) }}" + NL +
@@ -97,6 +98,8 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
         DESCRIPTORS = new AttributesDescriptor[] {
                 new AttributesDescriptor("Boolean", AntlersHighlighter.BOOLEAN),
                 new AttributesDescriptor("Braces", AntlersHighlighter.BRACES),
+                new AttributesDescriptor("Brackets", AntlersHighlighter.BRACKETS),
+                new AttributesDescriptor("Comma", AntlersHighlighter.COMMA),
                 new AttributesDescriptor("Comment", AntlersHighlighter.COMMENT),
                 new AttributesDescriptor("Identifier", AntlersHighlighter.IDENTIFIER),
                 new AttributesDescriptor("Number", AntlersHighlighter.NUMBER),

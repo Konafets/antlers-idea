@@ -31,6 +31,10 @@ public class HighlightTest extends HighlightTestCase {
         doTest();
     }
 
+    public void testHighlightCommas() {
+        doTest();
+    }
+
     public void testHighlightParentheses() {
         doTest();
     }

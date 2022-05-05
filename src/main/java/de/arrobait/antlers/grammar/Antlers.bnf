@@ -29,9 +29,13 @@
         T_RP=')'
         T_LEFT_BRACE='{'
         T_RIGHT_BRACE='}'
+        T_LEFT_BRACKET='['
+        T_RIGHT_BRACKET=']'
 
         T_TRUE='true'
         T_FALSE='false'
+
+        T_COMMA=','
 
         T_OP_ASSIGN='='
 
@@ -85,8 +89,17 @@ variable_assignment_node ::= '{{' variable '=' assignable_items '}}' { pin=3 }
 private assignable_items ::= boolean_literal
                            | number_literal
                            | string_literal
+                           | array
                            | interpolated_statement
                            | sub_expression
+
+// Array
+// ['Get haircut']
+// ['Get haircut',]
+// ['Get haircut', 'Bake bread', 'Eat soup']
+// ['Get haircut', 'Bake bread', 'Eat soup', ['another', 'array']]
+array ::= '[' array_value (',' array_value*)* ']'
+private array_value ::= (string_literal | number_literal | array)
 
 // Basic
 interpolated_statement ::= '{' (antlers_expression_or_statement | expr) '}' { pin=1 }

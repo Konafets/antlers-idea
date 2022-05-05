@@ -29,6 +29,8 @@ public class AntlersSyntaxHighlighter extends SyntaxHighlighterBase {
     static {
         fillMap(ATTRIBUTES, AntlersTokenSets.BOOLEANS, AntlersHighlighter.BOOLEAN);
         fillMap(ATTRIBUTES, AntlersTokenSets.BRACES, AntlersHighlighter.BRACES);
+        fillMap(ATTRIBUTES, AntlersTokenSets.BRACKETS, AntlersHighlighter.BRACKETS);
+        fillMap(ATTRIBUTES, AntlersTokenSets.COMMA, AntlersHighlighter.COMMA);
         fillMap(ATTRIBUTES, AntlersTokenSets.COMMENTS, AntlersHighlighter.COMMENT);
         fillMap(ATTRIBUTES, AntlersTokenSets.IDENTIFIER, AntlersHighlighter.IDENTIFIER);
         fillMap(ATTRIBUTES, AntlersTokenSets.NUMBERS, AntlersHighlighter.NUMBER);

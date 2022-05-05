@@ -6,6 +6,8 @@ import com.intellij.psi.tree.TokenSet;
 public class AntlersTokenSets {
     public static final TokenSet BOOLEANS;
     public static final TokenSet BRACES;
+    public static final TokenSet BRACKETS;
+    public static final TokenSet COMMA;
     public static final TokenSet COMMENTS;
     public static final TokenSet IDENTIFIER;
     public static final TokenSet NUMBERS;
@@ -25,6 +27,11 @@ public class AntlersTokenSets {
                 AntlersTypes.T_RD,
                 AntlersTypes.T_LEFT_BRACE,
                 AntlersTypes.T_RIGHT_BRACE);
+        BRACKETS = TokenSet.create(
+                AntlersTypes.T_LEFT_BRACKET,
+                AntlersTypes.T_RIGHT_BRACKET);
+        COMMA = TokenSet.create(
+                AntlersTypes.T_COMMA);
         COMMENTS = TokenSet.create(
                 AntlersTypes.T_COMMENT_OPEN,
                 AntlersTypes.T_COMMENT_CLOSE,

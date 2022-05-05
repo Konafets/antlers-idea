@@ -9,6 +9,7 @@ import de.arrobait.antlers.psi.impl.*;
 public interface AntlersTypes {
 
   IElementType ANTLERS_NODE = new AntlersElementType("ANTLERS_NODE");
+  IElementType ARRAY = new AntlersElementType("ARRAY");
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
   IElementType COMMENT_BLOCK = new AntlersElementType("COMMENT_BLOCK");
   IElementType EXPR = new AntlersElementType("EXPR");
@@ -23,6 +24,7 @@ public interface AntlersTypes {
   IElementType VARIABLE_ASSIGNMENT_NODE = new AntlersElementType("VARIABLE_ASSIGNMENT_NODE");
 
   IElementType OUTER_CONTENT = new AntlersTokenType("OUTER_CONTENT");
+  IElementType T_COMMA = new AntlersTokenType(",");
   IElementType T_COMMENT_CLOSE = new AntlersTokenType("#}}");
   IElementType T_COMMENT_OPEN = new AntlersTokenType("{{#");
   IElementType T_COMMENT_TEXT = new AntlersTokenType("T_COMMENT_TEXT");
@@ -32,6 +34,7 @@ public interface AntlersTypes {
   IElementType T_INTEGER_NUMBER = new AntlersTokenType("T_INTEGER_NUMBER");
   IElementType T_LD = new AntlersTokenType("{{");
   IElementType T_LEFT_BRACE = new AntlersTokenType("{");
+  IElementType T_LEFT_BRACKET = new AntlersTokenType("[");
   IElementType T_LP = new AntlersTokenType("(");
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
@@ -41,6 +44,7 @@ public interface AntlersTypes {
   IElementType T_PHP_RAW_OPEN = new AntlersTokenType("{{?");
   IElementType T_RD = new AntlersTokenType("}}");
   IElementType T_RIGHT_BRACE = new AntlersTokenType("}");
+  IElementType T_RIGHT_BRACKET = new AntlersTokenType("]");
   IElementType T_RP = new AntlersTokenType(")");
   IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
   IElementType T_STRING_END = new AntlersTokenType("T_STRING_END");
@@ -52,6 +56,9 @@ public interface AntlersTypes {
       IElementType type = node.getElementType();
       if (type == ANTLERS_NODE) {
         return new AntlersAntlersNodeImpl(node);
+      }
+      else if (type == ARRAY) {
+        return new AntlersArrayImpl(node);
       }
       else if (type == BOOLEAN_LITERAL) {
         return new AntlersBooleanLiteralImpl(node);
