@@ -43,6 +43,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitSubExpression(@NotNull AntlersSubExpression o) {
+    visitExpr(o);
+  }
+
   public void visitVariable(@NotNull AntlersVariable o) {
     visitPsiElement(o);
   }

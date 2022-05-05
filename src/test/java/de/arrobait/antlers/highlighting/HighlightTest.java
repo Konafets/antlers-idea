@@ -27,6 +27,10 @@ public class HighlightTest extends HighlightTestCase {
         doTest();
     }
 
+    public void testHighlightParentheses() {
+        doTest();
+    }
+
     @Override
     protected String getTestDataPath() {
         return "src/test/testData";

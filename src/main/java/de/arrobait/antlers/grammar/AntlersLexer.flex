@@ -97,6 +97,10 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
     {INTEGER_NUMBER}     { return T_INTEGER_NUMBER; }
     {FLOAT_NUMBER}       { return T_FLOAT_NUMBER; }
+
+    // Parens, Brackets and Braces
+    "("                  { return T_LP;}
+    ")"                  { return T_RP;}
 }
 
 <ANTLERS_COMMENT> {

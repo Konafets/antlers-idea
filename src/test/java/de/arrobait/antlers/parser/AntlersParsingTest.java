@@ -27,6 +27,10 @@ public class AntlersParsingTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testParseSubexpressions() {
+        doTest(true);
+    }
+
     public void testParseVariables() {
         doTest(true);
     }

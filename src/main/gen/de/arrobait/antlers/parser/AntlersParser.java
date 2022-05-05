@@ -36,7 +36,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
-    create_token_set_(EXPR, LITERAL_EXPR),
+    create_token_set_(EXPR, LITERAL_EXPR, SUB_EXPRESSION),
   };
 
   /* ********************************************************** */
@@ -145,9 +145,13 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // literal_expr
+  // literal_expr | sub_expression
   static boolean group_primary(PsiBuilder b, int l) {
-    return literal_expr(b, l + 1);
+    if (!recursion_guard_(b, l, "group_primary")) return false;
+    boolean r;
+    r = literal_expr(b, l + 1);
+    if (!r) r = sub_expression(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */
@@ -289,6 +293,30 @@ public class AntlersParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "string_literal_1", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // '(' (antlers_expression_or_statement | expr) ')'
+  public static boolean sub_expression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sub_expression")) return false;
+    if (!nextTokenIs(b, T_LP)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, SUB_EXPRESSION, null);
+    r = consumeToken(b, T_LP);
+    p = r; // pin = 1
+    r = r && report_error_(b, sub_expression_1(b, l + 1));
+    r = p && consumeToken(b, T_RP) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // antlers_expression_or_statement | expr
+  private static boolean sub_expression_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sub_expression_1")) return false;
+    boolean r;
+    r = antlers_expression_or_statement(b, l + 1);
+    if (!r) r = expr(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */

@@ -9,6 +9,7 @@ public class AntlersTokenSets {
     public static final TokenSet COMMENTS;
     public static final TokenSet IDENTIFIER;
     public static final TokenSet NUMBERS;
+    public static final TokenSet PARENTHESES;
     public static final TokenSet STRINGS;
     public static final TokenSet WHITE_SPACE;
 
@@ -30,6 +31,9 @@ public class AntlersTokenSets {
         NUMBERS = TokenSet.create(
                 AntlersTypes.T_INTEGER_NUMBER,
                 AntlersTypes.T_FLOAT_NUMBER);
+        PARENTHESES = TokenSet.create(
+                AntlersTypes.T_LP,
+                AntlersTypes.T_RP);
         STRINGS = TokenSet.create(
                 AntlersTypes.T_STRING_CONTENT,
                 AntlersTypes.T_STRING_START,

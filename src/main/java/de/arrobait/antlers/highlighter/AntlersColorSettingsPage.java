@@ -56,6 +56,12 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{# Variables #}}" + NL +
                 "{{ foo }}" + NL +
                 "{{ $foo }}" + NL +
+                NL +
+                "{{# Subexpressions #}}" + NL +
+                "{{ (foo) }}" + NL +
+                "{{ ($foo) }}" + NL +
+                "{{ (10) }}" + NL +
+                "{{ ('string') }}" + NL +
                 NL;
     }
 

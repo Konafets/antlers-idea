@@ -17,6 +17,7 @@ public interface AntlersTypes {
   IElementType PHP_ECHO_NODE = new AntlersElementType("PHP_ECHO_NODE");
   IElementType PHP_RAW_NODE = new AntlersElementType("PHP_RAW_NODE");
   IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
+  IElementType SUB_EXPRESSION = new AntlersElementType("SUB_EXPRESSION");
   IElementType VARIABLE = new AntlersElementType("VARIABLE");
 
   IElementType OUTER_CONTENT = new AntlersTokenType("OUTER_CONTENT");
@@ -28,12 +29,14 @@ public interface AntlersTypes {
   IElementType T_IDENTIFIER = new AntlersTokenType("T_IDENTIFIER");
   IElementType T_INTEGER_NUMBER = new AntlersTokenType("T_INTEGER_NUMBER");
   IElementType T_LD = new AntlersTokenType("{{");
+  IElementType T_LP = new AntlersTokenType("(");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
   IElementType T_PHP_ECHO_CLOSE = new AntlersTokenType("$}}");
   IElementType T_PHP_ECHO_OPEN = new AntlersTokenType("{{$");
   IElementType T_PHP_RAW_CLOSE = new AntlersTokenType("?}}");
   IElementType T_PHP_RAW_OPEN = new AntlersTokenType("{{?");
   IElementType T_RD = new AntlersTokenType("}}");
+  IElementType T_RP = new AntlersTokenType(")");
   IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
   IElementType T_STRING_END = new AntlersTokenType("T_STRING_END");
   IElementType T_STRING_START = new AntlersTokenType("T_STRING_START");
@@ -65,6 +68,9 @@ public interface AntlersTypes {
       }
       else if (type == STRING_LITERAL) {
         return new AntlersStringLiteralImpl(node);
+      }
+      else if (type == SUB_EXPRESSION) {
+        return new AntlersSubExpressionImpl(node);
       }
       else if (type == VARIABLE) {
         return new AntlersVariableImpl(node);
