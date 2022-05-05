@@ -53,6 +53,8 @@ COMMENT_CLOSE="#}}"
 SINGLE_QUOTE="\'"
 DOUBLE_QUOTE="\""
 
+IDENTIFIER=[$_A-Za-z][-_0-9A-Za-z]*
+
 INTEGER_NUMBER=0|[1-9]\d*
 FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
@@ -90,6 +92,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
     {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
     {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_STRING_START; }
+
+    {IDENTIFIER}         { return T_IDENTIFIER; }
 
     {INTEGER_NUMBER}     { return T_INTEGER_NUMBER; }
     {FLOAT_NUMBER}       { return T_FLOAT_NUMBER; }

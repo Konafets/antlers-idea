@@ -7,6 +7,7 @@ public class AntlersTokenSets {
     public static final TokenSet BOOLEANS;
     public static final TokenSet BRACES;
     public static final TokenSet COMMENTS;
+    public static final TokenSet IDENTIFIER;
     public static final TokenSet NUMBERS;
     public static final TokenSet STRINGS;
     public static final TokenSet WHITE_SPACE;
@@ -24,6 +25,8 @@ public class AntlersTokenSets {
                 AntlersTypes.T_COMMENT_OPEN,
                 AntlersTypes.T_COMMENT_CLOSE,
                 AntlersTypes.T_COMMENT_TEXT);
+        IDENTIFIER = TokenSet.create(
+                AntlersTypes.T_IDENTIFIER);
         NUMBERS = TokenSet.create(
                 AntlersTypes.T_INTEGER_NUMBER,
                 AntlersTypes.T_FLOAT_NUMBER);

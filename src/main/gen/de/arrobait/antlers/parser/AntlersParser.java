@@ -154,6 +154,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // number_literal
   //                 | boolean_literal
   //                 | string_literal
+  //                 | variable
   public static boolean literal_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "literal_expr")) return false;
     boolean r;
@@ -161,6 +162,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = number_literal(b, l + 1);
     if (!r) r = boolean_literal(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
+    if (!r) r = variable(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -287,6 +289,18 @@ public class AntlersParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "string_literal_1", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // T_IDENTIFIER
+  public static boolean variable(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable")) return false;
+    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_IDENTIFIER);
+    exit_section_(b, m, VARIABLE, r);
+    return r;
   }
 
 }

@@ -16,4 +16,7 @@ public interface AntlersLiteralExpr extends AntlersExpr {
   @Nullable
   AntlersStringLiteral getStringLiteral();
 
+  @Nullable
+  AntlersVariable getVariable();
+
 }

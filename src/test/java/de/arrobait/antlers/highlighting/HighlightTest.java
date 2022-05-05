@@ -23,6 +23,10 @@ public class HighlightTest extends HighlightTestCase {
         doTest();
     }
 
+    public void testHighlightVariables() {
+        doTest();
+    }
+
     @Override
     protected String getTestDataPath() {
         return "src/test/testData";

@@ -52,6 +52,10 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{# Strings #}}" + NL +
                 "{{ 'Welcome to Statamic' }}" + NL +
                 "{{ \"We hope you enjoy it so much as we do.\" }}" + NL +
+                NL +
+                "{{# Variables #}}" + NL +
+                "{{ foo }}" + NL +
+                "{{ $foo }}" + NL +
                 NL;
     }
 
@@ -83,6 +87,7 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 new AttributesDescriptor("Boolean", AntlersHighlighter.BOOLEAN),
                 new AttributesDescriptor("Braces", AntlersHighlighter.BRACES),
                 new AttributesDescriptor("Comment", AntlersHighlighter.COMMENT),
+                new AttributesDescriptor("Identifier", AntlersHighlighter.IDENTIFIER),
                 new AttributesDescriptor("Number", AntlersHighlighter.NUMBER),
                 new AttributesDescriptor("String", AntlersHighlighter.STRING),
         };

@@ -45,4 +45,10 @@ public class AntlersLiteralExprImpl extends AntlersExprImpl implements AntlersLi
     return findChildByClass(AntlersStringLiteral.class);
   }
 
+  @Override
+  @Nullable
+  public AntlersVariable getVariable() {
+    return findChildByClass(AntlersVariable.class);
+  }
+
 }

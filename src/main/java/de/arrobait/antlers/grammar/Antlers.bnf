@@ -66,10 +66,14 @@ expr ::= group_primary
 
 private group_primary ::= literal_expr
 
+// Variable
+variable ::= T_IDENTIFIER
+
 // Basic
 literal_expr ::= number_literal
                 | boolean_literal
                 | string_literal
+                | variable
 
 // Literals
 number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER
