@@ -4,7 +4,7 @@ import com.intellij.testFramework.ParsingTestCase;
 
 public class AntlersParsingTest extends ParsingTestCase {
     public AntlersParsingTest() {
-        super("", "antlers.html", new AntlersParserDefinition());
+        super("parsing", "antlers.html", new AntlersParserDefinition());
     }
 
     public void testParseComments() {
