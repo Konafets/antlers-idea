@@ -12,6 +12,7 @@ public interface AntlersTypes {
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
   IElementType COMMENT_BLOCK = new AntlersElementType("COMMENT_BLOCK");
   IElementType EXPR = new AntlersElementType("EXPR");
+  IElementType INTERPOLATED_STATEMENT = new AntlersElementType("INTERPOLATED_STATEMENT");
   IElementType LITERAL_EXPR = new AntlersElementType("LITERAL_EXPR");
   IElementType NUMBER_LITERAL = new AntlersElementType("NUMBER_LITERAL");
   IElementType PHP_ECHO_NODE = new AntlersElementType("PHP_ECHO_NODE");
@@ -30,6 +31,7 @@ public interface AntlersTypes {
   IElementType T_IDENTIFIER = new AntlersTokenType("T_IDENTIFIER");
   IElementType T_INTEGER_NUMBER = new AntlersTokenType("T_INTEGER_NUMBER");
   IElementType T_LD = new AntlersTokenType("{{");
+  IElementType T_LEFT_BRACE = new AntlersTokenType("{");
   IElementType T_LP = new AntlersTokenType("(");
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
@@ -38,6 +40,7 @@ public interface AntlersTypes {
   IElementType T_PHP_RAW_CLOSE = new AntlersTokenType("?}}");
   IElementType T_PHP_RAW_OPEN = new AntlersTokenType("{{?");
   IElementType T_RD = new AntlersTokenType("}}");
+  IElementType T_RIGHT_BRACE = new AntlersTokenType("}");
   IElementType T_RP = new AntlersTokenType(")");
   IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
   IElementType T_STRING_END = new AntlersTokenType("T_STRING_END");
@@ -55,6 +58,9 @@ public interface AntlersTypes {
       }
       else if (type == COMMENT_BLOCK) {
         return new AntlersCommentBlockImpl(node);
+      }
+      else if (type == INTERPOLATED_STATEMENT) {
+        return new AntlersInterpolatedStatementImpl(node);
       }
       else if (type == LITERAL_EXPR) {
         return new AntlersLiteralExprImpl(node);

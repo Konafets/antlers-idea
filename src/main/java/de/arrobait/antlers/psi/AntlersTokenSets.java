@@ -22,7 +22,9 @@ public class AntlersTokenSets {
                 AntlersTypes.T_FALSE);
         BRACES = TokenSet.create(
                 AntlersTypes.T_LD,
-                AntlersTypes.T_RD);
+                AntlersTypes.T_RD,
+                AntlersTypes.T_LEFT_BRACE,
+                AntlersTypes.T_RIGHT_BRACE);
         COMMENTS = TokenSet.create(
                 AntlersTypes.T_COMMENT_OPEN,
                 AntlersTypes.T_COMMENT_CLOSE,

@@ -35,6 +35,10 @@ public class AntlersParsingTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testParseInterpolatedStatements() {
+        doTest(true);
+    }
+
     public void testParseAssignments() {
         doTest(true);
     }

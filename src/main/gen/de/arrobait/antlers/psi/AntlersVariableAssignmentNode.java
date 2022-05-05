@@ -11,13 +11,13 @@ public interface AntlersVariableAssignmentNode extends PsiElement {
   AntlersBooleanLiteral getBooleanLiteral();
 
   @Nullable
+  AntlersExpr getExpr();
+
+  @Nullable
   AntlersNumberLiteral getNumberLiteral();
 
   @Nullable
   AntlersStringLiteral getStringLiteral();
-
-  @Nullable
-  AntlersSubExpression getSubExpression();
 
   @NotNull
   AntlersVariable getVariable();

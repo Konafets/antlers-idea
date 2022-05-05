@@ -36,7 +36,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
-    create_token_set_(EXPR, LITERAL_EXPR, SUB_EXPRESSION),
+    create_token_set_(EXPR, INTERPOLATED_STATEMENT, LITERAL_EXPR, SUB_EXPRESSION),
   };
 
   /* ********************************************************** */
@@ -72,7 +72,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !('{{' | outer_content | '{{#' | '{{?' | '{{$')
+  // !('{{' | outer_content | '{{#' | '{{?' | '{{$' | '{')
   static boolean antlers_node_recover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "antlers_node_recover")) return false;
     boolean r;
@@ -82,7 +82,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // '{{' | outer_content | '{{#' | '{{?' | '{{$'
+  // '{{' | outer_content | '{{#' | '{{?' | '{{$' | '{'
   private static boolean antlers_node_recover_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "antlers_node_recover_0")) return false;
     boolean r;
@@ -91,6 +91,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_COMMENT_OPEN);
     if (!r) r = consumeToken(b, T_PHP_RAW_OPEN);
     if (!r) r = consumeToken(b, T_PHP_ECHO_OPEN);
+    if (!r) r = consumeToken(b, T_LEFT_BRACE);
     return r;
   }
 
@@ -98,6 +99,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // boolean_literal
   //                            | number_literal
   //                            | string_literal
+  //                            | interpolated_statement
   //                            | sub_expression
   static boolean assignable_items(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "assignable_items")) return false;
@@ -105,6 +107,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = boolean_literal(b, l + 1);
     if (!r) r = number_literal(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
+    if (!r) r = interpolated_statement(b, l + 1);
     if (!r) r = sub_expression(b, l + 1);
     return r;
   }
@@ -149,12 +152,14 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // group_primary
+  // interpolated_statement
+  //        | group_primary
   public static boolean expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _COLLAPSE_, EXPR, "<expr>");
-    r = group_primary(b, l + 1);
+    r = interpolated_statement(b, l + 1);
+    if (!r) r = group_primary(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -166,6 +171,30 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     boolean r;
     r = literal_expr(b, l + 1);
     if (!r) r = sub_expression(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '{' (antlers_expression_or_statement | expr) '}'
+  public static boolean interpolated_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interpolated_statement")) return false;
+    if (!nextTokenIs(b, T_LEFT_BRACE)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, INTERPOLATED_STATEMENT, null);
+    r = consumeToken(b, T_LEFT_BRACE);
+    p = r; // pin = 1
+    r = r && report_error_(b, interpolated_statement_1(b, l + 1));
+    r = p && consumeToken(b, T_RIGHT_BRACE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // antlers_expression_or_statement | expr
+  private static boolean interpolated_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interpolated_statement_1")) return false;
+    boolean r;
+    r = antlers_expression_or_statement(b, l + 1);
+    if (!r) r = expr(b, l + 1);
     return r;
   }
 

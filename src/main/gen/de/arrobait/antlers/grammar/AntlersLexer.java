@@ -85,15 +85,15 @@ public class AntlersLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\1\6\0\1\1\1\2\4\3\1\2\1\3\1\4"+
-    "\1\5\1\6\2\7\1\3\2\6\1\10\1\11\1\12"+
-    "\1\3\1\13\5\3\1\14\3\0\1\15\3\0\1\7"+
-    "\1\16\2\6\1\0\1\17\7\0\1\20\1\21\1\22"+
-    "\1\0\1\23\1\0\1\16\2\6\1\0\1\24\1\0"+
-    "\1\25\1\26\1\27\1\6\1\30\1\31";
+    "\1\1\6\0\1\1\1\2\4\3\1\2\1\4\1\5"+
+    "\1\6\1\7\1\10\2\11\1\3\2\10\1\12\1\13"+
+    "\1\14\1\3\1\15\5\3\1\16\3\0\1\17\3\0"+
+    "\1\11\1\20\2\10\1\0\1\21\7\0\1\22\1\23"+
+    "\1\24\1\0\1\25\1\0\1\20\2\10\1\0\1\26"+
+    "\1\0\1\27\1\30\1\31\1\10\1\32\1\33";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[72];
+    int [] result = new int[73];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -119,17 +119,18 @@ public class AntlersLexer implements FlexLexer {
 
   private static final String ZZ_ROWMAP_PACKED_0 =
     "\0\0\0\34\0\70\0\124\0\160\0\214\0\250\0\304"+
-    "\0\340\0\374\0\u0118\0\u0134\0\u0150\0\u016c\0\u0188\0\u0150"+
-    "\0\u0150\0\u01a4\0\u01c0\0\u01dc\0\u01f8\0\u0214\0\u0230\0\u0150"+
-    "\0\u0150\0\u0150\0\u024c\0\u0150\0\u0268\0\u0284\0\u02a0\0\u02bc"+
-    "\0\u02d8\0\u02f4\0\u0118\0\u0310\0\u032c\0\u0150\0\u01c0\0\u01f8"+
-    "\0\u0348\0\u0364\0\u0380\0\u039c\0\u03b8\0\u024c\0\u0150\0\u0268"+
-    "\0\u0284\0\u03d4\0\u03f0\0\u02bc\0\u040c\0\u0428\0\u0150\0\u0150"+
-    "\0\u0150\0\u0444\0\u0150\0\u0460\0\u0460\0\u047c\0\u0498\0\u04b4"+
-    "\0\u0150\0\u04d0\0\u0150\0\u0150\0\u01a4\0\u04ec\0\u0150\0\u01a4";
+    "\0\340\0\374\0\u0118\0\u0134\0\u0150\0\u016c\0\u0150\0\u0188"+
+    "\0\u0150\0\u0150\0\u01a4\0\u01c0\0\u01dc\0\u01f8\0\u0214\0\u0230"+
+    "\0\u0150\0\u0150\0\u0150\0\u024c\0\u0150\0\u0268\0\u0284\0\u02a0"+
+    "\0\u02bc\0\u02d8\0\u02f4\0\u0118\0\u0310\0\u032c\0\u0150\0\u01c0"+
+    "\0\u01f8\0\u0348\0\u0364\0\u0380\0\u039c\0\u03b8\0\u024c\0\u0150"+
+    "\0\u0268\0\u0284\0\u03d4\0\u03f0\0\u02bc\0\u040c\0\u0428\0\u0150"+
+    "\0\u0150\0\u0150\0\u0444\0\u0150\0\u0460\0\u0460\0\u047c\0\u0498"+
+    "\0\u04b4\0\u0150\0\u04d0\0\u0150\0\u0150\0\u01a4\0\u04ec\0\u0150"+
+    "\0\u01a4";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[72];
+    int [] result = new int[73];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -153,33 +154,33 @@ public class AntlersLexer implements FlexLexer {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\10\1\11\1\12\31\10\4\13\1\14\27\13\1\15"+
-    "\1\16\1\15\1\17\1\15\1\20\1\21\1\22\1\15"+
-    "\1\22\1\23\1\24\1\15\1\25\1\22\2\15\1\26"+
-    "\3\22\1\27\3\22\1\30\1\31\1\32\5\33\1\34"+
-    "\26\33\6\35\1\34\25\35\7\36\1\37\24\36\20\40"+
-    "\1\41\13\40\2\10\1\0\32\10\1\11\1\0\31\10"+
-    "\2\0\1\42\31\0\4\43\1\44\32\43\1\45\1\44"+
-    "\27\43\35\0\1\16\35\0\1\46\40\0\4\22\2\0"+
-    "\1\22\2\0\10\22\15\0\2\47\1\0\1\50\1\51"+
-    "\5\0\1\51\21\0\2\24\1\52\1\50\1\51\5\0"+
-    "\1\51\21\0\2\53\30\0\4\22\2\0\1\22\2\0"+
-    "\1\22\1\54\6\22\13\0\4\22\2\0\1\22\2\0"+
-    "\5\22\1\55\2\22\3\0\5\56\1\57\26\56\6\60"+
-    "\1\57\25\60\7\61\1\62\27\61\1\63\3\61\1\62"+
-    "\24\61\20\64\1\65\16\64\1\66\14\64\1\65\13\64"+
-    "\4\0\1\67\2\0\1\70\10\0\1\71\13\0\3\43"+
-    "\1\72\1\44\32\43\1\73\1\44\27\43\10\0\1\74"+
-    "\1\0\2\75\3\0\1\74\26\0\3\52\31\0\2\53"+
-    "\2\0\1\51\5\0\1\51\17\0\4\22\2\0\1\22"+
-    "\2\0\2\22\1\76\5\22\13\0\4\22\2\0\1\22"+
-    "\2\0\6\22\1\77\1\22\3\0\3\61\1\100\3\61"+
-    "\1\62\27\61\1\101\3\61\1\62\24\61\3\64\1\102"+
-    "\14\64\1\65\16\64\1\103\14\64\1\65\13\64\3\43"+
-    "\1\104\1\44\27\43\12\0\2\75\30\0\4\22\2\0"+
-    "\1\22\2\0\3\22\1\105\4\22\13\0\4\22\2\0"+
-    "\1\22\2\0\7\22\1\106\3\0\3\61\1\107\3\61"+
-    "\1\62\24\61\3\64\1\107\14\64\1\65\13\64\10\0"+
-    "\4\22\2\0\1\22\2\0\3\22\1\110\4\22\3\0";
+    "\1\16\1\17\1\20\1\15\1\21\1\22\1\23\1\15"+
+    "\1\23\1\24\1\25\1\15\1\26\1\23\2\15\1\27"+
+    "\3\23\1\30\3\23\1\31\1\32\1\33\5\34\1\35"+
+    "\26\34\6\36\1\35\25\36\7\37\1\40\24\37\20\41"+
+    "\1\42\13\41\2\10\1\0\32\10\1\11\1\0\31\10"+
+    "\2\0\1\43\31\0\4\44\1\45\32\44\1\46\1\45"+
+    "\27\44\35\0\1\16\35\0\1\47\40\0\4\23\2\0"+
+    "\1\23\2\0\10\23\15\0\2\50\1\0\1\51\1\52"+
+    "\5\0\1\52\21\0\2\25\1\53\1\51\1\52\5\0"+
+    "\1\52\21\0\2\54\30\0\4\23\2\0\1\23\2\0"+
+    "\1\23\1\55\6\23\13\0\4\23\2\0\1\23\2\0"+
+    "\5\23\1\56\2\23\3\0\5\57\1\60\26\57\6\61"+
+    "\1\60\25\61\7\62\1\63\27\62\1\64\3\62\1\63"+
+    "\24\62\20\65\1\66\16\65\1\67\14\65\1\66\13\65"+
+    "\4\0\1\70\2\0\1\71\10\0\1\72\13\0\3\44"+
+    "\1\73\1\45\32\44\1\74\1\45\27\44\10\0\1\75"+
+    "\1\0\2\76\3\0\1\75\26\0\3\53\31\0\2\54"+
+    "\2\0\1\52\5\0\1\52\17\0\4\23\2\0\1\23"+
+    "\2\0\2\23\1\77\5\23\13\0\4\23\2\0\1\23"+
+    "\2\0\6\23\1\100\1\23\3\0\3\62\1\101\3\62"+
+    "\1\63\27\62\1\102\3\62\1\63\24\62\3\65\1\103"+
+    "\14\65\1\66\16\65\1\104\14\65\1\66\13\65\3\44"+
+    "\1\105\1\45\27\44\12\0\2\76\30\0\4\23\2\0"+
+    "\1\23\2\0\3\23\1\106\4\23\13\0\4\23\2\0"+
+    "\1\23\2\0\7\23\1\107\3\0\3\62\1\110\3\62"+
+    "\1\63\24\62\3\65\1\110\14\65\1\66\13\65\10\0"+
+    "\4\23\2\0\1\23\2\0\3\23\1\111\4\23\3\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[1288];
@@ -220,13 +221,13 @@ public class AntlersLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\1\6\0\5\1\1\11\2\1\2\11\6\1\3\11"+
-    "\1\1\1\11\6\1\3\0\1\11\3\0\4\1\1\0"+
-    "\1\11\7\0\3\11\1\0\1\11\1\0\3\1\1\0"+
-    "\1\11\1\0\2\11\2\1\1\11\1\1";
+    "\1\1\6\0\5\1\1\11\1\1\1\11\1\1\2\11"+
+    "\6\1\3\11\1\1\1\11\6\1\3\0\1\11\3\0"+
+    "\4\1\1\0\1\11\7\0\3\11\1\0\1\11\1\0"+
+    "\3\1\1\0\1\11\1\0\2\11\2\1\1\11\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[72];
+    int [] result = new int[73];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -550,127 +551,137 @@ public class AntlersLexer implements FlexLexer {
             { return OUTER_CONTENT;
             } 
             // fall through
-          case 26: break;
+          case 28: break;
           case 2: 
             { return WHITE_SPACE;
             } 
             // fall through
-          case 27: break;
+          case 29: break;
           case 3: 
             { yybegin(YYINITIAL); return OUTER_CONTENT;
             } 
             // fall through
-          case 28: break;
-          case 4: 
-            { pushState(SINGLE_STRING); return T_STRING_START;
-            } 
-            // fall through
-          case 29: break;
-          case 5: 
-            { pushState(DOUBLE_STRING); return T_STRING_START;
-            } 
-            // fall through
           case 30: break;
-          case 6: 
-            { return T_IDENTIFIER;
+          case 4: 
+            { return T_LEFT_BRACE;
             } 
             // fall through
           case 31: break;
-          case 7: 
-            { return T_INTEGER_NUMBER;
+          case 5: 
+            { return T_RIGHT_BRACE;
             } 
             // fall through
           case 32: break;
-          case 8: 
-            { return T_LP;
+          case 6: 
+            { pushState(SINGLE_STRING); return T_STRING_START;
             } 
             // fall through
           case 33: break;
-          case 9: 
-            { return T_RP;
+          case 7: 
+            { pushState(DOUBLE_STRING); return T_STRING_START;
             } 
             // fall through
           case 34: break;
-          case 10: 
-            { return T_OP_ASSIGN;
+          case 8: 
+            { return T_IDENTIFIER;
             } 
             // fall through
           case 35: break;
-          case 11: 
-            { popState(); return T_STRING_END;
+          case 9: 
+            { return T_INTEGER_NUMBER;
             } 
             // fall through
           case 36: break;
-          case 12: 
-            { pushState(ANTLERS_NODE); return T_LD;
+          case 10: 
+            { return T_LP;
             } 
             // fall through
           case 37: break;
-          case 13: 
-            { popState(); return T_RD;
+          case 11: 
+            { return T_RP;
             } 
             // fall through
           case 38: break;
-          case 14: 
-            { return T_FLOAT_NUMBER;
+          case 12: 
+            { return T_OP_ASSIGN;
             } 
             // fall through
           case 39: break;
-          case 15: 
-            { yypushback(1); return T_STRING_CONTENT;
+          case 13: 
+            { popState(); return T_STRING_END;
             } 
             // fall through
           case 40: break;
-          case 16: 
-            { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;
+          case 14: 
+            { pushState(ANTLERS_NODE); return T_LD;
             } 
             // fall through
           case 41: break;
-          case 17: 
-            { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN;
+          case 15: 
+            { popState(); return T_RD;
             } 
             // fall through
           case 42: break;
-          case 18: 
-            { pushState(PHP_RAW); return T_PHP_RAW_OPEN;
+          case 16: 
+            { return T_FLOAT_NUMBER;
             } 
             // fall through
           case 43: break;
-          case 19: 
-            { popState(); return T_COMMENT_CLOSE;
+          case 17: 
+            { yypushback(1); return T_STRING_CONTENT;
             } 
             // fall through
           case 44: break;
-          case 20: 
-            { popState(); return T_PHP_ECHO_CLOSE;
+          case 18: 
+            { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;
             } 
             // fall through
           case 45: break;
-          case 21: 
-            { popState(); return T_PHP_RAW_CLOSE;
+          case 19: 
+            { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN;
             } 
             // fall through
           case 46: break;
-          case 22: 
-            { yypushback(3); return T_COMMENT_TEXT;
+          case 20: 
+            { pushState(PHP_RAW); return T_PHP_RAW_OPEN;
             } 
             // fall through
           case 47: break;
-          case 23: 
-            { return T_TRUE;
+          case 21: 
+            { popState(); return T_COMMENT_CLOSE;
             } 
             // fall through
           case 48: break;
-          case 24: 
-            { yypushback(3); return T_PHP_CONTENT;
+          case 22: 
+            { popState(); return T_PHP_ECHO_CLOSE;
             } 
             // fall through
           case 49: break;
-          case 25: 
-            { return T_FALSE;
+          case 23: 
+            { popState(); return T_PHP_RAW_CLOSE;
             } 
             // fall through
           case 50: break;
+          case 24: 
+            { yypushback(3); return T_COMMENT_TEXT;
+            } 
+            // fall through
+          case 51: break;
+          case 25: 
+            { return T_TRUE;
+            } 
+            // fall through
+          case 52: break;
+          case 26: 
+            { yypushback(3); return T_PHP_CONTENT;
+            } 
+            // fall through
+          case 53: break;
+          case 27: 
+            { return T_FALSE;
+            } 
+            // fall through
+          case 54: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

@@ -35,6 +35,12 @@ public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement impl
 
   @Override
   @Nullable
+  public AntlersExpr getExpr() {
+    return findChildByClass(AntlersExpr.class);
+  }
+
+  @Override
+  @Nullable
   public AntlersNumberLiteral getNumberLiteral() {
     return findChildByClass(AntlersNumberLiteral.class);
   }
@@ -43,12 +49,6 @@ public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement impl
   @Nullable
   public AntlersStringLiteral getStringLiteral() {
     return findChildByClass(AntlersStringLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersSubExpression getSubExpression() {
-    return findChildByClass(AntlersSubExpression.class);
   }
 
   @Override

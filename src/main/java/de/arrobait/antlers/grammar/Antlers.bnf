@@ -27,6 +27,8 @@
         T_RD='}}'
         T_LP='('
         T_RP=')'
+        T_LEFT_BRACE='{'
+        T_RIGHT_BRACE='}'
 
         T_TRUE='true'
         T_FALSE='false'
@@ -39,6 +41,7 @@
 
     extends(".*expr")=expr
     extends(".*sub_expression")=expr
+    extends(".*interpolated_statement")=expr
 }
 
 antlersFile ::= nodes*
@@ -63,12 +66,13 @@ antlers_node ::= '{{' antlers_expression_or_statement  '}}' {
     pin=2
     recoverWhile=antlers_node_recover
 }
-private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$')
+private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$' | '{')
 
 private antlers_expression_or_statement ::= expr
 
 // Expressions
-expr ::= group_primary
+expr ::= interpolated_statement
+       | group_primary
 
 private group_primary ::= literal_expr | sub_expression
 
@@ -81,9 +85,11 @@ variable_assignment_node ::= '{{' variable '=' assignable_items '}}' { pin=3 }
 private assignable_items ::= boolean_literal
                            | number_literal
                            | string_literal
+                           | interpolated_statement
                            | sub_expression
 
 // Basic
+interpolated_statement ::= '{' (antlers_expression_or_statement | expr) '}' { pin=1 }
 sub_expression ::= '(' (antlers_expression_or_statement | expr) ')' { pin=1 }
 literal_expr ::= number_literal
                 | boolean_literal

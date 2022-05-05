@@ -23,6 +23,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitInterpolatedStatement(@NotNull AntlersInterpolatedStatement o) {
+    visitExpr(o);
+  }
+
   public void visitLiteralExpr(@NotNull AntlersLiteralExpr o) {
     visitExpr(o);
   }

@@ -58,11 +58,15 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ $foo }}" + NL +
                 "{{ $foo = true }}" + NL +
                 NL +
-                "{{# Subexpressions #}}" + NL +
+                "{{# Sub-Expressions #}}" + NL +
                 "{{ (foo) }}" + NL +
                 "{{ ($foo) }}" + NL +
                 "{{ (10) }}" + NL +
                 "{{ ('string') }}" + NL +
+                NL +
+                "{{# Interpolated statements #}}" + NL +
+                "{{ {10} }}" + NL +
+                "{{ items = {10} }}" + NL +
                 NL;
     }
 
@@ -96,6 +100,8 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 new AttributesDescriptor("Comment", AntlersHighlighter.COMMENT),
                 new AttributesDescriptor("Identifier", AntlersHighlighter.IDENTIFIER),
                 new AttributesDescriptor("Number", AntlersHighlighter.NUMBER),
+                new AttributesDescriptor("Operator", AntlersHighlighter.OPERATOR),
+                new AttributesDescriptor("Parentheses", AntlersHighlighter.PARENTHESES),
                 new AttributesDescriptor("String", AntlersHighlighter.STRING),
         };
 
