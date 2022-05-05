@@ -95,6 +95,21 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // boolean_literal
+  //                            | number_literal
+  //                            | string_literal
+  //                            | sub_expression
+  static boolean assignable_items(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "assignable_items")) return false;
+    boolean r;
+    r = boolean_literal(b, l + 1);
+    if (!r) r = number_literal(b, l + 1);
+    if (!r) r = string_literal(b, l + 1);
+    if (!r) r = sub_expression(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
   // 'true' | 'false'
   public static boolean boolean_literal(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "boolean_literal")) return false;
@@ -172,7 +187,8 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // antlers_node
+  // variable_assignment_node
+  //                 | antlers_node
   //                 | comment_block
   //                 | php_node
   //                 | outer_content
@@ -180,7 +196,8 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "nodes")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = antlers_node(b, l + 1);
+    r = variable_assignment_node(b, l + 1);
+    if (!r) r = antlers_node(b, l + 1);
     if (!r) r = comment_block(b, l + 1);
     if (!r) r = php_node(b, l + 1);
     if (!r) r = outer_content(b, l + 1);
@@ -329,6 +346,23 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, T_IDENTIFIER);
     exit_section_(b, m, VARIABLE, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // '{{' variable '=' assignable_items '}}'
+  public static boolean variable_assignment_node(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_assignment_node")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, VARIABLE_ASSIGNMENT_NODE, null);
+    r = consumeToken(b, T_LD);
+    r = r && variable(b, l + 1);
+    r = r && consumeToken(b, T_OP_ASSIGN);
+    p = r; // pin = 3
+    r = r && report_error_(b, assignable_items(b, l + 1));
+    r = p && consumeToken(b, T_RD) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
 }

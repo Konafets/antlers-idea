@@ -99,8 +99,10 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {FLOAT_NUMBER}       { return T_FLOAT_NUMBER; }
 
     // Parens, Brackets and Braces
-    "("                  { return T_LP;}
-    ")"                  { return T_RP;}
+    "("                  { return T_LP; }
+    ")"                  { return T_RP; }
+
+    "="                  { return T_OP_ASSIGN; }
 }
 
 <ANTLERS_COMMENT> {

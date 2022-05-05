@@ -19,6 +19,7 @@ public interface AntlersTypes {
   IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
   IElementType SUB_EXPRESSION = new AntlersElementType("SUB_EXPRESSION");
   IElementType VARIABLE = new AntlersElementType("VARIABLE");
+  IElementType VARIABLE_ASSIGNMENT_NODE = new AntlersElementType("VARIABLE_ASSIGNMENT_NODE");
 
   IElementType OUTER_CONTENT = new AntlersTokenType("OUTER_CONTENT");
   IElementType T_COMMENT_CLOSE = new AntlersTokenType("#}}");
@@ -30,6 +31,7 @@ public interface AntlersTypes {
   IElementType T_INTEGER_NUMBER = new AntlersTokenType("T_INTEGER_NUMBER");
   IElementType T_LD = new AntlersTokenType("{{");
   IElementType T_LP = new AntlersTokenType("(");
+  IElementType T_OP_ASSIGN = new AntlersTokenType("=");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
   IElementType T_PHP_ECHO_CLOSE = new AntlersTokenType("$}}");
   IElementType T_PHP_ECHO_OPEN = new AntlersTokenType("{{$");
@@ -74,6 +76,9 @@ public interface AntlersTypes {
       }
       else if (type == VARIABLE) {
         return new AntlersVariableImpl(node);
+      }
+      else if (type == VARIABLE_ASSIGNMENT_NODE) {
+        return new AntlersVariableAssignmentNodeImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

@@ -27,6 +27,10 @@ public class HighlightTest extends HighlightTestCase {
         doTest();
     }
 
+    public void testHighlightOperators() {
+        doTest();
+    }
+
     public void testHighlightParentheses() {
         doTest();
     }
