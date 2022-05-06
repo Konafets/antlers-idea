@@ -8,6 +8,7 @@ import de.arrobait.antlers.psi.impl.*;
 
 public interface AntlersTypes {
 
+  IElementType ADD_EXPR = new AntlersElementType("ADD_EXPR");
   IElementType ANTLERS_NODE = new AntlersElementType("ANTLERS_NODE");
   IElementType ARRAY = new AntlersElementType("ARRAY");
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
@@ -15,14 +16,19 @@ public interface AntlersTypes {
   IElementType COLON_PROPERTY_ACCESS = new AntlersElementType("COLON_PROPERTY_ACCESS");
   IElementType COMMENT_BLOCK = new AntlersElementType("COMMENT_BLOCK");
   IElementType CONCAT_EXPR = new AntlersElementType("CONCAT_EXPR");
+  IElementType DIV_EXPR = new AntlersElementType("DIV_EXPR");
   IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
   IElementType EXPR = new AntlersElementType("EXPR");
   IElementType INTERPOLATED_STATEMENT = new AntlersElementType("INTERPOLATED_STATEMENT");
   IElementType LITERAL_EXPR = new AntlersElementType("LITERAL_EXPR");
+  IElementType MOD_EXPR = new AntlersElementType("MOD_EXPR");
+  IElementType MUL_EXPR = new AntlersElementType("MUL_EXPR");
   IElementType NUMBER_LITERAL = new AntlersElementType("NUMBER_LITERAL");
   IElementType PHP_ECHO_NODE = new AntlersElementType("PHP_ECHO_NODE");
   IElementType PHP_RAW_NODE = new AntlersElementType("PHP_RAW_NODE");
+  IElementType POW_EXPR = new AntlersElementType("POW_EXPR");
   IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
+  IElementType SUB_EXPR = new AntlersElementType("SUB_EXPR");
   IElementType SUB_EXPRESSION = new AntlersElementType("SUB_EXPRESSION");
   IElementType UNARY_FACTORIAL_EXPR = new AntlersElementType("UNARY_FACTORIAL_EXPR");
   IElementType UNARY_MINUS_EXPR = new AntlersElementType("UNARY_MINUS_EXPR");
@@ -48,8 +54,15 @@ public interface AntlersTypes {
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
   IElementType T_OP_EXCLAMATION_MARK = new AntlersTokenType("!");
   IElementType T_OP_MINUS = new AntlersTokenType("-");
+  IElementType T_OP_MOD = new AntlersTokenType("%");
+  IElementType T_OP_MUL = new AntlersTokenType("*");
   IElementType T_OP_PLUS = new AntlersTokenType("+");
+  IElementType T_OP_POW = new AntlersTokenType("**");
   IElementType T_OP_SELF_ASSIGN_ADD = new AntlersTokenType("+=");
+  IElementType T_OP_SELF_ASSIGN_DIV = new AntlersTokenType("/=");
+  IElementType T_OP_SELF_ASSIGN_MOD = new AntlersTokenType("%=");
+  IElementType T_OP_SELF_ASSIGN_MUL = new AntlersTokenType("*=");
+  IElementType T_OP_SELF_ASSIGN_SUB = new AntlersTokenType("-=");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
   IElementType T_PHP_ECHO_CLOSE = new AntlersTokenType("$}}");
   IElementType T_PHP_ECHO_OPEN = new AntlersTokenType("{{$");
@@ -59,6 +72,7 @@ public interface AntlersTypes {
   IElementType T_RIGHT_BRACE = new AntlersTokenType("}");
   IElementType T_RIGHT_BRACKET = new AntlersTokenType("]");
   IElementType T_RP = new AntlersTokenType(")");
+  IElementType T_SLASH = new AntlersTokenType("/");
   IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
   IElementType T_STRING_END = new AntlersTokenType("T_STRING_END");
   IElementType T_STRING_START = new AntlersTokenType("T_STRING_START");
@@ -67,7 +81,10 @@ public interface AntlersTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ANTLERS_NODE) {
+      if (type == ADD_EXPR) {
+        return new AntlersAddExprImpl(node);
+      }
+      else if (type == ANTLERS_NODE) {
         return new AntlersAntlersNodeImpl(node);
       }
       else if (type == ARRAY) {
@@ -88,6 +105,9 @@ public interface AntlersTypes {
       else if (type == CONCAT_EXPR) {
         return new AntlersConcatExprImpl(node);
       }
+      else if (type == DIV_EXPR) {
+        return new AntlersDivExprImpl(node);
+      }
       else if (type == DOT_PROPERTY_ACCESS) {
         return new AntlersDotPropertyAccessImpl(node);
       }
@@ -96,6 +116,12 @@ public interface AntlersTypes {
       }
       else if (type == LITERAL_EXPR) {
         return new AntlersLiteralExprImpl(node);
+      }
+      else if (type == MOD_EXPR) {
+        return new AntlersModExprImpl(node);
+      }
+      else if (type == MUL_EXPR) {
+        return new AntlersMulExprImpl(node);
       }
       else if (type == NUMBER_LITERAL) {
         return new AntlersNumberLiteralImpl(node);
@@ -106,8 +132,14 @@ public interface AntlersTypes {
       else if (type == PHP_RAW_NODE) {
         return new AntlersPhpRawNodeImpl(node);
       }
+      else if (type == POW_EXPR) {
+        return new AntlersPowExprImpl(node);
+      }
       else if (type == STRING_LITERAL) {
         return new AntlersStringLiteralImpl(node);
+      }
+      else if (type == SUB_EXPR) {
+        return new AntlersSubExprImpl(node);
       }
       else if (type == SUB_EXPRESSION) {
         return new AntlersSubExpressionImpl(node);

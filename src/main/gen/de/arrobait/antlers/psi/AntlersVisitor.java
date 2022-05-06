@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class AntlersVisitor extends PsiElementVisitor {
 
+  public void visitAddExpr(@NotNull AntlersAddExpr o) {
+    visitExpr(o);
+  }
+
   public void visitAntlersNode(@NotNull AntlersAntlersNode o) {
     visitPsiElement(o);
   }
@@ -35,6 +39,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitDivExpr(@NotNull AntlersDivExpr o) {
+    visitExpr(o);
+  }
+
   public void visitDotPropertyAccess(@NotNull AntlersDotPropertyAccess o) {
     visitPsiElement(o);
   }
@@ -51,6 +59,14 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitModExpr(@NotNull AntlersModExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitMulExpr(@NotNull AntlersMulExpr o) {
+    visitExpr(o);
+  }
+
   public void visitNumberLiteral(@NotNull AntlersNumberLiteral o) {
     visitPsiElement(o);
   }
@@ -63,8 +79,16 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPowExpr(@NotNull AntlersPowExpr o) {
+    visitExpr(o);
+  }
+
   public void visitStringLiteral(@NotNull AntlersStringLiteral o) {
     visitPsiElement(o);
+  }
+
+  public void visitSubExpr(@NotNull AntlersSubExpr o) {
+    visitExpr(o);
   }
 
   public void visitSubExpression(@NotNull AntlersSubExpression o) {

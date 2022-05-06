@@ -44,7 +44,15 @@
         // Math
         T_OP_PLUS='+'
         T_OP_MINUS='-'
+        T_OP_MUL='*'
+        T_SLASH='/'
+        T_OP_MOD='%'
+        T_OP_POW='**'
         T_OP_SELF_ASSIGN_ADD='+='
+        T_OP_SELF_ASSIGN_SUB='-='
+        T_OP_SELF_ASSIGN_MUL='*='
+        T_OP_SELF_ASSIGN_DIV='/='
+        T_OP_SELF_ASSIGN_MOD='%='
 
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
         T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
@@ -84,9 +92,14 @@ private antlers_expression_or_statement ::= expr
 // Expressions
 expr ::= interpolated_statement
        | group_unary
+       | group_add
+       | group_mul
+       | pow_expr
        | concat_expr
        | group_primary
 
+private group_mul     ::= mul_expr | div_expr | mod_expr
+private group_add     ::= add_expr | sub_expr
 private group_unary   ::= unary_minus_expr | unary_not_expr | unary_factorial_expr
 private group_primary ::= literal_expr | sub_expression
 
@@ -116,6 +129,14 @@ private assignable_items ::= boolean_literal
 // ['Get haircut', 'Bake bread', 'Eat soup', ['another', 'array']]
 array ::= '[' array_value (',' array_value*)* ']'
 private array_value ::= (string_literal | number_literal | array)
+
+// Math
+mul_expr ::= expr ('*' | '*=') expr
+div_expr ::= expr (T_SLASH | T_OP_SELF_ASSIGN_DIV) expr
+mod_expr ::= expr ('%' | '%=') expr
+add_expr ::= expr ('+' | '+=') expr
+sub_expr ::= expr ('-' | '-=') expr
+pow_expr ::= expr '**' expr
 
 // Concat
 concat_expr ::= string_literal '+' string_literal

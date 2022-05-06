@@ -85,6 +85,12 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ -(5)! }}" + NL +
                 "{{ (-5)! }}" + NL +
                 "{{ -(-5)! }}" + NL +
+                "{{ 3 + 4 }}" + NL +
+                "{{ 3 - 4 }}" + NL +
+                "{{ 3 * 4 }}" + NL +
+                "{{ 3 / 4 }}" + NL +
+                "{{ 3 % 4 }}" + NL +
+                "{{ 3 ** 4 }}" + NL +
                 NL +
                 "{{# Concat #}}" + NL +
                 "<p>{{ $title + \" makes \" + $quality + \" donuts.\" }}</p>" + NL +

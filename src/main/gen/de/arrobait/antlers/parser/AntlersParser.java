@@ -36,8 +36,10 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
-    create_token_set_(CONCAT_EXPR, EXPR, INTERPOLATED_STATEMENT, LITERAL_EXPR,
-      SUB_EXPRESSION, UNARY_FACTORIAL_EXPR, UNARY_MINUS_EXPR, UNARY_NOT_EXPR),
+    create_token_set_(ADD_EXPR, CONCAT_EXPR, DIV_EXPR, EXPR,
+      INTERPOLATED_STATEMENT, LITERAL_EXPR, MOD_EXPR, MUL_EXPR,
+      POW_EXPR, SUB_EXPR, SUB_EXPRESSION, UNARY_FACTORIAL_EXPR,
+      UNARY_MINUS_EXPR, UNARY_NOT_EXPR),
   };
 
   /* ********************************************************** */
@@ -502,8 +504,11 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // Operator priority table:
   // 0: ATOM(interpolated_statement)
   // 1: PREFIX(unary_minus_expr) PREFIX(unary_not_expr) POSTFIX(unary_factorial_expr)
-  // 2: ATOM(concat_expr)
-  // 3: ATOM(literal_expr) ATOM(sub_expression)
+  // 2: BINARY(add_expr) BINARY(sub_expr)
+  // 3: BINARY(mul_expr) BINARY(div_expr) BINARY(mod_expr)
+  // 4: BINARY(pow_expr)
+  // 5: ATOM(concat_expr)
+  // 6: ATOM(literal_expr) ATOM(sub_expression)
   public static boolean expr(PsiBuilder b, int l, int g) {
     if (!recursion_guard_(b, l, "expr")) return false;
     addVariant(b, "<expr>");
@@ -529,6 +534,30 @@ public class AntlersParser implements PsiParser, LightPsiParser {
       if (g < 1 && consumeTokenSmart(b, T_OP_EXCLAMATION_MARK)) {
         r = true;
         exit_section_(b, l, m, UNARY_FACTORIAL_EXPR, r, true, null);
+      }
+      else if (g < 2 && add_expr_0(b, l + 1)) {
+        r = expr(b, l, 2);
+        exit_section_(b, l, m, ADD_EXPR, r, true, null);
+      }
+      else if (g < 2 && sub_expr_0(b, l + 1)) {
+        r = expr(b, l, 2);
+        exit_section_(b, l, m, SUB_EXPR, r, true, null);
+      }
+      else if (g < 3 && mul_expr_0(b, l + 1)) {
+        r = expr(b, l, 3);
+        exit_section_(b, l, m, MUL_EXPR, r, true, null);
+      }
+      else if (g < 3 && div_expr_0(b, l + 1)) {
+        r = expr(b, l, 3);
+        exit_section_(b, l, m, DIV_EXPR, r, true, null);
+      }
+      else if (g < 3 && mod_expr_0(b, l + 1)) {
+        r = expr(b, l, 3);
+        exit_section_(b, l, m, MOD_EXPR, r, true, null);
+      }
+      else if (g < 4 && consumeTokenSmart(b, T_OP_POW)) {
+        r = expr(b, l, 4);
+        exit_section_(b, l, m, POW_EXPR, r, true, null);
       }
       else {
         exit_section_(b, l, m, null, false, false, null);
@@ -583,6 +612,51 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = p && expr(b, l, 1);
     exit_section_(b, l, m, UNARY_NOT_EXPR, r, p, null);
     return r || p;
+  }
+
+  // '+' | '+='
+  private static boolean add_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "add_expr_0")) return false;
+    boolean r;
+    r = consumeTokenSmart(b, T_OP_PLUS);
+    if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_ADD);
+    return r;
+  }
+
+  // '-' | '-='
+  private static boolean sub_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sub_expr_0")) return false;
+    boolean r;
+    r = consumeTokenSmart(b, T_OP_MINUS);
+    if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_SUB);
+    return r;
+  }
+
+  // '*' | '*='
+  private static boolean mul_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "mul_expr_0")) return false;
+    boolean r;
+    r = consumeTokenSmart(b, T_OP_MUL);
+    if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_MUL);
+    return r;
+  }
+
+  // T_SLASH | T_OP_SELF_ASSIGN_DIV
+  private static boolean div_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "div_expr_0")) return false;
+    boolean r;
+    r = consumeTokenSmart(b, T_SLASH);
+    if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_DIV);
+    return r;
+  }
+
+  // '%' | '%='
+  private static boolean mod_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "mod_expr_0")) return false;
+    boolean r;
+    r = consumeTokenSmart(b, T_OP_MOD);
+    if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_MOD);
+    return r;
   }
 
   // string_literal '+' string_literal

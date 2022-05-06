@@ -47,6 +47,9 @@ WHITE_SPACE=\s+
 LD="{{"
 RD="}}"
 
+SLASH="/"
+SLASH_ASSIGN="/="
+
 COMMENT_OPEN="{{#"
 COMMENT_CLOSE="#}}"
 
@@ -105,14 +108,23 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {INTEGER_NUMBER}     { return T_INTEGER_NUMBER; }
     {FLOAT_NUMBER}       { return T_FLOAT_NUMBER; }
 
+    {SLASH_ASSIGN}       { return T_OP_SELF_ASSIGN_DIV; }
+    {SLASH}              { return T_SLASH; }
+
     ","                  { return T_COMMA; }
 
     // Math
     "+"                  { return T_OP_PLUS; }
     "-"                  { return T_OP_MINUS; }
+    "*"                  { return T_OP_MUL; }
+    "%"                  { return T_OP_MOD; }
+    "**"                 { return T_OP_POW; }
     "!"                  { return T_OP_EXCLAMATION_MARK; }
     "="                  { return T_OP_ASSIGN; }
     "+="                 { return T_OP_SELF_ASSIGN_ADD; }
+    "-="                 { return T_OP_SELF_ASSIGN_SUB; }
+    "*="                 { return T_OP_SELF_ASSIGN_MUL; }
+    "%="                 { return T_OP_SELF_ASSIGN_MOD; }
 
     // Parens, Brackets and Braces
     "("                  { return T_LP; }
