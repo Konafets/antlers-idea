@@ -107,6 +107,10 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
     ","                  { return T_COMMA; }
 
+    // Math
+    "-"                  { return T_OP_MINUS; }
+    "!"                  { return T_OP_EXCLAMATION_MARK; }
+
     // Parens, Brackets and Braces
     "("                  { return T_LP; }
     ")"                  { return T_RP; }

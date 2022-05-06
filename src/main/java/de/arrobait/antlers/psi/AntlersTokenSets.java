@@ -42,9 +42,11 @@ public class AntlersTokenSets {
                 AntlersTypes.T_INTEGER_NUMBER,
                 AntlersTypes.T_FLOAT_NUMBER);
         OPERATORS = TokenSet.create(
-                AntlersTypes.T_OP_ASSIGN,
                 AntlersTypes.T_COLON,
-                AntlersTypes.T_DOT);
+                AntlersTypes.T_DOT,
+                AntlersTypes.T_OP_ASSIGN,
+                AntlersTypes.T_OP_EXCLAMATION_MARK,
+                AntlersTypes.T_OP_MINUS);
         PARENTHESES = TokenSet.create(
                 AntlersTypes.T_LP,
                 AntlersTypes.T_RP);
@@ -54,6 +56,5 @@ public class AntlersTokenSets {
                 AntlersTypes.T_STRING_END);
         WHITE_SPACE = TokenSet.create(
                 TokenType.WHITE_SPACE);
-
     }
 }

@@ -48,6 +48,10 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ .42 }}" + NL +
                 "{{ 0.42 }}" + NL +
                 "{{ 10.42 }}" + NL +
+                "{{ -.42 }}" + NL +
+                "{{ -0.42 }}" + NL +
+                "{{ -10.42 }}" + NL +
+                "{{ -10 }}" + NL +
                 NL +
                 "{{# Strings #}}" + NL +
                 "{{ 'Welcome to Statamic' }}" + NL +
@@ -74,6 +78,13 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ sizes[size.label] }}" + NL +
                 "{{ sizes[size_two.label] }}" + NL +
                 "{{ view:sizes[size:label] }}" + NL +
+                NL +
+                "{{# Math #}}" + NL +
+                "{{ 5! }}" + NL +
+                "{{ (5)! }}" + NL +
+                "{{ -(5)! }}" + NL +
+                "{{ (-5)! }}" + NL +
+                "{{ -(-5)! }}" + NL +
                 NL;
     }
 

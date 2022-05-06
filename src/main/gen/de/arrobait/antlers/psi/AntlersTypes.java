@@ -23,6 +23,9 @@ public interface AntlersTypes {
   IElementType PHP_RAW_NODE = new AntlersElementType("PHP_RAW_NODE");
   IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
   IElementType SUB_EXPRESSION = new AntlersElementType("SUB_EXPRESSION");
+  IElementType UNARY_FACTORIAL_EXPR = new AntlersElementType("UNARY_FACTORIAL_EXPR");
+  IElementType UNARY_MINUS_EXPR = new AntlersElementType("UNARY_MINUS_EXPR");
+  IElementType UNARY_NOT_EXPR = new AntlersElementType("UNARY_NOT_EXPR");
   IElementType VARIABLE = new AntlersElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT_NODE = new AntlersElementType("VARIABLE_ASSIGNMENT_NODE");
 
@@ -42,6 +45,8 @@ public interface AntlersTypes {
   IElementType T_LEFT_BRACKET = new AntlersTokenType("[");
   IElementType T_LP = new AntlersTokenType("(");
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
+  IElementType T_OP_EXCLAMATION_MARK = new AntlersTokenType("!");
+  IElementType T_OP_MINUS = new AntlersTokenType("-");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
   IElementType T_PHP_ECHO_CLOSE = new AntlersTokenType("$}}");
   IElementType T_PHP_ECHO_OPEN = new AntlersTokenType("{{$");
@@ -100,6 +105,15 @@ public interface AntlersTypes {
       }
       else if (type == SUB_EXPRESSION) {
         return new AntlersSubExpressionImpl(node);
+      }
+      else if (type == UNARY_FACTORIAL_EXPR) {
+        return new AntlersUnaryFactorialExprImpl(node);
+      }
+      else if (type == UNARY_MINUS_EXPR) {
+        return new AntlersUnaryMinusExprImpl(node);
+      }
+      else if (type == UNARY_NOT_EXPR) {
+        return new AntlersUnaryNotExprImpl(node);
       }
       else if (type == VARIABLE) {
         return new AntlersVariableImpl(node);

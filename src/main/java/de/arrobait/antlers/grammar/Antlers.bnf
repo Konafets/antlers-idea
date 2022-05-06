@@ -39,7 +39,9 @@
         T_COMMA=','
         T_DOT='.'
 
+        T_OP_EXCLAMATION_MARK='!'
         T_OP_ASSIGN='='
+        T_OP_MINUS='-'
 
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
         T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
@@ -78,8 +80,10 @@ private antlers_expression_or_statement ::= expr
 
 // Expressions
 expr ::= interpolated_statement
+       | group_unary
        | group_primary
 
+private group_unary   ::= unary_minus_expr | unary_not_expr | unary_factorial_expr
 private group_primary ::= literal_expr | sub_expression
 
 // Variable
@@ -108,6 +112,11 @@ private assignable_items ::= boolean_literal
 // ['Get haircut', 'Bake bread', 'Eat soup', ['another', 'array']]
 array ::= '[' array_value (',' array_value*)* ']'
 private array_value ::= (string_literal | number_literal | array)
+
+// Unary
+unary_minus_expr     ::= '-' expr
+unary_not_expr       ::= '!' expr
+unary_factorial_expr ::= expr '!'
 
 // Basic
 interpolated_statement ::= '{' (antlers_expression_or_statement | expr) '}' { pin=1 }

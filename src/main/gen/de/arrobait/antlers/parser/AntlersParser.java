@@ -36,7 +36,8 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
-    create_token_set_(EXPR, INTERPOLATED_STATEMENT, LITERAL_EXPR, SUB_EXPRESSION),
+    create_token_set_(EXPR, INTERPOLATED_STATEMENT, LITERAL_EXPR, SUB_EXPRESSION,
+      UNARY_FACTORIAL_EXPR, UNARY_MINUS_EXPR, UNARY_NOT_EXPR),
   };
 
   /* ********************************************************** */
@@ -54,7 +55,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   /* ********************************************************** */
   // expr
   static boolean antlers_expression_or_statement(PsiBuilder b, int l) {
-    return expr(b, l + 1);
+    return expr(b, l + 1, -1);
   }
 
   /* ********************************************************** */
@@ -312,70 +313,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // interpolated_statement
-  //        | group_primary
-  public static boolean expr(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expr")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _COLLAPSE_, EXPR, "<expr>");
-    r = interpolated_statement(b, l + 1);
-    if (!r) r = group_primary(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // literal_expr | sub_expression
-  static boolean group_primary(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "group_primary")) return false;
-    boolean r;
-    r = literal_expr(b, l + 1);
-    if (!r) r = sub_expression(b, l + 1);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // '{' (antlers_expression_or_statement | expr) '}'
-  public static boolean interpolated_statement(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "interpolated_statement")) return false;
-    if (!nextTokenIs(b, T_LEFT_BRACE)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, INTERPOLATED_STATEMENT, null);
-    r = consumeToken(b, T_LEFT_BRACE);
-    p = r; // pin = 1
-    r = r && report_error_(b, interpolated_statement_1(b, l + 1));
-    r = p && consumeToken(b, T_RIGHT_BRACE) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
-  }
-
-  // antlers_expression_or_statement | expr
-  private static boolean interpolated_statement_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "interpolated_statement_1")) return false;
-    boolean r;
-    r = antlers_expression_or_statement(b, l + 1);
-    if (!r) r = expr(b, l + 1);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // number_literal
-  //                 | boolean_literal
-  //                 | string_literal
-  //                 | variable
-  public static boolean literal_expr(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "literal_expr")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, LITERAL_EXPR, "<literal expr>");
-    r = number_literal(b, l + 1);
-    if (!r) r = boolean_literal(b, l + 1);
-    if (!r) r = string_literal(b, l + 1);
-    if (!r) r = variable(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
   // variable_assignment_node
   //                 | antlers_node
   //                 | comment_block
@@ -513,30 +450,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '(' (antlers_expression_or_statement | expr) ')'
-  public static boolean sub_expression(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "sub_expression")) return false;
-    if (!nextTokenIs(b, T_LP)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, SUB_EXPRESSION, null);
-    r = consumeToken(b, T_LP);
-    p = r; // pin = 1
-    r = r && report_error_(b, sub_expression_1(b, l + 1));
-    r = p && consumeToken(b, T_RP) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
-  }
-
-  // antlers_expression_or_statement | expr
-  private static boolean sub_expression_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "sub_expression_1")) return false;
-    boolean r;
-    r = antlers_expression_or_statement(b, l + 1);
-    if (!r) r = expr(b, l + 1);
-    return r;
-  }
-
-  /* ********************************************************** */
   // T_IDENTIFIER [property_access*]
   public static boolean variable(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable")) return false;
@@ -582,6 +495,131 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = p && consumeToken(b, T_RD) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  /* ********************************************************** */
+  // Expression root: expr
+  // Operator priority table:
+  // 0: ATOM(interpolated_statement)
+  // 1: PREFIX(unary_minus_expr) PREFIX(unary_not_expr) POSTFIX(unary_factorial_expr)
+  // 2: ATOM(literal_expr) ATOM(sub_expression)
+  public static boolean expr(PsiBuilder b, int l, int g) {
+    if (!recursion_guard_(b, l, "expr")) return false;
+    addVariant(b, "<expr>");
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, "<expr>");
+    r = interpolated_statement(b, l + 1);
+    if (!r) r = unary_minus_expr(b, l + 1);
+    if (!r) r = unary_not_expr(b, l + 1);
+    if (!r) r = literal_expr(b, l + 1);
+    if (!r) r = sub_expression(b, l + 1);
+    p = r;
+    r = r && expr_0(b, l + 1, g);
+    exit_section_(b, l, m, null, r, p, null);
+    return r || p;
+  }
+
+  public static boolean expr_0(PsiBuilder b, int l, int g) {
+    if (!recursion_guard_(b, l, "expr_0")) return false;
+    boolean r = true;
+    while (true) {
+      Marker m = enter_section_(b, l, _LEFT_, null);
+      if (g < 1 && consumeTokenSmart(b, T_OP_EXCLAMATION_MARK)) {
+        r = true;
+        exit_section_(b, l, m, UNARY_FACTORIAL_EXPR, r, true, null);
+      }
+      else {
+        exit_section_(b, l, m, null, false, false, null);
+        break;
+      }
+    }
+    return r;
+  }
+
+  // '{' (antlers_expression_or_statement | expr) '}'
+  public static boolean interpolated_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interpolated_statement")) return false;
+    if (!nextTokenIsSmart(b, T_LEFT_BRACE)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, INTERPOLATED_STATEMENT, null);
+    r = consumeTokenSmart(b, T_LEFT_BRACE);
+    p = r; // pin = 1
+    r = r && report_error_(b, interpolated_statement_1(b, l + 1));
+    r = p && consumeToken(b, T_RIGHT_BRACE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // antlers_expression_or_statement | expr
+  private static boolean interpolated_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interpolated_statement_1")) return false;
+    boolean r;
+    r = antlers_expression_or_statement(b, l + 1);
+    if (!r) r = expr(b, l + 1, -1);
+    return r;
+  }
+
+  public static boolean unary_minus_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unary_minus_expr")) return false;
+    if (!nextTokenIsSmart(b, T_OP_MINUS)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, null);
+    r = consumeTokenSmart(b, T_OP_MINUS);
+    p = r;
+    r = p && expr(b, l, 1);
+    exit_section_(b, l, m, UNARY_MINUS_EXPR, r, p, null);
+    return r || p;
+  }
+
+  public static boolean unary_not_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unary_not_expr")) return false;
+    if (!nextTokenIsSmart(b, T_OP_EXCLAMATION_MARK)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, null);
+    r = consumeTokenSmart(b, T_OP_EXCLAMATION_MARK);
+    p = r;
+    r = p && expr(b, l, 1);
+    exit_section_(b, l, m, UNARY_NOT_EXPR, r, p, null);
+    return r || p;
+  }
+
+  // number_literal
+  //                 | boolean_literal
+  //                 | string_literal
+  //                 | variable
+  public static boolean literal_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literal_expr")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, LITERAL_EXPR, "<literal expr>");
+    r = number_literal(b, l + 1);
+    if (!r) r = boolean_literal(b, l + 1);
+    if (!r) r = string_literal(b, l + 1);
+    if (!r) r = variable(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // '(' (antlers_expression_or_statement | expr) ')'
+  public static boolean sub_expression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sub_expression")) return false;
+    if (!nextTokenIsSmart(b, T_LP)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, SUB_EXPRESSION, null);
+    r = consumeTokenSmart(b, T_LP);
+    p = r; // pin = 1
+    r = r && report_error_(b, sub_expression_1(b, l + 1));
+    r = p && consumeToken(b, T_RP) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // antlers_expression_or_statement | expr
+  private static boolean sub_expression_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sub_expression_1")) return false;
+    boolean r;
+    r = antlers_expression_or_statement(b, l + 1);
+    if (!r) r = expr(b, l + 1, -1);
+    return r;
   }
 
 }
