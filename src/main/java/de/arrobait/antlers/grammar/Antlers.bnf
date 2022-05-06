@@ -35,7 +35,9 @@
         T_TRUE='true'
         T_FALSE='false'
 
+        T_COLON=':'
         T_COMMA=','
+        T_DOT='.'
 
         T_OP_ASSIGN='='
 
@@ -81,7 +83,13 @@ expr ::= interpolated_statement
 private group_primary ::= literal_expr | sub_expression
 
 // Variable
-variable ::= T_IDENTIFIER
+variable ::= T_IDENTIFIER [property_access*]
+private property_access ::= bracket_property_access | dot_property_access | colon_property_access
+bracket_property_access ::= '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal) ']'
+dot_property_access     ::= '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+
+//private property_access_keys ::= T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
 
 // {{ total = 0 }}
 // {{ todo = ['Get haircut', 'Bake bread', 'Eat soup'] }}

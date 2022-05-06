@@ -42,7 +42,9 @@ public class AntlersTokenSets {
                 AntlersTypes.T_INTEGER_NUMBER,
                 AntlersTypes.T_FLOAT_NUMBER);
         OPERATORS = TokenSet.create(
-                AntlersTypes.T_OP_ASSIGN);
+                AntlersTypes.T_OP_ASSIGN,
+                AntlersTypes.T_COLON,
+                AntlersTypes.T_DOT);
         PARENTHESES = TokenSet.create(
                 AntlersTypes.T_LP,
                 AntlersTypes.T_RP);

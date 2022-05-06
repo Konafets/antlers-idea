@@ -68,6 +68,12 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{# Interpolated statements #}}" + NL +
                 "{{ {10} }}" + NL +
                 "{{ items = {10} }}" + NL +
+                NL +
+                "{{# Property Access #}}" + NL +
+                "{{ complex_data[3][field]['title'] }}" + NL +
+                "{{ sizes[size.label] }}" + NL +
+                "{{ sizes[size_two.label] }}" + NL +
+                "{{ view:sizes[size:label] }}" + NL +
                 NL;
     }
 

@@ -11,7 +11,10 @@ public interface AntlersTypes {
   IElementType ANTLERS_NODE = new AntlersElementType("ANTLERS_NODE");
   IElementType ARRAY = new AntlersElementType("ARRAY");
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
+  IElementType BRACKET_PROPERTY_ACCESS = new AntlersElementType("BRACKET_PROPERTY_ACCESS");
+  IElementType COLON_PROPERTY_ACCESS = new AntlersElementType("COLON_PROPERTY_ACCESS");
   IElementType COMMENT_BLOCK = new AntlersElementType("COMMENT_BLOCK");
+  IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
   IElementType EXPR = new AntlersElementType("EXPR");
   IElementType INTERPOLATED_STATEMENT = new AntlersElementType("INTERPOLATED_STATEMENT");
   IElementType LITERAL_EXPR = new AntlersElementType("LITERAL_EXPR");
@@ -24,10 +27,12 @@ public interface AntlersTypes {
   IElementType VARIABLE_ASSIGNMENT_NODE = new AntlersElementType("VARIABLE_ASSIGNMENT_NODE");
 
   IElementType OUTER_CONTENT = new AntlersTokenType("OUTER_CONTENT");
+  IElementType T_COLON = new AntlersTokenType(":");
   IElementType T_COMMA = new AntlersTokenType(",");
   IElementType T_COMMENT_CLOSE = new AntlersTokenType("#}}");
   IElementType T_COMMENT_OPEN = new AntlersTokenType("{{#");
   IElementType T_COMMENT_TEXT = new AntlersTokenType("T_COMMENT_TEXT");
+  IElementType T_DOT = new AntlersTokenType(".");
   IElementType T_FALSE = new AntlersTokenType("false");
   IElementType T_FLOAT_NUMBER = new AntlersTokenType("T_FLOAT_NUMBER");
   IElementType T_IDENTIFIER = new AntlersTokenType("T_IDENTIFIER");
@@ -63,8 +68,17 @@ public interface AntlersTypes {
       else if (type == BOOLEAN_LITERAL) {
         return new AntlersBooleanLiteralImpl(node);
       }
+      else if (type == BRACKET_PROPERTY_ACCESS) {
+        return new AntlersBracketPropertyAccessImpl(node);
+      }
+      else if (type == COLON_PROPERTY_ACCESS) {
+        return new AntlersColonPropertyAccessImpl(node);
+      }
       else if (type == COMMENT_BLOCK) {
         return new AntlersCommentBlockImpl(node);
+      }
+      else if (type == DOT_PROPERTY_ACCESS) {
+        return new AntlersDotPropertyAccessImpl(node);
       }
       else if (type == INTERPOLATED_STATEMENT) {
         return new AntlersInterpolatedStatementImpl(node);

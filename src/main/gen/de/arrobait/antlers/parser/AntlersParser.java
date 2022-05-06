@@ -187,6 +187,82 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal) ']'
+  public static boolean bracket_property_access(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bracket_property_access")) return false;
+    if (!nextTokenIs(b, T_LEFT_BRACKET)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_LEFT_BRACKET);
+    r = r && bracket_property_access_1(b, l + 1);
+    r = r && consumeToken(b, T_RIGHT_BRACKET);
+    exit_section_(b, m, BRACKET_PROPERTY_ACCESS, r);
+    return r;
+  }
+
+  // T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal
+  private static boolean bracket_property_access_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bracket_property_access_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_INTEGER_NUMBER);
+    if (!r) r = bracket_property_access_1_1(b, l + 1);
+    if (!r) r = string_literal(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // T_IDENTIFIER [dot_property_access | colon_property_access]
+  private static boolean bracket_property_access_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bracket_property_access_1_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_IDENTIFIER);
+    r = r && bracket_property_access_1_1_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // [dot_property_access | colon_property_access]
+  private static boolean bracket_property_access_1_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bracket_property_access_1_1_1")) return false;
+    bracket_property_access_1_1_1_0(b, l + 1);
+    return true;
+  }
+
+  // dot_property_access | colon_property_access
+  private static boolean bracket_property_access_1_1_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "bracket_property_access_1_1_1_0")) return false;
+    boolean r;
+    r = dot_property_access(b, l + 1);
+    if (!r) r = colon_property_access(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+  public static boolean colon_property_access(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "colon_property_access")) return false;
+    if (!nextTokenIs(b, T_COLON)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COLON);
+    r = r && colon_property_access_1(b, l + 1);
+    exit_section_(b, m, COLON_PROPERTY_ACCESS, r);
+    return r;
+  }
+
+  // T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
+  private static boolean colon_property_access_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "colon_property_access_1")) return false;
+    boolean r;
+    r = consumeToken(b, T_INTEGER_NUMBER);
+    if (!r) r = consumeToken(b, T_IDENTIFIER);
+    if (!r) r = string_literal(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
   // T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE
   public static boolean comment_block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "comment_block")) return false;
@@ -210,6 +286,29 @@ public class AntlersParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "comment_block_1", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+  public static boolean dot_property_access(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dot_property_access")) return false;
+    if (!nextTokenIs(b, T_DOT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_DOT);
+    r = r && dot_property_access_1(b, l + 1);
+    exit_section_(b, m, DOT_PROPERTY_ACCESS, r);
+    return r;
+  }
+
+  // T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
+  private static boolean dot_property_access_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dot_property_access_1")) return false;
+    boolean r;
+    r = consumeToken(b, T_INTEGER_NUMBER);
+    if (!r) r = consumeToken(b, T_IDENTIFIER);
+    if (!r) r = string_literal(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */
@@ -378,6 +477,17 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // bracket_property_access | dot_property_access | colon_property_access
+  static boolean property_access(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property_access")) return false;
+    boolean r;
+    r = bracket_property_access(b, l + 1);
+    if (!r) r = dot_property_access(b, l + 1);
+    if (!r) r = colon_property_access(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
   // T_STRING_START T_STRING_CONTENT* T_STRING_END
   public static boolean string_literal(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "string_literal")) return false;
@@ -427,15 +537,34 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_IDENTIFIER
+  // T_IDENTIFIER [property_access*]
   public static boolean variable(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable")) return false;
     if (!nextTokenIs(b, T_IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, T_IDENTIFIER);
+    r = r && variable_1(b, l + 1);
     exit_section_(b, m, VARIABLE, r);
     return r;
+  }
+
+  // [property_access*]
+  private static boolean variable_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_1")) return false;
+    variable_1_0(b, l + 1);
+    return true;
+  }
+
+  // property_access*
+  private static boolean variable_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_1_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!property_access(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "variable_1_0", c)) break;
+    }
+    return true;
   }
 
   /* ********************************************************** */

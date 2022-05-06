@@ -19,7 +19,19 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBracketPropertyAccess(@NotNull AntlersBracketPropertyAccess o) {
+    visitPsiElement(o);
+  }
+
+  public void visitColonPropertyAccess(@NotNull AntlersColonPropertyAccess o) {
+    visitPsiElement(o);
+  }
+
   public void visitCommentBlock(@NotNull AntlersCommentBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDotPropertyAccess(@NotNull AntlersDotPropertyAccess o) {
     visitPsiElement(o);
   }
 

@@ -54,6 +54,9 @@ SINGLE_QUOTE="\'"
 DOUBLE_QUOTE="\""
 
 IDENTIFIER=[$_A-Za-z][-_0-9A-Za-z]*
+IDENTIFIER_DOT={IDENTIFIER} "."
+IDENTIFIER_COLON={IDENTIFIER} ":"
+IDENTIFIER_BRACKET={IDENTIFIER} "["
 
 INTEGER_NUMBER=0|[1-9]\d*
 FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
@@ -61,6 +64,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 // States
 %state ANTLERS_COMMENT
 %state ANTLERS_NODE
+%state PROPERTY_ACCESS
 %state SINGLE_STRING
 %state DOUBLE_STRING
 %state PHP_ECHO
@@ -94,6 +98,9 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_STRING_START; }
 
     {IDENTIFIER}         { return T_IDENTIFIER; }
+    {IDENTIFIER_DOT}     { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
+    {IDENTIFIER_COLON}   { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
+    {IDENTIFIER_BRACKET} { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
 
     {INTEGER_NUMBER}     { return T_INTEGER_NUMBER; }
     {FLOAT_NUMBER}       { return T_FLOAT_NUMBER; }
@@ -109,6 +116,22 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "]"                  { return T_RIGHT_BRACKET; }
 
     "="                  { return T_OP_ASSIGN; }
+}
+
+// State to avoid ambiguity between float values (.0) with object access (person.name)
+<PROPERTY_ACCESS> {
+    ":"                         { return T_COLON; }
+    "."                         { return T_DOT; }
+    "["                         { return T_LEFT_BRACKET; }
+    "]"                         { return T_RIGHT_BRACKET; }
+    {INTEGER_NUMBER}            { return T_INTEGER_NUMBER; }
+    {SINGLE_QUOTE}              { pushState(SINGLE_STRING); return T_STRING_START; }
+    {DOUBLE_QUOTE}              { pushState(DOUBLE_STRING); return T_STRING_START; }
+    {IDENTIFIER}                { return T_IDENTIFIER; }
+    [^]                         {
+                                  yypushback(1);  // cancel unexpected char
+                                  popState();     // and try to parse it again in <IN_ANTLERS>
+                                }
 }
 
 <ANTLERS_COMMENT> {

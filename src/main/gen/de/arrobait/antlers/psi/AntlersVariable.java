@@ -7,4 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface AntlersVariable extends PsiElement {
 
+  @NotNull
+  List<AntlersBracketPropertyAccess> getBracketPropertyAccessList();
+
+  @NotNull
+  List<AntlersColonPropertyAccess> getColonPropertyAccessList();
+
+  @NotNull
+  List<AntlersDotPropertyAccess> getDotPropertyAccessList();
+
 }
