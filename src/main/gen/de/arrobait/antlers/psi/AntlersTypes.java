@@ -14,6 +14,7 @@ public interface AntlersTypes {
   IElementType BRACKET_PROPERTY_ACCESS = new AntlersElementType("BRACKET_PROPERTY_ACCESS");
   IElementType COLON_PROPERTY_ACCESS = new AntlersElementType("COLON_PROPERTY_ACCESS");
   IElementType COMMENT_BLOCK = new AntlersElementType("COMMENT_BLOCK");
+  IElementType CONCAT_EXPR = new AntlersElementType("CONCAT_EXPR");
   IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
   IElementType EXPR = new AntlersElementType("EXPR");
   IElementType INTERPOLATED_STATEMENT = new AntlersElementType("INTERPOLATED_STATEMENT");
@@ -47,6 +48,8 @@ public interface AntlersTypes {
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
   IElementType T_OP_EXCLAMATION_MARK = new AntlersTokenType("!");
   IElementType T_OP_MINUS = new AntlersTokenType("-");
+  IElementType T_OP_PLUS = new AntlersTokenType("+");
+  IElementType T_OP_SELF_ASSIGN_ADD = new AntlersTokenType("+=");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
   IElementType T_PHP_ECHO_CLOSE = new AntlersTokenType("$}}");
   IElementType T_PHP_ECHO_OPEN = new AntlersTokenType("{{$");
@@ -81,6 +84,9 @@ public interface AntlersTypes {
       }
       else if (type == COMMENT_BLOCK) {
         return new AntlersCommentBlockImpl(node);
+      }
+      else if (type == CONCAT_EXPR) {
+        return new AntlersConcatExprImpl(node);
       }
       else if (type == DOT_PROPERTY_ACCESS) {
         return new AntlersDotPropertyAccessImpl(node);

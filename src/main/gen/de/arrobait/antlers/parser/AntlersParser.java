@@ -36,8 +36,8 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
-    create_token_set_(EXPR, INTERPOLATED_STATEMENT, LITERAL_EXPR, SUB_EXPRESSION,
-      UNARY_FACTORIAL_EXPR, UNARY_MINUS_EXPR, UNARY_NOT_EXPR),
+    create_token_set_(CONCAT_EXPR, EXPR, INTERPOLATED_STATEMENT, LITERAL_EXPR,
+      SUB_EXPRESSION, UNARY_FACTORIAL_EXPR, UNARY_MINUS_EXPR, UNARY_NOT_EXPR),
   };
 
   /* ********************************************************** */
@@ -502,7 +502,8 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // Operator priority table:
   // 0: ATOM(interpolated_statement)
   // 1: PREFIX(unary_minus_expr) PREFIX(unary_not_expr) POSTFIX(unary_factorial_expr)
-  // 2: ATOM(literal_expr) ATOM(sub_expression)
+  // 2: ATOM(concat_expr)
+  // 3: ATOM(literal_expr) ATOM(sub_expression)
   public static boolean expr(PsiBuilder b, int l, int g) {
     if (!recursion_guard_(b, l, "expr")) return false;
     addVariant(b, "<expr>");
@@ -511,6 +512,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = interpolated_statement(b, l + 1);
     if (!r) r = unary_minus_expr(b, l + 1);
     if (!r) r = unary_not_expr(b, l + 1);
+    if (!r) r = concat_expr(b, l + 1);
     if (!r) r = literal_expr(b, l + 1);
     if (!r) r = sub_expression(b, l + 1);
     p = r;
@@ -581,6 +583,93 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = p && expr(b, l, 1);
     exit_section_(b, l, m, UNARY_NOT_EXPR, r, p, null);
     return r || p;
+  }
+
+  // string_literal '+' string_literal
+  //               | number_literal '+' string_literal
+  //               | string_literal '+' number_literal
+  //               | string_literal '+' variable
+  //               | variable ('+' | '+=') string_literal
+  public static boolean concat_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "concat_expr")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, CONCAT_EXPR, "<concat expr>");
+    r = concat_expr_0(b, l + 1);
+    if (!r) r = concat_expr_1(b, l + 1);
+    if (!r) r = concat_expr_2(b, l + 1);
+    if (!r) r = concat_expr_3(b, l + 1);
+    if (!r) r = concat_expr_4(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // string_literal '+' string_literal
+  private static boolean concat_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "concat_expr_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = string_literal(b, l + 1);
+    r = r && consumeToken(b, T_OP_PLUS);
+    r = r && string_literal(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // number_literal '+' string_literal
+  private static boolean concat_expr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "concat_expr_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = number_literal(b, l + 1);
+    r = r && consumeToken(b, T_OP_PLUS);
+    r = r && string_literal(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // string_literal '+' number_literal
+  private static boolean concat_expr_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "concat_expr_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = string_literal(b, l + 1);
+    r = r && consumeToken(b, T_OP_PLUS);
+    r = r && number_literal(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // string_literal '+' variable
+  private static boolean concat_expr_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "concat_expr_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = string_literal(b, l + 1);
+    r = r && consumeToken(b, T_OP_PLUS);
+    r = r && variable(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // variable ('+' | '+=') string_literal
+  private static boolean concat_expr_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "concat_expr_4")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = variable(b, l + 1);
+    r = r && concat_expr_4_1(b, l + 1);
+    r = r && string_literal(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // '+' | '+='
+  private static boolean concat_expr_4_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "concat_expr_4_1")) return false;
+    boolean r;
+    r = consumeTokenSmart(b, T_OP_PLUS);
+    if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_ADD);
+    return r;
   }
 
   // number_literal

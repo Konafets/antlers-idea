@@ -31,6 +31,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitConcatExpr(@NotNull AntlersConcatExpr o) {
+    visitExpr(o);
+  }
+
   public void visitDotPropertyAccess(@NotNull AntlersDotPropertyAccess o) {
     visitPsiElement(o);
   }

@@ -108,8 +108,11 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     ","                  { return T_COMMA; }
 
     // Math
+    "+"                  { return T_OP_PLUS; }
     "-"                  { return T_OP_MINUS; }
     "!"                  { return T_OP_EXCLAMATION_MARK; }
+    "="                  { return T_OP_ASSIGN; }
+    "+="                 { return T_OP_SELF_ASSIGN_ADD; }
 
     // Parens, Brackets and Braces
     "("                  { return T_LP; }
@@ -119,7 +122,6 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "["                  { return T_LEFT_BRACKET; }
     "]"                  { return T_RIGHT_BRACKET; }
 
-    "="                  { return T_OP_ASSIGN; }
 }
 
 // State to avoid ambiguity between float values (.0) with object access (person.name)

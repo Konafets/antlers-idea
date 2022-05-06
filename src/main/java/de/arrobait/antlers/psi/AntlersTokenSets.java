@@ -46,7 +46,9 @@ public class AntlersTokenSets {
                 AntlersTypes.T_DOT,
                 AntlersTypes.T_OP_ASSIGN,
                 AntlersTypes.T_OP_EXCLAMATION_MARK,
-                AntlersTypes.T_OP_MINUS);
+                AntlersTypes.T_OP_PLUS,
+                AntlersTypes.T_OP_MINUS,
+                AntlersTypes.T_OP_SELF_ASSIGN_ADD);
         PARENTHESES = TokenSet.create(
                 AntlersTypes.T_LP,
                 AntlersTypes.T_RP);
