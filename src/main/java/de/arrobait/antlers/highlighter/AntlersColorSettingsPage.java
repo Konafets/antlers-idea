@@ -95,6 +95,9 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{# Concat #}}" + NL +
                 "<p>{{ $title + \" makes \" + $quality + \" donuts.\" }}</p>" + NL +
                 "{{ string += \" World\"}}" + NL +
+                NL +
+                "{{# Comparison #}}" + NL +
+                "{{ is_sold ? \"sold\" : (on_sale ? \"on sale\" : \"for sale\") }}" + NL +
                 NL;
     }
 

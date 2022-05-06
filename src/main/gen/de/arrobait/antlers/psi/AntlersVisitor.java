@@ -95,6 +95,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitTenaryExpr(@NotNull AntlersTenaryExpr o) {
+    visitExpr(o);
+  }
+
   public void visitUnaryFactorialExpr(@NotNull AntlersUnaryFactorialExpr o) {
     visitExpr(o);
   }

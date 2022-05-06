@@ -30,6 +30,7 @@ public interface AntlersTypes {
   IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
   IElementType SUB_EXPR = new AntlersElementType("SUB_EXPR");
   IElementType SUB_EXPRESSION = new AntlersElementType("SUB_EXPRESSION");
+  IElementType TENARY_EXPR = new AntlersElementType("TENARY_EXPR");
   IElementType UNARY_FACTORIAL_EXPR = new AntlersElementType("UNARY_FACTORIAL_EXPR");
   IElementType UNARY_MINUS_EXPR = new AntlersElementType("UNARY_MINUS_EXPR");
   IElementType UNARY_NOT_EXPR = new AntlersElementType("UNARY_NOT_EXPR");
@@ -58,6 +59,7 @@ public interface AntlersTypes {
   IElementType T_OP_MUL = new AntlersTokenType("*");
   IElementType T_OP_PLUS = new AntlersTokenType("+");
   IElementType T_OP_POW = new AntlersTokenType("**");
+  IElementType T_OP_QUESTIONMARK = new AntlersTokenType("?");
   IElementType T_OP_SELF_ASSIGN_ADD = new AntlersTokenType("+=");
   IElementType T_OP_SELF_ASSIGN_DIV = new AntlersTokenType("/=");
   IElementType T_OP_SELF_ASSIGN_MOD = new AntlersTokenType("%=");
@@ -143,6 +145,9 @@ public interface AntlersTypes {
       }
       else if (type == SUB_EXPRESSION) {
         return new AntlersSubExpressionImpl(node);
+      }
+      else if (type == TENARY_EXPR) {
+        return new AntlersTenaryExprImpl(node);
       }
       else if (type == UNARY_FACTORIAL_EXPR) {
         return new AntlersUnaryFactorialExprImpl(node);

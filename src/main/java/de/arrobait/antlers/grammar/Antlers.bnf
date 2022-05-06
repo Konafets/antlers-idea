@@ -39,6 +39,7 @@
         T_COMMA=','
         T_DOT='.'
         T_OP_EXCLAMATION_MARK='!'
+        T_OP_QUESTIONMARK='?'
         T_OP_ASSIGN='='
 
         // Math
@@ -91,13 +92,16 @@ private antlers_expression_or_statement ::= expr
 
 // Expressions
 expr ::= interpolated_statement
-       | group_unary
+       | group_comp
        | group_add
        | group_mul
        | pow_expr
+       | group_unary
        | concat_expr
        | group_primary
+       | tenary_expr
 
+private group_comp    ::= tenary_expr
 private group_mul     ::= mul_expr | div_expr | mod_expr
 private group_add     ::= add_expr | sub_expr
 private group_unary   ::= unary_minus_expr | unary_not_expr | unary_factorial_expr
@@ -129,6 +133,9 @@ private assignable_items ::= boolean_literal
 // ['Get haircut', 'Bake bread', 'Eat soup', ['another', 'array']]
 array ::= '[' array_value (',' array_value*)* ']'
 private array_value ::= (string_literal | number_literal | array)
+
+// Comparison
+tenary_expr ::= expr '?' expr ':' expr
 
 // Math
 mul_expr ::= expr ('*' | '*=') expr

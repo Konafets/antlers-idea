@@ -53,6 +53,7 @@ public class AntlersTokenSets {
                 AntlersTypes.T_DOT,
                 AntlersTypes.T_OP_ASSIGN,
                 AntlersTypes.T_OP_EXCLAMATION_MARK,
+                AntlersTypes.T_OP_QUESTIONMARK,
                 AntlersTypes.T_OP_PLUS,
                 AntlersTypes.T_OP_MINUS,
                 AntlersTypes.T_OP_MUL,
