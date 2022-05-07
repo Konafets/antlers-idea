@@ -99,33 +99,21 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{# Comparison #}}" + NL +
                 "{{ is_sold ? \"sold\" : (on_sale ? \"on sale\" : \"for sale\") }}" + NL +
                 "{{ the_answer == 10 }}" + NL +
-                "{{ 20 == 10 }}" + NL +
-                "{{ 20 == '10' }}" + NL +
-                "{{ 20 == \"10\" }}" + NL +
                 "{{ the_answer != 10 }}" + NL +
-                "{{ $the_answer != 10 }}" + NL +
-                "{{ 20 != 10 }}" + NL +
                 "{{ the_answer === 10 }}" + NL +
-                "{{ $the_answer === 10 }}" + NL +
-                "{{ 20 === 10 }}" + NL +
                 "{{ the_answer !== 10 }}" + NL +
-                "{{ $the_answer !== 10 }}" + NL +
-                "{{ 20 !== 10 }}" + NL +
                 "{{ the_answer > 10 }}" + NL +
-                "{{ 20 > 10 }}" + NL +
                 "{{ the_answer >= 10 }}" + NL +
-                "{{ 20 >= 10 }}" + NL +
                 "{{ the_answer < 10 }}" + NL +
-                "{{ 20 < 10 }}" + NL +
                 "{{ the_answer <= 10 }}" + NL +
-                "{{ 20 <= 10 }}" + NL +
                 "{{ foo <=> bar }}" + NL +
-                "{{ $foo <=> bar }}" + NL +
-                "{{ 20 <=> 10 }}" + NL +
-                "{{ $foo <=> 10 }}" + NL +
-                "{{ foo <=> 10 }}" + NL +
                 "{{ meta_title ?? title ?? \"Someone Forgot the Title\" }}" + NL +
                 "{{ show_bio ?= author:bio }}" + NL +
+                "{{ 10 && 20 }}" + NL +
+                "{{ 10 and 20 }}" + NL +
+                "{{ 10 || 20 }}" + NL +
+                "{{ 10 or 20 }}" + NL +
+                "{{ foo xor 20 }}" + NL +
                 NL;
     }
 

@@ -75,7 +75,10 @@ public class AntlersTokenSets {
                 AntlersTypes.T_OP_GTE,
                 AntlersTypes.T_OP_SPACESHIP,
                 AntlersTypes.T_OP_NULL_COALESCENCE,
-                AntlersTypes.T_OP_GATEKEEPER
+                AntlersTypes.T_OP_GATEKEEPER,
+                AntlersTypes.T_OP_AND,
+                AntlersTypes.T_OP_OR,
+                AntlersTypes.T_OP_XOR
                 );
         PARENTHESES = TokenSet.create(
                 AntlersTypes.T_LP,

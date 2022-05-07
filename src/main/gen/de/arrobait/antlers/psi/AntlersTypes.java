@@ -9,6 +9,7 @@ import de.arrobait.antlers.psi.impl.*;
 public interface AntlersTypes {
 
   IElementType ADD_EXPR = new AntlersElementType("ADD_EXPR");
+  IElementType AND_EXPR = new AntlersElementType("AND_EXPR");
   IElementType ANTLERS_NODE = new AntlersElementType("ANTLERS_NODE");
   IElementType ARRAY = new AntlersElementType("ARRAY");
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
@@ -34,6 +35,7 @@ public interface AntlersTypes {
   IElementType NOT_IDENT_EXPR = new AntlersElementType("NOT_IDENT_EXPR");
   IElementType NULL_COALESCING_EXPR = new AntlersElementType("NULL_COALESCING_EXPR");
   IElementType NUMBER_LITERAL = new AntlersElementType("NUMBER_LITERAL");
+  IElementType OR_EXPR = new AntlersElementType("OR_EXPR");
   IElementType PHP_ECHO_NODE = new AntlersElementType("PHP_ECHO_NODE");
   IElementType PHP_RAW_NODE = new AntlersElementType("PHP_RAW_NODE");
   IElementType POW_EXPR = new AntlersElementType("POW_EXPR");
@@ -47,6 +49,7 @@ public interface AntlersTypes {
   IElementType UNARY_NOT_EXPR = new AntlersElementType("UNARY_NOT_EXPR");
   IElementType VARIABLE = new AntlersElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT_NODE = new AntlersElementType("VARIABLE_ASSIGNMENT_NODE");
+  IElementType XOR_EXPR = new AntlersElementType("XOR_EXPR");
 
   IElementType OUTER_CONTENT = new AntlersTokenType("OUTER_CONTENT");
   IElementType T_COLON = new AntlersTokenType(":");
@@ -63,6 +66,7 @@ public interface AntlersTypes {
   IElementType T_LEFT_BRACE = new AntlersTokenType("{");
   IElementType T_LEFT_BRACKET = new AntlersTokenType("[");
   IElementType T_LP = new AntlersTokenType("(");
+  IElementType T_OP_AND = new AntlersTokenType("T_OP_AND");
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
   IElementType T_OP_EQ = new AntlersTokenType("==");
   IElementType T_OP_EXCLAMATION_MARK = new AntlersTokenType("!");
@@ -78,6 +82,7 @@ public interface AntlersTypes {
   IElementType T_OP_NEQ = new AntlersTokenType("!=");
   IElementType T_OP_NOT_IDENT = new AntlersTokenType("!==");
   IElementType T_OP_NULL_COALESCENCE = new AntlersTokenType("??");
+  IElementType T_OP_OR = new AntlersTokenType("T_OP_OR");
   IElementType T_OP_PLUS = new AntlersTokenType("+");
   IElementType T_OP_POW = new AntlersTokenType("**");
   IElementType T_OP_QUESTIONMARK = new AntlersTokenType("?");
@@ -87,6 +92,7 @@ public interface AntlersTypes {
   IElementType T_OP_SELF_ASSIGN_MUL = new AntlersTokenType("*=");
   IElementType T_OP_SELF_ASSIGN_SUB = new AntlersTokenType("-=");
   IElementType T_OP_SPACESHIP = new AntlersTokenType("<=>");
+  IElementType T_OP_XOR = new AntlersTokenType("xor");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
   IElementType T_PHP_ECHO_CLOSE = new AntlersTokenType("$}}");
   IElementType T_PHP_ECHO_OPEN = new AntlersTokenType("{{$");
@@ -107,6 +113,9 @@ public interface AntlersTypes {
       IElementType type = node.getElementType();
       if (type == ADD_EXPR) {
         return new AntlersAddExprImpl(node);
+      }
+      else if (type == AND_EXPR) {
+        return new AntlersAndExprImpl(node);
       }
       else if (type == ANTLERS_NODE) {
         return new AntlersAntlersNodeImpl(node);
@@ -180,6 +189,9 @@ public interface AntlersTypes {
       else if (type == NUMBER_LITERAL) {
         return new AntlersNumberLiteralImpl(node);
       }
+      else if (type == OR_EXPR) {
+        return new AntlersOrExprImpl(node);
+      }
       else if (type == PHP_ECHO_NODE) {
         return new AntlersPhpEchoNodeImpl(node);
       }
@@ -218,6 +230,9 @@ public interface AntlersTypes {
       }
       else if (type == VARIABLE_ASSIGNMENT_NODE) {
         return new AntlersVariableAssignmentNodeImpl(node);
+      }
+      else if (type == XOR_EXPR) {
+        return new AntlersXorExprImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

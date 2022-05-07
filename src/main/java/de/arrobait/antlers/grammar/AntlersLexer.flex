@@ -97,6 +97,11 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "true"               { return T_TRUE; }
     "false"              { return T_FALSE; }
 
+    // Logical - Must come before {IDENTIFIER}
+    "&&"|"and"                  { return T_OP_AND; }
+    "||"|"or"                   { return T_OP_OR; }
+    "xor"                       { return T_OP_XOR; }
+
     {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
     {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_STRING_START; }
 

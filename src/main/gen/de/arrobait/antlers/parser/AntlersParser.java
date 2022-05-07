@@ -36,13 +36,14 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
-    create_token_set_(ADD_EXPR, CONCAT_EXPR, DIV_EXPR, EQ_EXPR,
-      EXPR, GATEKEEPER_EXPR, GTE_EXPR, GT_EXPR,
-      IDENT_EXPR, INTERPOLATED_STATEMENT, LITERAL_EXPR, LTE_EXPR,
-      LT_EXPR, MOD_EXPR, MUL_EXPR, NEQ_EXPR,
-      NOT_IDENT_EXPR, NULL_COALESCING_EXPR, POW_EXPR, SPACESHIP_EXPR,
-      SUB_EXPR, SUB_EXPRESSION, TENARY_EXPR, UNARY_FACTORIAL_EXPR,
-      UNARY_MINUS_EXPR, UNARY_NOT_EXPR),
+    create_token_set_(ADD_EXPR, AND_EXPR, CONCAT_EXPR, DIV_EXPR,
+      EQ_EXPR, EXPR, GATEKEEPER_EXPR, GTE_EXPR,
+      GT_EXPR, IDENT_EXPR, INTERPOLATED_STATEMENT, LITERAL_EXPR,
+      LTE_EXPR, LT_EXPR, MOD_EXPR, MUL_EXPR,
+      NEQ_EXPR, NOT_IDENT_EXPR, NULL_COALESCING_EXPR, OR_EXPR,
+      POW_EXPR, SPACESHIP_EXPR, SUB_EXPR, SUB_EXPRESSION,
+      TENARY_EXPR, UNARY_FACTORIAL_EXPR, UNARY_MINUS_EXPR, UNARY_NOT_EXPR,
+      XOR_EXPR),
   };
 
   /* ********************************************************** */
@@ -506,15 +507,16 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // Expression root: expr
   // Operator priority table:
   // 0: ATOM(interpolated_statement)
-  // 1: BINARY(eq_expr) BINARY(neq_expr) BINARY(ident_expr) BINARY(not_ident_expr)
+  // 1: BINARY(and_expr) BINARY(or_expr) BINARY(xor_expr)
+  // 2: BINARY(eq_expr) BINARY(neq_expr) BINARY(ident_expr) BINARY(not_ident_expr)
   //    BINARY(lt_expr) BINARY(lte_expr) BINARY(gt_expr) BINARY(gte_expr)
   //    BINARY(spaceship_expr) BINARY(null_coalescing_expr) BINARY(gatekeeper_expr) BINARY(tenary_expr)
-  // 2: BINARY(add_expr) BINARY(sub_expr)
-  // 3: BINARY(mul_expr) BINARY(div_expr) BINARY(mod_expr)
-  // 4: BINARY(pow_expr)
-  // 5: PREFIX(unary_minus_expr) PREFIX(unary_not_expr) POSTFIX(unary_factorial_expr)
-  // 6: ATOM(concat_expr)
-  // 7: ATOM(literal_expr) ATOM(sub_expression)
+  // 3: BINARY(add_expr) BINARY(sub_expr)
+  // 4: BINARY(mul_expr) BINARY(div_expr) BINARY(mod_expr)
+  // 5: BINARY(pow_expr)
+  // 6: PREFIX(unary_minus_expr) PREFIX(unary_not_expr) POSTFIX(unary_factorial_expr)
+  // 7: ATOM(concat_expr)
+  // 8: ATOM(literal_expr) ATOM(sub_expression)
   public static boolean expr(PsiBuilder b, int l, int g) {
     if (!recursion_guard_(b, l, "expr")) return false;
     addVariant(b, "<expr>");
@@ -537,80 +539,92 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     boolean r = true;
     while (true) {
       Marker m = enter_section_(b, l, _LEFT_, null);
-      if (g < 1 && consumeTokenSmart(b, T_OP_EQ)) {
+      if (g < 1 && and_expr_0(b, l + 1)) {
         r = expr(b, l, 1);
+        exit_section_(b, l, m, AND_EXPR, r, true, null);
+      }
+      else if (g < 1 && or_expr_0(b, l + 1)) {
+        r = expr(b, l, 1);
+        exit_section_(b, l, m, OR_EXPR, r, true, null);
+      }
+      else if (g < 1 && consumeTokenSmart(b, T_OP_XOR)) {
+        r = expr(b, l, 1);
+        exit_section_(b, l, m, XOR_EXPR, r, true, null);
+      }
+      else if (g < 2 && consumeTokenSmart(b, T_OP_EQ)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, EQ_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_NEQ)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_NEQ)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, NEQ_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_IDENT)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_IDENT)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, IDENT_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_NOT_IDENT)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_NOT_IDENT)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, NOT_IDENT_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_LT)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_LT)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, LT_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_LTE)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_LTE)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, LTE_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_GT)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_GT)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, GT_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_GTE)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_GTE)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, GTE_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_SPACESHIP)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_SPACESHIP)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, SPACESHIP_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_NULL_COALESCENCE)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_NULL_COALESCENCE)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, NULL_COALESCING_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_GATEKEEPER)) {
-        r = expr(b, l, 1);
+      else if (g < 2 && consumeTokenSmart(b, T_OP_GATEKEEPER)) {
+        r = expr(b, l, 2);
         exit_section_(b, l, m, GATEKEEPER_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, T_OP_QUESTIONMARK)) {
-        r = report_error_(b, expr(b, l, 1));
+      else if (g < 2 && consumeTokenSmart(b, T_OP_QUESTIONMARK)) {
+        r = report_error_(b, expr(b, l, 2));
         r = tenary_expr_1(b, l + 1) && r;
         exit_section_(b, l, m, TENARY_EXPR, r, true, null);
       }
-      else if (g < 2 && add_expr_0(b, l + 1)) {
-        r = expr(b, l, 2);
+      else if (g < 3 && add_expr_0(b, l + 1)) {
+        r = expr(b, l, 3);
         exit_section_(b, l, m, ADD_EXPR, r, true, null);
       }
-      else if (g < 2 && sub_expr_0(b, l + 1)) {
-        r = expr(b, l, 2);
+      else if (g < 3 && sub_expr_0(b, l + 1)) {
+        r = expr(b, l, 3);
         exit_section_(b, l, m, SUB_EXPR, r, true, null);
       }
-      else if (g < 3 && mul_expr_0(b, l + 1)) {
-        r = expr(b, l, 3);
+      else if (g < 4 && mul_expr_0(b, l + 1)) {
+        r = expr(b, l, 4);
         exit_section_(b, l, m, MUL_EXPR, r, true, null);
       }
-      else if (g < 3 && div_expr_0(b, l + 1)) {
-        r = expr(b, l, 3);
+      else if (g < 4 && div_expr_0(b, l + 1)) {
+        r = expr(b, l, 4);
         exit_section_(b, l, m, DIV_EXPR, r, true, null);
       }
-      else if (g < 3 && mod_expr_0(b, l + 1)) {
-        r = expr(b, l, 3);
+      else if (g < 4 && mod_expr_0(b, l + 1)) {
+        r = expr(b, l, 4);
         exit_section_(b, l, m, MOD_EXPR, r, true, null);
       }
-      else if (g < 4 && consumeTokenSmart(b, T_OP_POW)) {
-        r = expr(b, l, 4);
+      else if (g < 5 && consumeTokenSmart(b, T_OP_POW)) {
+        r = expr(b, l, 5);
         exit_section_(b, l, m, POW_EXPR, r, true, null);
       }
-      else if (g < 5 && consumeTokenSmart(b, T_OP_EXCLAMATION_MARK)) {
+      else if (g < 6 && consumeTokenSmart(b, T_OP_EXCLAMATION_MARK)) {
         r = true;
         exit_section_(b, l, m, UNARY_FACTORIAL_EXPR, r, true, null);
       }
@@ -642,6 +656,24 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     boolean r;
     r = antlers_expression_or_statement(b, l + 1);
     if (!r) r = expr(b, l + 1, -1);
+    return r;
+  }
+
+  // '&&' | 'and'
+  private static boolean and_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "and_expr_0")) return false;
+    boolean r;
+    r = consumeTokenSmart(b, "&&");
+    if (!r) r = consumeTokenSmart(b, "and");
+    return r;
+  }
+
+  // '||' | 'or'
+  private static boolean or_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "or_expr_0")) return false;
+    boolean r;
+    r = consumeTokenSmart(b, "||");
+    if (!r) r = consumeTokenSmart(b, "or");
     return r;
   }
 
@@ -708,7 +740,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, null);
     r = consumeTokenSmart(b, T_OP_MINUS);
     p = r;
-    r = p && expr(b, l, 5);
+    r = p && expr(b, l, 6);
     exit_section_(b, l, m, UNARY_MINUS_EXPR, r, p, null);
     return r || p;
   }
@@ -720,7 +752,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, null);
     r = consumeTokenSmart(b, T_OP_EXCLAMATION_MARK);
     p = r;
-    r = p && expr(b, l, 5);
+    r = p && expr(b, l, 6);
     exit_section_(b, l, m, UNARY_NOT_EXPR, r, p, null);
     return r || p;
   }

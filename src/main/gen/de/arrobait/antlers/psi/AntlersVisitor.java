@@ -11,6 +11,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitAndExpr(@NotNull AntlersAndExpr o) {
+    visitExpr(o);
+  }
+
   public void visitAntlersNode(@NotNull AntlersAntlersNode o) {
     visitPsiElement(o);
   }
@@ -111,6 +115,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitOrExpr(@NotNull AntlersOrExpr o) {
+    visitExpr(o);
+  }
+
   public void visitPhpEchoNode(@NotNull AntlersPhpEchoNode o) {
     visitPsiElement(o);
   }
@@ -161,6 +169,10 @@ public class AntlersVisitor extends PsiElementVisitor {
 
   public void visitVariableAssignmentNode(@NotNull AntlersVariableAssignmentNode o) {
     visitPsiElement(o);
+  }
+
+  public void visitXorExpr(@NotNull AntlersXorExpr o) {
+    visitExpr(o);
   }
 
   public void visitPsiElement(@NotNull PsiElement o) {
