@@ -10,6 +10,7 @@ public interface AntlersTypes {
 
   IElementType ADD_EXPR = new AntlersElementType("ADD_EXPR");
   IElementType AND_EXPR = new AntlersElementType("AND_EXPR");
+  IElementType ANTLERS_CLOSE_NODE = new AntlersElementType("ANTLERS_CLOSE_NODE");
   IElementType ANTLERS_NODE = new AntlersElementType("ANTLERS_NODE");
   IElementType ARRAY = new AntlersElementType("ARRAY");
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
@@ -129,6 +130,9 @@ public interface AntlersTypes {
       }
       else if (type == AND_EXPR) {
         return new AntlersAndExprImpl(node);
+      }
+      else if (type == ANTLERS_CLOSE_NODE) {
+        return new AntlersAntlersCloseNodeImpl(node);
       }
       else if (type == ANTLERS_NODE) {
         return new AntlersAntlersNodeImpl(node);

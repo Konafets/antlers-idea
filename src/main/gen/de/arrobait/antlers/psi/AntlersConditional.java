@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface AntlersConditional extends PsiElement {
 
   @NotNull
+  List<AntlersAntlersCloseNode> getAntlersCloseNodeList();
+
+  @NotNull
   List<AntlersAntlersNode> getAntlersNodeList();
 
   @NotNull

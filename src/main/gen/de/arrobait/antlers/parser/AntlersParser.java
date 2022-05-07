@@ -59,6 +59,31 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // '{{' (T_SLASH T_IDENTIFIER) '}}'
+  public static boolean antlers_close_node(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "antlers_close_node")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, ANTLERS_CLOSE_NODE, null);
+    r = consumeToken(b, T_LD);
+    r = r && antlers_close_node_1(b, l + 1);
+    p = r; // pin = 2
+    r = r && consumeToken(b, T_RD);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // T_SLASH T_IDENTIFIER
+  private static boolean antlers_close_node_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "antlers_close_node_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_SLASH, T_IDENTIFIER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // expr
   static boolean antlers_expression_or_statement(PsiBuilder b, int l) {
     return expr(b, l + 1, -1);
@@ -523,6 +548,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // conditional
+  //                 | antlers_close_node
   //                 | variable_assignment_node
   //                 | antlers_node
   //                 | comment_block
@@ -533,6 +559,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b);
     r = conditional(b, l + 1);
+    if (!r) r = antlers_close_node(b, l + 1);
     if (!r) r = variable_assignment_node(b, l + 1);
     if (!r) r = antlers_node(b, l + 1);
     if (!r) r = comment_block(b, l + 1);

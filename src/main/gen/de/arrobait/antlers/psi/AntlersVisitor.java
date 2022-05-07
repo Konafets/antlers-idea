@@ -15,6 +15,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitAntlersCloseNode(@NotNull AntlersAntlersCloseNode o) {
+    visitPsiElement(o);
+  }
+
   public void visitAntlersNode(@NotNull AntlersAntlersNode o) {
     visitPsiElement(o);
   }

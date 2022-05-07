@@ -90,6 +90,7 @@
 
 antlersFile ::= nodes*
 private nodes ::= conditional
+                | antlers_close_node
                 | variable_assignment_node
                 | antlers_node
                 | comment_block
@@ -114,6 +115,7 @@ antlers_node ::= '{{' antlers_expression_or_statement  '}}' {
 private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '{')
 
 private antlers_expression_or_statement ::= expr
+antlers_close_node ::= '{{' (T_SLASH T_IDENTIFIER) '}}' { pin=2 }
 
 conditional               ::= conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end { pin=1 }
 private conditional_start ::= (conditional_if | conditional_unless)
