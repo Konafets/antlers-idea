@@ -18,15 +18,26 @@ public interface AntlersTypes {
   IElementType CONCAT_EXPR = new AntlersElementType("CONCAT_EXPR");
   IElementType DIV_EXPR = new AntlersElementType("DIV_EXPR");
   IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
+  IElementType EQ_EXPR = new AntlersElementType("EQ_EXPR");
   IElementType EXPR = new AntlersElementType("EXPR");
+  IElementType GATEKEEPER_EXPR = new AntlersElementType("GATEKEEPER_EXPR");
+  IElementType GTE_EXPR = new AntlersElementType("GTE_EXPR");
+  IElementType GT_EXPR = new AntlersElementType("GT_EXPR");
+  IElementType IDENT_EXPR = new AntlersElementType("IDENT_EXPR");
   IElementType INTERPOLATED_STATEMENT = new AntlersElementType("INTERPOLATED_STATEMENT");
   IElementType LITERAL_EXPR = new AntlersElementType("LITERAL_EXPR");
+  IElementType LTE_EXPR = new AntlersElementType("LTE_EXPR");
+  IElementType LT_EXPR = new AntlersElementType("LT_EXPR");
   IElementType MOD_EXPR = new AntlersElementType("MOD_EXPR");
   IElementType MUL_EXPR = new AntlersElementType("MUL_EXPR");
+  IElementType NEQ_EXPR = new AntlersElementType("NEQ_EXPR");
+  IElementType NOT_IDENT_EXPR = new AntlersElementType("NOT_IDENT_EXPR");
+  IElementType NULL_COALESCING_EXPR = new AntlersElementType("NULL_COALESCING_EXPR");
   IElementType NUMBER_LITERAL = new AntlersElementType("NUMBER_LITERAL");
   IElementType PHP_ECHO_NODE = new AntlersElementType("PHP_ECHO_NODE");
   IElementType PHP_RAW_NODE = new AntlersElementType("PHP_RAW_NODE");
   IElementType POW_EXPR = new AntlersElementType("POW_EXPR");
+  IElementType SPACESHIP_EXPR = new AntlersElementType("SPACESHIP_EXPR");
   IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
   IElementType SUB_EXPR = new AntlersElementType("SUB_EXPR");
   IElementType SUB_EXPRESSION = new AntlersElementType("SUB_EXPRESSION");
@@ -53,10 +64,20 @@ public interface AntlersTypes {
   IElementType T_LEFT_BRACKET = new AntlersTokenType("[");
   IElementType T_LP = new AntlersTokenType("(");
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
+  IElementType T_OP_EQ = new AntlersTokenType("==");
   IElementType T_OP_EXCLAMATION_MARK = new AntlersTokenType("!");
+  IElementType T_OP_GATEKEEPER = new AntlersTokenType("?=");
+  IElementType T_OP_GT = new AntlersTokenType(">");
+  IElementType T_OP_GTE = new AntlersTokenType(">=");
+  IElementType T_OP_IDENT = new AntlersTokenType("===");
+  IElementType T_OP_LT = new AntlersTokenType("<");
+  IElementType T_OP_LTE = new AntlersTokenType("<=");
   IElementType T_OP_MINUS = new AntlersTokenType("-");
   IElementType T_OP_MOD = new AntlersTokenType("%");
   IElementType T_OP_MUL = new AntlersTokenType("*");
+  IElementType T_OP_NEQ = new AntlersTokenType("!=");
+  IElementType T_OP_NOT_IDENT = new AntlersTokenType("!==");
+  IElementType T_OP_NULL_COALESCENCE = new AntlersTokenType("??");
   IElementType T_OP_PLUS = new AntlersTokenType("+");
   IElementType T_OP_POW = new AntlersTokenType("**");
   IElementType T_OP_QUESTIONMARK = new AntlersTokenType("?");
@@ -65,6 +86,7 @@ public interface AntlersTypes {
   IElementType T_OP_SELF_ASSIGN_MOD = new AntlersTokenType("%=");
   IElementType T_OP_SELF_ASSIGN_MUL = new AntlersTokenType("*=");
   IElementType T_OP_SELF_ASSIGN_SUB = new AntlersTokenType("-=");
+  IElementType T_OP_SPACESHIP = new AntlersTokenType("<=>");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
   IElementType T_PHP_ECHO_CLOSE = new AntlersTokenType("$}}");
   IElementType T_PHP_ECHO_OPEN = new AntlersTokenType("{{$");
@@ -113,17 +135,47 @@ public interface AntlersTypes {
       else if (type == DOT_PROPERTY_ACCESS) {
         return new AntlersDotPropertyAccessImpl(node);
       }
+      else if (type == EQ_EXPR) {
+        return new AntlersEqExprImpl(node);
+      }
+      else if (type == GATEKEEPER_EXPR) {
+        return new AntlersGatekeeperExprImpl(node);
+      }
+      else if (type == GTE_EXPR) {
+        return new AntlersGteExprImpl(node);
+      }
+      else if (type == GT_EXPR) {
+        return new AntlersGtExprImpl(node);
+      }
+      else if (type == IDENT_EXPR) {
+        return new AntlersIdentExprImpl(node);
+      }
       else if (type == INTERPOLATED_STATEMENT) {
         return new AntlersInterpolatedStatementImpl(node);
       }
       else if (type == LITERAL_EXPR) {
         return new AntlersLiteralExprImpl(node);
       }
+      else if (type == LTE_EXPR) {
+        return new AntlersLteExprImpl(node);
+      }
+      else if (type == LT_EXPR) {
+        return new AntlersLtExprImpl(node);
+      }
       else if (type == MOD_EXPR) {
         return new AntlersModExprImpl(node);
       }
       else if (type == MUL_EXPR) {
         return new AntlersMulExprImpl(node);
+      }
+      else if (type == NEQ_EXPR) {
+        return new AntlersNeqExprImpl(node);
+      }
+      else if (type == NOT_IDENT_EXPR) {
+        return new AntlersNotIdentExprImpl(node);
+      }
+      else if (type == NULL_COALESCING_EXPR) {
+        return new AntlersNullCoalescingExprImpl(node);
       }
       else if (type == NUMBER_LITERAL) {
         return new AntlersNumberLiteralImpl(node);
@@ -136,6 +188,9 @@ public interface AntlersTypes {
       }
       else if (type == POW_EXPR) {
         return new AntlersPowExprImpl(node);
+      }
+      else if (type == SPACESHIP_EXPR) {
+        return new AntlersSpaceshipExprImpl(node);
       }
       else if (type == STRING_LITERAL) {
         return new AntlersStringLiteralImpl(node);

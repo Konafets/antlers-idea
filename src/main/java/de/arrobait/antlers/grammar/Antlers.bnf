@@ -55,6 +55,18 @@
         T_OP_SELF_ASSIGN_DIV='/='
         T_OP_SELF_ASSIGN_MOD='%='
 
+        T_OP_EQ='=='
+        T_OP_NEQ='!='
+        T_OP_IDENT='==='
+        T_OP_NOT_IDENT='!=='
+        T_OP_LT='<'
+        T_OP_LTE='<='
+        T_OP_GT='>'
+        T_OP_GTE='>='
+        T_OP_SPACESHIP='<=>'
+        T_OP_NULL_COALESCENCE='??'
+        T_OP_GATEKEEPER='?='
+
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
         T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
     ]
@@ -101,7 +113,18 @@ expr ::= interpolated_statement
        | group_primary
        | tenary_expr
 
-private group_comp    ::= tenary_expr
+private group_comp ::= eq_expr
+                     | neq_expr
+                     | ident_expr
+                     | not_ident_expr
+                     | lt_expr
+                     | lte_expr
+                     | gt_expr
+                     | gte_expr
+                     | spaceship_expr
+                     | null_coalescing_expr
+                     | gatekeeper_expr
+                     | tenary_expr
 private group_mul     ::= mul_expr | div_expr | mod_expr
 private group_add     ::= add_expr | sub_expr
 private group_unary   ::= unary_minus_expr | unary_not_expr | unary_factorial_expr
@@ -135,6 +158,17 @@ array ::= '[' array_value (',' array_value*)* ']'
 private array_value ::= (string_literal | number_literal | array)
 
 // Comparison
+eq_expr              ::= expr '==' expr
+neq_expr             ::= expr '!=' expr
+ident_expr           ::= expr '===' expr
+not_ident_expr       ::= expr '!==' expr
+lt_expr              ::= expr '<' expr
+lte_expr             ::= expr '<=' expr
+gt_expr              ::= expr '>' expr
+gte_expr             ::= expr '>=' expr
+null_coalescing_expr ::= expr '??' expr
+gatekeeper_expr      ::= expr '?=' expr
+spaceship_expr       ::= expr '<=>' expr
 tenary_expr ::= expr '?' expr ':' expr
 
 // Math

@@ -64,7 +64,18 @@ public class AntlersTokenSets {
                 AntlersTypes.T_OP_SELF_ASSIGN_SUB,
                 AntlersTypes.T_OP_SELF_ASSIGN_MUL,
                 AntlersTypes.T_OP_SELF_ASSIGN_DIV,
-                AntlersTypes.T_OP_SELF_ASSIGN_MOD
+                AntlersTypes.T_OP_SELF_ASSIGN_MOD,
+                AntlersTypes.T_OP_EQ,
+                AntlersTypes.T_OP_NEQ,
+                AntlersTypes.T_OP_IDENT,
+                AntlersTypes.T_OP_NOT_IDENT,
+                AntlersTypes.T_OP_LT,
+                AntlersTypes.T_OP_LTE,
+                AntlersTypes.T_OP_GT,
+                AntlersTypes.T_OP_GTE,
+                AntlersTypes.T_OP_SPACESHIP,
+                AntlersTypes.T_OP_NULL_COALESCENCE,
+                AntlersTypes.T_OP_GATEKEEPER
                 );
         PARENTHESES = TokenSet.create(
                 AntlersTypes.T_LP,

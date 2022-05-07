@@ -47,8 +47,28 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitEqExpr(@NotNull AntlersEqExpr o) {
+    visitExpr(o);
+  }
+
   public void visitExpr(@NotNull AntlersExpr o) {
     visitPsiElement(o);
+  }
+
+  public void visitGatekeeperExpr(@NotNull AntlersGatekeeperExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitGtExpr(@NotNull AntlersGtExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitGteExpr(@NotNull AntlersGteExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitIdentExpr(@NotNull AntlersIdentExpr o) {
+    visitExpr(o);
   }
 
   public void visitInterpolatedStatement(@NotNull AntlersInterpolatedStatement o) {
@@ -59,11 +79,31 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitLtExpr(@NotNull AntlersLtExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitLteExpr(@NotNull AntlersLteExpr o) {
+    visitExpr(o);
+  }
+
   public void visitModExpr(@NotNull AntlersModExpr o) {
     visitExpr(o);
   }
 
   public void visitMulExpr(@NotNull AntlersMulExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitNeqExpr(@NotNull AntlersNeqExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitNotIdentExpr(@NotNull AntlersNotIdentExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitNullCoalescingExpr(@NotNull AntlersNullCoalescingExpr o) {
     visitExpr(o);
   }
 
@@ -80,6 +120,10 @@ public class AntlersVisitor extends PsiElementVisitor {
   }
 
   public void visitPowExpr(@NotNull AntlersPowExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitSpaceshipExpr(@NotNull AntlersSpaceshipExpr o) {
     visitExpr(o);
   }
 

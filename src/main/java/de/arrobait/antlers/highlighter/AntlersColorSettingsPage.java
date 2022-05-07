@@ -98,6 +98,34 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 NL +
                 "{{# Comparison #}}" + NL +
                 "{{ is_sold ? \"sold\" : (on_sale ? \"on sale\" : \"for sale\") }}" + NL +
+                "{{ the_answer == 10 }}" + NL +
+                "{{ 20 == 10 }}" + NL +
+                "{{ 20 == '10' }}" + NL +
+                "{{ 20 == \"10\" }}" + NL +
+                "{{ the_answer != 10 }}" + NL +
+                "{{ $the_answer != 10 }}" + NL +
+                "{{ 20 != 10 }}" + NL +
+                "{{ the_answer === 10 }}" + NL +
+                "{{ $the_answer === 10 }}" + NL +
+                "{{ 20 === 10 }}" + NL +
+                "{{ the_answer !== 10 }}" + NL +
+                "{{ $the_answer !== 10 }}" + NL +
+                "{{ 20 !== 10 }}" + NL +
+                "{{ the_answer > 10 }}" + NL +
+                "{{ 20 > 10 }}" + NL +
+                "{{ the_answer >= 10 }}" + NL +
+                "{{ 20 >= 10 }}" + NL +
+                "{{ the_answer < 10 }}" + NL +
+                "{{ 20 < 10 }}" + NL +
+                "{{ the_answer <= 10 }}" + NL +
+                "{{ 20 <= 10 }}" + NL +
+                "{{ foo <=> bar }}" + NL +
+                "{{ $foo <=> bar }}" + NL +
+                "{{ 20 <=> 10 }}" + NL +
+                "{{ $foo <=> 10 }}" + NL +
+                "{{ foo <=> 10 }}" + NL +
+                "{{ meta_title ?? title ?? \"Someone Forgot the Title\" }}" + NL +
+                "{{ show_bio ?= author:bio }}" + NL +
                 NL;
     }
 
