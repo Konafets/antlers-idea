@@ -79,7 +79,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !('{{' | outer_content | '{{#' | '{{?' | '{{$' | '{')
+  // !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '{')
   static boolean antlers_node_recover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "antlers_node_recover")) return false;
     boolean r;
@@ -89,7 +89,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // '{{' | outer_content | '{{#' | '{{?' | '{{$' | '{'
+  // '{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '{'
   private static boolean antlers_node_recover_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "antlers_node_recover_0")) return false;
     boolean r;
@@ -98,6 +98,13 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_COMMENT_OPEN);
     if (!r) r = consumeToken(b, T_PHP_RAW_OPEN);
     if (!r) r = consumeToken(b, T_PHP_ECHO_OPEN);
+    if (!r) r = consumeToken(b, T_IF);
+    if (!r) r = consumeToken(b, T_ELSE);
+    if (!r) r = consumeToken(b, T_ELSE_IF);
+    if (!r) r = consumeToken(b, T_END_IF);
+    if (!r) r = consumeToken(b, T_UNLESS);
+    if (!r) r = consumeToken(b, T_END_UNLESS);
+    if (!r) r = consumeToken(b, T_SLASH);
     if (!r) r = consumeToken(b, T_LEFT_BRACE);
     return r;
   }
@@ -296,6 +303,178 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end
+  public static boolean conditional(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _COLLAPSE_, CONDITIONAL, null);
+    r = conditional_start(b, l + 1);
+    p = r; // pin = 1
+    r = r && report_error_(b, conditional_1(b, l + 1));
+    r = p && report_error_(b, conditional_2(b, l + 1)) && r;
+    r = p && report_error_(b, conditional_3(b, l + 1)) && r;
+    r = p && conditional_end(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // nodes*
+  private static boolean conditional_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!nodes(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_1", c)) break;
+    }
+    return true;
+  }
+
+  // (conditional_elseif nodes*)*
+  private static boolean conditional_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!conditional_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_2", c)) break;
+    }
+    return true;
+  }
+
+  // conditional_elseif nodes*
+  private static boolean conditional_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = conditional_elseif(b, l + 1);
+    r = r && conditional_2_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // nodes*
+  private static boolean conditional_2_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_2_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!nodes(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_2_0_1", c)) break;
+    }
+    return true;
+  }
+
+  // (conditional_else nodes*)?
+  private static boolean conditional_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_3")) return false;
+    conditional_3_0(b, l + 1);
+    return true;
+  }
+
+  // conditional_else nodes*
+  private static boolean conditional_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = conditional_else(b, l + 1);
+    r = r && conditional_3_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // nodes*
+  private static boolean conditional_3_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_3_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!nodes(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_3_0_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // '{{' 'else' '}}'
+  public static boolean conditional_else(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_else")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, CONDITIONAL_ELSE, null);
+    r = consumeTokens(b, 2, T_LD, T_ELSE, T_RD);
+    p = r; // pin = 2
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // '{{' 'elseif' expr '}}'
+  public static boolean conditional_elseif(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_elseif")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, CONDITIONAL_ELSEIF, null);
+    r = consumeTokens(b, 2, T_LD, T_ELSE_IF);
+    p = r; // pin = 2
+    r = r && report_error_(b, expr(b, l + 1, -1));
+    r = p && consumeToken(b, T_RD) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // slash_unless_if | endunless_endif
+  public static boolean conditional_end(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_end")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = slash_unless_if(b, l + 1);
+    if (!r) r = endunless_endif(b, l + 1);
+    exit_section_(b, m, CONDITIONAL_END, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '{{' 'if' expr '}}'
+  public static boolean conditional_if(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_if")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, CONDITIONAL_IF, null);
+    r = consumeTokens(b, 2, T_LD, T_IF);
+    p = r; // pin = 2
+    r = r && report_error_(b, expr(b, l + 1, -1));
+    r = p && consumeToken(b, T_RD) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // conditional_if | conditional_unless
+  static boolean conditional_start(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_start")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r;
+    r = conditional_if(b, l + 1);
+    if (!r) r = conditional_unless(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '{{' 'unless' expr '}}'
+  public static boolean conditional_unless(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_unless")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, CONDITIONAL_UNLESS, null);
+    r = consumeTokens(b, 2, T_LD, T_UNLESS);
+    p = r; // pin = 2
+    r = r && report_error_(b, expr(b, l + 1, -1));
+    r = p && consumeToken(b, T_RD) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
   // '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
   public static boolean dot_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dot_property_access")) return false;
@@ -319,7 +498,32 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // variable_assignment_node
+  // '{{' ('endunless' | 'endif') '}}'
+  static boolean endunless_endif(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "endunless_endif")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_);
+    r = consumeToken(b, T_LD);
+    r = r && endunless_endif_1(b, l + 1);
+    p = r; // pin = 2
+    r = r && consumeToken(b, T_RD);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // 'endunless' | 'endif'
+  private static boolean endunless_endif_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "endunless_endif_1")) return false;
+    boolean r;
+    r = consumeToken(b, T_END_UNLESS);
+    if (!r) r = consumeToken(b, T_END_IF);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // conditional
+  //                 | variable_assignment_node
   //                 | antlers_node
   //                 | comment_block
   //                 | php_node
@@ -328,7 +532,8 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "nodes")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = variable_assignment_node(b, l + 1);
+    r = conditional(b, l + 1);
+    if (!r) r = variable_assignment_node(b, l + 1);
     if (!r) r = antlers_node(b, l + 1);
     if (!r) r = comment_block(b, l + 1);
     if (!r) r = php_node(b, l + 1);
@@ -427,6 +632,30 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = bracket_property_access(b, l + 1);
     if (!r) r = dot_property_access(b, l + 1);
     if (!r) r = colon_property_access(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '{{' (T_END_UNLESS | T_END_IF) '}}'
+  static boolean slash_unless_if(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "slash_unless_if")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_);
+    r = consumeToken(b, T_LD);
+    r = r && slash_unless_if_1(b, l + 1);
+    p = r; // pin = 2
+    r = r && consumeToken(b, T_RD);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // T_END_UNLESS | T_END_IF
+  private static boolean slash_unless_if_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "slash_unless_if_1")) return false;
+    boolean r;
+    r = consumeToken(b, T_END_UNLESS);
+    if (!r) r = consumeToken(b, T_END_IF);
     return r;
   }
 

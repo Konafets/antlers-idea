@@ -59,6 +59,10 @@ public class AntlersParsingTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testParseControlStructures() {
+        doTest(true);
+    }
+
     @Override
     protected String getTestDataPath() {
         return "src/test/testData";

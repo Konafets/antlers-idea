@@ -43,6 +43,30 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitConditional(@NotNull AntlersConditional o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConditionalElse(@NotNull AntlersConditionalElse o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConditionalElseif(@NotNull AntlersConditionalElseif o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConditionalEnd(@NotNull AntlersConditionalEnd o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConditionalIf(@NotNull AntlersConditionalIf o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConditionalUnless(@NotNull AntlersConditionalUnless o) {
+    visitPsiElement(o);
+  }
+
   public void visitDivExpr(@NotNull AntlersDivExpr o) {
     visitExpr(o);
   }

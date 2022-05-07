@@ -10,6 +10,7 @@ public class AntlersTokenSets {
     public static final TokenSet COMMA;
     public static final TokenSet COMMENTS;
     public static final TokenSet IDENTIFIER;
+    public static final TokenSet KEYWORDS;
     public static final TokenSet NUMBERS;
     public static final TokenSet OPERATORS;
     public static final TokenSet PARENTHESES;
@@ -43,6 +44,14 @@ public class AntlersTokenSets {
         );
         IDENTIFIER = TokenSet.create(
                 AntlersTypes.T_IDENTIFIER
+        );
+        KEYWORDS = TokenSet.create(
+                AntlersTypes.T_IF,
+                AntlersTypes.T_END_IF,
+                AntlersTypes.T_ELSE_IF,
+                AntlersTypes.T_ELSE,
+                AntlersTypes.T_UNLESS,
+                AntlersTypes.T_END_UNLESS
         );
         NUMBERS = TokenSet.create(
                 AntlersTypes.T_INTEGER_NUMBER,

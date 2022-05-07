@@ -1,0 +1,60 @@
+{{ if true }}
+    Foo
+{{ /if }}
+{{ if logged_out }}
+    Foo
+{{ /if }}
+{{ if songs == 1 }}
+    Foo
+{{ /if }}
+{{ if songs != 1 }}
+    Foo
+{{ /if }}
+{{ if songs === 1 }}
+    Foo
+{{ /if }}
+{{ if songs !== 1 }}
+    Foo
+{{ /if }}
+{{ if songs > 100 }}
+    Foo
+{{ /if }}
+{{ if songs >= 100 }}
+    Foo
+{{ /if }}
+{{ if songs < 100 }}
+    Foo
+{{ /if }}
+{{ if songs <= 100 }}
+    Foo
+{{ /if }}
+{{ if {1} >= 100 }}
+    Foo
+{{ /if }}
+{{ if false }}
+    {{# Foo #}}
+{{ /if }}
+{{ if false }}
+    {{# Foo #}}
+{{ endif }}
+
+{{ if songs === 1 }}
+  <p>This is a song!</p>
+{{ elseif songs > 100 }}
+  <p>This is noisy!</p>
+{{ elseif songs }}
+  <p>There are some songs here.</p>
+{{ else }}
+  <p>It is quiet.</p>
+{{ /if }}
+
+{{ if {1} >= 100 }}{{ /if }}
+
+{{ unless true }}
+    Foo
+{{ /unless }}
+{{ unless logged_out }}
+    Foo
+{{ endunless }}
+
+{{ unless {1} >= 100 }}{{ /unless }}

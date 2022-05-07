@@ -33,6 +33,7 @@ public class AntlersSyntaxHighlighter extends SyntaxHighlighterBase {
         fillMap(ATTRIBUTES, AntlersTokenSets.COMMA, AntlersHighlighter.COMMA);
         fillMap(ATTRIBUTES, AntlersTokenSets.COMMENTS, AntlersHighlighter.COMMENT);
         fillMap(ATTRIBUTES, AntlersTokenSets.IDENTIFIER, AntlersHighlighter.IDENTIFIER);
+        fillMap(ATTRIBUTES, AntlersTokenSets.KEYWORDS, AntlersHighlighter.KEYWORD);
         fillMap(ATTRIBUTES, AntlersTokenSets.NUMBERS, AntlersHighlighter.NUMBER);
         fillMap(ATTRIBUTES, AntlersTokenSets.OPERATORS, AntlersHighlighter.OPERATOR);
         fillMap(ATTRIBUTES, AntlersTokenSets.PARENTHESES, AntlersHighlighter.PARENTHESES);

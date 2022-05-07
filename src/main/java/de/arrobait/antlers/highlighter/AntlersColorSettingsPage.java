@@ -114,6 +114,13 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ 10 || 20 }}" + NL +
                 "{{ 10 or 20 }}" + NL +
                 "{{ foo xor 20 }}" + NL +
+                NL +
+                "{{# Control structures #}}" + NL +
+                "{{ if something }}" + NL +
+                "  {{ string += \" World\"}}" + NL +
+                "{{ else }}" + NL +
+                "  {{ string += \" Universe\" }}" + NL +
+                "{{ /if }}" + NL +
                 NL;
     }
 
@@ -148,6 +155,7 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 new AttributesDescriptor("Comma", AntlersHighlighter.COMMA),
                 new AttributesDescriptor("Comment", AntlersHighlighter.COMMENT),
                 new AttributesDescriptor("Identifier", AntlersHighlighter.IDENTIFIER),
+                new AttributesDescriptor("Keywords", AntlersHighlighter.KEYWORD),
                 new AttributesDescriptor("Number", AntlersHighlighter.NUMBER),
                 new AttributesDescriptor("Operator", AntlersHighlighter.OPERATOR),
                 new AttributesDescriptor("Parentheses", AntlersHighlighter.PARENTHESES),

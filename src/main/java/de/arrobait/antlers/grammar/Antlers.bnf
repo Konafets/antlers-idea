@@ -71,6 +71,14 @@
         T_OP_OR='regexp:\|\||or'
         T_OP_XOR='xor'
 
+        T_IF='if'
+        T_END_IF='endif'
+        T_ELSE_IF='elseif'
+        T_ELSE='else'
+        T_IF_END='/if'
+        T_UNLESS='unless'
+        T_END_UNLESS='endunless'
+
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
         T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
     ]
@@ -81,7 +89,8 @@
 }
 
 antlersFile ::= nodes*
-private nodes ::= variable_assignment_node
+private nodes ::= conditional
+                | variable_assignment_node
                 | antlers_node
                 | comment_block
                 | php_node
@@ -102,9 +111,19 @@ antlers_node ::= '{{' antlers_expression_or_statement  '}}' {
     pin=2
     recoverWhile=antlers_node_recover
 }
-private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$' | '{')
+private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '{')
 
 private antlers_expression_or_statement ::= expr
+
+conditional               ::= conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end { pin=1 }
+private conditional_start ::= (conditional_if | conditional_unless)
+conditional_end           ::= (slash_unless_if | endunless_endif)
+conditional_if            ::= '{{' 'if' expr '}}' { pin=2 }
+conditional_unless        ::= '{{' 'unless' expr '}}' { pin=2 }
+conditional_elseif        ::= '{{' 'elseif' expr '}}' { pin=2 }
+conditional_else          ::= '{{' 'else' '}}' { pin=2 }
+private slash_unless_if   ::= '{{' (T_END_UNLESS | T_END_IF) '}}' { pin=2 }
+private endunless_endif   ::= '{{' ('endunless' | 'endif') '}}' { pin=2 }
 
 // Expressions
 expr ::= interpolated_statement
@@ -135,33 +154,6 @@ private group_mul     ::= mul_expr | div_expr | mod_expr
 private group_add     ::= add_expr | sub_expr
 private group_unary   ::= unary_minus_expr | unary_not_expr | unary_factorial_expr
 private group_primary ::= literal_expr | sub_expression
-
-// Variable
-variable ::= T_IDENTIFIER [property_access*]
-private property_access ::= bracket_property_access | dot_property_access | colon_property_access
-bracket_property_access ::= '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal) ']'
-dot_property_access     ::= '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
-colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
-
-//private property_access_keys ::= T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
-
-// {{ total = 0 }}
-// {{ todo = ['Get haircut', 'Bake bread', 'Eat soup'] }}
-variable_assignment_node ::= '{{' variable '=' assignable_items '}}' { pin=3 }
-private assignable_items ::= boolean_literal
-                           | number_literal
-                           | string_literal
-                           | array
-                           | interpolated_statement
-                           | sub_expression
-
-// Array
-// ['Get haircut']
-// ['Get haircut',]
-// ['Get haircut', 'Bake bread', 'Eat soup']
-// ['Get haircut', 'Bake bread', 'Eat soup', ['another', 'array']]
-array ::= '[' array_value (',' array_value*)* ']'
-private array_value ::= (string_literal | number_literal | array)
 
 // Boolean
 and_expr    ::= expr ('&&' | 'and') expr
@@ -201,6 +193,33 @@ concat_expr ::= string_literal '+' string_literal
 unary_minus_expr     ::= '-' expr
 unary_not_expr       ::= '!' expr
 unary_factorial_expr ::= expr '!'
+
+// Variable
+variable ::= T_IDENTIFIER [property_access*]
+private property_access ::= bracket_property_access | dot_property_access | colon_property_access
+bracket_property_access ::= '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal) ']'
+dot_property_access     ::= '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+
+//private property_access_keys ::= T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
+
+// {{ total = 0 }}
+// {{ todo = ['Get haircut', 'Bake bread', 'Eat soup'] }}
+variable_assignment_node ::= '{{' variable '=' assignable_items '}}' { pin=3 }
+private assignable_items ::= boolean_literal
+                           | number_literal
+                           | string_literal
+                           | array
+                           | interpolated_statement
+                           | sub_expression
+
+// Array
+// ['Get haircut']
+// ['Get haircut',]
+// ['Get haircut', 'Bake bread', 'Eat soup']
+// ['Get haircut', 'Bake bread', 'Eat soup', ['another', 'array']]
+array ::= '[' array_value (',' array_value*)* ']'
+private array_value ::= (string_literal | number_literal | array)
 
 // Basic
 interpolated_statement ::= '{' (antlers_expression_or_statement | expr) '}' { pin=1 }

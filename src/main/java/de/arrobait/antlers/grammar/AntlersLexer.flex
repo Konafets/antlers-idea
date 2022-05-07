@@ -61,6 +61,9 @@ IDENTIFIER_DOT={IDENTIFIER} "."
 IDENTIFIER_COLON={IDENTIFIER} ":"
 IDENTIFIER_BRACKET={IDENTIFIER} "["
 
+UNLESS="unless"
+IF="if"
+
 INTEGER_NUMBER=0|[1-9]\d*
 FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
@@ -92,6 +95,16 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 <ANTLERS_NODE> {
     {RD}                 { popState(); return T_RD; }
     {WHITE_SPACE}        { return WHITE_SPACE; }
+
+    // Control
+    {IF}                        { return T_IF; }
+    "elseif"                    { return T_ELSE_IF; }
+    "else"                      { return T_ELSE; }
+    "endif"                     { return T_END_IF; }
+    {SLASH} {IF}                { return T_END_IF; }
+    "unless"                    { return T_UNLESS; }
+    "endunless"                 { return T_END_UNLESS; }
+    {SLASH} {UNLESS}            { return T_END_UNLESS; }
 
     // Boolean
     "true"               { return T_TRUE; }

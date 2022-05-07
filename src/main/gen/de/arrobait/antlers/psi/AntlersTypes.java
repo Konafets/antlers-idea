@@ -17,6 +17,12 @@ public interface AntlersTypes {
   IElementType COLON_PROPERTY_ACCESS = new AntlersElementType("COLON_PROPERTY_ACCESS");
   IElementType COMMENT_BLOCK = new AntlersElementType("COMMENT_BLOCK");
   IElementType CONCAT_EXPR = new AntlersElementType("CONCAT_EXPR");
+  IElementType CONDITIONAL = new AntlersElementType("CONDITIONAL");
+  IElementType CONDITIONAL_ELSE = new AntlersElementType("CONDITIONAL_ELSE");
+  IElementType CONDITIONAL_ELSEIF = new AntlersElementType("CONDITIONAL_ELSEIF");
+  IElementType CONDITIONAL_END = new AntlersElementType("CONDITIONAL_END");
+  IElementType CONDITIONAL_IF = new AntlersElementType("CONDITIONAL_IF");
+  IElementType CONDITIONAL_UNLESS = new AntlersElementType("CONDITIONAL_UNLESS");
   IElementType DIV_EXPR = new AntlersElementType("DIV_EXPR");
   IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
   IElementType EQ_EXPR = new AntlersElementType("EQ_EXPR");
@@ -58,9 +64,15 @@ public interface AntlersTypes {
   IElementType T_COMMENT_OPEN = new AntlersTokenType("{{#");
   IElementType T_COMMENT_TEXT = new AntlersTokenType("T_COMMENT_TEXT");
   IElementType T_DOT = new AntlersTokenType(".");
+  IElementType T_ELSE = new AntlersTokenType("else");
+  IElementType T_ELSE_IF = new AntlersTokenType("elseif");
+  IElementType T_END_IF = new AntlersTokenType("endif");
+  IElementType T_END_UNLESS = new AntlersTokenType("endunless");
   IElementType T_FALSE = new AntlersTokenType("false");
   IElementType T_FLOAT_NUMBER = new AntlersTokenType("T_FLOAT_NUMBER");
   IElementType T_IDENTIFIER = new AntlersTokenType("T_IDENTIFIER");
+  IElementType T_IF = new AntlersTokenType("if");
+  IElementType T_IF_END = new AntlersTokenType("/if");
   IElementType T_INTEGER_NUMBER = new AntlersTokenType("T_INTEGER_NUMBER");
   IElementType T_LD = new AntlersTokenType("{{");
   IElementType T_LEFT_BRACE = new AntlersTokenType("{");
@@ -107,6 +119,7 @@ public interface AntlersTypes {
   IElementType T_STRING_END = new AntlersTokenType("T_STRING_END");
   IElementType T_STRING_START = new AntlersTokenType("T_STRING_START");
   IElementType T_TRUE = new AntlersTokenType("true");
+  IElementType T_UNLESS = new AntlersTokenType("unless");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -137,6 +150,24 @@ public interface AntlersTypes {
       }
       else if (type == CONCAT_EXPR) {
         return new AntlersConcatExprImpl(node);
+      }
+      else if (type == CONDITIONAL) {
+        return new AntlersConditionalImpl(node);
+      }
+      else if (type == CONDITIONAL_ELSE) {
+        return new AntlersConditionalElseImpl(node);
+      }
+      else if (type == CONDITIONAL_ELSEIF) {
+        return new AntlersConditionalElseifImpl(node);
+      }
+      else if (type == CONDITIONAL_END) {
+        return new AntlersConditionalEndImpl(node);
+      }
+      else if (type == CONDITIONAL_IF) {
+        return new AntlersConditionalIfImpl(node);
+      }
+      else if (type == CONDITIONAL_UNLESS) {
+        return new AntlersConditionalUnlessImpl(node);
       }
       else if (type == DIV_EXPR) {
         return new AntlersDivExprImpl(node);
