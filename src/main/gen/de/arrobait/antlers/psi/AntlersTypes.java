@@ -50,6 +50,9 @@ public interface AntlersTypes {
   IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
   IElementType SUB_EXPR = new AntlersElementType("SUB_EXPR");
   IElementType SUB_EXPRESSION = new AntlersElementType("SUB_EXPRESSION");
+  IElementType SWITCH_CASE = new AntlersElementType("SWITCH_CASE");
+  IElementType SWITCH_NODE = new AntlersElementType("SWITCH_NODE");
+  IElementType SWITCH_TAG = new AntlersElementType("SWITCH_TAG");
   IElementType TENARY_EXPR = new AntlersElementType("TENARY_EXPR");
   IElementType UNARY_FACTORIAL_EXPR = new AntlersElementType("UNARY_FACTORIAL_EXPR");
   IElementType UNARY_MINUS_EXPR = new AntlersElementType("UNARY_MINUS_EXPR");
@@ -80,6 +83,7 @@ public interface AntlersTypes {
   IElementType T_LEFT_BRACKET = new AntlersTokenType("[");
   IElementType T_LP = new AntlersTokenType("(");
   IElementType T_OP_AND = new AntlersTokenType("T_OP_AND");
+  IElementType T_OP_ARROW = new AntlersTokenType("=>");
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
   IElementType T_OP_EQ = new AntlersTokenType("==");
   IElementType T_OP_EXCLAMATION_MARK = new AntlersTokenType("!");
@@ -119,6 +123,7 @@ public interface AntlersTypes {
   IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
   IElementType T_STRING_END = new AntlersTokenType("T_STRING_END");
   IElementType T_STRING_START = new AntlersTokenType("T_STRING_START");
+  IElementType T_SWITCH = new AntlersTokenType("switch");
   IElementType T_TRUE = new AntlersTokenType("true");
   IElementType T_UNLESS = new AntlersTokenType("unless");
 
@@ -247,6 +252,15 @@ public interface AntlersTypes {
       }
       else if (type == SUB_EXPRESSION) {
         return new AntlersSubExpressionImpl(node);
+      }
+      else if (type == SWITCH_CASE) {
+        return new AntlersSwitchCaseImpl(node);
+      }
+      else if (type == SWITCH_NODE) {
+        return new AntlersSwitchNodeImpl(node);
+      }
+      else if (type == SWITCH_TAG) {
+        return new AntlersSwitchTagImpl(node);
       }
       else if (type == TENARY_EXPR) {
         return new AntlersTenaryExprImpl(node);

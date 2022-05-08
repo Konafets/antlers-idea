@@ -105,6 +105,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "unless"                    { return T_UNLESS; }
     "endunless"                 { return T_END_UNLESS; }
     {SLASH} {UNLESS}            { return T_END_UNLESS; }
+    "switch"                    { return T_SWITCH; }
 
     // Boolean
     "true"               { return T_TRUE; }
@@ -131,6 +132,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
     ","                  { return T_COMMA; }
     ":"                  { return T_COLON; }
+    "=>"                 { return T_OP_ARROW; }
 
     // Math
     "+"                  { return T_OP_PLUS; }

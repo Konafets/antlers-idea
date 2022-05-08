@@ -121,6 +121,16 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ else }}" + NL +
                 "  {{ string += \" Universe\" }}" + NL +
                 "{{ /if }}" + NL +
+                NL +
+                "{{# Switch #}}" + NL +
+                "{{ switch(" + NL +
+                "        (size == 'sm') => '(min-width: 768px) 35vw, 90vw'," + NL +
+                "        (size == 'md') => '(min-width: 768px) 55vw, 90vw'," + NL +
+                "        (size == 'lg') => '(min-width: 768px) 75vw, 90vw'," + NL +
+                "        (size == 'xl') => '90vw'" + NL +
+               "         () => '100vw'" + NL +
+               "     )" + NL +
+               " }}" + NL +
                 NL;
     }
 

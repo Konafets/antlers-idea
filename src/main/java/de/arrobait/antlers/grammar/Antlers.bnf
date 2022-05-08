@@ -79,6 +79,9 @@
         T_UNLESS='unless'
         T_END_UNLESS='endunless'
 
+        T_SWITCH='switch'
+        T_OP_ARROW='=>'
+
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
         T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
     ]
@@ -91,6 +94,7 @@
 antlersFile ::= nodes*
 private nodes ::= conditional
                 | antlers_close_node
+                | switch_node
                 | variable_assignment_node
                 | antlers_node
                 | comment_block
@@ -126,6 +130,10 @@ conditional_elseif        ::= '{{' 'elseif' expr '}}' { pin=2 }
 conditional_else          ::= '{{' 'else' '}}' { pin=2 }
 private slash_unless_if   ::= '{{' (T_END_UNLESS | T_END_IF) '}}' { pin=2 }
 private endunless_endif   ::= '{{' ('endunless' | 'endif') '}}' { pin=2 }
+
+switch_node ::= '{{' switch_tag '}}' { pin=2 }
+switch_tag  ::= 'switch' '(' switch_case+ ')'
+switch_case ::= '(' group_comp? ')' '=>' string_literal ','? { pin=4 }
 
 // Expressions
 expr ::= interpolated_statement

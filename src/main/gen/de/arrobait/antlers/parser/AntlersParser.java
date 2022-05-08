@@ -549,6 +549,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   /* ********************************************************** */
   // conditional
   //                 | antlers_close_node
+  //                 | switch_node
   //                 | variable_assignment_node
   //                 | antlers_node
   //                 | comment_block
@@ -560,6 +561,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = conditional(b, l + 1);
     if (!r) r = antlers_close_node(b, l + 1);
+    if (!r) r = switch_node(b, l + 1);
     if (!r) r = variable_assignment_node(b, l + 1);
     if (!r) r = antlers_node(b, l + 1);
     if (!r) r = comment_block(b, l + 1);
@@ -709,6 +711,81 @@ public class AntlersParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "string_literal_1", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // '(' group_comp? ')' '=>' string_literal ','?
+  public static boolean switch_case(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_case")) return false;
+    if (!nextTokenIs(b, T_LP)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, SWITCH_CASE, null);
+    r = consumeToken(b, T_LP);
+    r = r && switch_case_1(b, l + 1);
+    r = r && consumeTokens(b, 2, T_RP, T_OP_ARROW);
+    p = r; // pin = 4
+    r = r && report_error_(b, string_literal(b, l + 1));
+    r = p && switch_case_5(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // group_comp?
+  private static boolean switch_case_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_case_1")) return false;
+    expr(b, l + 1, 1);
+    return true;
+  }
+
+  // ','?
+  private static boolean switch_case_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_case_5")) return false;
+    consumeToken(b, T_COMMA);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // '{{' switch_tag '}}'
+  public static boolean switch_node(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_node")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, SWITCH_NODE, null);
+    r = consumeToken(b, T_LD);
+    r = r && switch_tag(b, l + 1);
+    p = r; // pin = 2
+    r = r && consumeToken(b, T_RD);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // 'switch' '(' switch_case+ ')'
+  public static boolean switch_tag(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_tag")) return false;
+    if (!nextTokenIs(b, T_SWITCH)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_SWITCH, T_LP);
+    r = r && switch_tag_2(b, l + 1);
+    r = r && consumeToken(b, T_RP);
+    exit_section_(b, m, SWITCH_TAG, r);
+    return r;
+  }
+
+  // switch_case+
+  private static boolean switch_tag_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_tag_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = switch_case(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!switch_case(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "switch_tag_2", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */

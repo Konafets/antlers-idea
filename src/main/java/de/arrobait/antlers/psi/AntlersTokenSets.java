@@ -51,7 +51,8 @@ public class AntlersTokenSets {
                 AntlersTypes.T_ELSE_IF,
                 AntlersTypes.T_ELSE,
                 AntlersTypes.T_UNLESS,
-                AntlersTypes.T_END_UNLESS
+                AntlersTypes.T_END_UNLESS,
+                AntlersTypes.T_SWITCH
         );
         NUMBERS = TokenSet.create(
                 AntlersTypes.T_INTEGER_NUMBER,
@@ -87,7 +88,8 @@ public class AntlersTokenSets {
                 AntlersTypes.T_OP_GATEKEEPER,
                 AntlersTypes.T_OP_AND,
                 AntlersTypes.T_OP_OR,
-                AntlersTypes.T_OP_XOR
+                AntlersTypes.T_OP_XOR,
+                AntlersTypes.T_OP_ARROW
                 );
         PARENTHESES = TokenSet.create(
                 AntlersTypes.T_LP,

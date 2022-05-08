@@ -175,6 +175,18 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitSwitchCase(@NotNull AntlersSwitchCase o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSwitchNode(@NotNull AntlersSwitchNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSwitchTag(@NotNull AntlersSwitchTag o) {
+    visitPsiElement(o);
+  }
+
   public void visitTenaryExpr(@NotNull AntlersTenaryExpr o) {
     visitExpr(o);
   }
