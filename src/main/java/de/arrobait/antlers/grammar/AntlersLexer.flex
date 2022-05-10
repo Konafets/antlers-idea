@@ -85,6 +85,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
     {COMMENT_OPEN}       { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;}
 
+    "@"                  { return T_AT; }
+
     // Antlers node
     {LD}                 { pushState(ANTLERS_NODE); return T_LD; }
 
@@ -100,6 +102,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {RD}                 { popState(); return T_RD; }
     {WHITE_SPACE}        { return WHITE_SPACE; }
 
+    "@"                  { return T_AT; }
+
     // Control
     {IF}                 { return T_IF; }
     "elseif"             { return T_ELSE_IF; }
@@ -110,6 +114,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "endunless"          { return T_END_UNLESS; }
     {SLASH} {UNLESS}     { return T_END_UNLESS; }
     "switch"             { return T_SWITCH; }
+    "noparse"            { return T_NOPARSE;}
 
     // Boolean
     "true"               { return T_TRUE; }

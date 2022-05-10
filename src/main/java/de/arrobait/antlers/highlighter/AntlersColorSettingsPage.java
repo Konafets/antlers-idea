@@ -174,6 +174,7 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 new AttributesDescriptor("Operator", AntlersHighlighter.OPERATOR),
                 new AttributesDescriptor("Parentheses", AntlersHighlighter.PARENTHESES),
                 new AttributesDescriptor("String", AntlersHighlighter.STRING),
+                new AttributesDescriptor("Tags", AntlersHighlighter.TAG),
         };
 
         ourTags.put("outer_language", XmlHighlighterColors.HTML_TAG);

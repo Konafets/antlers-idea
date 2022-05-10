@@ -648,6 +648,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // conditional
   //                 | antlers_close_node
   //                 | switch_node
+  //                 | noparse_region
   //                 | variable_assignment_node
   //                 | antlers_node
   //                 | comment_block
@@ -660,6 +661,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = conditional(b, l + 1);
     if (!r) r = antlers_close_node(b, l + 1);
     if (!r) r = switch_node(b, l + 1);
+    if (!r) r = noparse_region(b, l + 1);
     if (!r) r = variable_assignment_node(b, l + 1);
     if (!r) r = antlers_node(b, l + 1);
     if (!r) r = comment_block(b, l + 1);
@@ -667,6 +669,70 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!r) r = outer_content(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // noparse_region_open nodes* noparse_region_close
+  public static boolean noparse_region(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "noparse_region")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, NOPARSE_REGION, null);
+    r = noparse_region_open(b, l + 1);
+    p = r; // pin = 1
+    r = r && report_error_(b, noparse_region_1(b, l + 1));
+    r = p && noparse_region_close(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // nodes*
+  private static boolean noparse_region_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "noparse_region_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!nodes(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "noparse_region_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // '{{' (T_SLASH 'noparse') '}}'
+  public static boolean noparse_region_close(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "noparse_region_close")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, NOPARSE_REGION_CLOSE, null);
+    r = consumeToken(b, T_LD);
+    r = r && noparse_region_close_1(b, l + 1);
+    p = r; // pin = 2
+    r = r && consumeToken(b, T_RD);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // T_SLASH 'noparse'
+  private static boolean noparse_region_close_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "noparse_region_close_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_SLASH, T_NOPARSE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '{{' 'noparse' '}}'
+  public static boolean noparse_region_open(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "noparse_region_open")) return false;
+    if (!nextTokenIs(b, T_LD)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, NOPARSE_REGION_OPEN, null);
+    r = consumeTokens(b, 2, T_LD, T_NOPARSE, T_RD);
+    p = r; // pin = 2
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */

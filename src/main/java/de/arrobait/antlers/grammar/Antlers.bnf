@@ -84,6 +84,9 @@
         T_SWITCH='switch'
         T_OP_ARROW='=>'
 
+        T_AT='@'
+        T_NOPARSE='noparse'
+
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
         T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
     ]
@@ -97,6 +100,7 @@ antlersFile ::= nodes*
 private nodes ::= conditional
                 | antlers_close_node
                 | switch_node
+                | noparse_region
                 | variable_assignment_node
                 | antlers_node
                 | comment_block
@@ -128,6 +132,13 @@ antlers_close_node ::= '{{' (T_SLASH T_IDENTIFIER) '}}' { pin=2 }
 modifier_list        ::= T_MODIFIER [modifier_params_list]
 modifier_params_list ::= '(' modifier_param (',' modifier_param)*  ')'
 modifier_param       ::= literal_expr | array
+
+// Tags
+
+// Special noparse tag
+noparse_region ::= noparse_region_open nodes* noparse_region_close { pin = 1 }
+noparse_region_open ::= '{{' 'noparse' '}}' { pin=2 }
+noparse_region_close ::= '{{' (T_SLASH 'noparse') '}}' { pin=2 }
 
 conditional               ::= conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end { pin=1 }
 private conditional_start ::= (conditional_if | conditional_unless)

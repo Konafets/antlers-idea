@@ -16,6 +16,7 @@ public class AntlersTokenSets {
     public static final TokenSet OPERATORS;
     public static final TokenSet PARENTHESES;
     public static final TokenSet STRINGS;
+    public static final TokenSet TAGS;
     public static final TokenSet WHITE_SPACE;
 
     private AntlersTokenSets() {}
@@ -103,6 +104,9 @@ public class AntlersTokenSets {
                 AntlersTypes.T_STRING_CONTENT,
                 AntlersTypes.T_STRING_START,
                 AntlersTypes.T_STRING_END
+        );
+        TAGS = TokenSet.create(
+                AntlersTypes.T_NOPARSE
         );
         WHITE_SPACE = TokenSet.create(
                 TokenType.WHITE_SPACE

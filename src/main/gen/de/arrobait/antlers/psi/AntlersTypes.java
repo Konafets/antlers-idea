@@ -42,6 +42,9 @@ public interface AntlersTypes {
   IElementType MOD_EXPR = new AntlersElementType("MOD_EXPR");
   IElementType MUL_EXPR = new AntlersElementType("MUL_EXPR");
   IElementType NEQ_EXPR = new AntlersElementType("NEQ_EXPR");
+  IElementType NOPARSE_REGION = new AntlersElementType("NOPARSE_REGION");
+  IElementType NOPARSE_REGION_CLOSE = new AntlersElementType("NOPARSE_REGION_CLOSE");
+  IElementType NOPARSE_REGION_OPEN = new AntlersElementType("NOPARSE_REGION_OPEN");
   IElementType NOT_IDENT_EXPR = new AntlersElementType("NOT_IDENT_EXPR");
   IElementType NULL_COALESCING_EXPR = new AntlersElementType("NULL_COALESCING_EXPR");
   IElementType NUMBER_LITERAL = new AntlersElementType("NUMBER_LITERAL");
@@ -65,6 +68,7 @@ public interface AntlersTypes {
   IElementType XOR_EXPR = new AntlersElementType("XOR_EXPR");
 
   IElementType OUTER_CONTENT = new AntlersTokenType("OUTER_CONTENT");
+  IElementType T_AT = new AntlersTokenType("@");
   IElementType T_COLON = new AntlersTokenType(":");
   IElementType T_COMMA = new AntlersTokenType(",");
   IElementType T_COMMENT_CLOSE = new AntlersTokenType("#}}");
@@ -86,6 +90,7 @@ public interface AntlersTypes {
   IElementType T_LEFT_BRACKET = new AntlersTokenType("[");
   IElementType T_LP = new AntlersTokenType("(");
   IElementType T_MODIFIER = new AntlersTokenType("T_MODIFIER");
+  IElementType T_NOPARSE = new AntlersTokenType("noparse");
   IElementType T_OP_AND = new AntlersTokenType("T_OP_AND");
   IElementType T_OP_ARROW = new AntlersTokenType("=>");
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
@@ -233,6 +238,15 @@ public interface AntlersTypes {
       }
       else if (type == NEQ_EXPR) {
         return new AntlersNeqExprImpl(node);
+      }
+      else if (type == NOPARSE_REGION) {
+        return new AntlersNoparseRegionImpl(node);
+      }
+      else if (type == NOPARSE_REGION_CLOSE) {
+        return new AntlersNoparseRegionCloseImpl(node);
+      }
+      else if (type == NOPARSE_REGION_OPEN) {
+        return new AntlersNoparseRegionOpenImpl(node);
       }
       else if (type == NOT_IDENT_EXPR) {
         return new AntlersNotIdentExprImpl(node);

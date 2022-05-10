@@ -143,6 +143,18 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitNoparseRegion(@NotNull AntlersNoparseRegion o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNoparseRegionClose(@NotNull AntlersNoparseRegionClose o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNoparseRegionOpen(@NotNull AntlersNoparseRegionOpen o) {
+    visitPsiElement(o);
+  }
+
   public void visitNotIdentExpr(@NotNull AntlersNotIdentExpr o) {
     visitExpr(o);
   }

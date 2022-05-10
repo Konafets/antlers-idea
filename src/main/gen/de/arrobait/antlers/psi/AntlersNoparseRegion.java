@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface AntlersConditional extends PsiElement {
+public interface AntlersNoparseRegion extends PsiElement {
 
   @NotNull
   List<AntlersAntlersCloseNode> getAntlersCloseNodeList();
@@ -19,23 +19,14 @@ public interface AntlersConditional extends PsiElement {
   @NotNull
   List<AntlersConditional> getConditionalList();
 
-  @Nullable
-  AntlersConditionalElse getConditionalElse();
-
-  @NotNull
-  List<AntlersConditionalElseif> getConditionalElseifList();
-
-  @Nullable
-  AntlersConditionalEnd getConditionalEnd();
-
-  @Nullable
-  AntlersConditionalIf getConditionalIf();
-
-  @Nullable
-  AntlersConditionalUnless getConditionalUnless();
-
   @NotNull
   List<AntlersNoparseRegion> getNoparseRegionList();
+
+  @Nullable
+  AntlersNoparseRegionClose getNoparseRegionClose();
+
+  @NotNull
+  AntlersNoparseRegionOpen getNoparseRegionOpen();
 
   @NotNull
   List<AntlersPhpEchoNode> getPhpEchoNodeList();
