@@ -128,9 +128,12 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "        (size == 'md') => '(min-width: 768px) 55vw, 90vw'," + NL +
                 "        (size == 'lg') => '(min-width: 768px) 75vw, 90vw'," + NL +
                 "        (size == 'xl') => '90vw'" + NL +
-               "         () => '100vw'" + NL +
-               "     )" + NL +
-               " }}" + NL +
+                "         () => '100vw'" + NL +
+                "     )" + NL +
+                " }}" + NL +
+                NL +
+                "{{# Modifiers #}}" + NL +
+                "{{ var | ensure_right('hi', ['pooh', 'pea'], true, 42, $favoriteVar['foo']) }}" + NL +
                 NL;
     }
 
@@ -166,6 +169,7 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 new AttributesDescriptor("Comment", AntlersHighlighter.COMMENT),
                 new AttributesDescriptor("Identifier", AntlersHighlighter.IDENTIFIER),
                 new AttributesDescriptor("Keywords", AntlersHighlighter.KEYWORD),
+                new AttributesDescriptor("Modifiers", AntlersHighlighter.MODIFIER),
                 new AttributesDescriptor("Number", AntlersHighlighter.NUMBER),
                 new AttributesDescriptor("Operator", AntlersHighlighter.OPERATOR),
                 new AttributesDescriptor("Parentheses", AntlersHighlighter.PARENTHESES),

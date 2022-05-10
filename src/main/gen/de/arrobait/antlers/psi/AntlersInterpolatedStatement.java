@@ -10,4 +10,7 @@ public interface AntlersInterpolatedStatement extends AntlersExpr {
   @Nullable
   AntlersExpr getExpr();
 
+  @NotNull
+  List<AntlersModifierList> getModifierListList();
+
 }

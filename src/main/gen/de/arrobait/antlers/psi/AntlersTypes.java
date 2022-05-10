@@ -36,6 +36,9 @@ public interface AntlersTypes {
   IElementType LITERAL_EXPR = new AntlersElementType("LITERAL_EXPR");
   IElementType LTE_EXPR = new AntlersElementType("LTE_EXPR");
   IElementType LT_EXPR = new AntlersElementType("LT_EXPR");
+  IElementType MODIFIER_LIST = new AntlersElementType("MODIFIER_LIST");
+  IElementType MODIFIER_PARAM = new AntlersElementType("MODIFIER_PARAM");
+  IElementType MODIFIER_PARAMS_LIST = new AntlersElementType("MODIFIER_PARAMS_LIST");
   IElementType MOD_EXPR = new AntlersElementType("MOD_EXPR");
   IElementType MUL_EXPR = new AntlersElementType("MUL_EXPR");
   IElementType NEQ_EXPR = new AntlersElementType("NEQ_EXPR");
@@ -82,6 +85,7 @@ public interface AntlersTypes {
   IElementType T_LEFT_BRACE = new AntlersTokenType("{");
   IElementType T_LEFT_BRACKET = new AntlersTokenType("[");
   IElementType T_LP = new AntlersTokenType("(");
+  IElementType T_MODIFIER = new AntlersTokenType("T_MODIFIER");
   IElementType T_OP_AND = new AntlersTokenType("T_OP_AND");
   IElementType T_OP_ARROW = new AntlersTokenType("=>");
   IElementType T_OP_ASSIGN = new AntlersTokenType("=");
@@ -115,6 +119,7 @@ public interface AntlersTypes {
   IElementType T_PHP_ECHO_OPEN = new AntlersTokenType("{{$");
   IElementType T_PHP_RAW_CLOSE = new AntlersTokenType("?}}");
   IElementType T_PHP_RAW_OPEN = new AntlersTokenType("{{?");
+  IElementType T_PIPE = new AntlersTokenType("|");
   IElementType T_RD = new AntlersTokenType("}}");
   IElementType T_RIGHT_BRACE = new AntlersTokenType("}");
   IElementType T_RIGHT_BRACKET = new AntlersTokenType("]");
@@ -210,6 +215,15 @@ public interface AntlersTypes {
       }
       else if (type == LT_EXPR) {
         return new AntlersLtExprImpl(node);
+      }
+      else if (type == MODIFIER_LIST) {
+        return new AntlersModifierListImpl(node);
+      }
+      else if (type == MODIFIER_PARAM) {
+        return new AntlersModifierParamImpl(node);
+      }
+      else if (type == MODIFIER_PARAMS_LIST) {
+        return new AntlersModifierParamsListImpl(node);
       }
       else if (type == MOD_EXPR) {
         return new AntlersModExprImpl(node);

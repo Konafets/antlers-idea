@@ -10,4 +10,7 @@ public interface AntlersSubExpression extends AntlersExpr {
   @Nullable
   AntlersExpr getExpr();
 
+  @NotNull
+  List<AntlersModifierList> getModifierListList();
+
 }

@@ -35,6 +35,8 @@
         T_TRUE='true'
         T_FALSE='false'
 
+        T_PIPE='|'
+
         T_COLON=':'
         T_COMMA=','
         T_DOT='.'
@@ -116,10 +118,16 @@ antlers_node ::= '{{' antlers_expression_or_statement  '}}' {
     pin=2
     recoverWhile=antlers_node_recover
 }
-private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '{')
+private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '[' | '{')
 
-private antlers_expression_or_statement ::= expr
+private antlers_expression_or_statement ::= expr ('|' modifier_list)*
 antlers_close_node ::= '{{' (T_SLASH T_IDENTIFIER) '}}' { pin=2 }
+
+// Modifier
+// {{ summary | replace('It was', 'It was also') | replace('times', $noun) }}
+modifier_list        ::= T_MODIFIER [modifier_params_list]
+modifier_params_list ::= '(' modifier_param (',' modifier_param)*  ')'
+modifier_param       ::= literal_expr | array
 
 conditional               ::= conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end { pin=1 }
 private conditional_start ::= (conditional_if | conditional_unless)

@@ -11,6 +11,7 @@ public class AntlersTokenSets {
     public static final TokenSet COMMENTS;
     public static final TokenSet IDENTIFIER;
     public static final TokenSet KEYWORDS;
+    public static final TokenSet MODIFIERS;
     public static final TokenSet NUMBERS;
     public static final TokenSet OPERATORS;
     public static final TokenSet PARENTHESES;
@@ -53,6 +54,9 @@ public class AntlersTokenSets {
                 AntlersTypes.T_UNLESS,
                 AntlersTypes.T_END_UNLESS,
                 AntlersTypes.T_SWITCH
+        );
+        MODIFIERS = TokenSet.create(
+                AntlersTypes.T_MODIFIER
         );
         NUMBERS = TokenSet.create(
                 AntlersTypes.T_INTEGER_NUMBER,

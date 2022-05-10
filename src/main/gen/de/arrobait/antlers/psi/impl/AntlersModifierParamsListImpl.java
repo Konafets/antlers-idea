@@ -11,14 +11,14 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersAntlersNodeImpl extends ASTWrapperPsiElement implements AntlersAntlersNode {
+public class AntlersModifierParamsListImpl extends ASTWrapperPsiElement implements AntlersModifierParamsList {
 
-  public AntlersAntlersNodeImpl(@NotNull ASTNode node) {
+  public AntlersModifierParamsListImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitAntlersNode(this);
+    visitor.visitModifierParamsList(this);
   }
 
   @Override
@@ -29,14 +29,8 @@ public class AntlersAntlersNodeImpl extends ASTWrapperPsiElement implements Antl
 
   @Override
   @NotNull
-  public AntlersExpr getExpr() {
-    return findNotNullChildByClass(AntlersExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersModifierList> getModifierListList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersModifierList.class);
+  public List<AntlersModifierParam> getModifierParamList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersModifierParam.class);
   }
 
 }

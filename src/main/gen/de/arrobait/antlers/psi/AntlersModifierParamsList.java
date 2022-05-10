@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface AntlersAntlersNode extends PsiElement {
+public interface AntlersModifierParamsList extends PsiElement {
 
   @NotNull
-  AntlersExpr getExpr();
-
-  @NotNull
-  List<AntlersModifierList> getModifierListList();
+  List<AntlersModifierParam> getModifierParamList();
 
 }

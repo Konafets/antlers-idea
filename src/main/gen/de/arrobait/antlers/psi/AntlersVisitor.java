@@ -123,6 +123,18 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitModifierList(@NotNull AntlersModifierList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitModifierParam(@NotNull AntlersModifierParam o) {
+    visitPsiElement(o);
+  }
+
+  public void visitModifierParamsList(@NotNull AntlersModifierParamsList o) {
+    visitPsiElement(o);
+  }
+
   public void visitMulExpr(@NotNull AntlersMulExpr o) {
     visitExpr(o);
   }

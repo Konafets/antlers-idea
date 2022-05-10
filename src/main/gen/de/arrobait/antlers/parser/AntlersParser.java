@@ -84,9 +84,37 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // expr
+  // expr ('|' modifier_list)*
   static boolean antlers_expression_or_statement(PsiBuilder b, int l) {
-    return expr(b, l + 1, -1);
+    if (!recursion_guard_(b, l, "antlers_expression_or_statement")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = expr(b, l + 1, -1);
+    r = r && antlers_expression_or_statement_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ('|' modifier_list)*
+  private static boolean antlers_expression_or_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "antlers_expression_or_statement_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!antlers_expression_or_statement_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "antlers_expression_or_statement_1", c)) break;
+    }
+    return true;
+  }
+
+  // '|' modifier_list
+  private static boolean antlers_expression_or_statement_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "antlers_expression_or_statement_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_PIPE);
+    r = r && modifier_list(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -104,7 +132,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '{')
+  // !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '[' | '{')
   static boolean antlers_node_recover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "antlers_node_recover")) return false;
     boolean r;
@@ -114,7 +142,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // '{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '{'
+  // '{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '[' | '{'
   private static boolean antlers_node_recover_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "antlers_node_recover_0")) return false;
     boolean r;
@@ -130,6 +158,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_UNLESS);
     if (!r) r = consumeToken(b, T_END_UNLESS);
     if (!r) r = consumeToken(b, T_SLASH);
+    if (!r) r = consumeToken(b, T_LEFT_BRACKET);
     if (!r) r = consumeToken(b, T_LEFT_BRACE);
     return r;
   }
@@ -543,6 +572,75 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     boolean r;
     r = consumeToken(b, T_END_UNLESS);
     if (!r) r = consumeToken(b, T_END_IF);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // T_MODIFIER [modifier_params_list]
+  public static boolean modifier_list(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "modifier_list")) return false;
+    if (!nextTokenIs(b, T_MODIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_MODIFIER);
+    r = r && modifier_list_1(b, l + 1);
+    exit_section_(b, m, MODIFIER_LIST, r);
+    return r;
+  }
+
+  // [modifier_params_list]
+  private static boolean modifier_list_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "modifier_list_1")) return false;
+    modifier_params_list(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // literal_expr | array
+  public static boolean modifier_param(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "modifier_param")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, MODIFIER_PARAM, "<modifier param>");
+    r = literal_expr(b, l + 1);
+    if (!r) r = array(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '(' modifier_param (',' modifier_param)*  ')'
+  public static boolean modifier_params_list(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "modifier_params_list")) return false;
+    if (!nextTokenIs(b, T_LP)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_LP);
+    r = r && modifier_param(b, l + 1);
+    r = r && modifier_params_list_2(b, l + 1);
+    r = r && consumeToken(b, T_RP);
+    exit_section_(b, m, MODIFIER_PARAMS_LIST, r);
+    return r;
+  }
+
+  // (',' modifier_param)*
+  private static boolean modifier_params_list_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "modifier_params_list_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!modifier_params_list_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "modifier_params_list_2", c)) break;
+    }
+    return true;
+  }
+
+  // ',' modifier_param
+  private static boolean modifier_params_list_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "modifier_params_list_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && modifier_param(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 

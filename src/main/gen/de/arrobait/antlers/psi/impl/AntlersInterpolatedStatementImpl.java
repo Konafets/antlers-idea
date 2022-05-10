@@ -33,4 +33,10 @@ public class AntlersInterpolatedStatementImpl extends AntlersExprImpl implements
     return findChildByClass(AntlersExpr.class);
   }
 
+  @Override
+  @NotNull
+  public List<AntlersModifierList> getModifierListList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersModifierList.class);
+  }
+
 }
