@@ -1,0 +1,5 @@
+{{ if {installed:statamic/seo-pro} }}
+    {{ seo_pro:meta }}
+{{ else }}
+    {{ partial:seo }}
+{{ /if }}

@@ -1,0 +1,5 @@
+{{ cache for="5 minutes" }}
+  {{ collection:stocks limit="5000" }}
+    <!-- probably lots of stuff happening -->
+  {{ /collection:stocks }}
+{{ /cache }}

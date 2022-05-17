@@ -1,0 +1,19 @@
+{{ protect:password_form }}
+    {{ if no_token }}
+        No token has been provided.
+    {{ else }}
+
+        {{ if error }}
+            <div class="error">{{ error }}</div>
+        {{ /if }}
+
+        <input type="password" name="password" />
+
+        {{ errors:password }}
+            <div class="inline-error">{{ value }}</div>
+        {{ /errors:password }}
+
+        <button>Submit</button>
+
+    {{ /if }}
+{{ /protect:password_form }}

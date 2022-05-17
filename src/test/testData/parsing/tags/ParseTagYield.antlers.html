@@ -1,0 +1,32 @@
+<h1>{{ title }}</h1>
+{{ content }}
+
+{{ section:sidebar }}
+  <h2>About the Author</h2>
+  <div>
+    {{ author:name }}
+  </div>
+  {{ author:bio }}
+{{ /section:sidebar }}
+
+
+<html>
+  <head>
+    <title>{{ title }} | {{ site_name }}</title>
+  </head>
+  <body>
+    <article>
+      {{ template_content }}
+    </article>
+    <aside>
+      {{ yield:sidebar }}
+    </aside>
+  </body>
+</html>
+
+<aside>
+  {{ yield:sidebar }}
+    <img src="/img/CLIPPY.GIF">
+    <p>Hi! It looks like you're building a website. Would you like help?</p>
+  {{ /yield:sidebar }}
+</aside>

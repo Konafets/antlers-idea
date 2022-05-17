@@ -134,7 +134,13 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 NL +
                 "{{# Modifiers #}}" + NL +
                 "{{ var | ensure_right('hi', ['pooh', 'pea'], true, 42, $favoriteVar['foo']) }}" + NL +
+                NL +
+                "{{# Tags #}}" + NL +
+                "{{ collection from=\"Foo\" }} {{ /collection }}" + NL +
                 NL;
+//                "{{# PHP #}}" + NL +
+//                "{{? <php_keyword>echo</php_keyword> <php_string>\\\"Choose your own Statamic adventure!\\\"</php_string> ?}}" + NL +
+//                "{{$ <php_keyword>echo</php_keyword> <php_string>\\\"Choose your own Statamic adventure!\\\"</php_string> $}}";
     }
 
     @Override

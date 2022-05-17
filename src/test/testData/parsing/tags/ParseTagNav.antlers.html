@@ -1,0 +1,52 @@
+{{ nav }}
+    {{ foo }}
+{{ /nav }}
+{{ nav:foo }}{{ /nav }}
+{{ %nav }}{{ /nav }}
+{{ %nav from="blog" limit="{foo == 10}" }}{{ /nav }}
+{{ %nav:foo from="blog" limit="{foo == 10}" }}{{ /nav }}
+{{ %nav:foo :from="blog" }}{{ /nav }}
+
+{{ nav:collection:pages }} ... {{ /nav:collection:pages }}
+{{ nav handle="links" }} ... {{ /nav }}
+
+<ul>
+  {{ nav include_home="true" }}
+    <li>
+      <a href="{{ url }}"{{ if is_current || is_parent }} class="current"{{ /if }}>
+        {{ title }}
+      </a>
+    </li>
+  {{ /nav }}
+</ul>
+
+<ul>
+    {{ nav :from="uri" }}
+        {{ unless no_results }}
+            <li>
+                <a href="{{ url }}">{{ title }}</a>
+            </li>
+        {{ /unless }}
+    {{ /nav }}
+</ul>
+
+<ul>
+   {{ nav :from="segment_1" }}
+      <li>
+         <a href="{{ url }}"{{ if is_current || is_parent }} class="on"{{ /if }}>{{ title }}</a>
+         {{ if is_current || is_parent }}
+            {{ if children }}
+               <ul>{{ *recursive children* }}</ul>
+            {{ /if }}
+         {{ /if }}
+      </li>
+   {{ /nav }}
+</ul>
+
+<ul class="breadcrumbs">
+    {{ nav:breadcrumbs }}
+    <li{{ if is_current }} class="current"{{ /if }}>
+        <a href="{{ url }}">{{ title }}</a>
+    </li>
+    {{ /nav:breadcrumbs }}
+</ul>

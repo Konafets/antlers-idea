@@ -100,8 +100,10 @@ antlersFile ::= nodes*
 private nodes ::= conditional
                 | antlers_close_node
                 | switch_node
+                | tag_node
                 | noparse_region
                 | variable_assignment_node
+                | recursive_children_node
                 | antlers_node
                 | comment_block
                 | php_node
@@ -122,15 +124,21 @@ antlers_node ::= '{{' antlers_expression_or_statement  '}}' {
     pin=2
     recoverWhile=antlers_node_recover
 }
-private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '[' | '{')
+private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '[' | '{' | ':' | '=')
 
 private antlers_expression_or_statement ::= expr ('|' modifier_list)*
-antlers_close_node ::= '{{' (T_SLASH T_IDENTIFIER) '}}' { pin=2 }
+antlers_close_node ::= '{{' (T_SLASH variable) '}}' { pin=2 }
 
 // Modifier
 // {{ summary | replace('It was', 'It was also') | replace('times', $noun) }}
 modifier_list        ::= T_MODIFIER [modifier_params_list]
-modifier_params_list ::= '(' modifier_param (',' modifier_param)*  ')'
+modifier_params_list ::= modifier_list_paren | modifier_list_colon | modifier_list_assign
+private modifier_list_paren ::= '(' modifier_param (',' modifier_param)*  ')'
+private modifier_list_colon ::= ':' modifier_param (':' modifier_param)*
+// TODO For simplicity I used string_literal here as this it was the argument takes: {{ array_var modifier="param1|param2" }}
+// but I guess I can improve it to let the plugin know, that this are arguments to the modifier.
+// Question is: Does it blend or is should it be done on lexing or better on parsing level.
+private modifier_list_assign ::= '=' string_literal
 modifier_param       ::= literal_expr | array
 
 // Tags
@@ -139,6 +147,25 @@ modifier_param       ::= literal_expr | array
 noparse_region ::= noparse_region_open nodes* noparse_region_close { pin = 1 }
 noparse_region_open ::= '{{' 'noparse' '}}' { pin=2 }
 noparse_region_close ::= '{{' (T_SLASH 'noparse') '}}' { pin=2 }
+
+tag_node ::= tag_node_open nodes* tag_node_close? { pin = 1 }
+tag_node_open ::= '{{' [T_DISAMBIGUATION] tag_with_attributes [T_SLASH] '}}' { pin=3 }
+tag_node_close ::= '{{' (T_SLASH tag) '}}' { pin=2 }
+
+private tag_with_attributes ::= tag tag_attribute_assignment*
+
+tag ::= shorthand_tag | regular_tag
+private shorthand_tag ::= regular_tag T_SHORTHAND_SEPARATOR tag_method_part { pin=2 }
+private regular_tag ::= tag_name
+tag_name ::= T_TAG
+tag_method_part ::= tag_method_name (T_SHORTHAND_SEPARATOR tag_method_name)*
+private tag_method_name ::= T_TAG_METHOD_NAME
+
+tag_attribute_assignment ::= T_DYNAMIC_BINDING* tag_attribute_key '=' tag_attribute_value
+tag_attribute_key ::= T_IDENTIFIER
+tag_attribute_value ::= string_literal
+
+recursive_children_node ::= '{{' T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR '}}' { pin=3 }
 
 conditional               ::= conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end { pin=1 }
 private conditional_start ::= (conditional_if | conditional_unless)
@@ -230,6 +257,7 @@ bracket_property_access ::= '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_a
 dot_property_access     ::= '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
 colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
 
+// TODO: Extract the access key into own rule
 //private property_access_keys ::= T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
 
 // {{ total = 0 }}
@@ -251,7 +279,7 @@ array ::= '[' array_value (',' array_value*)* ']'
 private array_value ::= (string_literal | number_literal | array)
 
 // Basic
-interpolated_statement ::= '{' (antlers_expression_or_statement | expr) '}' { pin=1 }
+interpolated_statement ::= '{' (antlers_expression_or_statement | expr | tag_with_attributes) '}' { pin=1 }
 sub_expression ::= '(' (antlers_expression_or_statement | expr) ')' { pin=1 }
 literal_expr ::= number_literal
                 | boolean_literal

@@ -106,7 +106,8 @@ public class AntlersTokenSets {
                 AntlersTypes.T_STRING_END
         );
         TAGS = TokenSet.create(
-                AntlersTypes.T_NOPARSE
+                AntlersTypes.T_NOPARSE,
+                AntlersTypes.T_TAG
         );
         WHITE_SPACE = TokenSet.create(
                 TokenType.WHITE_SPACE

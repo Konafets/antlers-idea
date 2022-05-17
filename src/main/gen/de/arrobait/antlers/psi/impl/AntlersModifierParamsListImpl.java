@@ -33,4 +33,10 @@ public class AntlersModifierParamsListImpl extends ASTWrapperPsiElement implemen
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersModifierParam.class);
   }
 
+  @Override
+  @Nullable
+  public AntlersStringLiteral getStringLiteral() {
+    return findChildByClass(AntlersStringLiteral.class);
+  }
+
 }

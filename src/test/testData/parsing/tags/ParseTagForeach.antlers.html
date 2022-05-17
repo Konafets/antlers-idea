@@ -1,0 +1,49 @@
+{{ foreach:company_info }}
+  {{ key }}: {{ value }}<br>
+{{ /foreach:company_info }}
+
+<ul>
+  {{ foreach:song_reviews as="song|rating" }}
+    <li>{{ song }}: {{ rating }}</li>
+  {{ /foreach:song_reviews }}
+</ul>
+
+{{ form:set is="contact" }}
+
+    {{ if {form:errors} }}
+      {{ form:errors }}...{{ /form:errors }}
+    {{ /if }}
+
+    {{ if {form:success} }}...{{ /if }}
+
+    {{ form:create }}...{{ /form:create }}
+
+{{ /form:set }}
+
+{{ form:set is="feedback" }}
+    {{ if {form:success} }}
+
+        {{ form:submission }}
+            Thanks for your feedback, {{ name }}.
+            We appreciate the {{ rating }} star rating you gave us.
+        {{ /form:submission }}
+
+    {{ else }}
+
+        {{ form:create }} ... {{ /form:create }}
+
+    {{ /if }}
+{{ /form:set }}
+
+{{ form:submissions in="feedback" }}
+    <div>
+        Submitted on {{ date }}<br>
+        Name: {{ name }}<br>
+        Rating: {{ rating }}<br>
+        Comment: {{ comment }}
+    </div>
+{{ /form:submissions }}
+
+{{ if {form:success in="contact"} }}
+    <p>Thanks for filling out the survey! Sorry it was so long.</p>
+{{ /if }}

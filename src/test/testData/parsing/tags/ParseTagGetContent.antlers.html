@@ -1,0 +1,8 @@
+{{ get_content from="/about/company" }}
+  {{ staff }}
+    <div class="w-1/3">
+      <img src="{{ headshot }}" alt="{{ name }}">
+      <p>{{ name }}, {{ job_title }}</p>
+    </div>
+  {{ /staff }}
+{{ /get_content }}

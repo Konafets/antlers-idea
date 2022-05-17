@@ -10,4 +10,7 @@ public interface AntlersModifierParamsList extends PsiElement {
   @NotNull
   List<AntlersModifierParam> getModifierParamList();
 
+  @Nullable
+  AntlersStringLiteral getStringLiteral();
+
 }

@@ -58,7 +58,17 @@ SINGLE_QUOTE="\'"
 DOUBLE_QUOTE="\""
 
 MODIFIERS=add|add_slashes|ampersand_list|as|ascii|at|background_position|backspace|camelize|cdata|ceil|chunk|collapse|collapse_whitespace|compact|console_log|contains|contains_all|contains_any|count|count_substring|dashify|days_ago|decode|deslugify|divide|dl|dump|embed_url|ends_with|ensure_left|ensure_right|entities|excerpt|explode|favicon|first|flatten|flip|floor|format|format_localized|format_number|full_urls|get|gravatar|group_by|has_lower_case|has_upper_case|hours_ago|image|in_array|insert|is_after|is_alphanumeric|is_before|is_between|is_blank|is_email|is_embeddable|is_empty|is_future|is_json|is_leap_year|is_lowercase|is_numberwang|is_numeric|is_past|is_today|is_tomorrow|is_uppercase|is_url|is_weekday|is_weekend|is_yesterday|iso_format|join|last|lcfirst|length|limit|link|list|lower|macro|mailto|markdown|md5|merge|minutes_ago|mod|modify_date|months_ago|multiply|nl2br|obfuscate|obfuscate_email|offset|ol|option_list|output|pad|partial|piped|plural|raw|rawurlencode|ray|read_time|regex_replace|relative|remove_left|remove_right|repeat|replace|reverse|round|safe_truncate|sanitize|seconds_ago|segment|sentence_list|shuffle|singular|slugify|smartypants|sort|spaceless|starts_with|strip_tags|substr|subtract|sum|surround|swap_case|table|tidy|timezone|title|to_json|to_spaces|to_tabs|trans|trim|truncate|ucfirst|ul|underscored|unique|upper|url|urldecode|urlencode|weeks_ago|where|widont|word_count|wrap|years_ago
+
+TAG="%"?{TAG_NAMES}":"?
+TAG_NAMES=404|asset|assets|cache|can|collection|dd|dump|foreach|form|get_content|get_error|get_errors|get_files|glide|in|increment|installed|is|link|locales|loop|markdown|mix|nav|not_found|oauth|obfuscate|parent|partial|protect|path|query|range|redirect|relate|rotate|route|scope|search|section|session|set|structure|svg|switch|taxonomy|theme|trans|trans_choice|user|users|widont|yield|yields
+TAG_METHOD_NAME=[_A-Za-z][\.-_/0-9A-Za-z]*
+
+TAG_CONDITIONS=:is|:isnt|:contains|:starts_with|:is_before
+
+RECURSIVE_CHILDREN=\*recursive
+
 PIPE="|"
+
 IDENTIFIER=[$_A-Za-z][-_0-9A-Za-z]*
 IDENTIFIER_DOT={IDENTIFIER} "."
 IDENTIFIER_COLON={IDENTIFIER} ":"
@@ -74,11 +84,15 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 %state ANTLERS_COMMENT
 %state ANTLERS_NODE
 %state PROPERTY_ACCESS
+%state MODIFIER_LIST
+%state TAG_EXPRESSION
+%state TAG_SHORTHAND
+%state TAG_EXPRESSION_ATTRIBUTE_LIST
+%state RECURSIVE_CHILDREN
 %state SINGLE_STRING
 %state DOUBLE_STRING
 %state PHP_ECHO
 %state PHP_RAW
-%state MODIFIER_LIST
 
 %%
 <YYINITIAL> {
@@ -113,7 +127,9 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "unless"             { return T_UNLESS; }
     "endunless"          { return T_END_UNLESS; }
     {SLASH} {UNLESS}     { return T_END_UNLESS; }
-    "switch"             { return T_SWITCH; }
+    // Match keyword switch and the opening parenthesis, then go one char back and return the token for switch
+    // Doing this to distinguish between switch control structure and the switch Tag.
+    "switch" "("         { yypushback(1); return T_SWITCH; }
     "noparse"            { return T_NOPARSE;}
 
     // Boolean
@@ -124,6 +140,12 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "&&"|"and"           { return T_OP_AND; }
     "||"|"or"            { return T_OP_OR; }
     "xor"                { return T_OP_XOR; }
+
+    // Match Tags like "{{ svg }}" or "{{ collection }}" and switch to the decicated state
+    // We match all mutations of a tag name including "%" and ":" and lex them in the state
+    {TAG}                { yypushback(yylength()); pushState(TAG_EXPRESSION); }
+
+    {RECURSIVE_CHILDREN} { yypushback(yylength()); pushState(RECURSIVE_CHILDREN); }
 
     {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
     {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_STRING_START; }
@@ -219,6 +241,56 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     [^]                  {
                            yypushback(1);  // cancel unexpected char
                            popState();     // and try to parse it again in <IN_ANTLERS>
+                         }
+}
+
+<TAG_EXPRESSION> {
+    {WHITE_SPACE}        { pushState(TAG_EXPRESSION_ATTRIBUTE_LIST); return TokenType.WHITE_SPACE; }
+    "%"                  { return T_DISAMBIGUATION; }
+    ":"                  { pushState(TAG_SHORTHAND); return T_SHORTHAND_SEPARATOR; }
+    {SLASH}              { return T_SLASH; }
+    {TAG_NAMES}          { return T_TAG; }
+    {IDENTIFIER}         { return T_IDENTIFIER; }
+    [^]                  {
+                           yypushback(1);  // cancel unexpected char
+                           popState();     // and try to parse it again in <ANTLERS_NODE>
+                         }
+}
+
+<TAG_SHORTHAND> {
+    {TAG_METHOD_NAME}    { return T_TAG_METHOD_NAME; }
+    [^]                  {
+                           yypushback(1);  // cancel unexpected char
+                           popState();     // and try to parse it again in <ANTLERS_NODE>
+                         }
+}
+
+<RECURSIVE_CHILDREN> {
+    {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
+    "*"                  { return T_STAR; }
+    ":"                  { return T_COLON; }
+    "recursive children" { return T_RECURSIVE_CHILDREN; }
+    {IDENTIFIER}         { return T_IDENTIFIER; }
+    [^]                  {
+                           yypushback(1);  // cancel unexpected char
+                           popState();     // and try to parse it again in <ANTLERS_NODE>
+                         }
+}
+
+<TAG_EXPRESSION_ATTRIBUTE_LIST> {
+    {RD}                 { yybegin(YYINITIAL); return T_RD; }
+    {SLASH}              { return T_SLASH; }
+    {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
+    "="                  { return T_OP_ASSIGN; }
+    "{"                  { return T_LEFT_BRACE; }
+    "}"                  { return T_RIGHT_BRACE; }
+    ":"                  { return T_DYNAMIC_BINDING; }
+    {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
+    {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_STRING_START; }
+    {IDENTIFIER}         { return T_IDENTIFIER; }
+    [^]                  {
+                           yybegin(ANTLERS_NODE);  // cancel unexpected char
+                           popState();     // and try to parse it again in <ANTLERS_NODE>
                          }
 }
 

@@ -1,0 +1,73 @@
+{{ %collection from="Foo" }}
+
+{{ /collection }}
+
+{{ collection from="Foo" }}
+
+{{ /collection }}
+
+{{ collection:blog }}
+
+{{ /collection }}
+
+{{ collection:blog :limit="foo" }}{{ /collection }}
+{{ collection :from="segment_1" }}{{ /collection }}
+
+{{ collection:articles as="entries" }}
+    {{ entries | group_by("date|F Y") }}
+        {{ groups }}
+            <h3>{{ group }}</h3>
+            {{ items }}
+                {{ title }} <br>
+            {{ /items }}
+        {{ /groups }}
+    {{ /entries }}
+{{ /collection:articles }}
+
+{{ collection:count in="pogs" }}{{ /collection }}
+
+{{ collection:blog as="entries" }}
+    There are {{ entries | count }} pogs in this site.
+{{ /collection:blog }}
+
+{{ collection from="blog" }}
+  {{ collection :from="related_collection" }}
+    {{ title }}
+  {{ /collection }}
+{{ /collection }}
+
+{{ collection from="blog" }}
+  {{ collection :from="related_collection" }}
+    {{ collection:handle }}
+  {{ /collection }}
+{{ /collection }}
+
+{{ collection:count in="pogs" }}
+
+{{ collection:next in="blog" as="posts" limit="2" sort="date:asc" }}
+
+  {{ if no_results }}
+    No more posts to read!
+  {{ /if }}
+
+  {{ posts }}
+    <div class="post">
+      <a href="{{ url }}">{{ title }}</a>
+    </div>
+  {{ /posts }}
+
+{{ /collection:next }}
+
+{{ collection:previous in="blog" as="posts" limit="2" sort="date:asc" }}
+
+  {{ if no_results }}
+    No more posts to read!
+  {{ /if }}
+
+  {{ posts }}
+    <div class="post">
+      <a href="{{ url }}">{{ title }}</a>
+    </div>
+  {{ /posts }}
+
+{{ /collection:previous }}

@@ -44,7 +44,13 @@ public interface AntlersConditional extends PsiElement {
   List<AntlersPhpRawNode> getPhpRawNodeList();
 
   @NotNull
+  List<AntlersRecursiveChildrenNode> getRecursiveChildrenNodeList();
+
+  @NotNull
   List<AntlersSwitchNode> getSwitchNodeList();
+
+  @NotNull
+  List<AntlersTagNode> getTagNodeList();
 
   @NotNull
   List<AntlersVariableAssignmentNode> getVariableAssignmentNodeList();

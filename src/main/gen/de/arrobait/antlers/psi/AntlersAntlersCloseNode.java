@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface AntlersAntlersCloseNode extends PsiElement {
 
+  @NotNull
+  AntlersVariable getVariable();
+
 }

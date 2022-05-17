@@ -183,6 +183,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitRecursiveChildrenNode(@NotNull AntlersRecursiveChildrenNode o) {
+    visitPsiElement(o);
+  }
+
   public void visitSpaceshipExpr(@NotNull AntlersSpaceshipExpr o) {
     visitExpr(o);
   }
@@ -208,6 +212,42 @@ public class AntlersVisitor extends PsiElementVisitor {
   }
 
   public void visitSwitchTag(@NotNull AntlersSwitchTag o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTag(@NotNull AntlersTag o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagAttributeAssignment(@NotNull AntlersTagAttributeAssignment o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagAttributeKey(@NotNull AntlersTagAttributeKey o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagAttributeValue(@NotNull AntlersTagAttributeValue o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagMethodPart(@NotNull AntlersTagMethodPart o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagName(@NotNull AntlersTagName o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagNode(@NotNull AntlersTagNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagNodeClose(@NotNull AntlersTagNodeClose o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagNodeOpen(@NotNull AntlersTagNodeOpen o) {
     visitPsiElement(o);
   }
 

@@ -52,6 +52,7 @@ public interface AntlersTypes {
   IElementType PHP_ECHO_NODE = new AntlersElementType("PHP_ECHO_NODE");
   IElementType PHP_RAW_NODE = new AntlersElementType("PHP_RAW_NODE");
   IElementType POW_EXPR = new AntlersElementType("POW_EXPR");
+  IElementType RECURSIVE_CHILDREN_NODE = new AntlersElementType("RECURSIVE_CHILDREN_NODE");
   IElementType SPACESHIP_EXPR = new AntlersElementType("SPACESHIP_EXPR");
   IElementType STRING_LITERAL = new AntlersElementType("STRING_LITERAL");
   IElementType SUB_EXPR = new AntlersElementType("SUB_EXPR");
@@ -59,6 +60,15 @@ public interface AntlersTypes {
   IElementType SWITCH_CASE = new AntlersElementType("SWITCH_CASE");
   IElementType SWITCH_NODE = new AntlersElementType("SWITCH_NODE");
   IElementType SWITCH_TAG = new AntlersElementType("SWITCH_TAG");
+  IElementType TAG = new AntlersElementType("TAG");
+  IElementType TAG_ATTRIBUTE_ASSIGNMENT = new AntlersElementType("TAG_ATTRIBUTE_ASSIGNMENT");
+  IElementType TAG_ATTRIBUTE_KEY = new AntlersElementType("TAG_ATTRIBUTE_KEY");
+  IElementType TAG_ATTRIBUTE_VALUE = new AntlersElementType("TAG_ATTRIBUTE_VALUE");
+  IElementType TAG_METHOD_PART = new AntlersElementType("TAG_METHOD_PART");
+  IElementType TAG_NAME = new AntlersElementType("TAG_NAME");
+  IElementType TAG_NODE = new AntlersElementType("TAG_NODE");
+  IElementType TAG_NODE_CLOSE = new AntlersElementType("TAG_NODE_CLOSE");
+  IElementType TAG_NODE_OPEN = new AntlersElementType("TAG_NODE_OPEN");
   IElementType TENARY_EXPR = new AntlersElementType("TENARY_EXPR");
   IElementType UNARY_FACTORIAL_EXPR = new AntlersElementType("UNARY_FACTORIAL_EXPR");
   IElementType UNARY_MINUS_EXPR = new AntlersElementType("UNARY_MINUS_EXPR");
@@ -74,7 +84,9 @@ public interface AntlersTypes {
   IElementType T_COMMENT_CLOSE = new AntlersTokenType("#}}");
   IElementType T_COMMENT_OPEN = new AntlersTokenType("{{#");
   IElementType T_COMMENT_TEXT = new AntlersTokenType("T_COMMENT_TEXT");
+  IElementType T_DISAMBIGUATION = new AntlersTokenType("T_DISAMBIGUATION");
   IElementType T_DOT = new AntlersTokenType(".");
+  IElementType T_DYNAMIC_BINDING = new AntlersTokenType("T_DYNAMIC_BINDING");
   IElementType T_ELSE = new AntlersTokenType("else");
   IElementType T_ELSE_IF = new AntlersTokenType("elseif");
   IElementType T_END_IF = new AntlersTokenType("endif");
@@ -126,14 +138,19 @@ public interface AntlersTypes {
   IElementType T_PHP_RAW_OPEN = new AntlersTokenType("{{?");
   IElementType T_PIPE = new AntlersTokenType("|");
   IElementType T_RD = new AntlersTokenType("}}");
+  IElementType T_RECURSIVE_CHILDREN = new AntlersTokenType("T_RECURSIVE_CHILDREN");
   IElementType T_RIGHT_BRACE = new AntlersTokenType("}");
   IElementType T_RIGHT_BRACKET = new AntlersTokenType("]");
   IElementType T_RP = new AntlersTokenType(")");
+  IElementType T_SHORTHAND_SEPARATOR = new AntlersTokenType("T_SHORTHAND_SEPARATOR");
   IElementType T_SLASH = new AntlersTokenType("/");
+  IElementType T_STAR = new AntlersTokenType("T_STAR");
   IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
   IElementType T_STRING_END = new AntlersTokenType("T_STRING_END");
   IElementType T_STRING_START = new AntlersTokenType("T_STRING_START");
   IElementType T_SWITCH = new AntlersTokenType("switch");
+  IElementType T_TAG = new AntlersTokenType("T_TAG");
+  IElementType T_TAG_METHOD_NAME = new AntlersTokenType("T_TAG_METHOD_NAME");
   IElementType T_TRUE = new AntlersTokenType("true");
   IElementType T_UNLESS = new AntlersTokenType("unless");
 
@@ -269,6 +286,9 @@ public interface AntlersTypes {
       else if (type == POW_EXPR) {
         return new AntlersPowExprImpl(node);
       }
+      else if (type == RECURSIVE_CHILDREN_NODE) {
+        return new AntlersRecursiveChildrenNodeImpl(node);
+      }
       else if (type == SPACESHIP_EXPR) {
         return new AntlersSpaceshipExprImpl(node);
       }
@@ -289,6 +309,33 @@ public interface AntlersTypes {
       }
       else if (type == SWITCH_TAG) {
         return new AntlersSwitchTagImpl(node);
+      }
+      else if (type == TAG) {
+        return new AntlersTagImpl(node);
+      }
+      else if (type == TAG_ATTRIBUTE_ASSIGNMENT) {
+        return new AntlersTagAttributeAssignmentImpl(node);
+      }
+      else if (type == TAG_ATTRIBUTE_KEY) {
+        return new AntlersTagAttributeKeyImpl(node);
+      }
+      else if (type == TAG_ATTRIBUTE_VALUE) {
+        return new AntlersTagAttributeValueImpl(node);
+      }
+      else if (type == TAG_METHOD_PART) {
+        return new AntlersTagMethodPartImpl(node);
+      }
+      else if (type == TAG_NAME) {
+        return new AntlersTagNameImpl(node);
+      }
+      else if (type == TAG_NODE) {
+        return new AntlersTagNodeImpl(node);
+      }
+      else if (type == TAG_NODE_CLOSE) {
+        return new AntlersTagNodeCloseImpl(node);
+      }
+      else if (type == TAG_NODE_OPEN) {
+        return new AntlersTagNodeOpenImpl(node);
       }
       else if (type == TENARY_EXPR) {
         return new AntlersTenaryExprImpl(node);

@@ -1,0 +1,14 @@
+{{ search:results }}
+
+  {{ if no_results }}
+    <h2>No results.</h2>
+  {{ else }}
+
+    <a href="{{ url }}" class="result">
+      <h2>{{ title }}</h2>
+      <p>{{ content | truncate:240 }}</p>
+    </a>
+
+  {{ /if }}
+
+{{ /search:results }}

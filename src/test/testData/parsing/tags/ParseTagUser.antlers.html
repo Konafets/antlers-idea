@@ -1,0 +1,154 @@
+{{ user }}
+
+{{ user }}
+  The current user's name is {{ name }}.
+{{ /user }}
+
+{{ user:profile :email="email" }}
+  {{ first_name }} {{ last_name }}
+{{ /user:profile }}
+
+{{ user:profile field="username" :value="segment_2" }}
+  {{ first_name }} {{ last_name }}
+{{ /user:profile }}
+
+{{ user:can do="edit faq entries" }}
+    <a href="{{ edit_url }}">Edit this Page</a>
+{{ /user:can }}
+
+{{ user:cant do="anything" }}
+  <p>Aww, I'm sure that's not true! 😊</p>
+{{ /user:cant }}
+
+{{ user:forgot_password_form reset_url="/reset-password" }}
+
+    {{ if errors }}
+        <div class="bg-red-300 text-white p-2">
+            {{ errors }}
+                {{ value }}<br>
+            {{ /errors }}
+        </div>
+    {{ /if }}
+
+    {{ if success }}
+        <div class="bg-green-300 text-white p-2">
+            {{ success }}<br>
+        </div>
+    {{ /if }}
+
+    <label>Email</label>
+    <input type="text" name="email" value="{{ old:email }}" />
+
+    <button type="submit">Send Reset Email</button>
+
+{{ /user:forgot_password_form }}
+
+{{ user:in group="coaches" }}
+<ul>
+  {{ assets in="pdf" }}
+    <li><a href="{{ url }}">{{ title }}</a></li>
+  {{ /assets }}
+</ul>
+{{ /user:in }}
+
+{{ user:is role="author" }}
+<div class="markdown">
+    {{ content }}
+</div>
+{{ /user:is }}
+
+{{ user:login_form }}
+
+    {{ if errors }}
+        <div class="bg-red-300 text-white p-2">
+            {{ errors }}
+                {{ value }}<br>
+            {{ /errors }}
+        </div>
+    {{ /if }}
+
+    {{ if success }}
+        <div class="bg-green-300 text-white p-2">
+            {{ success }}<br>
+        </div>
+    {{ /if }}
+
+    <label>Email</label>
+    <input type="text" name="email" value="{{ old:email }}" />
+
+    <label>Password</label>
+    <input type="password" name="password" value="{{ old:password }}" />
+
+    <button type="submit">Log in</button>
+
+{{ /user:login_form }}
+
+{{ if should_logout_for_whatever_reason }}
+  {{ user:logout redirect="/somewhere" }}
+{{ /if }}
+
+<a href="{{ user:logout_url }}">Log out</a>
+
+{{ user:register_form }}
+
+    {{ if errors }}
+        <div class="bg-red-300 text-white p-2">
+            {{ errors }}
+                {{ value }}<br>
+            {{ /errors }}
+        </div>
+    {{ /if }}
+
+    {{ if success }}
+        <div class="bg-green-300 text-white p-2">
+            {{ success }}<br>
+        </div>
+    {{ /if }}
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ old:email }}" />
+
+    <label>Password</label>
+    <input type="password" name="password" />
+
+    <label>Password Confirmation</label>
+    <input type="password" name="password_confirmation" />
+
+    <button>Register</button>
+
+{{ /user:register_form }}
+
+{{ user:reset_password_form }}
+
+    {{ if success }}
+
+        <p class="alert alert-success">Password has been reset.</p>
+
+    {{ elseif url_invalid }}
+
+        <p class="alert alert-danger">This reset URL is invalid.</p>
+
+    {{ else }}
+
+        {{ if errors }}
+            <div class="alert alert-danger">
+                {{ errors }}
+                    {{ value }}<br>
+                {{ /errors }}
+            </div>
+        {{ /if }}
+
+        <label>E-Mail</label>
+        <input type="email" name="email" />
+
+        <label>Password</label>
+        <input type="password" name="password" />
+
+        <label>Password Confirmation</label>
+        <input type="password" name="password_confirmation" />
+
+        <button>Submit</button>
+
+    {{ /if }}
+
+{{ /user:reset_password_form }}

@@ -1,0 +1,8 @@
+<table>
+  {{ collection:shows }}
+    <tr class="{{ switch between='bg-white|bg-grey-100' }}">
+      <th>{{ title }}</th>
+      <td>{{ rating }}</td>
+    <tr>
+  {{ /collection:shows }}
+</table>

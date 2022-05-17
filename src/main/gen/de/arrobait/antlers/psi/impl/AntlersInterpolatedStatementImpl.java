@@ -39,4 +39,16 @@ public class AntlersInterpolatedStatementImpl extends AntlersExprImpl implements
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersModifierList.class);
   }
 
+  @Override
+  @Nullable
+  public AntlersTag getTag() {
+    return findChildByClass(AntlersTag.class);
+  }
+
+  @Override
+  @NotNull
+  public List<AntlersTagAttributeAssignment> getTagAttributeAssignmentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTagAttributeAssignment.class);
+  }
+
 }

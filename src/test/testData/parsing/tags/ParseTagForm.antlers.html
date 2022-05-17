@@ -1,0 +1,40 @@
+{{ form:create in="contact" }}
+
+    {{ if errors }}
+        <div class="bg-red-300 text-white p-2">
+            {{ errors }}
+                {{ value }}<br>
+            {{ /errors }}
+        </div>
+    {{ /if }}
+
+    {{ if success }}
+        <div class="bg-green-300 text-white p-2">
+            {{ success }}
+        </div>
+    {{ /if }}
+
+    <label>Email</label>
+    <input type="text" name="email" value="{{ old:email }}" />
+
+    <label>Message</label>
+    <textarea name="message" rows="5">{{ old:message }}</textarea>
+
+    <button>Submit</button>
+
+{{ /form:create }}
+
+{{ form:set is="contact" }}
+    {{ if {form:errors} }}
+        <p>Oops, here's what went wrong:</p>
+        <ul>
+            {{ form:errors }}
+                <li>{{ value }}</li>
+            {{ /form:errors }}
+        </ul>
+    {{ /if }}
+
+    {{ form:create }}
+        ...
+    {{ /form:create }}
+{{ /form:set }}

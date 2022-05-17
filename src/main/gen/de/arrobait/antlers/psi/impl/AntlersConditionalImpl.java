@@ -101,8 +101,20 @@ public class AntlersConditionalImpl extends ASTWrapperPsiElement implements Antl
 
   @Override
   @NotNull
+  public List<AntlersRecursiveChildrenNode> getRecursiveChildrenNodeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersRecursiveChildrenNode.class);
+  }
+
+  @Override
+  @NotNull
   public List<AntlersSwitchNode> getSwitchNodeList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersSwitchNode.class);
+  }
+
+  @Override
+  @NotNull
+  public List<AntlersTagNode> getTagNodeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTagNode.class);
   }
 
   @Override

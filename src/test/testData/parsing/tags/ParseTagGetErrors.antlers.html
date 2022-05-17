@@ -1,0 +1,10 @@
+{{ get_errors:all }}
+<div class="errors">
+  <p>Oops, something went wrong!</p>
+  <ul>
+    {{ messages }}
+      <li>{{ message }}</li>
+    {{ /messages }}
+  </ul>
+</div>
+{{ /get_errors:all }}

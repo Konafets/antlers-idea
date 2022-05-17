@@ -1,0 +1,17 @@
+{{ session }}
+    {{ message }}
+{{ /session }}
+
+{{ session:dump }}
+
+{{ session:flash message="You did it!" }}
+
+{{ session:flush }}
+
+{{ session:forget keys="likes|referral" }}
+
+{{ if {session:has key="entered_survey"} }}
+    <p>You already filled out the survey. Thanks for your feedback!</p>
+{{ /if }}
+
+{{ session:set entered_survey="true" }}

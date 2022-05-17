@@ -27,4 +27,10 @@ public class AntlersAntlersCloseNodeImpl extends ASTWrapperPsiElement implements
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public AntlersVariable getVariable() {
+    return findNotNullChildByClass(AntlersVariable.class);
+  }
+
 }

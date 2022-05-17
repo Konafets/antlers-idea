@@ -13,4 +13,10 @@ public interface AntlersInterpolatedStatement extends AntlersExpr {
   @NotNull
   List<AntlersModifierList> getModifierListList();
 
+  @Nullable
+  AntlersTag getTag();
+
+  @NotNull
+  List<AntlersTagAttributeAssignment> getTagAttributeAssignmentList();
+
 }
