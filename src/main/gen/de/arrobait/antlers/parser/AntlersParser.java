@@ -229,6 +229,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // boolean_literal
   //                            | number_literal
   //                            | string_literal
+  //                            | variable
   //                            | array
   //                            | interpolated_statement
   //                            | sub_expression
@@ -238,6 +239,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = boolean_literal(b, l + 1);
     if (!r) r = number_literal(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
+    if (!r) r = variable(b, l + 1);
     if (!r) r = array(b, l + 1);
     if (!r) r = interpolated_statement(b, l + 1);
     if (!r) r = sub_expression(b, l + 1);
@@ -575,6 +577,28 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     boolean r;
     r = consumeToken(b, T_END_UNLESS);
     if (!r) r = consumeToken(b, T_END_IF);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'merge' (variable | interpolated_statement)
+  static boolean merge(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "merge")) return false;
+    if (!nextTokenIs(b, T_MERGE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_MERGE);
+    r = r && merge_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // variable | interpolated_statement
+  private static boolean merge_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "merge_1")) return false;
+    boolean r;
+    r = variable(b, l + 1);
+    if (!r) r = interpolated_statement(b, l + 1);
     return r;
   }
 
@@ -1326,7 +1350,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' variable '=' assignable_items '}}'
+  // '{{' variable '=' assignable_items [merge] '}}'
   public static boolean variable_assignment_node(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_assignment_node")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -1337,9 +1361,17 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = r && consumeToken(b, T_OP_ASSIGN);
     p = r; // pin = 3
     r = r && report_error_(b, assignable_items(b, l + 1));
+    r = p && report_error_(b, variable_assignment_node_4(b, l + 1)) && r;
     r = p && consumeToken(b, T_RD) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  // [merge]
+  private static boolean variable_assignment_node_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_assignment_node_4")) return false;
+    merge(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */

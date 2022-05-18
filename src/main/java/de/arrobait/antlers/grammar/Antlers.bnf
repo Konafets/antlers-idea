@@ -87,6 +87,8 @@
         T_AT='@'
         T_NOPARSE='noparse'
 
+        T_MERGE='merge'
+
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
         T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
     ]
@@ -262,13 +264,16 @@ colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_litera
 
 // {{ total = 0 }}
 // {{ todo = ['Get haircut', 'Bake bread', 'Eat soup'] }}
-variable_assignment_node ::= '{{' variable '=' assignable_items '}}' { pin=3 }
+variable_assignment_node ::= '{{' variable '=' assignable_items [merge] '}}' { pin=3 }
 private assignable_items ::= boolean_literal
                            | number_literal
                            | string_literal
+                           | variable
                            | array
                            | interpolated_statement
                            | sub_expression
+
+private merge ::= 'merge' (variable | interpolated_statement)
 
 // Array
 // ['Get haircut']

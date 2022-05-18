@@ -101,6 +101,7 @@ public interface AntlersTypes {
   IElementType T_LEFT_BRACE = new AntlersTokenType("{");
   IElementType T_LEFT_BRACKET = new AntlersTokenType("[");
   IElementType T_LP = new AntlersTokenType("(");
+  IElementType T_MERGE = new AntlersTokenType("merge");
   IElementType T_MODIFIER = new AntlersTokenType("T_MODIFIER");
   IElementType T_NOPARSE = new AntlersTokenType("noparse");
   IElementType T_OP_AND = new AntlersTokenType("T_OP_AND");

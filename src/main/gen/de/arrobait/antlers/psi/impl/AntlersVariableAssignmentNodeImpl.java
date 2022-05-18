@@ -40,9 +40,9 @@ public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement impl
   }
 
   @Override
-  @Nullable
-  public AntlersExpr getExpr() {
-    return findChildByClass(AntlersExpr.class);
+  @NotNull
+  public List<AntlersExpr> getExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersExpr.class);
   }
 
   @Override
@@ -59,8 +59,8 @@ public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement impl
 
   @Override
   @NotNull
-  public AntlersVariable getVariable() {
-    return findNotNullChildByClass(AntlersVariable.class);
+  public List<AntlersVariable> getVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersVariable.class);
   }
 
 }

@@ -13,8 +13,8 @@ public interface AntlersVariableAssignmentNode extends PsiElement {
   @Nullable
   AntlersBooleanLiteral getBooleanLiteral();
 
-  @Nullable
-  AntlersExpr getExpr();
+  @NotNull
+  List<AntlersExpr> getExprList();
 
   @Nullable
   AntlersNumberLiteral getNumberLiteral();
@@ -23,6 +23,6 @@ public interface AntlersVariableAssignmentNode extends PsiElement {
   AntlersStringLiteral getStringLiteral();
 
   @NotNull
-  AntlersVariable getVariable();
+  List<AntlersVariable> getVariableList();
 
 }

@@ -132,6 +132,9 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "switch" "("         { yypushback(1); return T_SWITCH; }
     "noparse"            { return T_NOPARSE;}
 
+    // Advanced operators
+    "merge"              { return T_MERGE; }
+
     // Boolean
     "true"               { return T_TRUE; }
     "false"              { return T_FALSE; }

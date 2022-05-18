@@ -62,6 +62,7 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ $foo }}" + NL +
                 "{{ $foo = true }}" + NL +
                 "{{ $foo = ['bar', 10, [2.4]] }}" + NL +
+                "{{ $foo = favourite_articles merge not_favourite_articles }}" + NL +
                 NL +
                 "{{# Sub-Expressions #}}" + NL +
                 "{{ (foo) }}" + NL +
@@ -172,6 +173,7 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
     static {
         SYNTAX_HIGHLIGHTER = SyntaxHighlighterFactory.getSyntaxHighlighter(AntlersLanguage.INSTANCE, null, null);
         DESCRIPTORS = new AttributesDescriptor[] {
+                new AttributesDescriptor("Advanced operators", AntlersHighlighter.ADVANCED_OPERATORS),
                 new AttributesDescriptor("Boolean", AntlersHighlighter.BOOLEAN),
                 new AttributesDescriptor("Braces", AntlersHighlighter.BRACES),
                 new AttributesDescriptor("Brackets", AntlersHighlighter.BRACKETS),
