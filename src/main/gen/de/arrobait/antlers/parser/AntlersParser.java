@@ -1089,15 +1089,31 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // shorthand_tag | regular_tag
+  // [T_DISAMBIGUATION] (shorthand_tag | regular_tag)
   public static boolean tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag")) return false;
-    if (!nextTokenIs(b, T_TAG)) return false;
+    if (!nextTokenIs(b, "<tag>", T_DISAMBIGUATION, T_TAG)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, TAG, "<tag>");
+    r = tag_0(b, l + 1);
+    r = r && tag_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // [T_DISAMBIGUATION]
+  private static boolean tag_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_0")) return false;
+    consumeToken(b, T_DISAMBIGUATION);
+    return true;
+  }
+
+  // shorthand_tag | regular_tag
+  private static boolean tag_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_1")) return false;
+    boolean r;
     r = shorthand_tag(b, l + 1);
     if (!r) r = regular_tag(b, l + 1);
-    exit_section_(b, m, TAG, r);
     return r;
   }
 
@@ -1264,32 +1280,24 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' [T_DISAMBIGUATION] tag_with_attributes [T_SLASH] '}}'
+  // '{{' tag_with_attributes [T_SLASH] '}}'
   public static boolean tag_node_open(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_node_open")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, TAG_NODE_OPEN, null);
     r = consumeToken(b, T_LD);
-    r = r && tag_node_open_1(b, l + 1);
     r = r && tag_with_attributes(b, l + 1);
+    r = r && tag_node_open_2(b, l + 1);
     p = r; // pin = 3
-    r = r && report_error_(b, tag_node_open_3(b, l + 1));
-    r = p && consumeToken(b, T_RD) && r;
+    r = r && consumeToken(b, T_RD);
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
-  // [T_DISAMBIGUATION]
-  private static boolean tag_node_open_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_node_open_1")) return false;
-    consumeToken(b, T_DISAMBIGUATION);
-    return true;
-  }
-
   // [T_SLASH]
-  private static boolean tag_node_open_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_node_open_3")) return false;
+  private static boolean tag_node_open_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_node_open_2")) return false;
     consumeToken(b, T_SLASH);
     return true;
   }
@@ -1298,7 +1306,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // tag tag_attribute_assignment*
   static boolean tag_with_attributes(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_with_attributes")) return false;
-    if (!nextTokenIs(b, T_TAG)) return false;
+    if (!nextTokenIs(b, "", T_DISAMBIGUATION, T_TAG)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = tag(b, l + 1);

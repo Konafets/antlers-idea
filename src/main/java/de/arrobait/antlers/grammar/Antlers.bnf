@@ -151,12 +151,12 @@ noparse_region_open ::= '{{' 'noparse' '}}' { pin=2 }
 noparse_region_close ::= '{{' (T_SLASH 'noparse') '}}' { pin=2 }
 
 tag_node ::= tag_node_open nodes* tag_node_close? { pin = 1 }
-tag_node_open ::= '{{' [T_DISAMBIGUATION] tag_with_attributes [T_SLASH] '}}' { pin=3 }
+tag_node_open ::= '{{' tag_with_attributes [T_SLASH] '}}' { pin=3 }
 tag_node_close ::= '{{' (T_SLASH tag) '}}' { pin=2 }
 
 private tag_with_attributes ::= tag tag_attribute_assignment*
 
-tag ::= shorthand_tag | regular_tag
+tag ::= [T_DISAMBIGUATION] (shorthand_tag | regular_tag)
 private shorthand_tag ::= regular_tag T_SHORTHAND_SEPARATOR tag_method_part { pin=2 }
 private regular_tag ::= tag_name
 tag_name ::= T_TAG
