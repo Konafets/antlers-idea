@@ -136,7 +136,11 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ var | ensure_right('hi', ['pooh', 'pea'], true, 42, $favoriteVar['foo']) }}" + NL +
                 NL +
                 "{{# Tags #}}" + NL +
+                "{{ collection }} {{ /collection }}" + NL +
                 "{{ collection from=\"Foo\" }} {{ /collection }}" + NL +
+                "{{ collection:blog }} {{ /collection:blog }}" + NL +
+                "{{ %collection }} {{ /collection }}" + NL +
+                "{{ nav:collection:pages }} {{ /nav:collection:pages }}" + NL +
                 NL;
 //                "{{# PHP #}}" + NL +
 //                "{{? <php_keyword>echo</php_keyword> <php_string>\\\"Choose your own Statamic adventure!\\\"</php_string> ?}}" + NL +
@@ -181,6 +185,9 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 new AttributesDescriptor("Parentheses", AntlersHighlighter.PARENTHESES),
                 new AttributesDescriptor("String", AntlersHighlighter.STRING),
                 new AttributesDescriptor("Tags", AntlersHighlighter.TAG),
+                new AttributesDescriptor("Tag method name", AntlersHighlighter.TAG_METHOD_NAME),
+                new AttributesDescriptor("Tag disambiguation", AntlersHighlighter.TAG_DISAMBIGUATION),
+                new AttributesDescriptor("Tag shorthand separator", AntlersHighlighter.TAG_SHORTHAND_SEPARATOR),
         };
 
         ourTags.put("outer_language", XmlHighlighterColors.HTML_TAG);

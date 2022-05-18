@@ -19,4 +19,7 @@ public class AntlersHighlighter {
     public static final TextAttributesKey PARENTHESES = createTextAttributesKey("PARENTHESES", DefaultLanguageHighlighterColors.PARENTHESES);
     public static final TextAttributesKey STRING = createTextAttributesKey("STRING", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey TAG = createTextAttributesKey("TAG", DefaultLanguageHighlighterColors.FUNCTION_CALL);
+    public static final TextAttributesKey TAG_METHOD_NAME = createTextAttributesKey("TAG_METHOD_NAME", DefaultLanguageHighlighterColors.PARAMETER);
+    public static final TextAttributesKey TAG_DISAMBIGUATION = createTextAttributesKey("TAG_DISAMBIGUATION", DefaultLanguageHighlighterColors.OPERATION_SIGN);
+    public static final TextAttributesKey TAG_SHORTHAND_SEPARATOR = createTextAttributesKey("TAG_SHORTHAND_SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);
 }

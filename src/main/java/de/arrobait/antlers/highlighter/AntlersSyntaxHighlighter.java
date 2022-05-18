@@ -40,5 +40,8 @@ public class AntlersSyntaxHighlighter extends SyntaxHighlighterBase {
         fillMap(ATTRIBUTES, AntlersTokenSets.PARENTHESES, AntlersHighlighter.PARENTHESES);
         fillMap(ATTRIBUTES, AntlersTokenSets.STRINGS, AntlersHighlighter.STRING);
         fillMap(ATTRIBUTES, AntlersTokenSets.TAGS, AntlersHighlighter.TAG);
+        fillMap(ATTRIBUTES, AntlersTokenSets.TAG_METHOD_NAMES, AntlersHighlighter.TAG_METHOD_NAME);
+        fillMap(ATTRIBUTES, AntlersTokenSets.TAG_DISAMBIGUATION, AntlersHighlighter.TAG_DISAMBIGUATION);
+        fillMap(ATTRIBUTES, AntlersTokenSets.TAG_SHORTHAND_SEPARATOR, AntlersHighlighter.TAG_SHORTHAND_SEPARATOR);
     }
 }

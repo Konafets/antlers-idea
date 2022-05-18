@@ -17,6 +17,9 @@ public class AntlersTokenSets {
     public static final TokenSet PARENTHESES;
     public static final TokenSet STRINGS;
     public static final TokenSet TAGS;
+    public static final TokenSet TAG_METHOD_NAMES;
+    public static final TokenSet TAG_DISAMBIGUATION;
+    public static final TokenSet TAG_SHORTHAND_SEPARATOR;
     public static final TokenSet WHITE_SPACE;
 
     private AntlersTokenSets() {}
@@ -108,6 +111,15 @@ public class AntlersTokenSets {
         TAGS = TokenSet.create(
                 AntlersTypes.T_NOPARSE,
                 AntlersTypes.T_TAG
+        );
+        TAG_METHOD_NAMES = TokenSet.create(
+                AntlersTypes.T_TAG_METHOD_NAME
+        );
+        TAG_DISAMBIGUATION = TokenSet.create(
+                AntlersTypes.T_DISAMBIGUATION
+        );
+        TAG_SHORTHAND_SEPARATOR = TokenSet.create(
+                AntlersTypes.T_SHORTHAND_SEPARATOR
         );
         WHITE_SPACE = TokenSet.create(
                 TokenType.WHITE_SPACE
