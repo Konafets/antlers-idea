@@ -28,9 +28,21 @@ public class AntlersPluckImpl extends ASTWrapperPsiElement implements AntlersPlu
   }
 
   @Override
-  @NotNull
+  @Nullable
+  public AntlersNumberLiteral getNumberLiteral() {
+    return findChildByClass(AntlersNumberLiteral.class);
+  }
+
+  @Override
+  @Nullable
+  public AntlersStringLiteral getStringLiteral() {
+    return findChildByClass(AntlersStringLiteral.class);
+  }
+
+  @Override
+  @Nullable
   public AntlersVariable getVariable() {
-    return findNotNullChildByClass(AntlersVariable.class);
+    return findChildByClass(AntlersVariable.class);
   }
 
 }

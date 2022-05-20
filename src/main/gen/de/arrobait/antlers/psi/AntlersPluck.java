@@ -7,7 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface AntlersPluck extends PsiElement {
 
-  @NotNull
+  @Nullable
+  AntlersNumberLiteral getNumberLiteral();
+
+  @Nullable
+  AntlersStringLiteral getStringLiteral();
+
+  @Nullable
   AntlersVariable getVariable();
 
 }

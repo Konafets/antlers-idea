@@ -314,7 +314,7 @@ orderby_args_list  ::= orderby_arg (',' orderby_arg)*
 orderby_arg        ::= variable orderby_direction
 orderby_direction  ::= string_literal | boolean_literal | variable
 
-pluck              ::= 'pluck' '(' variable ')'
+pluck              ::= 'pluck' '(' (variable | number_literal | string_literal) ')'
 skip               ::= 'skip' '(' number_literal ')'
 take               ::= 'take' '(' number_literal ')'
 

@@ -1196,16 +1196,26 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'pluck' '(' variable ')'
+  // 'pluck' '(' (variable | number_literal | string_literal) ')'
   public static boolean pluck(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "pluck")) return false;
     if (!nextTokenIs(b, T_PLUCK)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, T_PLUCK, T_LP);
-    r = r && variable(b, l + 1);
+    r = r && pluck_2(b, l + 1);
     r = r && consumeToken(b, T_RP);
     exit_section_(b, m, PLUCK, r);
+    return r;
+  }
+
+  // variable | number_literal | string_literal
+  private static boolean pluck_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "pluck_2")) return false;
+    boolean r;
+    r = variable(b, l + 1);
+    if (!r) r = number_literal(b, l + 1);
+    if (!r) r = string_literal(b, l + 1);
     return r;
   }
 
