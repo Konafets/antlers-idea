@@ -16,4 +16,7 @@ public interface AntlersArray extends PsiElement {
   @NotNull
   List<AntlersStringLiteral> getStringLiteralList();
 
+  @NotNull
+  List<AntlersVariable> getVariableList();
+
 }

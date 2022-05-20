@@ -41,6 +41,12 @@ public class AntlersBracketPropertyAccessImpl extends ASTWrapperPsiElement imple
 
   @Override
   @Nullable
+  public AntlersInterpolatedStatement getInterpolatedStatement() {
+    return findChildByClass(AntlersInterpolatedStatement.class);
+  }
+
+  @Override
+  @Nullable
   public AntlersStringLiteral getStringLiteral() {
     return findChildByClass(AntlersStringLiteral.class);
   }

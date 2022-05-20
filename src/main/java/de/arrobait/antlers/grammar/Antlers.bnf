@@ -181,7 +181,6 @@ tag_taxonomy_condition ::= T_TAXONOMY taxonomy_name '=' taxonomy_term
 taxonomy_name ::= T_IDENTIFIER
 taxonomy_term ::= string_literal
 
-
 recursive_children_node ::= '{{' T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR '}}' { pin=3 }
 
 conditional               ::= conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end { pin=1 }
@@ -270,7 +269,7 @@ unary_factorial_expr ::= expr '!'
 // Variable
 variable ::= T_IDENTIFIER [property_access*]
 private property_access ::= bracket_property_access | dot_property_access | colon_property_access
-bracket_property_access ::= '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal) ']'
+bracket_property_access ::= '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement) ']'
 dot_property_access     ::= '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
 colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
 
@@ -283,9 +282,9 @@ variable_assignment_node ::= '{{' variable '=' assignable_items '}}' { pin=3 }
 private assignable_items ::= boolean_literal
                            | number_literal
                            | string_literal
-                           | variable advanced_operators
+                           | variable [advanced_operators]
                            | array
-                           | interpolated_statement advanced_operators
+                           | interpolated_statement [advanced_operators]
                            | sub_expression
 
 // Advanced operators
@@ -328,7 +327,7 @@ private arrow_func ::= T_IDENTIFIER '=>' { pin=2 }
 // ['Get haircut', 'Bake bread', 'Eat soup']
 // ['Get haircut', 'Bake bread', 'Eat soup', ['another', 'array']]
 array ::= '[' array_value (',' array_value*)* ']'
-private array_value ::= (string_literal | number_literal | array)
+private array_value ::= (string_literal | number_literal | array) ['=>' variable]
 
 // Basic
 interpolated_statement ::= '{' (antlers_expression_or_statement | expr | tag_with_attributes) '}' { pin=1 }

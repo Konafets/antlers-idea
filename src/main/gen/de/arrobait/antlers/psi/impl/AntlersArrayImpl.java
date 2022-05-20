@@ -45,4 +45,10 @@ public class AntlersArrayImpl extends ASTWrapperPsiElement implements AntlersArr
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersStringLiteral.class);
   }
 
+  @Override
+  @NotNull
+  public List<AntlersVariable> getVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersVariable.class);
+  }
+
 }

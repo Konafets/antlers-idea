@@ -14,6 +14,9 @@ public interface AntlersBracketPropertyAccess extends PsiElement {
   AntlersDotPropertyAccess getDotPropertyAccess();
 
   @Nullable
+  AntlersInterpolatedStatement getInterpolatedStatement();
+
+  @Nullable
   AntlersStringLiteral getStringLiteral();
 
   @Nullable
