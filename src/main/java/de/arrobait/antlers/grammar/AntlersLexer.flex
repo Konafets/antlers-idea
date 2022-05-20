@@ -274,17 +274,6 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
                          }
 }
 
-<RECURSIVE_CHILDREN> {
-    {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
-    "*"                  { return T_STAR; }
-    ":"                  { return T_COLON; }
-    "recursive children" { return T_RECURSIVE_CHILDREN; }
-    {IDENTIFIER}         { return T_IDENTIFIER; }
-    [^]                  {
-                           yypushback(1);  // cancel unexpected char
-                           popState();     // and try to parse it again in <ANTLERS_NODE>
-                         }
-}
 
 <TAG_EXPRESSION_ATTRIBUTE_LIST> {
     {RD}                 { yybegin(YYINITIAL); return T_RD; }
@@ -299,6 +288,18 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {IDENTIFIER}         { return T_IDENTIFIER; }
     [^]                  {
                            yybegin(ANTLERS_NODE);  // cancel unexpected char
+                           popState();     // and try to parse it again in <ANTLERS_NODE>
+                         }
+}
+
+<RECURSIVE_CHILDREN> {
+    {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
+    "*"                  { return T_STAR; }
+    ":"                  { return T_COLON; }
+    "recursive children" { return T_RECURSIVE_CHILDREN; }
+    {IDENTIFIER}         { return T_IDENTIFIER; }
+    [^]                  {
+                           yypushback(1);  // cancel unexpected char
                            popState();     // and try to parse it again in <ANTLERS_NODE>
                          }
 }
