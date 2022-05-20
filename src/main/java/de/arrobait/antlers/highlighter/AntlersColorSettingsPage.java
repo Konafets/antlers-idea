@@ -142,6 +142,21 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ collection:blog }} {{ /collection:blog }}" + NL +
                 "{{ %collection }} {{ /collection }}" + NL +
                 "{{ nav:collection:pages }} {{ /nav:collection:pages }}" + NL +
+                NL +
+                "{{# Advanced operators #}}" + NL +
+                "{{ items = foo groupby (FIELD 'KEY1') as 'things' }}" + NL +
+                "{{ items = {collection:headlines} merge {collection:news limit=\"5\"} }}" + NL +
+                "{{ people = people orderby (age 'desc', last_name true, first_name 'asc') }}" + NL +
+                "{{ players = players pluck('name') }}" + NL +
+                "  {{ value }}" + NL +
+                "{{ /players }}" + NL +
+                "{{ players = players skip (2) }}" + NL +
+                "{{ articles = articles take (2) }}" + NL +
+                "{{ bulls = players where (team == \"Chicago Bulls\") }}" + NL +
+                "{{ afford = products where (x => x.price < budget) }}" + NL +
+                NL +
+                "{{# Tag Conditions #}}" + NL +
+                "{{ collection:blog title:contains=\"awesome\" title:contains=\"thing\" author:is=\"joe\" }}" + NL +
                 NL;
 //                "{{# PHP #}}" + NL +
 //                "{{? <php_keyword>echo</php_keyword> <php_string>\\\"Choose your own Statamic adventure!\\\"</php_string> ?}}" + NL +
@@ -187,6 +202,7 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 new AttributesDescriptor("Parentheses", AntlersHighlighter.PARENTHESES),
                 new AttributesDescriptor("String", AntlersHighlighter.STRING),
                 new AttributesDescriptor("Tags", AntlersHighlighter.TAG),
+                new AttributesDescriptor("Tag conditions", AntlersHighlighter.TAG_CONDITION),
                 new AttributesDescriptor("Tag method name", AntlersHighlighter.TAG_METHOD_NAME),
                 new AttributesDescriptor("Tag disambiguation", AntlersHighlighter.TAG_DISAMBIGUATION),
                 new AttributesDescriptor("Tag shorthand separator", AntlersHighlighter.TAG_SHORTHAND_SEPARATOR),

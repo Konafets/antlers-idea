@@ -1,0 +1,31 @@
+{{ collection:blog :title:starts_with="Once upon a time..." }}
+{{ collection:blog hero_image:exists="true" }}
+{{ collection:articles related_articles:doesnt_exist="true" }}
+{{ collection:drinks type:is="tiki" ingredients:in="Orgeat" }}
+    <a href="{{ url }}">
+        {{ title }}
+    </a>
+{{ /collection:drinks }}
+
+{{ collection:blog paginate="10" as="posts" }}
+
+    {{ if no_results }}
+        <p>Aww, there are no results.</p>
+    {{ /if }}
+
+    {{ posts }}
+        <article>
+            {{ title }}
+        </article>
+    {{ /posts }}
+
+    {{ paginate }}
+        <a href="{{ prev_page }}">⬅ Previous</a>
+
+        {{ current_page }} of {{ total_pages }} pages
+        (There are {{ total_items }} posts)
+
+        <a href="{{ next_page }}">Next ➡</a>
+    {{ /paginate }}
+
+{{ /collection:blog }}

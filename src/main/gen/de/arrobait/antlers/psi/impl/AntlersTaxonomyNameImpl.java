@@ -11,38 +11,20 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersTagNodeOpenImpl extends ASTWrapperPsiElement implements AntlersTagNodeOpen {
+public class AntlersTaxonomyNameImpl extends ASTWrapperPsiElement implements AntlersTaxonomyName {
 
-  public AntlersTagNodeOpenImpl(@NotNull ASTNode node) {
+  public AntlersTaxonomyNameImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitTagNodeOpen(this);
+    visitor.visitTaxonomyName(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof AntlersVisitor) accept((AntlersVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public AntlersTag getTag() {
-    return findNotNullChildByClass(AntlersTag.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersTagAttributeAssignment> getTagAttributeAssignmentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTagAttributeAssignment.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersTagTaxonomyCondition> getTagTaxonomyConditionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTagTaxonomyCondition.class);
   }
 
 }

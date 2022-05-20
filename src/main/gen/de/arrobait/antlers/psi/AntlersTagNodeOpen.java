@@ -13,4 +13,7 @@ public interface AntlersTagNodeOpen extends PsiElement {
   @NotNull
   List<AntlersTagAttributeAssignment> getTagAttributeAssignmentList();
 
+  @NotNull
+  List<AntlersTagTaxonomyCondition> getTagTaxonomyConditionList();
+
 }

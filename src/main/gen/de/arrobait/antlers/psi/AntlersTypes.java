@@ -81,7 +81,10 @@ public interface AntlersTypes {
   IElementType TAG_NODE = new AntlersElementType("TAG_NODE");
   IElementType TAG_NODE_CLOSE = new AntlersElementType("TAG_NODE_CLOSE");
   IElementType TAG_NODE_OPEN = new AntlersElementType("TAG_NODE_OPEN");
+  IElementType TAG_TAXONOMY_CONDITION = new AntlersElementType("TAG_TAXONOMY_CONDITION");
   IElementType TAKE = new AntlersElementType("TAKE");
+  IElementType TAXONOMY_NAME = new AntlersElementType("TAXONOMY_NAME");
+  IElementType TAXONOMY_TERM = new AntlersElementType("TAXONOMY_TERM");
   IElementType TENARY_EXPR = new AntlersElementType("TENARY_EXPR");
   IElementType UNARY_FACTORIAL_EXPR = new AntlersElementType("UNARY_FACTORIAL_EXPR");
   IElementType UNARY_MINUS_EXPR = new AntlersElementType("UNARY_MINUS_EXPR");
@@ -171,8 +174,10 @@ public interface AntlersTypes {
   IElementType T_STRING_START = new AntlersTokenType("T_STRING_START");
   IElementType T_SWITCH = new AntlersTokenType("switch");
   IElementType T_TAG = new AntlersTokenType("T_TAG");
+  IElementType T_TAG_CONDITION = new AntlersTokenType("T_TAG_CONDITION");
   IElementType T_TAG_METHOD_NAME = new AntlersTokenType("T_TAG_METHOD_NAME");
   IElementType T_TAKE = new AntlersTokenType("take");
+  IElementType T_TAXONOMY = new AntlersTokenType("taxonomy:");
   IElementType T_TRUE = new AntlersTokenType("true");
   IElementType T_UNLESS = new AntlersTokenType("unless");
   IElementType T_WHERE = new AntlersTokenType("where");
@@ -396,8 +401,17 @@ public interface AntlersTypes {
       else if (type == TAG_NODE_OPEN) {
         return new AntlersTagNodeOpenImpl(node);
       }
+      else if (type == TAG_TAXONOMY_CONDITION) {
+        return new AntlersTagTaxonomyConditionImpl(node);
+      }
       else if (type == TAKE) {
         return new AntlersTakeImpl(node);
+      }
+      else if (type == TAXONOMY_NAME) {
+        return new AntlersTaxonomyNameImpl(node);
+      }
+      else if (type == TAXONOMY_TERM) {
+        return new AntlersTaxonomyTermImpl(node);
       }
       else if (type == TENARY_EXPR) {
         return new AntlersTenaryExprImpl(node);

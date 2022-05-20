@@ -299,7 +299,19 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTagTaxonomyCondition(@NotNull AntlersTagTaxonomyCondition o) {
+    visitPsiElement(o);
+  }
+
   public void visitTake(@NotNull AntlersTake o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTaxonomyName(@NotNull AntlersTaxonomyName o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTaxonomyTerm(@NotNull AntlersTaxonomyTerm o) {
     visitPsiElement(o);
   }
 

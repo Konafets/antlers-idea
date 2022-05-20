@@ -11,14 +11,14 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersTagNodeOpenImpl extends ASTWrapperPsiElement implements AntlersTagNodeOpen {
+public class AntlersTagTaxonomyConditionImpl extends ASTWrapperPsiElement implements AntlersTagTaxonomyCondition {
 
-  public AntlersTagNodeOpenImpl(@NotNull ASTNode node) {
+  public AntlersTagTaxonomyConditionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitTagNodeOpen(this);
+    visitor.visitTagTaxonomyCondition(this);
   }
 
   @Override
@@ -29,20 +29,14 @@ public class AntlersTagNodeOpenImpl extends ASTWrapperPsiElement implements Antl
 
   @Override
   @NotNull
-  public AntlersTag getTag() {
-    return findNotNullChildByClass(AntlersTag.class);
+  public AntlersTaxonomyName getTaxonomyName() {
+    return findNotNullChildByClass(AntlersTaxonomyName.class);
   }
 
   @Override
   @NotNull
-  public List<AntlersTagAttributeAssignment> getTagAttributeAssignmentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTagAttributeAssignment.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersTagTaxonomyCondition> getTagTaxonomyConditionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTagTaxonomyCondition.class);
+  public AntlersTaxonomyTerm getTaxonomyTerm() {
+    return findNotNullChildByClass(AntlersTaxonomyTerm.class);
   }
 
 }

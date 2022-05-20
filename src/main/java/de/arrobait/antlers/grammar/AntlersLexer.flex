@@ -62,8 +62,7 @@ MODIFIERS=add|add_slashes|ampersand_list|as|ascii|at|background_position|backspa
 TAG="%"?{TAG_NAMES}":"?
 TAG_NAMES=404|asset|assets|cache|can|collection|dd|dump|foreach|form|get_content|get_error|get_errors|get_files|glide|in|increment|installed|is|link|locales|loop|markdown|mix|nav|not_found|oauth|obfuscate|parent|partial|protect|path|query|range|redirect|relate|rotate|route|scope|search|section|session|set|structure|svg|switch|taxonomy|theme|trans|trans_choice|user|users|widont|yield|yields
 TAG_METHOD_NAME=[_A-Za-z][\.-_/0-9A-Za-z]*
-
-TAG_CONDITIONS=:is|:isnt|:contains|:starts_with|:is_before
+TAG_STRING_CONDITIONS=:contains|:doesnt_contain|:doesnt_end_with|:doesnt_exist|:doesnt_match|:doesnt_start_with|:ends_with|:equals|:exists|:gt|:gte|:in|:is|:is_after|:is_alpha|:is_alpha_numeric|:is_before|:is_email|:is_embeddable|:is_empty|:is_numberwang|:is_numeric|:is_url|:isnt|:isset|:lt|:lte|:matches|:not|:not_in|:null|:regex|:starts_with
 
 RECURSIVE_CHILDREN=\*recursive
 
@@ -274,22 +273,23 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
                          }
 }
 
-
 <TAG_EXPRESSION_ATTRIBUTE_LIST> {
-    {RD}                 { yybegin(YYINITIAL); return T_RD; }
-    {SLASH}              { return T_SLASH; }
-    {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
-    "="                  { return T_OP_ASSIGN; }
-    "{"                  { return T_LEFT_BRACE; }
-    "}"                  { return T_RIGHT_BRACE; }
-    ":"                  { return T_DYNAMIC_BINDING; }
-    {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
-    {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_STRING_START; }
-    {IDENTIFIER}         { return T_IDENTIFIER; }
-    [^]                  {
-                           yybegin(ANTLERS_NODE);  // cancel unexpected char
-                           popState();     // and try to parse it again in <ANTLERS_NODE>
-                         }
+    {RD}                    { yybegin(YYINITIAL); return T_RD; }
+    {SLASH}                 { return T_SLASH; }
+    {WHITE_SPACE}           { return TokenType.WHITE_SPACE; }
+    {TAG_STRING_CONDITIONS} { return T_TAG_CONDITION; }
+    "taxonomy:"             { return T_TAXONOMY; }
+    "="                     { return T_OP_ASSIGN; }
+    "{"                     { return T_LEFT_BRACE; }
+    "}"                     { return T_RIGHT_BRACE; }
+    ":"                     { return T_DYNAMIC_BINDING; }
+    {SINGLE_QUOTE}          { pushState(SINGLE_STRING); return T_STRING_START; }
+    {DOUBLE_QUOTE}          { pushState(DOUBLE_STRING); return T_STRING_START; }
+    {IDENTIFIER}            { return T_IDENTIFIER; }
+    [^]                     {
+                              yybegin(ANTLERS_NODE);  // cancel unexpected char
+                              popState();     // and try to parse it again in <ANTLERS_NODE>
+                            }
 }
 
 <RECURSIVE_CHILDREN> {

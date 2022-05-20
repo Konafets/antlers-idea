@@ -19,4 +19,7 @@ public interface AntlersInterpolatedStatement extends AntlersExpr {
   @NotNull
   List<AntlersTagAttributeAssignment> getTagAttributeAssignmentList();
 
+  @NotNull
+  List<AntlersTagTaxonomyCondition> getTagTaxonomyConditionList();
+
 }

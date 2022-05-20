@@ -7,6 +7,18 @@ public class AntlersTagParsingTest extends ParsingTestCase {
         super("parsing/tags", "antlers.html", new AntlersParserDefinition());
     }
 
+    public void testParseTagCollectionConditions() {
+        doTest(true);
+    }
+
+    public void testParseTagTaxonomyConditions() {
+        doTest(true);
+    }
+
+    public void testParseTagUsersConditions() {
+        doTest(true);
+    }
+
     public void testParseTag404() {
         doTest(true);
     }

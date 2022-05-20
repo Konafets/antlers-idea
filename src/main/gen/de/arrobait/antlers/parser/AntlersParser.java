@@ -1480,15 +1480,23 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_IDENTIFIER
+  // T_IDENTIFIER [T_TAG_CONDITION]
   public static boolean tag_attribute_key(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_attribute_key")) return false;
     if (!nextTokenIs(b, T_IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, T_IDENTIFIER);
+    r = r && tag_attribute_key_1(b, l + 1);
     exit_section_(b, m, TAG_ATTRIBUTE_KEY, r);
     return r;
+  }
+
+  // [T_TAG_CONDITION]
+  private static boolean tag_attribute_key_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_attribute_key_1")) return false;
+    consumeToken(b, T_TAG_CONDITION);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1639,7 +1647,22 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // tag tag_attribute_assignment*
+  // T_TAXONOMY taxonomy_name '=' taxonomy_term
+  public static boolean tag_taxonomy_condition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_taxonomy_condition")) return false;
+    if (!nextTokenIs(b, T_TAXONOMY)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_TAXONOMY);
+    r = r && taxonomy_name(b, l + 1);
+    r = r && consumeToken(b, T_OP_ASSIGN);
+    r = r && taxonomy_term(b, l + 1);
+    exit_section_(b, m, TAG_TAXONOMY_CONDITION, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // tag (tag_attribute_assignment | tag_taxonomy_condition)*
   static boolean tag_with_attributes(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_with_attributes")) return false;
     if (!nextTokenIs(b, "", T_DISAMBIGUATION, T_TAG)) return false;
@@ -1651,15 +1674,24 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // tag_attribute_assignment*
+  // (tag_attribute_assignment | tag_taxonomy_condition)*
   private static boolean tag_with_attributes_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_with_attributes_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!tag_attribute_assignment(b, l + 1)) break;
+      if (!tag_with_attributes_1_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "tag_with_attributes_1", c)) break;
     }
     return true;
+  }
+
+  // tag_attribute_assignment | tag_taxonomy_condition
+  private static boolean tag_with_attributes_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_with_attributes_1_0")) return false;
+    boolean r;
+    r = tag_attribute_assignment(b, l + 1);
+    if (!r) r = tag_taxonomy_condition(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */
@@ -1673,6 +1705,30 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = r && number_literal(b, l + 1);
     r = r && consumeToken(b, T_RP);
     exit_section_(b, m, TAKE, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // T_IDENTIFIER
+  public static boolean taxonomy_name(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "taxonomy_name")) return false;
+    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_IDENTIFIER);
+    exit_section_(b, m, TAXONOMY_NAME, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // string_literal
+  public static boolean taxonomy_term(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "taxonomy_term")) return false;
+    if (!nextTokenIs(b, T_STRING_START)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = string_literal(b, l + 1);
+    exit_section_(b, m, TAXONOMY_TERM, r);
     return r;
   }
 
