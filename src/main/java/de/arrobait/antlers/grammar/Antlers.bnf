@@ -39,6 +39,7 @@
 
         T_COLON=':'
         T_COMMA=','
+        T_SEMICOLON=';'
         T_DOT='.'
         T_OP_EXCLAMATION_MARK='!'
         T_OP_QUESTIONMARK='?'

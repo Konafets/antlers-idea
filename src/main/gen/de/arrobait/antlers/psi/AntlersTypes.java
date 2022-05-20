@@ -165,6 +165,7 @@ public interface AntlersTypes {
   IElementType T_RIGHT_BRACE = new AntlersTokenType("}");
   IElementType T_RIGHT_BRACKET = new AntlersTokenType("]");
   IElementType T_RP = new AntlersTokenType(")");
+  IElementType T_SEMICOLON = new AntlersTokenType(";");
   IElementType T_SHORTHAND_SEPARATOR = new AntlersTokenType("T_SHORTHAND_SEPARATOR");
   IElementType T_SKIP = new AntlersTokenType("skip");
   IElementType T_SLASH = new AntlersTokenType("/");

@@ -154,6 +154,12 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 "{{ articles = articles take (2) }}" + NL +
                 "{{ bulls = players where (team == \"Chicago Bulls\") }}" + NL +
                 "{{ afford = products where (x => x.price < budget) }}" + NL +
+                "{{ afford = products where (x => x.price < budget) }}" + NL +
+                "{{" + NL +
+                "    $michael = 9986000;" + NL +
+                "    $minutes_in_a_year = 60 * 24 * 365;" + NL +
+                "    (($michael / $minutes_in_a_year) | format_number(0)) + \" years\";" + NL +
+                "}}" + NL +
                 NL +
                 "{{# Tag Conditions #}}" + NL +
                 "{{ collection:blog title:contains=\"awesome\" title:contains=\"thing\" author:is=\"joe\" }}" + NL +
@@ -195,6 +201,7 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
                 new AttributesDescriptor("Braces and Operators//Comma", AntlersHighlighter.COMMA),
                 new AttributesDescriptor("Braces and Operators//Operator", AntlersHighlighter.OPERATOR),
                 new AttributesDescriptor("Braces and Operators//Parentheses", AntlersHighlighter.PARENTHESES),
+                new AttributesDescriptor("Braces and Operators//Semicolon", AntlersHighlighter.SEMICOLON),
                 new AttributesDescriptor("Comment", AntlersHighlighter.COMMENT),
                 new AttributesDescriptor("Identifier", AntlersHighlighter.IDENTIFIER),
                 new AttributesDescriptor("Keywords", AntlersHighlighter.KEYWORD),

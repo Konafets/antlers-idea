@@ -16,6 +16,7 @@ public class AntlersTokenSets {
     public static final TokenSet NUMBERS;
     public static final TokenSet OPERATORS;
     public static final TokenSet PARENTHESES;
+    public static final TokenSet SEMICOLON;
     public static final TokenSet STRINGS;
     public static final TokenSet TAGS;
     public static final TokenSet TAG_CONDITIONS;
@@ -113,6 +114,9 @@ public class AntlersTokenSets {
         PARENTHESES = TokenSet.create(
                 AntlersTypes.T_LP,
                 AntlersTypes.T_RP
+        );
+        SEMICOLON = TokenSet.create(
+                AntlersTypes.T_SEMICOLON
         );
         STRINGS = TokenSet.create(
                 AntlersTypes.T_STRING_CONTENT,

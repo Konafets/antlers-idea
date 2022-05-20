@@ -173,6 +173,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {SLASH}              { return T_SLASH; }
 
     ","                  { return T_COMMA; }
+    ";"                  { return T_SEMICOLON; }
     ":"                  { return T_COLON; }
     "=>"                 { return T_OP_ARROW; }
 

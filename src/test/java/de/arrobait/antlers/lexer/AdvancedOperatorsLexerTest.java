@@ -515,4 +515,60 @@ public class AdvancedOperatorsLexerTest extends LexerTest {
                 T_RD, "}}"
         );
     }
+
+    @Test
+    public void it_lexes_the_terminator() {
+        givenInput("{{ $michael = 9986000; $minutes_in_a_year = 60 * 24 * 365; (($michael / $minutes_in_a_year) | format_number(0)) + \" years\"; }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "$michael",
+                WHITE_SPACE, " ",
+                T_OP_ASSIGN, "=",
+                WHITE_SPACE, " ",
+                T_INTEGER_NUMBER, "9986000",
+                T_SEMICOLON, ";",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "$minutes_in_a_year",
+                WHITE_SPACE, " ",
+                T_OP_ASSIGN, "=",
+                WHITE_SPACE, " ",
+                T_INTEGER_NUMBER, "60",
+                WHITE_SPACE, " ",
+                T_OP_MUL, "*",
+                WHITE_SPACE, " ",
+                T_INTEGER_NUMBER, "24",
+                WHITE_SPACE, " ",
+                T_OP_MUL, "*",
+                WHITE_SPACE, " ",
+                T_INTEGER_NUMBER, "365",
+                T_SEMICOLON, ";",
+                WHITE_SPACE, " ",
+                T_LP, "(",
+                T_LP, "(",
+                T_IDENTIFIER, "$michael",
+                WHITE_SPACE, " ",
+                T_SLASH, "/",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "$minutes_in_a_year",
+                T_RP, ")",
+                WHITE_SPACE, " ",
+                T_PIPE, "|",
+                WHITE_SPACE, " ",
+                T_MODIFIER, "format_number",
+                T_LP, "(",
+                T_INTEGER_NUMBER, "0",
+                T_RP, ")",
+                T_RP, ")",
+                WHITE_SPACE, " ",
+                T_OP_PLUS, "+",
+                WHITE_SPACE, " ",
+                T_STRING_START, "\"",
+                T_STRING_CONTENT, " years",
+                T_STRING_END, "\"",
+                T_SEMICOLON, ";",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
 }
