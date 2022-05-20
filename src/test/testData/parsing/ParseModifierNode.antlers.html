@@ -1,1 +1,23 @@
+{{ if (gallery | length) >= 12 && (content | read_time) > 5 }}{{ /if }}
+
+<h1>{{ title | upper }}</h1>
+
+<!-- NICKELODEON STUDIOS rocks! -->
+<h1>{{ title | upper | ensure_right('rocks!') }}</h1>
+<!-- NICKELODEON STUDIOS ROCKS! (order matters) -->
+<h1>{{ title | ensure_right('rocks!') | upper }}</h1>
+
+{{ var | ensure_right('hi') }}
+{{ var | ensure_right(['pooh']) }}
+{{ var | ensure_right(['pooh', ]) }}
+{{ var | ensure_right(['pooh', 'pea']) }}
+{{ var | ensure_right(true) }}
+{{ var | ensure_right(42) }}
+{{ var | ensure_right($favoriteVar['foo']) }}
 {{ var | ensure_right('hi', ['pooh', 'pea'], true, 42, $favoriteVar['foo']) }}
+
+{{ summary | replace('worst', 'yummiest') }}
+{{ summary | replace('It was', 'It was also') | replace('times', $noun) }}
+{{ summary | explode(' ') | ul }}
+{{ (summary | contains('best')) }}
+{{ (summary | contains('best')) ?= "It was lunch, is what it was." }}

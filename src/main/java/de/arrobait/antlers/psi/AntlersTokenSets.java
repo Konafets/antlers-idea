@@ -27,7 +27,13 @@ public class AntlersTokenSets {
 
     static {
         ADVANCED_OPERATORS = TokenSet.create(
-                AntlersTypes.T_MERGE
+                AntlersTypes.T_GROUP_BY,
+                AntlersTypes.T_MERGE,
+                AntlersTypes.T_ORDER_BY,
+                AntlersTypes.T_PLUCK,
+                AntlersTypes.T_SKIP,
+                AntlersTypes.T_TAKE,
+                AntlersTypes.T_WHERE
         );
         BOOLEANS = TokenSet.create(
                 AntlersTypes.T_TRUE,

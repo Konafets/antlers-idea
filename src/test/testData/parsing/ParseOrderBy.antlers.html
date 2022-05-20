@@ -1,0 +1,4 @@
+{{ people = people orderby (age 'desc', last_name 'asc', first_name 'asc') }}
+{{ people = people orderby (age false, last_name true, first_name false) }}
+
+{{ places = places orderby (state $dir, city $dir, zip_code $dir) }}

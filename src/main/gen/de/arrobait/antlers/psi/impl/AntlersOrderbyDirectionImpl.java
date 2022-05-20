@@ -11,14 +11,14 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement implements AntlersVariableAssignmentNode {
+public class AntlersOrderbyDirectionImpl extends ASTWrapperPsiElement implements AntlersOrderbyDirection {
 
-  public AntlersVariableAssignmentNodeImpl(@NotNull ASTNode node) {
+  public AntlersOrderbyDirectionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitVariableAssignmentNode(this);
+    visitor.visitOrderbyDirection(this);
   }
 
   @Override
@@ -29,32 +29,8 @@ public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement impl
 
   @Override
   @Nullable
-  public AntlersArray getArray() {
-    return findChildByClass(AntlersArray.class);
-  }
-
-  @Override
-  @Nullable
   public AntlersBooleanLiteral getBooleanLiteral() {
     return findChildByClass(AntlersBooleanLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersExpr getExpr() {
-    return findChildByClass(AntlersExpr.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersNumberLiteral getNumberLiteral() {
-    return findChildByClass(AntlersNumberLiteral.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersSingleAdvancedOperator> getSingleAdvancedOperatorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersSingleAdvancedOperator.class);
   }
 
   @Override
@@ -64,9 +40,9 @@ public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement impl
   }
 
   @Override
-  @NotNull
-  public List<AntlersVariable> getVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersVariable.class);
+  @Nullable
+  public AntlersVariable getVariable() {
+    return findChildByClass(AntlersVariable.class);
   }
 
 }

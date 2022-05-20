@@ -87,7 +87,15 @@
         T_AT='@'
         T_NOPARSE='noparse'
 
+        T_AS='as'
+
+        T_GROUP_BY='groupby'
         T_MERGE='merge'
+        T_ORDER_BY='orderby'
+        T_PLUCK='pluck'
+        T_SKIP='skip'
+        T_TAKE='take'
+        T_WHERE='where'
 
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
         T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
@@ -138,8 +146,8 @@ modifier_params_list ::= modifier_list_paren | modifier_list_colon | modifier_li
 private modifier_list_paren ::= '(' modifier_param (',' modifier_param)*  ')'
 private modifier_list_colon ::= ':' modifier_param (':' modifier_param)*
 // TODO For simplicity I used string_literal here as this it was the argument takes: {{ array_var modifier="param1|param2" }}
-// but I guess I can improve it to let the plugin know, that this are arguments to the modifier.
-// Question is: Does it blend or is should it be done on lexing or better on parsing level.
+// TODO but I guess I can improve it to let the plugin know, that this are arguments to the modifier.
+// TODO Question is: Does it blend or is should it be done on lexing or better on parsing level.
 private modifier_list_assign ::= '=' string_literal
 modifier_param       ::= literal_expr | array
 
@@ -264,16 +272,48 @@ colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_litera
 
 // {{ total = 0 }}
 // {{ todo = ['Get haircut', 'Bake bread', 'Eat soup'] }}
-variable_assignment_node ::= '{{' variable '=' assignable_items [merge] '}}' { pin=3 }
+variable_assignment_node ::= '{{' variable '=' assignable_items '}}' { pin=3 }
 private assignable_items ::= boolean_literal
                            | number_literal
                            | string_literal
-                           | variable
+                           | variable advanced_operators
                            | array
-                           | interpolated_statement
+                           | interpolated_statement advanced_operators
                            | sub_expression
 
-private merge ::= 'merge' (variable | interpolated_statement)
+// Advanced operators
+private advanced_operators ::= single_advanced_operator*
+
+single_advanced_operator ::= groupby
+                           | merge
+                           | orderby
+                           | pluck
+                           | skip
+                           | take
+                           | where
+
+groupby            ::= 'groupby' (groupby_args_list | groupby_args_list_with_arrow_func)
+groupby_args_list  ::= '(' groupby_arg (',' groupby_arg)* ')' ['as' string_literal]
+private groupby_args_list_with_arrow_func ::= '(''(' arrow_func groupby_arg [',' groupby_arg] ')'')' ['as' string_literal]
+groupby_arg        ::= antlers_expression_or_statement [groupby_alias]
+// TODO I am using a string for easier first implementation. Better is to change it to dedicated token stream like T_SINGLE_QUOTE T_TBD T_SINGLE_QUOTE
+// TODO Maybe a good opportunity to refactor the string_literal and return dedicated tokens for single and double quotes
+groupby_alias      ::= string_literal
+
+merge              ::= 'merge' (variable | interpolated_statement)
+
+orderby            ::= 'orderby' '(' orderby_args_list ')'
+orderby_args_list  ::= orderby_arg (',' orderby_arg)*
+orderby_arg        ::= variable orderby_direction
+orderby_direction  ::= string_literal | boolean_literal | variable
+
+pluck              ::= 'pluck' '(' variable ')'
+skip               ::= 'skip' '(' number_literal ')'
+take               ::= 'take' '(' number_literal ')'
+
+where              ::= 'where' '(' [where_arrow_func] (expr) ')' // TODO: Allowed all expressions for now, but I have to specify it to allow only comparison and boolean expressions
+where_arrow_func   ::= arrow_func
+private arrow_func ::= T_IDENTIFIER '=>' { pin=2 }
 
 // Array
 // ['Get haircut']

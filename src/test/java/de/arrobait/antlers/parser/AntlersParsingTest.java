@@ -75,7 +75,31 @@ public class AntlersParsingTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testParseGroupBy() {
+        doTest(true);
+    }
+
     public void testParseMerge() {
+        doTest(true);
+    }
+
+    public void testParseOrderBy() {
+        doTest(true);
+    }
+
+    public void testParsePluck() {
+        doTest(true);
+    }
+
+    public void testParseSkip() {
+        doTest(true);
+    }
+
+    public void testParseTake() {
+        doTest(true);
+    }
+
+    public void testParseWhere() {
         doTest(true);
     }
 

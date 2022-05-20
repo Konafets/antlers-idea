@@ -1,0 +1,64 @@
+{{ items = foo groupby (FIELD 'KEY1') as 'things' }}
+{{ items = foo groupby (FIELD 'KEY1', FIELD2 'KEY2') as 'things' }}
+{{ items = foo groupby (FIELD 'KEY1', FIELD2 'KEY2', FIELD3 'Foo') as 'things' }}
+
+{{ items = players groupby (team) }}
+   <h2>{{ key }}</h2>
+   <ul>
+       {{ values }}
+        <li>{{ name }} - {{ position }}</li>
+       {{ /values }}
+    </ul>
+{{ /items }}
+
+{{ items = players groupby (team, position) }}
+   <h2>{{ key:team }} - {{ key:position }}</h2>
+   <ul>
+       {{ values }}
+        <li>{{ name }}</li>
+       {{ /values }}
+    </ul>
+{{ /items }}
+
+{{ items = players groupby (team 'foo', position 'foo') }}
+   <h2>{{ key:team }} - {{ key:position }}</h2>
+   <ul>
+       {{ values }}
+        <li>{{ name }}</li>
+       {{ /values }}
+    </ul>
+{{ /items }}
+
+{{ items = players groupby (team, position) as 'entries' }}
+   <h2>{{ key:team }} - {{ key:position }}</h2>
+   <ul>
+       {{ entries }}
+        <li>{{ name }}</li>
+       {{ /entries }}
+    </ul>
+{{ /items }}
+
+{{ blog = {collection:blog} groupby (date|format('Y') 'year') as 'entries' }}
+  <h2>{{ year }}</h2>
+  <ul>
+    {{ entries }}
+      <li><a href="{{ url }}">{{ title }}</a></li>
+    {{ /entries }}
+  </ul>
+{{ /blog }}
+
+{{ grouped = products groupby ((x => (x:category))) as 'my_group' }}
+{{ grouped = products groupby ((x => (x.title == 'someting'))) }}
+{{ grouped = products groupby ((x => x.title == 'someting')) as 'my_group' }}
+
+
+{{#
+    {{ some_var | add(foo groupby (title))
+
+    {{ combined = something where (some_value >= 20)
+        orderby (name 'desc')
+        take 100
+        groupby (category) }}
+        {{ title }}
+    {{ /combined }}
+#}}

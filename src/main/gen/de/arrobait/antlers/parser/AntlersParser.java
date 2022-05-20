@@ -47,6 +47,18 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   };
 
   /* ********************************************************** */
+  // single_advanced_operator*
+  static boolean advanced_operators(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "advanced_operators")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!single_advanced_operator(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "advanced_operators", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
   // nodes*
   static boolean antlersFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "antlersFile")) return false;
@@ -226,23 +238,59 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // T_IDENTIFIER '=>'
+  static boolean arrow_func(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "arrow_func")) return false;
+    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 2, T_IDENTIFIER, T_OP_ARROW);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // boolean_literal
   //                            | number_literal
   //                            | string_literal
-  //                            | variable
+  //                            | variable advanced_operators
   //                            | array
-  //                            | interpolated_statement
+  //                            | interpolated_statement advanced_operators
   //                            | sub_expression
   static boolean assignable_items(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "assignable_items")) return false;
     boolean r;
+    Marker m = enter_section_(b);
     r = boolean_literal(b, l + 1);
     if (!r) r = number_literal(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
-    if (!r) r = variable(b, l + 1);
+    if (!r) r = assignable_items_3(b, l + 1);
     if (!r) r = array(b, l + 1);
-    if (!r) r = interpolated_statement(b, l + 1);
+    if (!r) r = assignable_items_5(b, l + 1);
     if (!r) r = sub_expression(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // variable advanced_operators
+  private static boolean assignable_items_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "assignable_items_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = variable(b, l + 1);
+    r = r && advanced_operators(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // interpolated_statement advanced_operators
+  private static boolean assignable_items_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "assignable_items_5")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = interpolated_statement(b, l + 1);
+    r = r && advanced_operators(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -581,15 +629,177 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'groupby' (groupby_args_list | groupby_args_list_with_arrow_func)
+  public static boolean groupby(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby")) return false;
+    if (!nextTokenIs(b, T_GROUP_BY)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_GROUP_BY);
+    r = r && groupby_1(b, l + 1);
+    exit_section_(b, m, GROUPBY, r);
+    return r;
+  }
+
+  // groupby_args_list | groupby_args_list_with_arrow_func
+  private static boolean groupby_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_1")) return false;
+    boolean r;
+    r = groupby_args_list(b, l + 1);
+    if (!r) r = groupby_args_list_with_arrow_func(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // string_literal
+  public static boolean groupby_alias(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_alias")) return false;
+    if (!nextTokenIs(b, T_STRING_START)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = string_literal(b, l + 1);
+    exit_section_(b, m, GROUPBY_ALIAS, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // antlers_expression_or_statement [groupby_alias]
+  public static boolean groupby_arg(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_arg")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, GROUPBY_ARG, "<groupby arg>");
+    r = antlers_expression_or_statement(b, l + 1);
+    r = r && groupby_arg_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // [groupby_alias]
+  private static boolean groupby_arg_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_arg_1")) return false;
+    groupby_alias(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // '(' groupby_arg (',' groupby_arg)* ')' ['as' string_literal]
+  public static boolean groupby_args_list(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list")) return false;
+    if (!nextTokenIs(b, T_LP)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_LP);
+    r = r && groupby_arg(b, l + 1);
+    r = r && groupby_args_list_2(b, l + 1);
+    r = r && consumeToken(b, T_RP);
+    r = r && groupby_args_list_4(b, l + 1);
+    exit_section_(b, m, GROUPBY_ARGS_LIST, r);
+    return r;
+  }
+
+  // (',' groupby_arg)*
+  private static boolean groupby_args_list_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!groupby_args_list_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "groupby_args_list_2", c)) break;
+    }
+    return true;
+  }
+
+  // ',' groupby_arg
+  private static boolean groupby_args_list_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && groupby_arg(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ['as' string_literal]
+  private static boolean groupby_args_list_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list_4")) return false;
+    groupby_args_list_4_0(b, l + 1);
+    return true;
+  }
+
+  // 'as' string_literal
+  private static boolean groupby_args_list_4_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list_4_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_AS);
+    r = r && string_literal(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '(''(' arrow_func groupby_arg [',' groupby_arg] ')'')' ['as' string_literal]
+  static boolean groupby_args_list_with_arrow_func(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list_with_arrow_func")) return false;
+    if (!nextTokenIs(b, T_LP)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_LP, T_LP);
+    r = r && arrow_func(b, l + 1);
+    r = r && groupby_arg(b, l + 1);
+    r = r && groupby_args_list_with_arrow_func_4(b, l + 1);
+    r = r && consumeTokens(b, 0, T_RP, T_RP);
+    r = r && groupby_args_list_with_arrow_func_7(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // [',' groupby_arg]
+  private static boolean groupby_args_list_with_arrow_func_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list_with_arrow_func_4")) return false;
+    groupby_args_list_with_arrow_func_4_0(b, l + 1);
+    return true;
+  }
+
+  // ',' groupby_arg
+  private static boolean groupby_args_list_with_arrow_func_4_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list_with_arrow_func_4_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && groupby_arg(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ['as' string_literal]
+  private static boolean groupby_args_list_with_arrow_func_7(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list_with_arrow_func_7")) return false;
+    groupby_args_list_with_arrow_func_7_0(b, l + 1);
+    return true;
+  }
+
+  // 'as' string_literal
+  private static boolean groupby_args_list_with_arrow_func_7_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "groupby_args_list_with_arrow_func_7_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_AS);
+    r = r && string_literal(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // 'merge' (variable | interpolated_statement)
-  static boolean merge(PsiBuilder b, int l) {
+  public static boolean merge(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "merge")) return false;
     if (!nextTokenIs(b, T_MERGE)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, T_MERGE);
     r = r && merge_1(b, l + 1);
-    exit_section_(b, m, null, r);
+    exit_section_(b, m, MERGE, r);
     return r;
   }
 
@@ -842,6 +1052,81 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'orderby' '(' orderby_args_list ')'
+  public static boolean orderby(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "orderby")) return false;
+    if (!nextTokenIs(b, T_ORDER_BY)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_ORDER_BY, T_LP);
+    r = r && orderby_args_list(b, l + 1);
+    r = r && consumeToken(b, T_RP);
+    exit_section_(b, m, ORDERBY, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // variable orderby_direction
+  public static boolean orderby_arg(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "orderby_arg")) return false;
+    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = variable(b, l + 1);
+    r = r && orderby_direction(b, l + 1);
+    exit_section_(b, m, ORDERBY_ARG, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // orderby_arg (',' orderby_arg)*
+  public static boolean orderby_args_list(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "orderby_args_list")) return false;
+    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = orderby_arg(b, l + 1);
+    r = r && orderby_args_list_1(b, l + 1);
+    exit_section_(b, m, ORDERBY_ARGS_LIST, r);
+    return r;
+  }
+
+  // (',' orderby_arg)*
+  private static boolean orderby_args_list_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "orderby_args_list_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!orderby_args_list_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "orderby_args_list_1", c)) break;
+    }
+    return true;
+  }
+
+  // ',' orderby_arg
+  private static boolean orderby_args_list_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "orderby_args_list_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && orderby_arg(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // string_literal | boolean_literal | variable
+  public static boolean orderby_direction(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "orderby_direction")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ORDERBY_DIRECTION, "<orderby direction>");
+    r = string_literal(b, l + 1);
+    if (!r) r = boolean_literal(b, l + 1);
+    if (!r) r = variable(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // OUTER_CONTENT
   static boolean outer_content(PsiBuilder b, int l) {
     return consumeToken(b, OUTER_CONTENT);
@@ -911,6 +1196,20 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'pluck' '(' variable ')'
+  public static boolean pluck(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "pluck")) return false;
+    if (!nextTokenIs(b, T_PLUCK)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_PLUCK, T_LP);
+    r = r && variable(b, l + 1);
+    r = r && consumeToken(b, T_RP);
+    exit_section_(b, m, PLUCK, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // bracket_property_access | dot_property_access | colon_property_access
   static boolean property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_access")) return false;
@@ -962,6 +1261,43 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = r && tag_method_part(b, l + 1);
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  /* ********************************************************** */
+  // groupby
+  //                            | merge
+  //                            | orderby
+  //                            | pluck
+  //                            | skip
+  //                            | take
+  //                            | where
+  public static boolean single_advanced_operator(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "single_advanced_operator")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, SINGLE_ADVANCED_OPERATOR, "<single advanced operator>");
+    r = groupby(b, l + 1);
+    if (!r) r = merge(b, l + 1);
+    if (!r) r = orderby(b, l + 1);
+    if (!r) r = pluck(b, l + 1);
+    if (!r) r = skip(b, l + 1);
+    if (!r) r = take(b, l + 1);
+    if (!r) r = where(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'skip' '(' number_literal ')'
+  public static boolean skip(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "skip")) return false;
+    if (!nextTokenIs(b, T_SKIP)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_SKIP, T_LP);
+    r = r && number_literal(b, l + 1);
+    r = r && consumeToken(b, T_RP);
+    exit_section_(b, m, SKIP, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -1327,6 +1663,20 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'take' '(' number_literal ')'
+  public static boolean take(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "take")) return false;
+    if (!nextTokenIs(b, T_TAKE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_TAKE, T_LP);
+    r = r && number_literal(b, l + 1);
+    r = r && consumeToken(b, T_RP);
+    exit_section_(b, m, TAKE, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // T_IDENTIFIER [property_access*]
   public static boolean variable(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable")) return false;
@@ -1358,7 +1708,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' variable '=' assignable_items [merge] '}}'
+  // '{{' variable '=' assignable_items '}}'
   public static boolean variable_assignment_node(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_assignment_node")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -1369,17 +1719,53 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = r && consumeToken(b, T_OP_ASSIGN);
     p = r; // pin = 3
     r = r && report_error_(b, assignable_items(b, l + 1));
-    r = p && report_error_(b, variable_assignment_node_4(b, l + 1)) && r;
     r = p && consumeToken(b, T_RD) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
-  // [merge]
-  private static boolean variable_assignment_node_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "variable_assignment_node_4")) return false;
-    merge(b, l + 1);
+  /* ********************************************************** */
+  // 'where' '(' [where_arrow_func] (expr) ')'
+  public static boolean where(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "where")) return false;
+    if (!nextTokenIs(b, T_WHERE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_WHERE, T_LP);
+    r = r && where_2(b, l + 1);
+    r = r && where_3(b, l + 1);
+    r = r && consumeToken(b, T_RP);
+    exit_section_(b, m, WHERE, r);
+    return r;
+  }
+
+  // [where_arrow_func]
+  private static boolean where_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "where_2")) return false;
+    where_arrow_func(b, l + 1);
     return true;
+  }
+
+  // (expr)
+  private static boolean where_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "where_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = expr(b, l + 1, -1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // arrow_func
+  public static boolean where_arrow_func(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "where_arrow_func")) return false;
+    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = arrow_func(b, l + 1);
+    exit_section_(b, m, WHERE_ARROW_FUNC, r);
+    return r;
   }
 
   /* ********************************************************** */

@@ -91,6 +91,22 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitGroupby(@NotNull AntlersGroupby o) {
+    visitPsiElement(o);
+  }
+
+  public void visitGroupbyAlias(@NotNull AntlersGroupbyAlias o) {
+    visitPsiElement(o);
+  }
+
+  public void visitGroupbyArg(@NotNull AntlersGroupbyArg o) {
+    visitPsiElement(o);
+  }
+
+  public void visitGroupbyArgsList(@NotNull AntlersGroupbyArgsList o) {
+    visitPsiElement(o);
+  }
+
   public void visitGtExpr(@NotNull AntlersGtExpr o) {
     visitExpr(o);
   }
@@ -117,6 +133,10 @@ public class AntlersVisitor extends PsiElementVisitor {
 
   public void visitLteExpr(@NotNull AntlersLteExpr o) {
     visitExpr(o);
+  }
+
+  public void visitMerge(@NotNull AntlersMerge o) {
+    visitPsiElement(o);
   }
 
   public void visitModExpr(@NotNull AntlersModExpr o) {
@@ -171,6 +191,22 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitOrderby(@NotNull AntlersOrderby o) {
+    visitPsiElement(o);
+  }
+
+  public void visitOrderbyArg(@NotNull AntlersOrderbyArg o) {
+    visitPsiElement(o);
+  }
+
+  public void visitOrderbyArgsList(@NotNull AntlersOrderbyArgsList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitOrderbyDirection(@NotNull AntlersOrderbyDirection o) {
+    visitPsiElement(o);
+  }
+
   public void visitPhpEchoNode(@NotNull AntlersPhpEchoNode o) {
     visitPsiElement(o);
   }
@@ -179,11 +215,23 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPluck(@NotNull AntlersPluck o) {
+    visitPsiElement(o);
+  }
+
   public void visitPowExpr(@NotNull AntlersPowExpr o) {
     visitExpr(o);
   }
 
   public void visitRecursiveChildrenNode(@NotNull AntlersRecursiveChildrenNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSingleAdvancedOperator(@NotNull AntlersSingleAdvancedOperator o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSkip(@NotNull AntlersSkip o) {
     visitPsiElement(o);
   }
 
@@ -251,6 +299,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTake(@NotNull AntlersTake o) {
+    visitPsiElement(o);
+  }
+
   public void visitTenaryExpr(@NotNull AntlersTenaryExpr o) {
     visitExpr(o);
   }
@@ -272,6 +324,14 @@ public class AntlersVisitor extends PsiElementVisitor {
   }
 
   public void visitVariableAssignmentNode(@NotNull AntlersVariableAssignmentNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWhere(@NotNull AntlersWhere o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWhereArrowFunc(@NotNull AntlersWhereArrowFunc o) {
     visitPsiElement(o);
   }
 

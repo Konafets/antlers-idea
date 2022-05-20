@@ -133,7 +133,15 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "noparse"            { return T_NOPARSE;}
 
     // Advanced operators
+    "as"                 { return T_AS; }
+    "groupby"            { return T_GROUP_BY; }
+    //"groupby"            { pushState(GROUP_BY); return T_GROUP_BY; }
     "merge"              { return T_MERGE; }
+    "orderby"            { return T_ORDER_BY; }
+    "pluck"              { return T_PLUCK; }
+    "skip"               { return T_SKIP; }
+    "take"               { return T_TAKE; }
+    "where"              { return T_WHERE; }
 
     // Boolean
     "true"               { return T_TRUE; }
@@ -223,9 +231,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 // State to avoid ambiguity between core modifiers and custom variables like: {{ title | title }}
 <MODIFIER_LIST> {
-    {RD}                 { yybegin(YYINITIAL); return T_RD; }
     {MODIFIERS}          { return T_MODIFIER; }
-    {PIPE}               { return T_PIPE; }
     {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
 
     // Boolean
@@ -233,7 +239,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "false"              { return T_FALSE; }
     ","                  { return T_COMMA; }
     "("                  { return T_LP; }
-    ")"                  { return T_RP; }
+    ")"                  { popState(); return T_RP; }
     "["                  { return T_LEFT_BRACKET; }
     "]"                  { return T_RIGHT_BRACKET; }
     {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
