@@ -255,7 +255,9 @@ public class TagsLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_TAG, "nav",
                 T_SHORTHAND_SEPARATOR, ":",
-                T_TAG_METHOD_NAME, "collection:pages",
+                T_TAG_METHOD_NAME, "collection",
+                T_SHORTHAND_SEPARATOR, ":",
+                T_TAG_METHOD_NAME, "pages",
                 WHITE_SPACE, " ",
                 T_RD, "}}",
                 T_LD, "{{",
@@ -263,7 +265,9 @@ public class TagsLexerTest extends LexerTest {
                 T_SLASH, "/",
                 T_TAG, "nav",
                 T_SHORTHAND_SEPARATOR, ":",
-                T_TAG_METHOD_NAME, "collection:pages",
+                T_TAG_METHOD_NAME, "collection",
+                T_SHORTHAND_SEPARATOR, ":",
+                T_TAG_METHOD_NAME, "pages",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
