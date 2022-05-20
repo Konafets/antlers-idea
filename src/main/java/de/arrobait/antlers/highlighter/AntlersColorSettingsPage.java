@@ -188,24 +188,24 @@ public class AntlersColorSettingsPage implements ColorSettingsPage {
     static {
         SYNTAX_HIGHLIGHTER = SyntaxHighlighterFactory.getSyntaxHighlighter(AntlersLanguage.INSTANCE, null, null);
         DESCRIPTORS = new AttributesDescriptor[] {
-                new AttributesDescriptor("Advanced operators", AntlersHighlighter.ADVANCED_OPERATORS),
                 new AttributesDescriptor("Boolean", AntlersHighlighter.BOOLEAN),
-                new AttributesDescriptor("Braces", AntlersHighlighter.BRACES),
-                new AttributesDescriptor("Brackets", AntlersHighlighter.BRACKETS),
-                new AttributesDescriptor("Comma", AntlersHighlighter.COMMA),
+                new AttributesDescriptor("Braces and Operators//Advanced operators", AntlersHighlighter.ADVANCED_OPERATORS),
+                new AttributesDescriptor("Braces and Operators//Braces", AntlersHighlighter.BRACES),
+                new AttributesDescriptor("Braces and Operators//Brackets", AntlersHighlighter.BRACKETS),
+                new AttributesDescriptor("Braces and Operators//Comma", AntlersHighlighter.COMMA),
+                new AttributesDescriptor("Braces and Operators//Operator", AntlersHighlighter.OPERATOR),
+                new AttributesDescriptor("Braces and Operators//Parentheses", AntlersHighlighter.PARENTHESES),
                 new AttributesDescriptor("Comment", AntlersHighlighter.COMMENT),
                 new AttributesDescriptor("Identifier", AntlersHighlighter.IDENTIFIER),
                 new AttributesDescriptor("Keywords", AntlersHighlighter.KEYWORD),
                 new AttributesDescriptor("Modifiers", AntlersHighlighter.MODIFIER),
                 new AttributesDescriptor("Number", AntlersHighlighter.NUMBER),
-                new AttributesDescriptor("Operator", AntlersHighlighter.OPERATOR),
-                new AttributesDescriptor("Parentheses", AntlersHighlighter.PARENTHESES),
                 new AttributesDescriptor("String", AntlersHighlighter.STRING),
-                new AttributesDescriptor("Tags", AntlersHighlighter.TAG),
-                new AttributesDescriptor("Tag conditions", AntlersHighlighter.TAG_CONDITION),
-                new AttributesDescriptor("Tag method name", AntlersHighlighter.TAG_METHOD_NAME),
-                new AttributesDescriptor("Tag disambiguation", AntlersHighlighter.TAG_DISAMBIGUATION),
-                new AttributesDescriptor("Tag shorthand separator", AntlersHighlighter.TAG_SHORTHAND_SEPARATOR),
+                new AttributesDescriptor("Tags//Tags", AntlersHighlighter.TAG),
+                new AttributesDescriptor("Tags//Tag conditions", AntlersHighlighter.TAG_CONDITION),
+                new AttributesDescriptor("Tags//Tag method name", AntlersHighlighter.TAG_METHOD_NAME),
+                new AttributesDescriptor("Tags//Tag disambiguation", AntlersHighlighter.TAG_DISAMBIGUATION),
+                new AttributesDescriptor("Tags//Tag shorthand separator", AntlersHighlighter.TAG_SHORTHAND_SEPARATOR),
         };
 
         ourTags.put("outer_language", XmlHighlighterColors.HTML_TAG);
