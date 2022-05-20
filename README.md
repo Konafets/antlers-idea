@@ -30,6 +30,11 @@ A RAD plugin which brings support for Antlers to your IDE.
   Download the [latest release](https://github.com/Konafets/antlers-idea/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
+## Credits
+
+- Mr. Antlers [John Koster](https://github.com/JohnathonKoster) who got not tired to answer my questions
+- The awesome [Jetbrains Slack community](https://plugins.jetbrains.com/slack) for helping me with my first steps with plugin development
+- [Marco](https://github.com/marcorieser) for being my very first sponsor
 
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
