@@ -31,6 +31,26 @@ public class VariableLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
+
+        givenInput("{{ @foo }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_AT, "@",
+                T_IDENTIFIER, "foo",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+
+        givenInput("{{ @$foo }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_AT, "@",
+                T_IDENTIFIER, "$foo",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
     }
 
     @Test

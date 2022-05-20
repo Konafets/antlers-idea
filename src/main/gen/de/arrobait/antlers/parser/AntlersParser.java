@@ -1113,12 +1113,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // variable orderby_direction
   public static boolean orderby_arg(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "orderby_arg")) return false;
-    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    if (!nextTokenIs(b, "<orderby arg>", T_AT, T_IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, ORDERBY_ARG, "<orderby arg>");
     r = variable(b, l + 1);
     r = r && orderby_direction(b, l + 1);
-    exit_section_(b, m, ORDERBY_ARG, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1126,12 +1126,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // orderby_arg (',' orderby_arg)*
   public static boolean orderby_args_list(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "orderby_args_list")) return false;
-    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    if (!nextTokenIs(b, "<orderby args list>", T_AT, T_IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, ORDERBY_ARGS_LIST, "<orderby args list>");
     r = orderby_arg(b, l + 1);
     r = r && orderby_args_list_1(b, l + 1);
-    exit_section_(b, m, ORDERBY_ARGS_LIST, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1787,32 +1787,40 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_IDENTIFIER [property_access*]
+  // '@'? T_IDENTIFIER [property_access*]
   public static boolean variable(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable")) return false;
-    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    if (!nextTokenIs(b, "<variable>", T_AT, T_IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, T_IDENTIFIER);
-    r = r && variable_1(b, l + 1);
-    exit_section_(b, m, VARIABLE, r);
+    Marker m = enter_section_(b, l, _NONE_, VARIABLE, "<variable>");
+    r = variable_0(b, l + 1);
+    r = r && consumeToken(b, T_IDENTIFIER);
+    r = r && variable_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // '@'?
+  private static boolean variable_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_0")) return false;
+    consumeToken(b, T_AT);
+    return true;
+  }
+
   // [property_access*]
-  private static boolean variable_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "variable_1")) return false;
-    variable_1_0(b, l + 1);
+  private static boolean variable_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_2")) return false;
+    variable_2_0(b, l + 1);
     return true;
   }
 
   // property_access*
-  private static boolean variable_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "variable_1_0")) return false;
+  private static boolean variable_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_2_0")) return false;
     while (true) {
       int c = current_position_(b);
       if (!property_access(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "variable_1_0", c)) break;
+      if (!empty_element_parsed_guard_(b, "variable_2_0", c)) break;
     }
     return true;
   }

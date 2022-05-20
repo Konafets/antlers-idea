@@ -267,7 +267,7 @@ unary_not_expr       ::= '!' expr
 unary_factorial_expr ::= expr '!'
 
 // Variable
-variable ::= T_IDENTIFIER [property_access*]
+variable ::= '@'? T_IDENTIFIER [property_access*]
 private property_access ::= bracket_property_access | dot_property_access | colon_property_access
 bracket_property_access ::= '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement) ']'
 dot_property_access     ::= '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
