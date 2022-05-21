@@ -1,8 +1,8 @@
 # Antlers Language Support
 
 ![Build](https://github.com/Konafets/antlers-idea/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Version][plugin-version-svg]][plugin-repo]
+[![Downloads][plugin-downloads-svg]][plugin-repo]
 
 ## Template ToDo list
 - [x] Create a new [IntelliJ Platform Plugin Template][template] project.
@@ -40,3 +40,8 @@ A RAD plugin which brings support for Antlers to your IDE.
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 [template]: https://github.com/JetBrains/intellij-platform-plugin-template
+
+<!-- Badges -->
+[plugin-repo]: https://plugins.jetbrains.com/plugin/19203-antlers-idea
+[plugin-version-svg]: https://img.shields.io/jetbrains/plugin/v/19203-antlers-idea.svg
+[plugin-downloads-svg]: https://img.shields.io/jetbrains/plugin/d/19203-antlers-idea.svg
