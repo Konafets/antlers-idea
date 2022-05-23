@@ -1,7 +1,9 @@
 package de.arrobait.antlers.highlighting;
 
 import de.arrobait.antlers.highlighting.HighlightTestCase;
+import org.junit.Ignore;
 
+@Ignore
 public class HighlightTest extends HighlightTestCase {
     public HighlightTest() {
         super("highlighting", "antlers.html");
