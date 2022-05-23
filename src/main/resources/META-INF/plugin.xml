@@ -38,6 +38,9 @@
                 serviceImplementation="de.arrobait.antlers.services.AntlersApplicationService"/>
         <projectService
                 serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>
+
+        <!-- Language factories -->
+        <lang.fileViewProviderFactory language="Antlers" implementationClass="de.arrobait.antlers.file.AntlersFileViewProviderFactory"/>
     </extensions>
 
     <actions>
