@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# Antlers IDEA Changelog
+# Antlers Language Support Changelog
 
 ## [Unreleased]
 ### Added
