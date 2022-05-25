@@ -15,8 +15,6 @@
 - [x] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
 
 <!-- Plugin description -->
-**This plugin is still alpha. New features will be added in future versions.**
-
 This plugin adds support for Antlers, the templating language of [Statamic](https://statamic.com/), to IDEs based on the Intellij IDEA platform (IntelliJ IDEA and PhpStorm).
 New features are regularly announced in changelogs.
 
@@ -25,6 +23,7 @@ It supports:
 - Syntax highlighting and customizing the colors via settings
 - Creating of `.antlers.html` files via the new file action
 
+**This plugin is still alpha. New features will be added in future versions.**
 <!-- Plugin description end -->
 
 ## Installation
