@@ -3,7 +3,18 @@
 # Antlers Language Support Changelog
 
 ## [Unreleased]
+### Added
+- Support the IDEs Commenter feature -> `Code | Comment with Line Comment` 
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [0.0.1] - 2022-05-25
 ### Added
 - Infrastructure
   - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)

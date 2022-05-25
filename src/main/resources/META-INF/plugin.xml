@@ -41,6 +41,10 @@
 
         <!-- Language factories -->
         <lang.fileViewProviderFactory language="Antlers" implementationClass="de.arrobait.antlers.file.AntlersFileViewProviderFactory"/>
+
+        <!-- Editor -->
+        <lang.commenter
+              language="Antlers" implementationClass="de.arrobait.antlers.editor.comments.AntlersCommenter"/>
     </extensions>
 
     <actions>
