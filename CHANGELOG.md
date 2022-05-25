@@ -3,6 +3,16 @@
 # Antlers Language Support Changelog
 
 ## [Unreleased]
+
+### Added
+
+### Changed
+
+### Fixed
+
+### Removed
+
+## [v0.0.1]
 ### Added
 - Infrastructure
   - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
