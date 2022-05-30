@@ -13,6 +13,8 @@
     elementTypeClass="de.arrobait.antlers.psi.AntlersElementType"
     tokenTypeClass="de.arrobait.antlers.psi.AntlersTokenType"
 
+    mixin("comment_block")="de.arrobait.antlers.psi.mixins.AntlersCommentMixin"
+
     tokens = [
         T_COMMENT_OPEN='{{#'
         T_COMMENT_CLOSE='#}}'

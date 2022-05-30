@@ -4,10 +4,12 @@
 
 ## [Unreleased]
 ### Added
-- Support the IDEs Commenter feature -> `Code | Comment with Line Comment`
-- Add Support for older IDE versions down to 2020.3
- 
+- Support commenting code 
+  - `Code | Comment with Line Comment`
+  - `Code | Comment with Block Comment`
+
 ### Changed
+- Add support for older IDE versions down to 2020.3
 
 ### Deprecated
 

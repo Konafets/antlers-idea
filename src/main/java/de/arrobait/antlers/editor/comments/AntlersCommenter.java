@@ -1,32 +1,49 @@
 package de.arrobait.antlers.editor.comments;
 
-import com.intellij.lang.Commenter;
+import com.intellij.codeInsight.generation.CommenterWithLineSuffix;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class AntlersCommenter implements Commenter {
+public class AntlersCommenter implements CommenterWithLineSuffix {
 
     @Override
-    public @Nullable String getLineCommentPrefix() {
-        return null;
-    }
-
-    @Override
-    public @Nullable String getBlockCommentPrefix() {
+    @Nullable
+    public String getLineCommentPrefix() {
         return "{{# ";
     }
 
     @Override
-    public @Nullable String getBlockCommentSuffix() {
+    @NotNull
+    public String getLineCommentSuffix() {
         return " #}}";
     }
 
     @Override
-    public @Nullable String getCommentedBlockCommentPrefix() {
+    @Nullable
+    public String getBlockCommentPrefix() {
+        return "{{# ";
+    }
+
+    @Override
+    @Nullable
+    public String getBlockCommentSuffix() {
+        return " #}}";
+    }
+
+    @Override
+    @Nullable
+    public String getCommentedBlockCommentPrefix() {
         return null;
     }
 
     @Override
-    public @Nullable String getCommentedBlockCommentSuffix() {
+    @Nullable
+    public String getCommentedBlockCommentSuffix() {
         return null;
+    }
+
+    @Override
+    public boolean blockCommentRequiresFullLineSelection() {
+      return true;
     }
 }
