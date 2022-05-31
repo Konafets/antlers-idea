@@ -7,6 +7,7 @@
 - Support commenting code 
   - `Code | Comment with Line Comment`
   - `Code | Comment with Block Comment`
+- Autocomplete and remove closing single and double quote  
 
 ### Changed
 - Add support for older IDE versions down to 2020.3

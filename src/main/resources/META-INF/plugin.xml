@@ -45,6 +45,14 @@
         <!-- Editor -->
         <lang.commenter
               language="Antlers" implementationClass="de.arrobait.antlers.editor.comments.AntlersCommenter"/>
+
+        <!-- Code completion -->
+        <lang.quoteHandler
+                language="Antlers" implementationClass="de.arrobait.antlers.editor.AntlersQuoteHandler"/>
+        <backspaceHandlerDelegate
+                implementation="de.arrobait.antlers.editor.actions.backspace.AntlersSingleQuotedStringBackspaceHandler"/>
+        <backspaceHandlerDelegate
+                implementation="de.arrobait.antlers.editor.actions.backspace.AntlersDoubleQuotedStringBackspaceHandler"/>
     </extensions>
 
     <actions>
