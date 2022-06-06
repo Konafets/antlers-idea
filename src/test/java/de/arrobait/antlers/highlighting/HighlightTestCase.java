@@ -96,10 +96,8 @@ public abstract class HighlightTestCase extends BasePlatformTestCase {
     protected PsiFile createFile(@NotNull String name, @NotNull String text) {
       LightVirtualFile virtualFile = new LightVirtualFile(name, language, text);
       virtualFile.setCharset(StandardCharsets.UTF_8);
-      return createFile(virtualFile);
-    }
 
-    protected PsiFile createFile(@NotNull LightVirtualFile virtualFile) {
       return myFileFactory.trySetupPsiForFile(virtualFile, language, true, false);
     }
+
 }
