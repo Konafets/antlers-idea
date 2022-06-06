@@ -100,6 +100,10 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
     "@"                  { return T_AT; }
 
+    // Lex a single { to mark an empty file as Antlers, otherwise it would be default to HTML and
+    // TypedHandler will not work correctly.
+    "{"                  { return T_HALF_ENDER; }
+
     // Antlers node
     {LD}                 { pushState(ANTLERS_NODE); return T_LD; }
 

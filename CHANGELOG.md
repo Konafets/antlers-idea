@@ -8,6 +8,8 @@
   - `Code | Comment with Line Comment`
   - `Code | Comment with Block Comment`
 - Autocomplete and remove closing single and double quote  
+- Highlight all sort of brackets, parenthesis and braces as well Antlers' node delimiters 
+- Add autocompletion for Antlers delimiters. Type `{{` and the closing `}}` will be added automatically.
 
 ### Changed
 - Add support for older IDE versions down to 2020.3

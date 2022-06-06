@@ -25,6 +25,7 @@
         T_PHP_ECHO_OPEN='{{$'
         T_PHP_ECHO_CLOSE='$}}'
 
+        T_HALF_ENDER=''
         T_LD='{{'
         T_RD='}}'
         T_LP='('
