@@ -46,6 +46,9 @@
         <lang.commenter
               language="Antlers" implementationClass="de.arrobait.antlers.editor.comments.AntlersCommenter"/>
 
+        <lang.braceMatcher
+                language="Antlers" implementationClass="de.arrobait.antlers.editor.braces.AntlersBraceMatcherAdapter"/>
+
         <!-- Code completion -->
         <lang.quoteHandler
                 language="Antlers" implementationClass="de.arrobait.antlers.editor.AntlersQuoteHandler"/>
