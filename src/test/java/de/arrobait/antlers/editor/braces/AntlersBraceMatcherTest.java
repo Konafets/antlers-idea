@@ -12,11 +12,18 @@ public class AntlersBraceMatcherTest extends BasePlatformTestCase {
 
     @Override
     protected void tearDown() throws Exception {
-        Language language = AntlersLanguage.INSTANCE;
-        LanguageFileViewProviders myLanguageFileViewProvider = LanguageFileViewProviders.INSTANCE;
+        try {
+            Language language = AntlersLanguage.INSTANCE;
+            LanguageFileViewProviders myLanguageFileViewProvider = LanguageFileViewProviders.INSTANCE;
 
-        myLanguageFileViewProvider.removeExplicitExtension(language, myLanguageFileViewProvider.forLanguage(language));
-        super.tearDown();
+            myLanguageFileViewProvider.removeExplicitExtension(language, myLanguageFileViewProvider.forLanguage(language));
+        }
+        catch (Exception e) {
+          addSuppressedException(e);
+        }
+        finally {
+          super.tearDown();
+        }
     }
 
     /**
