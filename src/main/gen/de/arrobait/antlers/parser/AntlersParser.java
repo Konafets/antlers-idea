@@ -1843,6 +1843,20 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // T_IDENTIFIER '=' string_literal
+  public static boolean variable_attribute_assignment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_attribute_assignment")) return false;
+    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, VARIABLE_ATTRIBUTE_ASSIGNMENT, null);
+    r = consumeTokens(b, 2, T_IDENTIFIER, T_OP_ASSIGN);
+    p = r; // pin = 2
+    r = r && string_literal(b, l + 1);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
   // 'where' '(' [where_arrow_func] (expr) ')'
   public static boolean where(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "where")) return false;
@@ -2231,7 +2245,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // number_literal
   //                 | boolean_literal
   //                 | string_literal
-  //                 | variable
+  //                 | variable variable_attribute_assignment*
   public static boolean literal_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "literal_expr")) return false;
     boolean r;
@@ -2239,9 +2253,31 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = number_literal(b, l + 1);
     if (!r) r = boolean_literal(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
-    if (!r) r = variable(b, l + 1);
+    if (!r) r = literal_expr_3(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // variable variable_attribute_assignment*
+  private static boolean literal_expr_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literal_expr_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = variable(b, l + 1);
+    r = r && literal_expr_3_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // variable_attribute_assignment*
+  private static boolean literal_expr_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literal_expr_3_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!variable_attribute_assignment(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "literal_expr_3_1", c)) break;
+    }
+    return true;
   }
 
   // '(' (antlers_expression_or_statement | expr) ')'

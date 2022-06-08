@@ -51,3 +51,15 @@
 <p>I can count to {{ total }}!</p>
 
 {{ scope_name[{'alt_{locale}'}] }}
+
+<main class="outer-grid" id="content">
+    {{ page_builder scope="foo" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+</main>
+
+<main class="outer-grid" id="content">
+    {{ page_builder foo="bar" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+</main>

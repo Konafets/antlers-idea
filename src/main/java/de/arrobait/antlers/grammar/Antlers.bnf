@@ -291,6 +291,8 @@ private assignable_items ::= boolean_literal
                            | interpolated_statement [advanced_operators]
                            | sub_expression
 
+variable_attribute_assignment ::= T_IDENTIFIER '=' string_literal  { pin=2 }
+
 // Advanced operators
 private advanced_operators ::= single_advanced_operator*
 
@@ -339,7 +341,7 @@ sub_expression ::= '(' (antlers_expression_or_statement | expr) ')' { pin=1 }
 literal_expr ::= number_literal
                 | boolean_literal
                 | string_literal
-                | variable
+                | variable variable_attribute_assignment*
 
 // Literals
 number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER

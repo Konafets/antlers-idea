@@ -91,6 +91,7 @@ public interface AntlersTypes {
   IElementType UNARY_NOT_EXPR = new AntlersElementType("UNARY_NOT_EXPR");
   IElementType VARIABLE = new AntlersElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT_NODE = new AntlersElementType("VARIABLE_ASSIGNMENT_NODE");
+  IElementType VARIABLE_ATTRIBUTE_ASSIGNMENT = new AntlersElementType("VARIABLE_ATTRIBUTE_ASSIGNMENT");
   IElementType WHERE = new AntlersElementType("WHERE");
   IElementType WHERE_ARROW_FUNC = new AntlersElementType("WHERE_ARROW_FUNC");
   IElementType XOR_EXPR = new AntlersElementType("XOR_EXPR");
@@ -432,6 +433,9 @@ public interface AntlersTypes {
       }
       else if (type == VARIABLE_ASSIGNMENT_NODE) {
         return new AntlersVariableAssignmentNodeImpl(node);
+      }
+      else if (type == VARIABLE_ATTRIBUTE_ASSIGNMENT) {
+        return new AntlersVariableAttributeAssignmentImpl(node);
       }
       else if (type == WHERE) {
         return new AntlersWhereImpl(node);

@@ -8,17 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static de.arrobait.antlers.psi.AntlersTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersLiteralExprImpl extends AntlersExprImpl implements AntlersLiteralExpr {
+public class AntlersVariableAttributeAssignmentImpl extends ASTWrapperPsiElement implements AntlersVariableAttributeAssignment {
 
-  public AntlersLiteralExprImpl(@NotNull ASTNode node) {
+  public AntlersVariableAttributeAssignmentImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitLiteralExpr(this);
+    visitor.visitVariableAttributeAssignment(this);
   }
 
   @Override
@@ -29,32 +29,8 @@ public class AntlersLiteralExprImpl extends AntlersExprImpl implements AntlersLi
 
   @Override
   @Nullable
-  public AntlersBooleanLiteral getBooleanLiteral() {
-    return findChildByClass(AntlersBooleanLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersNumberLiteral getNumberLiteral() {
-    return findChildByClass(AntlersNumberLiteral.class);
-  }
-
-  @Override
-  @Nullable
   public AntlersStringLiteral getStringLiteral() {
     return findChildByClass(AntlersStringLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersVariable getVariable() {
-    return findChildByClass(AntlersVariable.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersVariableAttributeAssignment> getVariableAttributeAssignmentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersVariableAttributeAssignment.class);
   }
 
 }

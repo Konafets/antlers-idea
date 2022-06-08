@@ -159,6 +159,13 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     // We match all mutations of a tag name including "%" and ":" and lex them in the state
     {TAG}                { yypushback(yylength()); pushState(TAG_EXPRESSION); }
 
+    // Antlers allows attributes to arrays, consider `{{ page_builder scope="foo" }}`.
+    // To make it work, we define a rule in grammar. But here, "scope" is also a Tag and Tags
+    // are not allowed in that context. To make it work, we match
+    // a Tag followed by an equal sign (the "/" is a positive lookahead in JFlex) and lex it as
+    // IDENTIFIER.
+    {TAG} / "="          { return T_IDENTIFIER; }
+
     {RECURSIVE_CHILDREN} { yypushback(yylength()); pushState(RECURSIVE_CHILDREN); }
 
     {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
