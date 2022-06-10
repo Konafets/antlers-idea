@@ -557,7 +557,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' 'elseif' expr '}}'
+  // '{{' 'elseif' expr ('|' modifier_list)* '}}'
   public static boolean conditional_elseif(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_elseif")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -566,9 +566,32 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 2, T_LD, T_ELSE_IF);
     p = r; // pin = 2
     r = r && report_error_(b, expr(b, l + 1, -1));
+    r = p && report_error_(b, conditional_elseif_3(b, l + 1)) && r;
     r = p && consumeToken(b, T_RD) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  // ('|' modifier_list)*
+  private static boolean conditional_elseif_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_elseif_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!conditional_elseif_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_elseif_3", c)) break;
+    }
+    return true;
+  }
+
+  // '|' modifier_list
+  private static boolean conditional_elseif_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_elseif_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_PIPE);
+    r = r && modifier_list(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -585,7 +608,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' 'if' expr '}}'
+  // '{{' 'if' expr ('|' modifier_list)* '}}'
   public static boolean conditional_if(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_if")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -594,9 +617,32 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 2, T_LD, T_IF);
     p = r; // pin = 2
     r = r && report_error_(b, expr(b, l + 1, -1));
+    r = p && report_error_(b, conditional_if_3(b, l + 1)) && r;
     r = p && consumeToken(b, T_RD) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  // ('|' modifier_list)*
+  private static boolean conditional_if_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_if_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!conditional_if_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_if_3", c)) break;
+    }
+    return true;
+  }
+
+  // '|' modifier_list
+  private static boolean conditional_if_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_if_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_PIPE);
+    r = r && modifier_list(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -611,7 +657,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' 'unless' expr '}}'
+  // '{{' 'unless' expr ('|' modifier_list)* '}}'
   public static boolean conditional_unless(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_unless")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -620,9 +666,32 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 2, T_LD, T_UNLESS);
     p = r; // pin = 2
     r = r && report_error_(b, expr(b, l + 1, -1));
+    r = p && report_error_(b, conditional_unless_3(b, l + 1)) && r;
     r = p && consumeToken(b, T_RD) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  // ('|' modifier_list)*
+  private static boolean conditional_unless_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_unless_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!conditional_unless_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_unless_3", c)) break;
+    }
+    return true;
+  }
+
+  // '|' modifier_list
+  private static boolean conditional_unless_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_unless_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_PIPE);
+    r = r && modifier_list(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */

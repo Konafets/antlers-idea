@@ -21,3 +21,11 @@
 {{ summary | explode(' ') | ul }}
 {{ (summary | contains('best')) }}
 {{ (summary | contains('best')) ?= "It was lunch, is what it was." }}
+
+{{ if summary | contains:BEST:true }}{{ /if }}
+{{ if summary | contains:BEST:true }}
+    Foo
+{{ elseif title | contains:FOO }}
+    Bar
+{{ /if }}
+{{ unless summary | contains:BEST:true }}{{ /unless }}

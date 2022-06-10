@@ -190,9 +190,9 @@ recursive_children_node ::= '{{' T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] 
 conditional               ::= conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end { pin=1 }
 private conditional_start ::= (conditional_if | conditional_unless)
 conditional_end           ::= (slash_unless_if | endunless_endif)
-conditional_if            ::= '{{' 'if' expr '}}' { pin=2 }
-conditional_unless        ::= '{{' 'unless' expr '}}' { pin=2 }
-conditional_elseif        ::= '{{' 'elseif' expr '}}' { pin=2 }
+conditional_if            ::= '{{' 'if' expr ('|' modifier_list)* '}}' { pin=2 }
+conditional_unless        ::= '{{' 'unless' expr ('|' modifier_list)* '}}' { pin=2 }
+conditional_elseif        ::= '{{' 'elseif' expr ('|' modifier_list)* '}}' { pin=2 }
 conditional_else          ::= '{{' 'else' '}}' { pin=2 }
 private slash_unless_if   ::= '{{' (T_END_UNLESS | T_END_IF) '}}' { pin=2 }
 private endunless_endif   ::= '{{' ('endunless' | 'endif') '}}' { pin=2 }

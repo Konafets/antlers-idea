@@ -10,4 +10,7 @@ public interface AntlersConditionalUnless extends PsiElement {
   @Nullable
   AntlersExpr getExpr();
 
+  @NotNull
+  List<AntlersModifierList> getModifierListList();
+
 }

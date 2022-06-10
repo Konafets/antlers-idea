@@ -33,4 +33,10 @@ public class AntlersConditionalIfImpl extends ASTWrapperPsiElement implements An
     return findChildByClass(AntlersExpr.class);
   }
 
+  @Override
+  @NotNull
+  public List<AntlersModifierList> getModifierListList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersModifierList.class);
+  }
+
 }
