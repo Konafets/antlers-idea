@@ -11,6 +11,7 @@
 - Highlight all sort of brackets, parenthesis and braces as well Antlers' node delimiters 
 - Add autocompletion for Antlers delimiters. Type `{{` and the closing `}}` will be added automatically.
 - Support for scopes in the grammar #2 
+- Autocomplete Antlers core modifiers
 
 ### Changed
 - Add support for older IDE versions down to 2020.3
