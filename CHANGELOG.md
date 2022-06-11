@@ -16,11 +16,8 @@
 ### Changed
 - Add support for older IDE versions down to 2020.3
 
-### Deprecated
-
-### Removed
-
 ### Fixed
+- Allow modifiers in conditionals #3 
 
 ## [0.0.1] - 2022-05-25
 ### Added
