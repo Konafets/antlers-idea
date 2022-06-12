@@ -12,12 +12,10 @@
 - Add autocompletion for Antlers delimiters. Type `{{` and the closing `}}` will be added automatically.
 - Support for scopes in the grammar #2 
 - Autocomplete Antlers core modifiers
+- Add support for modifiers in conditionals #3
 
 ### Changed
-- Add support for older IDE versions down to 2020.3
-
-### Fixed
-- Allow modifiers in conditionals #3 
+- Add support for older IDE versions down to 2021.2 
 
 ## [0.0.1] - 2022-05-25
 ### Added
