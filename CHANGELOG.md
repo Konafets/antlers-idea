@@ -4,6 +4,32 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.0.2] - 2022-06-12
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.0.2] - 2022-06-12
+### Added
 - Support commenting code 
   - `Code | Comment with Line Comment`
   - `Code | Comment with Block Comment`
@@ -15,7 +41,7 @@
 - Add support for modifiers in conditionals #3
 
 ### Changed
-- Add support for older IDE versions down to 2021.2 
+- Add support for older IDE versions down to 2021.2
 
 ## [0.0.1] - 2022-05-25
 ### Added
