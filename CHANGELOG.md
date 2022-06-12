@@ -3,7 +3,21 @@
 # Antlers Language Support Changelog
 
 ## [Unreleased]
+### Added
+- Support commenting code 
+  - `Code | Comment with Line Comment`
+  - `Code | Comment with Block Comment`
+- Autocomplete and remove closing single and double quote  
+- Highlight all sort of brackets, parenthesis and braces as well Antlers' node delimiters 
+- Add autocompletion for Antlers delimiters. Type `{{` and the closing `}}` will be added automatically.
+- Support for scopes in the grammar #2 
+- Autocomplete Antlers core modifiers
+- Add support for modifiers in conditionals #3
 
+### Changed
+- Add support for older IDE versions down to 2021.2 
+
+## [0.0.1] - 2022-05-25
 ### Added
 - Infrastructure
   - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)

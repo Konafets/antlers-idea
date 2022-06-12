@@ -51,4 +51,10 @@ public class AntlersLiteralExprImpl extends AntlersExprImpl implements AntlersLi
     return findChildByClass(AntlersVariable.class);
   }
 
+  @Override
+  @NotNull
+  public List<AntlersVariableAttributeAssignment> getVariableAttributeAssignmentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersVariableAttributeAssignment.class);
+  }
+
 }

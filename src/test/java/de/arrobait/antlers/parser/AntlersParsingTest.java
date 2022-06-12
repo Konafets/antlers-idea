@@ -7,6 +7,21 @@ public class AntlersParsingTest extends ParsingTestCase {
         super("parsing", "antlers.html", new AntlersParserDefinition());
     }
 
+    @Override
+    protected String getTestDataPath() {
+        return "src/test/testData";
+    }
+
+    @Override
+    protected boolean skipSpaces() {
+        return false;
+    }
+
+    @Override
+    protected boolean includeRanges() {
+        return true;
+    }
+
     public void testParseComments() {
         doTest(true);
     }
@@ -101,20 +116,5 @@ public class AntlersParsingTest extends ParsingTestCase {
 
     public void testParseWhere() {
         doTest(true);
-    }
-
-    @Override
-    protected String getTestDataPath() {
-        return "src/test/testData";
-    }
-
-    @Override
-    protected boolean skipSpaces() {
-        return false;
-    }
-
-    @Override
-    protected boolean includeRanges() {
-        return true;
     }
 }

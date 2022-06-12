@@ -19,4 +19,7 @@ public interface AntlersLiteralExpr extends AntlersExpr {
   @Nullable
   AntlersVariable getVariable();
 
+  @NotNull
+  List<AntlersVariableAttributeAssignment> getVariableAttributeAssignmentList();
+
 }

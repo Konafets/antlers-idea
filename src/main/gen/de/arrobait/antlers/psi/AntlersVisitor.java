@@ -339,6 +339,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitVariableAttributeAssignment(@NotNull AntlersVariableAttributeAssignment o) {
+    visitPsiElement(o);
+  }
+
   public void visitWhere(@NotNull AntlersWhere o) {
     visitPsiElement(o);
   }

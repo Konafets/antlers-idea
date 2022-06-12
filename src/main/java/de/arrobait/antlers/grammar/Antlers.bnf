@@ -13,6 +13,8 @@
     elementTypeClass="de.arrobait.antlers.psi.AntlersElementType"
     tokenTypeClass="de.arrobait.antlers.psi.AntlersTokenType"
 
+    mixin("comment_block")="de.arrobait.antlers.psi.mixins.AntlersCommentMixin"
+
     tokens = [
         T_COMMENT_OPEN='{{#'
         T_COMMENT_CLOSE='#}}'
@@ -23,6 +25,7 @@
         T_PHP_ECHO_OPEN='{{$'
         T_PHP_ECHO_CLOSE='$}}'
 
+        T_HALF_ENDER=''
         T_LD='{{'
         T_RD='}}'
         T_LP='('
@@ -101,7 +104,7 @@
         T_TAXONOMY='taxonomy:'
 
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
-        T_FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
+        T_FLOAT_NUMBER='regexp:\d*\.\d+([eE][-+]?\d+)?|\d+[eE][-+]?\d+'
     ]
 
     extends(".*expr")=expr
@@ -187,9 +190,9 @@ recursive_children_node ::= '{{' T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] 
 conditional               ::= conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end { pin=1 }
 private conditional_start ::= (conditional_if | conditional_unless)
 conditional_end           ::= (slash_unless_if | endunless_endif)
-conditional_if            ::= '{{' 'if' expr '}}' { pin=2 }
-conditional_unless        ::= '{{' 'unless' expr '}}' { pin=2 }
-conditional_elseif        ::= '{{' 'elseif' expr '}}' { pin=2 }
+conditional_if            ::= '{{' 'if' expr ('|' modifier_list)* '}}' { pin=2 }
+conditional_unless        ::= '{{' 'unless' expr ('|' modifier_list)* '}}' { pin=2 }
+conditional_elseif        ::= '{{' 'elseif' expr ('|' modifier_list)* '}}' { pin=2 }
 conditional_else          ::= '{{' 'else' '}}' { pin=2 }
 private slash_unless_if   ::= '{{' (T_END_UNLESS | T_END_IF) '}}' { pin=2 }
 private endunless_endif   ::= '{{' ('endunless' | 'endif') '}}' { pin=2 }
@@ -288,6 +291,8 @@ private assignable_items ::= boolean_literal
                            | interpolated_statement [advanced_operators]
                            | sub_expression
 
+variable_attribute_assignment ::= T_IDENTIFIER '=' string_literal  { pin=2 }
+
 // Advanced operators
 private advanced_operators ::= single_advanced_operator*
 
@@ -336,7 +341,7 @@ sub_expression ::= '(' (antlers_expression_or_statement | expr) ')' { pin=1 }
 literal_expr ::= number_literal
                 | boolean_literal
                 | string_literal
-                | variable
+                | variable variable_attribute_assignment*
 
 // Literals
 number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER

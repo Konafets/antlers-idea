@@ -40,7 +40,28 @@
                 serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>
 
         <!-- Language factories -->
-        <lang.fileViewProviderFactory language="Antlers" implementationClass="de.arrobait.antlers.file.AntlersFileViewProviderFactory"/>
+        <lang.fileViewProviderFactory
+                language="Antlers" implementationClass="de.arrobait.antlers.file.AntlersFileViewProviderFactory"/>
+
+        <!-- Editor -->
+        <lang.commenter
+                language="Antlers" implementationClass="de.arrobait.antlers.editor.comments.AntlersCommenter"/>
+
+        <lang.braceMatcher
+                language="Antlers" implementationClass="de.arrobait.antlers.editor.braces.AntlersBraceMatcherAdapter"/>
+
+        <!-- Code completion -->
+        <lang.quoteHandler
+                language="Antlers" implementationClass="de.arrobait.antlers.editor.AntlersQuoteHandler"/>
+        <backspaceHandlerDelegate
+                implementation="de.arrobait.antlers.editor.actions.backspace.AntlersSingleQuotedStringBackspaceHandler"/>
+        <backspaceHandlerDelegate
+                implementation="de.arrobait.antlers.editor.actions.backspace.AntlersDoubleQuotedStringBackspaceHandler"/>
+        <typedHandler
+                implementation="de.arrobait.antlers.editor.actions.AntlersTypedHandler"/>
+        <completion.contributor
+                language="Antlers"
+                implementationClass="de.arrobait.antlers.completion.AntlersModifierCompletionContributor"/>
     </extensions>
 
     <actions>

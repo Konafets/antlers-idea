@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static de.arrobait.antlers.psi.AntlersTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import de.arrobait.antlers.psi.mixins.AntlersCommentMixin;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersCommentBlockImpl extends ASTWrapperPsiElement implements AntlersCommentBlock {
+public class AntlersCommentBlockImpl extends AntlersCommentMixin implements AntlersCommentBlock {
 
   public AntlersCommentBlockImpl(@NotNull ASTNode node) {
     super(node);

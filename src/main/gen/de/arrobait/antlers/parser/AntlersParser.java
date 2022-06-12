@@ -557,7 +557,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' 'elseif' expr '}}'
+  // '{{' 'elseif' expr ('|' modifier_list)* '}}'
   public static boolean conditional_elseif(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_elseif")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -566,9 +566,32 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 2, T_LD, T_ELSE_IF);
     p = r; // pin = 2
     r = r && report_error_(b, expr(b, l + 1, -1));
+    r = p && report_error_(b, conditional_elseif_3(b, l + 1)) && r;
     r = p && consumeToken(b, T_RD) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  // ('|' modifier_list)*
+  private static boolean conditional_elseif_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_elseif_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!conditional_elseif_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_elseif_3", c)) break;
+    }
+    return true;
+  }
+
+  // '|' modifier_list
+  private static boolean conditional_elseif_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_elseif_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_PIPE);
+    r = r && modifier_list(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -585,7 +608,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' 'if' expr '}}'
+  // '{{' 'if' expr ('|' modifier_list)* '}}'
   public static boolean conditional_if(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_if")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -594,9 +617,32 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 2, T_LD, T_IF);
     p = r; // pin = 2
     r = r && report_error_(b, expr(b, l + 1, -1));
+    r = p && report_error_(b, conditional_if_3(b, l + 1)) && r;
     r = p && consumeToken(b, T_RD) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  // ('|' modifier_list)*
+  private static boolean conditional_if_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_if_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!conditional_if_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_if_3", c)) break;
+    }
+    return true;
+  }
+
+  // '|' modifier_list
+  private static boolean conditional_if_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_if_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_PIPE);
+    r = r && modifier_list(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -611,7 +657,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' 'unless' expr '}}'
+  // '{{' 'unless' expr ('|' modifier_list)* '}}'
   public static boolean conditional_unless(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_unless")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -620,9 +666,32 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 2, T_LD, T_UNLESS);
     p = r; // pin = 2
     r = r && report_error_(b, expr(b, l + 1, -1));
+    r = p && report_error_(b, conditional_unless_3(b, l + 1)) && r;
     r = p && consumeToken(b, T_RD) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  // ('|' modifier_list)*
+  private static boolean conditional_unless_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_unless_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!conditional_unless_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "conditional_unless_3", c)) break;
+    }
+    return true;
+  }
+
+  // '|' modifier_list
+  private static boolean conditional_unless_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_unless_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_PIPE);
+    r = r && modifier_list(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -1843,6 +1912,20 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // T_IDENTIFIER '=' string_literal
+  public static boolean variable_attribute_assignment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_attribute_assignment")) return false;
+    if (!nextTokenIs(b, T_IDENTIFIER)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, VARIABLE_ATTRIBUTE_ASSIGNMENT, null);
+    r = consumeTokens(b, 2, T_IDENTIFIER, T_OP_ASSIGN);
+    p = r; // pin = 2
+    r = r && string_literal(b, l + 1);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
   // 'where' '(' [where_arrow_func] (expr) ')'
   public static boolean where(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "where")) return false;
@@ -2231,7 +2314,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // number_literal
   //                 | boolean_literal
   //                 | string_literal
-  //                 | variable
+  //                 | variable variable_attribute_assignment*
   public static boolean literal_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "literal_expr")) return false;
     boolean r;
@@ -2239,9 +2322,31 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = number_literal(b, l + 1);
     if (!r) r = boolean_literal(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
-    if (!r) r = variable(b, l + 1);
+    if (!r) r = literal_expr_3(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // variable variable_attribute_assignment*
+  private static boolean literal_expr_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literal_expr_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = variable(b, l + 1);
+    r = r && literal_expr_3_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // variable_attribute_assignment*
+  private static boolean literal_expr_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "literal_expr_3_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!variable_attribute_assignment(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "literal_expr_3_1", c)) break;
+    }
+    return true;
   }
 
   // '(' (antlers_expression_or_statement | expr) ')'

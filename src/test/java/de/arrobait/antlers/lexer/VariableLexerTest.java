@@ -262,4 +262,37 @@ public class VariableLexerTest extends LexerTest {
                 T_RD, "}}"
         );
     }
+
+    @Test
+    public void it_lex_variable_with_attributes() {
+        givenInput("{{ page_builder foo=\"bar\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "page_builder",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "foo",
+                T_OP_ASSIGN, "=",
+                T_STRING_START, "\"",
+                T_STRING_CONTENT, "bar",
+                T_STRING_END, "\"",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+
+        givenInput("{{ page_builder scope=\"bar\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "page_builder",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "scope",
+                T_OP_ASSIGN, "=",
+                T_STRING_START, "\"",
+                T_STRING_CONTENT, "bar",
+                T_STRING_END, "\"",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
 }

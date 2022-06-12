@@ -11,7 +11,6 @@ public class LogicalLexerTest extends LexerTest {
         super(new AntlersLexerAdapter());
     }
 
-
     @Test
     public void lex_and_expression() {
         givenInput("{{ 10 && 20 }}");

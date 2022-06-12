@@ -3,6 +3,21 @@ package de.arrobait.antlers.parser;
 import com.intellij.testFramework.ParsingTestCase;
 
 public class AntlersTagParsingTest extends ParsingTestCase {
+    @Override
+    protected String getTestDataPath() {
+        return "src/test/testData";
+    }
+
+    @Override
+    protected boolean skipSpaces() {
+        return false;
+    }
+
+    @Override
+    protected boolean includeRanges() {
+        return true;
+    }
+
     public AntlersTagParsingTest() {
         super("parsing/tags", "antlers.html", new AntlersParserDefinition());
     }
@@ -169,20 +184,5 @@ public class AntlersTagParsingTest extends ParsingTestCase {
 
     public void testParseTagYield() {
         doTest(true);
-    }
-
-    @Override
-    protected String getTestDataPath() {
-        return "src/test/testData";
-    }
-
-    @Override
-    protected boolean skipSpaces() {
-        return false;
-    }
-
-    @Override
-    protected boolean includeRanges() {
-        return true;
     }
 }

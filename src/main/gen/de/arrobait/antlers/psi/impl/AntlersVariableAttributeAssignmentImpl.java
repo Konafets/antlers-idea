@@ -11,14 +11,14 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersConditionalIfImpl extends ASTWrapperPsiElement implements AntlersConditionalIf {
+public class AntlersVariableAttributeAssignmentImpl extends ASTWrapperPsiElement implements AntlersVariableAttributeAssignment {
 
-  public AntlersConditionalIfImpl(@NotNull ASTNode node) {
+  public AntlersVariableAttributeAssignmentImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitConditionalIf(this);
+    visitor.visitVariableAttributeAssignment(this);
   }
 
   @Override
@@ -29,14 +29,8 @@ public class AntlersConditionalIfImpl extends ASTWrapperPsiElement implements An
 
   @Override
   @Nullable
-  public AntlersExpr getExpr() {
-    return findChildByClass(AntlersExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersModifierList> getModifierListList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersModifierList.class);
+  public AntlersStringLiteral getStringLiteral() {
+    return findChildByClass(AntlersStringLiteral.class);
   }
 
 }

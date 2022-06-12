@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface AntlersConditionalIf extends PsiElement {
+public interface AntlersVariableAttributeAssignment extends PsiElement {
 
   @Nullable
-  AntlersExpr getExpr();
-
-  @NotNull
-  List<AntlersModifierList> getModifierListList();
+  AntlersStringLiteral getStringLiteral();
 
 }

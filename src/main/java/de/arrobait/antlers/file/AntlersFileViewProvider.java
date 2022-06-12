@@ -1,5 +1,6 @@
 package de.arrobait.antlers.file;
 
+import com.intellij.openapi.project.Project;
 import de.arrobait.antlers.AntlersLanguage;
 import de.arrobait.antlers.psi.AntlersTypes;
 import com.intellij.lang.Language;
@@ -25,71 +26,77 @@ import java.util.Arrays;
 import java.util.Set;
 
 public class AntlersFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProvider implements TemplateLanguageFileViewProvider {
-    private final Language templateDataLanguage;
+    private final Language myBaseLanguage;
+    private final Language myTemplateLanguage;
     private static final TemplateDataElementType htmlTemplateDataType;
 
-    public AntlersFileViewProvider(PsiManager manager, VirtualFile virtualFile, boolean eventSystemEnabled) {
+    public AntlersFileViewProvider(PsiManager manager, VirtualFile virtualFile, boolean eventSystemEnabled, Language baseLanguage, Language templateLanguage) {
         super(manager, virtualFile, eventSystemEnabled);
-
-        Language language = TemplateDataLanguageMappings.getInstance(manager.getProject()).getMapping(virtualFile);
-        if (language == null) {
-            language = HTMLLanguage.INSTANCE;
-        }
-
-        if (language instanceof TemplateLanguage) {
-            this.templateDataLanguage = language;
-        } else {
-            this.templateDataLanguage = LanguageSubstitutors.getInstance().substituteLanguage(language, virtualFile, manager.getProject());
-        }
+        myBaseLanguage = baseLanguage;
+        myTemplateLanguage = templateLanguage;
     }
 
-    public AntlersFileViewProvider(PsiManager manager, VirtualFile virtualFile, boolean eventSystemEnabled, Language templateDataLanguage) {
-        super(manager, virtualFile, eventSystemEnabled);
-        this.templateDataLanguage = templateDataLanguage;
+    public AntlersFileViewProvider(PsiManager manager, VirtualFile virtualFile, boolean eventSystemEnabled, Language baseLanguage) {
+        this(manager, virtualFile, eventSystemEnabled, baseLanguage, getTemplateDataLanguage(manager, virtualFile));
     }
 
     @NotNull
     @Override
     public Language getBaseLanguage() {
-        return AntlersLanguage.INSTANCE;
+        return myBaseLanguage;
     }
 
     @NotNull
     @Override
     public Language getTemplateDataLanguage() {
-        return templateDataLanguage;
+        return myTemplateLanguage;
+    }
+
+    private static @NotNull Language getTemplateDataLanguage(PsiManager manager, VirtualFile file) {
+        Language language = TemplateDataLanguageMappings.getInstance(manager.getProject()).getMapping(file);
+        if (language == null) {
+            language = AntlersLanguage.getDefaultTemplateLang().getLanguage();
+        }
+
+        Language substituteLanguage = LanguageSubstitutors.getInstance().substituteLanguage(language, file, manager.getProject());
+
+        if (TemplateDataLanguageMappings.getTemplateableLanguages().contains(substituteLanguage)) {
+            language = substituteLanguage;
+        }
+
+        return language;
     }
 
     @NotNull
     @Override
     public Set<Language> getLanguages() {
-        return new THashSet<>(Arrays.asList(new Language[]{AntlersLanguage.INSTANCE, this.getTemplateDataLanguage()}));
+        return new THashSet<>(Arrays.asList(myBaseLanguage, getTemplateDataLanguage()));
     }
 
     @NotNull
     @Override
     protected MultiplePsiFilesPerDocumentFileViewProvider cloneInner(@NotNull VirtualFile fileCopy) {
-        return new AntlersFileViewProvider(getManager(), fileCopy, false, this.templateDataLanguage);
+        return new AntlersFileViewProvider(getManager(), fileCopy, false, myBaseLanguage, myTemplateLanguage);
     }
 
     @Nullable
     @Override
     protected PsiFile createFile(@NotNull Language language) {
-        ParserDefinition parser = LanguageParserDefinitions.INSTANCE.forLanguage(language);
+        ParserDefinition parserDefinition = LanguageParserDefinitions.INSTANCE.forLanguage(language);
 
-        if (parser == null) {
+        if (parserDefinition == null) {
             return null;
+        }
+
+        PsiFileImpl file;
+        if (language.is(getTemplateDataLanguage())) {
+            file = (PsiFileImpl) parserDefinition.createFile(this);
+            file.setContentElementType(htmlTemplateDataType);
+            return file;
+        } else if (language.isKindOf(getBaseLanguage())) {
+            return parserDefinition.createFile(this);
         } else {
-            PsiFileImpl file;
-            if (language == this.getTemplateDataLanguage()) {
-                file = (PsiFileImpl) parser.createFile(this);
-                file.setContentElementType(htmlTemplateDataType);
-                return file;
-            } else if (language == this.getBaseLanguage()) {
-                return parser.createFile(this);
-            } else {
-                return null;
-            }
+            return null;
         }
     }
 
