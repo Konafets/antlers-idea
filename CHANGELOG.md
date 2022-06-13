@@ -4,6 +4,19 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.0.2] - 2022-06-12
+### Added
 - Support commenting code 
   - `Code | Comment with Line Comment`
   - `Code | Comment with Block Comment`
