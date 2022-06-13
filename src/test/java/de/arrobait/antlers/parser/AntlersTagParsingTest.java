@@ -114,6 +114,10 @@ public class AntlersTagParsingTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testParseTagMountUrl() {
+        doTest(true);
+    }
+
     public void testParseTagNav() {
         doTest(true);
     }
