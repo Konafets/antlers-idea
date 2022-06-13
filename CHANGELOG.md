@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 ### Added
+- New `mount_url` tag
 
 ### Changed
 
