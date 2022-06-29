@@ -1,12 +1,10 @@
 package de.arrobait.antlers.file;
 
-import com.intellij.openapi.project.Project;
 import de.arrobait.antlers.AntlersLanguage;
 import de.arrobait.antlers.psi.AntlersTypes;
 import com.intellij.lang.Language;
 import com.intellij.lang.LanguageParserDefinitions;
 import com.intellij.lang.ParserDefinition;
-import com.intellij.lang.html.HTMLLanguage;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.LanguageSubstitutors;
 import com.intellij.psi.MultiplePsiFilesPerDocumentFileViewProvider;
@@ -15,7 +13,6 @@ import com.intellij.psi.PsiManager;
 import com.intellij.psi.impl.source.PsiFileImpl;
 import com.intellij.psi.templateLanguages.TemplateDataElementType;
 import com.intellij.psi.templateLanguages.TemplateDataLanguageMappings;
-import com.intellij.psi.templateLanguages.TemplateLanguage;
 import com.intellij.psi.templateLanguages.TemplateLanguageFileViewProvider;
 import com.intellij.psi.tree.OuterLanguageElementType;
 import gnu.trove.THashSet;
@@ -30,14 +27,14 @@ public class AntlersFileViewProvider extends MultiplePsiFilesPerDocumentFileView
     private final Language myTemplateLanguage;
     private static final TemplateDataElementType htmlTemplateDataType;
 
-    public AntlersFileViewProvider(PsiManager manager, VirtualFile virtualFile, boolean eventSystemEnabled, Language baseLanguage, Language templateLanguage) {
-        super(manager, virtualFile, eventSystemEnabled);
-        myBaseLanguage = baseLanguage;
-        myTemplateLanguage = templateLanguage;
+    public AntlersFileViewProvider(PsiManager manager, VirtualFile file, boolean eventSystemEnabled, Language baseLanguage) {
+        this(manager, file, eventSystemEnabled, baseLanguage, getTemplateDataLanguage(manager, file));
     }
 
-    public AntlersFileViewProvider(PsiManager manager, VirtualFile virtualFile, boolean eventSystemEnabled, Language baseLanguage) {
-        this(manager, virtualFile, eventSystemEnabled, baseLanguage, getTemplateDataLanguage(manager, virtualFile));
+    public AntlersFileViewProvider(PsiManager manager, VirtualFile file, boolean eventSystemEnabled, Language baseLanguage, Language templateLanguage) {
+        super(manager, file, eventSystemEnabled);
+        myBaseLanguage = baseLanguage;
+        myTemplateLanguage = templateLanguage;
     }
 
     @NotNull
@@ -88,9 +85,8 @@ public class AntlersFileViewProvider extends MultiplePsiFilesPerDocumentFileView
             return null;
         }
 
-        PsiFileImpl file;
         if (language.is(getTemplateDataLanguage())) {
-            file = (PsiFileImpl) parserDefinition.createFile(this);
+            PsiFileImpl file = (PsiFileImpl) parserDefinition.createFile(this);
             file.setContentElementType(htmlTemplateDataType);
             return file;
         } else if (language.isKindOf(getBaseLanguage())) {
