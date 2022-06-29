@@ -2,7 +2,6 @@
 
 package de.arrobait.antlers.grammar;
 
-import de.arrobait.antlers.psi.AntlersTokenType;
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;

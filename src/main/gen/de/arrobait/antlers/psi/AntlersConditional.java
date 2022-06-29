@@ -7,18 +7,6 @@ import com.intellij.psi.PsiElement;
 
 public interface AntlersConditional extends PsiElement {
 
-  @NotNull
-  List<AntlersAntlersCloseNode> getAntlersCloseNodeList();
-
-  @NotNull
-  List<AntlersAntlersNode> getAntlersNodeList();
-
-  @NotNull
-  List<AntlersCommentBlock> getCommentBlockList();
-
-  @NotNull
-  List<AntlersConditional> getConditionalList();
-
   @Nullable
   AntlersConditionalElse getConditionalElse();
 
@@ -35,24 +23,6 @@ public interface AntlersConditional extends PsiElement {
   AntlersConditionalUnless getConditionalUnless();
 
   @NotNull
-  List<AntlersNoparseRegion> getNoparseRegionList();
-
-  @NotNull
-  List<AntlersPhpEchoNode> getPhpEchoNodeList();
-
-  @NotNull
-  List<AntlersPhpRawNode> getPhpRawNodeList();
-
-  @NotNull
-  List<AntlersRecursiveChildrenNode> getRecursiveChildrenNodeList();
-
-  @NotNull
-  List<AntlersSwitchNode> getSwitchNodeList();
-
-  @NotNull
-  List<AntlersTagNode> getTagNodeList();
-
-  @NotNull
-  List<AntlersVariableAssignmentNode> getVariableAssignmentNodeList();
+  List<AntlersTines> getTinesList();
 
 }

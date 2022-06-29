@@ -112,18 +112,18 @@
     extends(".*interpolated_statement")=expr
 }
 
-antlersFile ::= nodes*
-private nodes ::= conditional
-                | antlers_close_node
-                | switch_node
-                | tag_node
-                | noparse_region
-                | variable_assignment_node
-                | recursive_children_node
-                | antlers_node
-                | comment_block
-                | php_node
-                | outer_content
+antlersFile ::= tines
+tines ::= (conditional
+        | antlers_close_node
+        | switch_node
+        | tag_node
+        | noparse_region
+        | variable_assignment_node
+        | recursive_children_node
+        | tine
+        | comment_block
+        | php_node
+        | outer_content)*
 
 // Comments: {{# Here be dragons #}}
 comment_block ::= T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE { pin=1 }
@@ -136,7 +136,7 @@ private php_node ::= (php_raw_node | php_echo_node)
 php_raw_node   ::= "{{?" T_PHP_CONTENT* "?}}" { pin=1 }
 php_echo_node  ::= "{{$" T_PHP_CONTENT* "$}}" { pin=1 }
 
-antlers_node ::= '{{' antlers_expression_or_statement  '}}' {
+tine ::= '{{' antlers_expression_or_statement  '}}' {
     pin=2
     recoverWhile=antlers_node_recover
 }
@@ -160,11 +160,11 @@ modifier_param       ::= literal_expr | array
 // Tags
 
 // Special noparse tag
-noparse_region ::= noparse_region_open nodes* noparse_region_close { pin = 1 }
+noparse_region ::= noparse_region_open tines noparse_region_close { pin = 1 }
 noparse_region_open ::= '{{' 'noparse' '}}' { pin=2 }
 noparse_region_close ::= '{{' (T_SLASH 'noparse') '}}' { pin=2 }
 
-tag_node ::= tag_node_open nodes* tag_node_close? { pin = 1 }
+tag_node ::= tag_node_open tines tag_node_close? { pin = 1 }
 tag_node_open ::= '{{' tag_with_attributes [T_SLASH] '}}' { pin=3 }
 tag_node_close ::= '{{' (T_SLASH tag) '}}' { pin=2 }
 
@@ -187,7 +187,7 @@ taxonomy_term ::= string_literal
 
 recursive_children_node ::= '{{' T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR '}}' { pin=3 }
 
-conditional               ::= conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end { pin=1 }
+conditional               ::= conditional_start tines (conditional_elseif tines)* (conditional_else tines)? conditional_end { pin=1 }
 private conditional_start ::= (conditional_if | conditional_unless)
 conditional_end           ::= (slash_unless_if | endunless_endif)
 conditional_if            ::= '{{' 'if' expr ('|' modifier_list)* '}}' { pin=2 }
@@ -347,3 +347,4 @@ literal_expr ::= number_literal
 number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER
 string_literal  ::= T_STRING_START T_STRING_CONTENT* T_STRING_END
 boolean_literal ::= 'true' | 'false'
+

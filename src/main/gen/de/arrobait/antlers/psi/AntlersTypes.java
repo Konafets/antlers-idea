@@ -11,7 +11,6 @@ public interface AntlersTypes {
   IElementType ADD_EXPR = new AntlersElementType("ADD_EXPR");
   IElementType AND_EXPR = new AntlersElementType("AND_EXPR");
   IElementType ANTLERS_CLOSE_NODE = new AntlersElementType("ANTLERS_CLOSE_NODE");
-  IElementType ANTLERS_NODE = new AntlersElementType("ANTLERS_NODE");
   IElementType ARRAY = new AntlersElementType("ARRAY");
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
   IElementType BRACKET_PROPERTY_ACCESS = new AntlersElementType("BRACKET_PROPERTY_ACCESS");
@@ -86,6 +85,8 @@ public interface AntlersTypes {
   IElementType TAXONOMY_NAME = new AntlersElementType("TAXONOMY_NAME");
   IElementType TAXONOMY_TERM = new AntlersElementType("TAXONOMY_TERM");
   IElementType TENARY_EXPR = new AntlersElementType("TENARY_EXPR");
+  IElementType TINE = new AntlersElementType("TINE");
+  IElementType TINES = new AntlersElementType("TINES");
   IElementType UNARY_FACTORIAL_EXPR = new AntlersElementType("UNARY_FACTORIAL_EXPR");
   IElementType UNARY_MINUS_EXPR = new AntlersElementType("UNARY_MINUS_EXPR");
   IElementType UNARY_NOT_EXPR = new AntlersElementType("UNARY_NOT_EXPR");
@@ -196,9 +197,6 @@ public interface AntlersTypes {
       }
       else if (type == ANTLERS_CLOSE_NODE) {
         return new AntlersAntlersCloseNodeImpl(node);
-      }
-      else if (type == ANTLERS_NODE) {
-        return new AntlersAntlersNodeImpl(node);
       }
       else if (type == ARRAY) {
         return new AntlersArrayImpl(node);
@@ -418,6 +416,12 @@ public interface AntlersTypes {
       }
       else if (type == TENARY_EXPR) {
         return new AntlersTenaryExprImpl(node);
+      }
+      else if (type == TINE) {
+        return new AntlersTineImpl(node);
+      }
+      else if (type == TINES) {
+        return new AntlersTinesImpl(node);
       }
       else if (type == UNARY_FACTORIAL_EXPR) {
         return new AntlersUnaryFactorialExprImpl(node);

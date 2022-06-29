@@ -59,15 +59,9 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // nodes*
+  // tines
   static boolean antlersFile(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "antlersFile")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!nodes(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "antlersFile", c)) break;
-    }
-    return true;
+    return tines(b, l + 1);
   }
 
   /* ********************************************************** */
@@ -128,20 +122,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = r && modifier_list(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
-  }
-
-  /* ********************************************************** */
-  // '{{' antlers_expression_or_statement  '}}'
-  public static boolean antlers_node(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "antlers_node")) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, ANTLERS_NODE, "<antlers node>");
-    r = consumeToken(b, T_LD);
-    r = r && antlers_expression_or_statement(b, l + 1);
-    p = r; // pin = 2
-    r = r && consumeToken(b, T_RD);
-    exit_section_(b, l, m, r, p, AntlersParser::antlers_node_recover);
-    return r || p;
   }
 
   /* ********************************************************** */
@@ -454,15 +434,15 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // conditional_start nodes* (conditional_elseif nodes*)* (conditional_else nodes*)? conditional_end
+  // conditional_start tines (conditional_elseif tines)* (conditional_else tines)? conditional_end
   public static boolean conditional(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _COLLAPSE_, CONDITIONAL, null);
+    Marker m = enter_section_(b, l, _NONE_, CONDITIONAL, null);
     r = conditional_start(b, l + 1);
     p = r; // pin = 1
-    r = r && report_error_(b, conditional_1(b, l + 1));
+    r = r && report_error_(b, tines(b, l + 1));
     r = p && report_error_(b, conditional_2(b, l + 1)) && r;
     r = p && report_error_(b, conditional_3(b, l + 1)) && r;
     r = p && conditional_end(b, l + 1) && r;
@@ -470,18 +450,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r || p;
   }
 
-  // nodes*
-  private static boolean conditional_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "conditional_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!nodes(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "conditional_1", c)) break;
-    }
-    return true;
-  }
-
-  // (conditional_elseif nodes*)*
+  // (conditional_elseif tines)*
   private static boolean conditional_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_2")) return false;
     while (true) {
@@ -492,55 +461,33 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // conditional_elseif nodes*
+  // conditional_elseif tines
   private static boolean conditional_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = conditional_elseif(b, l + 1);
-    r = r && conditional_2_0_1(b, l + 1);
+    r = r && tines(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // nodes*
-  private static boolean conditional_2_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "conditional_2_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!nodes(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "conditional_2_0_1", c)) break;
-    }
-    return true;
-  }
-
-  // (conditional_else nodes*)?
+  // (conditional_else tines)?
   private static boolean conditional_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_3")) return false;
     conditional_3_0(b, l + 1);
     return true;
   }
 
-  // conditional_else nodes*
+  // conditional_else tines
   private static boolean conditional_3_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = conditional_else(b, l + 1);
-    r = r && conditional_3_0_1(b, l + 1);
+    r = r && tines(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
-  }
-
-  // nodes*
-  private static boolean conditional_3_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "conditional_3_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!nodes(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "conditional_3_0_1", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */
@@ -1057,38 +1004,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // conditional
-  //                 | antlers_close_node
-  //                 | switch_node
-  //                 | tag_node
-  //                 | noparse_region
-  //                 | variable_assignment_node
-  //                 | recursive_children_node
-  //                 | antlers_node
-  //                 | comment_block
-  //                 | php_node
-  //                 | outer_content
-  static boolean nodes(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "nodes")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = conditional(b, l + 1);
-    if (!r) r = antlers_close_node(b, l + 1);
-    if (!r) r = switch_node(b, l + 1);
-    if (!r) r = tag_node(b, l + 1);
-    if (!r) r = noparse_region(b, l + 1);
-    if (!r) r = variable_assignment_node(b, l + 1);
-    if (!r) r = recursive_children_node(b, l + 1);
-    if (!r) r = antlers_node(b, l + 1);
-    if (!r) r = comment_block(b, l + 1);
-    if (!r) r = php_node(b, l + 1);
-    if (!r) r = outer_content(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // noparse_region_open nodes* noparse_region_close
+  // noparse_region_open tines noparse_region_close
   public static boolean noparse_region(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "noparse_region")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -1096,21 +1012,10 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, NOPARSE_REGION, null);
     r = noparse_region_open(b, l + 1);
     p = r; // pin = 1
-    r = r && report_error_(b, noparse_region_1(b, l + 1));
+    r = r && report_error_(b, tines(b, l + 1));
     r = p && noparse_region_close(b, l + 1) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
-  }
-
-  // nodes*
-  private static boolean noparse_region_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "noparse_region_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!nodes(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "noparse_region_1", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */
@@ -1688,7 +1593,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // tag_node_open nodes* tag_node_close?
+  // tag_node_open tines tag_node_close?
   public static boolean tag_node(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_node")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -1696,21 +1601,10 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, TAG_NODE, null);
     r = tag_node_open(b, l + 1);
     p = r; // pin = 1
-    r = r && report_error_(b, tag_node_1(b, l + 1));
+    r = r && report_error_(b, tines(b, l + 1));
     r = p && tag_node_2(b, l + 1) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
-  }
-
-  // nodes*
-  private static boolean tag_node_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_node_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!nodes(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "tag_node_1", c)) break;
-    }
-    return true;
   }
 
   // tag_node_close?
@@ -1852,6 +1746,74 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = string_literal(b, l + 1);
     exit_section_(b, m, TAXONOMY_TERM, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '{{' antlers_expression_or_statement  '}}'
+  public static boolean tine(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tine")) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, TINE, "<tine>");
+    r = consumeToken(b, T_LD);
+    r = r && antlers_expression_or_statement(b, l + 1);
+    p = r; // pin = 2
+    r = r && consumeToken(b, T_RD);
+    exit_section_(b, l, m, r, p, AntlersParser::antlers_node_recover);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // (conditional
+  //         | antlers_close_node
+  //         | switch_node
+  //         | tag_node
+  //         | noparse_region
+  //         | variable_assignment_node
+  //         | recursive_children_node
+  //         | tine
+  //         | comment_block
+  //         | php_node
+  //         | outer_content)*
+  public static boolean tines(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tines")) return false;
+    Marker m = enter_section_(b, l, _NONE_, TINES, "<tines>");
+    while (true) {
+      int c = current_position_(b);
+      if (!tines_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "tines", c)) break;
+    }
+    exit_section_(b, l, m, true, false, null);
+    return true;
+  }
+
+  // conditional
+  //         | antlers_close_node
+  //         | switch_node
+  //         | tag_node
+  //         | noparse_region
+  //         | variable_assignment_node
+  //         | recursive_children_node
+  //         | tine
+  //         | comment_block
+  //         | php_node
+  //         | outer_content
+  private static boolean tines_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tines_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = conditional(b, l + 1);
+    if (!r) r = antlers_close_node(b, l + 1);
+    if (!r) r = switch_node(b, l + 1);
+    if (!r) r = tag_node(b, l + 1);
+    if (!r) r = noparse_region(b, l + 1);
+    if (!r) r = variable_assignment_node(b, l + 1);
+    if (!r) r = recursive_children_node(b, l + 1);
+    if (!r) r = tine(b, l + 1);
+    if (!r) r = comment_block(b, l + 1);
+    if (!r) r = php_node(b, l + 1);
+    if (!r) r = outer_content(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 

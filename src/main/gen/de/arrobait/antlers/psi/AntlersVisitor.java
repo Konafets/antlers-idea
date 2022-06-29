@@ -19,10 +19,6 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitAntlersNode(@NotNull AntlersAntlersNode o) {
-    visitPsiElement(o);
-  }
-
   public void visitArray(@NotNull AntlersArray o) {
     visitPsiElement(o);
   }
@@ -317,6 +313,14 @@ public class AntlersVisitor extends PsiElementVisitor {
 
   public void visitTenaryExpr(@NotNull AntlersTenaryExpr o) {
     visitExpr(o);
+  }
+
+  public void visitTine(@NotNull AntlersTine o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTines(@NotNull AntlersTines o) {
+    visitPsiElement(o);
   }
 
   public void visitUnaryFactorialExpr(@NotNull AntlersUnaryFactorialExpr o) {

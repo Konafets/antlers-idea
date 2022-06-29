@@ -28,36 +28,6 @@ public class AntlersNoparseRegionImpl extends ASTWrapperPsiElement implements An
   }
 
   @Override
-  @NotNull
-  public List<AntlersAntlersCloseNode> getAntlersCloseNodeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersAntlersCloseNode.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersAntlersNode> getAntlersNodeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersAntlersNode.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersCommentBlock> getCommentBlockList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersCommentBlock.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersConditional> getConditionalList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersConditional.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersNoparseRegion> getNoparseRegionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersNoparseRegion.class);
-  }
-
-  @Override
   @Nullable
   public AntlersNoparseRegionClose getNoparseRegionClose() {
     return findChildByClass(AntlersNoparseRegionClose.class);
@@ -70,39 +40,9 @@ public class AntlersNoparseRegionImpl extends ASTWrapperPsiElement implements An
   }
 
   @Override
-  @NotNull
-  public List<AntlersPhpEchoNode> getPhpEchoNodeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersPhpEchoNode.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersPhpRawNode> getPhpRawNodeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersPhpRawNode.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersRecursiveChildrenNode> getRecursiveChildrenNodeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersRecursiveChildrenNode.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersSwitchNode> getSwitchNodeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersSwitchNode.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersTagNode> getTagNodeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTagNode.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AntlersVariableAssignmentNode> getVariableAssignmentNodeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersVariableAssignmentNode.class);
+  @Nullable
+  public AntlersTines getTines() {
+    return findChildByClass(AntlersTines.class);
   }
 
 }

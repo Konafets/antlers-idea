@@ -117,4 +117,8 @@ public class AntlersParsingTest extends ParsingTestCase {
     public void testParseWhere() {
         doTest(true);
     }
+
+    public void testParsePropertyAccess() {
+        doTest(true);
+    }
 }

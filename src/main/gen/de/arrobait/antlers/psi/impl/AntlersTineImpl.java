@@ -11,14 +11,14 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
 
-public class AntlersAntlersNodeImpl extends ASTWrapperPsiElement implements AntlersAntlersNode {
+public class AntlersTineImpl extends ASTWrapperPsiElement implements AntlersTine {
 
-  public AntlersAntlersNodeImpl(@NotNull ASTNode node) {
+  public AntlersTineImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitAntlersNode(this);
+    visitor.visitTine(this);
   }
 
   @Override
