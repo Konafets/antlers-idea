@@ -7,6 +7,7 @@ import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 
 import static com.intellij.psi.TokenType.WHITE_SPACE;
+import static com.intellij.psi.TokenType.BAD_CHARACTER;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -2346,7 +2347,7 @@ public class AntlersLexer implements FlexLexer {
             // fall through
           case 107: break;
           case 5: 
-            { yybegin(YYINITIAL); return OUTER_CONTENT;
+            { return TokenType.BAD_CHARACTER;
             } 
             // fall through
           case 108: break;
