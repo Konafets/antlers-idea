@@ -2,8 +2,8 @@ package de.arrobait.antlers.parser;
 
 import com.intellij.testFramework.ParsingTestCase;
 
-public class AntlersParsingTest extends ParsingTestCase {
-    public AntlersParsingTest() {
+public class AntlersParserTest extends ParsingTestCase {
+    public AntlersParserTest() {
         super("parsing", "antlers.html", new AntlersParserDefinition());
     }
 
