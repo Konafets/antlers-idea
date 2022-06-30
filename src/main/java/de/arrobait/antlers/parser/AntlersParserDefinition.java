@@ -17,8 +17,7 @@ import de.arrobait.antlers.psi.AntlersTypes;
 import org.jetbrains.annotations.NotNull;
 
 public class AntlersParserDefinition implements ParserDefinition {
-    public static final IFileElementType FILE = new IFileElementType(AntlersLanguage.INSTANCE);
-    public static final TokenSet COMMENTS = TokenSet.create(AntlersTypes.COMMENT_BLOCK);
+    public static final IFileElementType FILE = new IFileElementType("FILE", AntlersLanguage.INSTANCE);
 
     @NotNull
     @Override
@@ -44,7 +43,7 @@ public class AntlersParserDefinition implements ParserDefinition {
 
     @Override
     public @NotNull TokenSet getCommentTokens() {
-        return COMMENTS;
+        return AntlersTokenSets.COMMENTS;
     }
 
     @Override

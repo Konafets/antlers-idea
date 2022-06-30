@@ -46,15 +46,9 @@ public class AntlersConditionalImpl extends ASTWrapperPsiElement implements Antl
   }
 
   @Override
-  @Nullable
-  public AntlersConditionalIf getConditionalIf() {
-    return findChildByClass(AntlersConditionalIf.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersConditionalUnless getConditionalUnless() {
-    return findChildByClass(AntlersConditionalUnless.class);
+  @NotNull
+  public AntlersConditionalStart getConditionalStart() {
+    return findNotNullChildByClass(AntlersConditionalStart.class);
   }
 
   @Override

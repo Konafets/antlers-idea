@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface AntlersSwitchTag extends PsiElement {
 
+  @Nullable
+  AntlersDefaultCase getDefaultCase();
+
   @NotNull
   List<AntlersSwitchCase> getSwitchCaseList();
 

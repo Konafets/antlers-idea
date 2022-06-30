@@ -26,6 +26,10 @@
                 language="Antlers"
                 implementationClass="de.arrobait.antlers.parser.AntlersParserDefinition"/>
 
+        <lang.ast.factory
+                language="Antlers"
+                implementationClass="de.arrobait.antlers.parser.AntlersAstFactory"/>
+
         <!-- Syntax highlighting -->
         <lang.syntaxHighlighterFactory
                 language="Antlers"
@@ -41,7 +45,12 @@
 
         <!-- Language factories -->
         <lang.fileViewProviderFactory
-                language="Antlers" implementationClass="de.arrobait.antlers.file.AntlersFileViewProviderFactory"/>
+                language="Antlers"
+                implementationClass="de.arrobait.antlers.file.AntlersFileViewProviderFactory"/>
+
+        <lang.substitutor
+                language="HTML"
+                implementationClass="de.arrobait.antlers.file.AntlersLanguageSubstitutor"/>
 
         <!-- Editor -->
         <lang.commenter
@@ -59,9 +68,18 @@
                 implementation="de.arrobait.antlers.editor.actions.backspace.AntlersDoubleQuotedStringBackspaceHandler"/>
         <typedHandler
                 implementation="de.arrobait.antlers.editor.actions.AntlersTypedHandler"/>
+
+        <enterHandlerDelegate
+            implementation="de.arrobait.antlers.editor.actions.AntlersEnterHandler"/>
+
         <completion.contributor
                 language="Antlers"
                 implementationClass="de.arrobait.antlers.completion.AntlersModifierCompletionContributor"/>
+
+        <!-- Formatting -->
+        <lang.formatter
+                language="Antlers"
+                implementationClass="de.arrobait.antlers.format.AntlersFormattingModelBuilder"/>
     </extensions>
 
     <actions>

@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface AntlersSwitchCase extends PsiElement {
 
-  @Nullable
+  @NotNull
   AntlersExpr getExpr();
 
   @Nullable

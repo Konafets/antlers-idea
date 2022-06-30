@@ -11,10 +11,10 @@ public interface AntlersTines extends PsiElement {
   List<AntlersAntlersCloseNode> getAntlersCloseNodeList();
 
   @NotNull
-  List<AntlersCommentBlock> getCommentBlockList();
+  List<AntlersBlockWrapper> getBlockWrapperList();
 
   @NotNull
-  List<AntlersConditional> getConditionalList();
+  List<AntlersCommentBlock> getCommentBlockList();
 
   @NotNull
   List<AntlersNoparseRegion> getNoparseRegionList();

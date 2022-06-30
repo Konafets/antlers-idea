@@ -12,6 +12,12 @@ public class StringsLexerTest extends LexerTest {
     }
 
     @Test
+    public void lex_empty_file() {
+        givenInput("");
+        thenTokensAre();
+    }
+
+    @Test
     public void lex_single_and_double_quoted_string() {
         givenInput("{{ \"I will eat you, donut\" }}");
         thenTokensAre(

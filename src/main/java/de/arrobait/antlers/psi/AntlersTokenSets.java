@@ -48,6 +48,7 @@ public class AntlersTokenSets {
     );
 
     public static TokenSet BLOCKS = TokenSet.create(
+            BLOCK_WRAPPER,
             SWITCH_CASE,
             TAG_NODE,
             CONDITIONAL

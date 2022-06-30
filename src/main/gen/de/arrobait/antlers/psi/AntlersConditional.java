@@ -16,11 +16,8 @@ public interface AntlersConditional extends PsiElement {
   @Nullable
   AntlersConditionalEnd getConditionalEnd();
 
-  @Nullable
-  AntlersConditionalIf getConditionalIf();
-
-  @Nullable
-  AntlersConditionalUnless getConditionalUnless();
+  @NotNull
+  AntlersConditionalStart getConditionalStart();
 
   @NotNull
   List<AntlersTines> getTinesList();

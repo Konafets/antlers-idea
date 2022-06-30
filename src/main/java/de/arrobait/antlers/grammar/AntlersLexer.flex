@@ -81,6 +81,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 // States
 %state ANTLERS_COMMENT
+%state COMMENT_BLOCK
+%state COMMENT_END
 %state ANTLERS_NODE
 %state PROPERTY_ACCESS
 %state MODIFIER_LIST
@@ -95,7 +97,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 %%
 <YYINITIAL> {
-    {COMMENT_OPEN}       { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;}
+    //"{{#"                { popState(); pushState(COMMENT_BLOCK); return T_COMMENT_OPEN; }
+   {COMMENT_OPEN}       { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;}
 
     "@"                  { return T_AT; }
 
@@ -320,6 +323,16 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
                            yypushback(1);  // cancel unexpected char
                            popState();     // and try to parse it again in <ANTLERS_NODE>
                          }
+}
+<COMMENT_BLOCK> {
+    ~"#}}" { yypushback(3); yybegin(COMMENT_END); return T_COMMENT_TEXT; }
+
+    // lex unclosed comments to be able to give better error messages
+    //!([^]*"#}}"[^]*) { popState(); return UNCLOSED_COMMENT; }
+}
+
+<COMMENT_END> {
+    "#}}"  { popState(); return T_COMMENT_CLOSE; }
 }
 
 <ANTLERS_COMMENT> {

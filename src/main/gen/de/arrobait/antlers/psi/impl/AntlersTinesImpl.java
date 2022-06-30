@@ -35,14 +35,14 @@ public class AntlersTinesImpl extends ASTWrapperPsiElement implements AntlersTin
 
   @Override
   @NotNull
-  public List<AntlersCommentBlock> getCommentBlockList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersCommentBlock.class);
+  public List<AntlersBlockWrapper> getBlockWrapperList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersBlockWrapper.class);
   }
 
   @Override
   @NotNull
-  public List<AntlersConditional> getConditionalList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersConditional.class);
+  public List<AntlersCommentBlock> getCommentBlockList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersCommentBlock.class);
   }
 
   @Override

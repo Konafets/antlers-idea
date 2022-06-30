@@ -23,6 +23,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBlockWrapper(@NotNull AntlersBlockWrapper o) {
+    visitPsiElement(o);
+  }
+
   public void visitBooleanLiteral(@NotNull AntlersBooleanLiteral o) {
     visitPsiElement(o);
   }
@@ -63,7 +67,15 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitConditionalStart(@NotNull AntlersConditionalStart o) {
+    visitPsiElement(o);
+  }
+
   public void visitConditionalUnless(@NotNull AntlersConditionalUnless o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDefaultCase(@NotNull AntlersDefaultCase o) {
     visitPsiElement(o);
   }
 

@@ -12,6 +12,7 @@ public interface AntlersTypes {
   IElementType AND_EXPR = new AntlersElementType("AND_EXPR");
   IElementType ANTLERS_CLOSE_NODE = new AntlersElementType("ANTLERS_CLOSE_NODE");
   IElementType ARRAY = new AntlersElementType("ARRAY");
+  IElementType BLOCK_WRAPPER = new AntlersElementType("BLOCK_WRAPPER");
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
   IElementType BRACKET_PROPERTY_ACCESS = new AntlersElementType("BRACKET_PROPERTY_ACCESS");
   IElementType COLON_PROPERTY_ACCESS = new AntlersElementType("COLON_PROPERTY_ACCESS");
@@ -22,7 +23,9 @@ public interface AntlersTypes {
   IElementType CONDITIONAL_ELSEIF = new AntlersElementType("CONDITIONAL_ELSEIF");
   IElementType CONDITIONAL_END = new AntlersElementType("CONDITIONAL_END");
   IElementType CONDITIONAL_IF = new AntlersElementType("CONDITIONAL_IF");
+  IElementType CONDITIONAL_START = new AntlersElementType("CONDITIONAL_START");
   IElementType CONDITIONAL_UNLESS = new AntlersElementType("CONDITIONAL_UNLESS");
+  IElementType DEFAULT_CASE = new AntlersElementType("DEFAULT_CASE");
   IElementType DIV_EXPR = new AntlersElementType("DIV_EXPR");
   IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
   IElementType EQ_EXPR = new AntlersElementType("EQ_EXPR");
@@ -200,6 +203,9 @@ public interface AntlersTypes {
       else if (type == ARRAY) {
         return new AntlersArrayImpl(node);
       }
+      else if (type == BLOCK_WRAPPER) {
+        return new AntlersBlockWrapperImpl(node);
+      }
       else if (type == BOOLEAN_LITERAL) {
         return new AntlersBooleanLiteralImpl(node);
       }
@@ -230,8 +236,14 @@ public interface AntlersTypes {
       else if (type == CONDITIONAL_IF) {
         return new AntlersConditionalIfImpl(node);
       }
+      else if (type == CONDITIONAL_START) {
+        return new AntlersConditionalStartImpl(node);
+      }
       else if (type == CONDITIONAL_UNLESS) {
         return new AntlersConditionalUnlessImpl(node);
+      }
+      else if (type == DEFAULT_CASE) {
+        return new AntlersDefaultCaseImpl(node);
       }
       else if (type == DIV_EXPR) {
         return new AntlersDivExprImpl(node);

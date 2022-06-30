@@ -28,6 +28,12 @@ public class AntlersSwitchTagImpl extends ASTWrapperPsiElement implements Antler
   }
 
   @Override
+  @Nullable
+  public AntlersDefaultCase getDefaultCase() {
+    return findChildByClass(AntlersDefaultCase.class);
+  }
+
+  @Override
   @NotNull
   public List<AntlersSwitchCase> getSwitchCaseList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersSwitchCase.class);

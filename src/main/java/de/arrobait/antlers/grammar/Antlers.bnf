@@ -112,7 +112,7 @@
 }
 
 antlersFile ::= <<eof>> | [tines]
-tines ::= (conditional
+tines ::= (block_wrapper
         | antlers_close_node
         | switch_node
         | tag_node
@@ -123,6 +123,8 @@ tines ::= (conditional
         | comment_block
         | php_node
         | outer_content)*
+
+block_wrapper ::= conditional
 
 // Comments: {{# Here be dragons #}}
 comment_block ::= T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE { pin=1 }
@@ -187,7 +189,7 @@ taxonomy_term ::= string_literal
 recursive_children_node ::= '{{' T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR '}}' { pin=3 }
 
 conditional               ::= conditional_start tines (conditional_elseif tines)* (conditional_else tines)? conditional_end { pin=1 }
-private conditional_start ::= (conditional_if | conditional_unless)
+conditional_start ::= (conditional_if | conditional_unless)
 conditional_end           ::= (slash_unless_if | endunless_endif)
 conditional_if            ::= '{{' 'if' expr ('|' modifier_list)* '}}' { pin=2 }
 conditional_unless        ::= '{{' 'unless' expr ('|' modifier_list)* '}}' { pin=2 }
@@ -197,8 +199,9 @@ private slash_unless_if   ::= '{{' (T_END_UNLESS | T_END_IF) '}}' { pin=2 }
 private endunless_endif   ::= '{{' ('endunless' | 'endif') '}}' { pin=2 }
 
 switch_node ::= '{{' switch_tag '}}' { pin=2 }
-switch_tag  ::= 'switch' '(' switch_case+ ')'
-switch_case ::= '(' group_comp? ')' '=>' string_literal ','? { pin=4 }
+switch_tag  ::= 'switch' '(' switch_case+ default_case? ')' { pin=1 }
+switch_case ::= '(' group_comp ')' '=>' string_literal ','? { pin=4 }
+default_case ::= '(' ')' '=>' string_literal ','? { pin=4 }
 
 // Expressions
 expr ::= interpolated_statement

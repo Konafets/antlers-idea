@@ -1,0 +1,11 @@
+Antlers File:UnclosedDiv.antlers.html
+  AntlersTinesImpl(TINES)
+    PsiElement(OUTER_CONTENT)('<div>\n    ')
+    AntlersTineImpl(TINE)
+      PsiElement({{)('{{')
+      PsiWhiteSpace(' ')
+      AntlersLiteralExprImpl(LITERAL_EXPR)
+        AntlersVariableImpl(VARIABLE)
+          PsiElement(T_IDENTIFIER)('foo')
+      PsiWhiteSpace(' ')
+      PsiElement(}})('}}')
