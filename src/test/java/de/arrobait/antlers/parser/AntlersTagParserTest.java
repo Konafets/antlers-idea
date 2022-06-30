@@ -2,7 +2,7 @@ package de.arrobait.antlers.parser;
 
 import com.intellij.testFramework.ParsingTestCase;
 
-public class AntlersTagParsingTest extends ParsingTestCase {
+public class AntlersTagParserTest extends ParsingTestCase {
     @Override
     protected String getTestDataPath() {
         return "src/test/testData";
@@ -18,7 +18,7 @@ public class AntlersTagParsingTest extends ParsingTestCase {
         return true;
     }
 
-    public AntlersTagParsingTest() {
+    public AntlersTagParserTest() {
         super("parsing/tags", "antlers.html", new AntlersParserDefinition());
     }
 
