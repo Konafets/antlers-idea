@@ -7,8 +7,16 @@
 - New `mount_url` tag
 - New `path_info` and `url_info` modifiers
 - New `vite` tag
+- Support PhpStorm 2022.2
+- Make sure GitHub Actions release jobs have write permissions
 
 ### Changed
+- Upgrade Gradle Wrapper to `7.5`
+- Update `platformVersion` to `222.3345.118`
+- Change since/until build to `212-222.*` (2021.2 - 2022.2)
+- Dependencies - upgrade `org.jetbrains.intellij` to `1.8.0`
+- Dependencies - upgrade `org.jetbrains.kotlin.jvm` to `1.7.10`
+- Dependencies (GitHub Actions) - upgrade `JetBrains/qodana-action` to `v2022.2.1`
 
 ### Deprecated
 
