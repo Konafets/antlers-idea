@@ -6,6 +6,7 @@
 ### Added
 - New `mount_url` tag
 - New `path_info` and `url_info` modifiers
+- New `vite` tag
 
 ### Changed
 
