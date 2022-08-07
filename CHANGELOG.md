@@ -5,6 +5,7 @@
 ## [Unreleased]
 ### Added
 - New `mount_url` tag
+- New `path_info` and `url_info` modifiers
 
 ### Changed
 

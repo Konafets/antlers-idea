@@ -110,6 +110,7 @@ public class CoreModifierProvider {
         modifiers.add(LookupElementBuilder.create("ol"));
         modifiers.add(LookupElementBuilder.create("option_list"));
         modifiers.add(LookupElementBuilder.create("output"));
+        modifiers.add(LookupElementBuilder.create("path_info"));
         modifiers.add(LookupElementBuilder.create("pad"));
         modifiers.add(LookupElementBuilder.create("partial"));
         modifiers.add(LookupElementBuilder.create("piped"));
@@ -156,6 +157,7 @@ public class CoreModifierProvider {
         modifiers.add(LookupElementBuilder.create("truncate"));
         modifiers.add(LookupElementBuilder.create("ucfirst"));
         modifiers.add(LookupElementBuilder.create("ul"));
+        modifiers.add(LookupElementBuilder.create("url_info"));
         modifiers.add(LookupElementBuilder.create("underscored"));
         modifiers.add(LookupElementBuilder.create("unique"));
         modifiers.add(LookupElementBuilder.create("upper"));

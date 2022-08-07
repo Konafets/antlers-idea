@@ -72,7 +72,7 @@ public class AntlersModifierCompletionTest extends BasePlatformTestCase {
     }
 
     public void testCompleteModifiersWithP() {
-        doBasicTest("{{ foo | p<caret>", "pad", "partial", "piped", "plural");
+        doBasicTest("{{ foo | p<caret>", "path_info", "pad", "partial", "piped", "plural");
     }
 
     public void testCompleteModifiersWithR() {
@@ -88,7 +88,7 @@ public class AntlersModifierCompletionTest extends BasePlatformTestCase {
     }
 
     public void testCompleteModifiersWithU() {
-        doBasicTest("{{ foo | u<caret>", "ucfirst", "ul", "underscored", "unique", "upper", "url", "urldecode", "urlencode");
+        doBasicTest("{{ foo | u<caret>", "ucfirst", "url_info", "ul", "underscored", "unique", "upper", "url", "urldecode", "urlencode");
     }
 
     public void testCompleteModifiersWithW() {
