@@ -4,6 +4,32 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.0.3] - 2022-08-08
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.0.3] - 2022-08-08
+### Added
 - New `mount_url` tag
 - New `path_info` and `url_info` modifiers
 - New `vite` tag
@@ -18,14 +44,6 @@
 - Dependencies - upgrade `org.jetbrains.kotlin.jvm` to `1.7.10`
 - Dependencies (GitHub Actions) - upgrade `JetBrains/qodana-action` to `v2022.2.1`
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
-
 ## [0.0.2] - 2022-06-12
 ### Added
 - Support commenting code 
@@ -39,7 +57,7 @@
 - Add support for modifiers in conditionals #3
 
 ### Changed
-- Add support for older IDE versions down to 2021.2 
+- Add support for older IDE versions down to 2021.2
 
 ## [0.0.1] - 2022-05-25
 ### Added
