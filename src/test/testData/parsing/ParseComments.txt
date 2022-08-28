@@ -1,6 +1,6 @@
-Antlers File(0,11)
-  AntlersTinesImpl(TINES)(0,11)
-    AntlersCommentBlockImpl(COMMENT_BLOCK)(0,11)
-      PsiElement({{#)('{{#')(0,3)
-      PsiElement(T_COMMENT_TEXT)(' Foo ')(3,8)
-      PsiElement(#}})('#}}')(8,11)
+Antlers File
+  AntlersTinesImpl(TINES)
+    AntlersCommentBlockImpl(COMMENT_BLOCK)
+      PsiElement({{#)('{{#')
+      PsiElement(T_COMMENT_TEXT)(' Foo ')
+      PsiElement(#}})('#}}')
