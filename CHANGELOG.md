@@ -17,19 +17,6 @@
 
 ## [0.0.3] - 2022-08-08
 ### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
-
-## [0.0.3] - 2022-08-08
-### Added
 - New `mount_url` tag
 - New `path_info` and `url_info` modifiers
 - New `vite` tag
