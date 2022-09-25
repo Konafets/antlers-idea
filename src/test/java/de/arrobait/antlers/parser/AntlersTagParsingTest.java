@@ -1,20 +1,8 @@
 package de.arrobait.antlers.parser;
 
-public class AntlersTagParserTest extends AntlersParsingTest {
-    public AntlersTagParserTest() {
+public class AntlersTagParsingTest extends AntlersParsingTest {
+    public AntlersTagParsingTest() {
         super("parsing/tags");
-    }
-
-    public void testParseTagCollectionConditions() {
-        doTest(true);
-    }
-
-    public void testParseTagTaxonomyConditions() {
-        doTest(true);
-    }
-
-    public void testParseTagUsersConditions() {
-        doTest(true);
     }
 
     public void testParseTag404() {
@@ -34,6 +22,10 @@ public class AntlersTagParserTest extends AntlersParsingTest {
     }
 
     public void testParseTagCollection() {
+        doTest(true);
+    }
+
+    public void testParseTagCollectionConditions() {
         doTest(true);
     }
 
@@ -157,6 +149,10 @@ public class AntlersTagParserTest extends AntlersParsingTest {
         doTest(true);
     }
 
+    public void testParseTagTaxonomyConditions() {
+        doTest(true);
+    }
+
     public void testParseTagTrans() {
         doTest(true);
     }
@@ -166,6 +162,10 @@ public class AntlersTagParserTest extends AntlersParsingTest {
     }
 
     public void testParseTagUsers() {
+        doTest(true);
+    }
+
+    public void testParseTagUsersConditions() {
         doTest(true);
     }
 
