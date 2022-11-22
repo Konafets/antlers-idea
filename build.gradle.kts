@@ -8,11 +8,11 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.7.10"
+    id("org.jetbrains.kotlin.jvm") version "1.7.21"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.8.1"
+    id("org.jetbrains.intellij") version "1.10.0"
     // Gradle Changelog Plugin
-    id("org.jetbrains.changelog") version "1.3.1"
+    id("org.jetbrains.changelog") version "2.0.0"
     // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
 }
@@ -64,7 +64,7 @@ sourceSets["main"].java.srcDirs("src/main/gen")
 
 dependencies {
     testImplementation("junit:junit:4.13.2")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.0")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.1")
 }
 
 tasks {
