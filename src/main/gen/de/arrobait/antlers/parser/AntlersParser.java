@@ -59,9 +59,22 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // tines
+  // <<eof>> | [tines]
   static boolean antlersFile(PsiBuilder b, int l) {
-    return tines(b, l + 1);
+    if (!recursion_guard_(b, l, "antlersFile")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = eof(b, l + 1);
+    if (!r) r = antlersFile_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // [tines]
+  private static boolean antlersFile_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "antlersFile_1")) return false;
+    tines(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1857,7 +1870,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{{' variable '=' assignable_items '}}'
+  // '{{' variable T_OP_ASSIGN assignable_items '}}'
   public static boolean variable_assignment_node(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_assignment_node")) return false;
     if (!nextTokenIs(b, T_LD)) return false;
@@ -1874,7 +1887,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_IDENTIFIER '=' string_literal
+  // T_IDENTIFIER T_OP_ASSIGN string_literal
   public static boolean variable_attribute_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_attribute_assignment")) return false;
     if (!nextTokenIs(b, T_IDENTIFIER)) return false;

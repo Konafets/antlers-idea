@@ -42,8 +42,8 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 %type IElementType
 %unicode
 
-EOL=\R
-WHITE_SPACE=\s+
+LINE_TERMINATOR = \r|\n|\r\n
+WHITE_SPACE = {LINE_TERMINATOR} | [ \t\f]
 
 LD="{{"
 RD="}}"
@@ -95,14 +95,9 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 %%
 <YYINITIAL> {
-    {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
     {COMMENT_OPEN}       { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;}
 
     "@"                  { return T_AT; }
-
-    // Lex a single { to mark an empty file as Antlers, otherwise it would be default to HTML and
-    // TypedHandler will not work correctly.
-    "{"                  { return T_HALF_ENDER; }
 
     // Antlers node
     {LD}                 { pushState(ANTLERS_NODE); return T_LD; }
@@ -112,7 +107,18 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "{{$"                { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN; }
 
     // HTML content
-    !([^]*"{"[^]*)       { return OUTER_CONTENT; }
+    !([^]*"{"[^]*)       {
+                            // The content before an Antlers delimiter could be an empty whitespace or HTML aka outer content.
+                            // Here we disginguish between those to not create an extra token for empty strings. Those where
+                            // handled by the lexer, which will produce a PsiWhitespace element.
+                            if (!yytext().toString().equals("")) {
+                                if (yytext().toString().trim().length() == 0) {
+                                    return WHITE_SPACE;
+                                } else {
+                                    return OUTER_CONTENT;
+                                }
+                            }
+                         }
 }
 
 <ANTLERS_NODE> {
@@ -341,4 +347,5 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     ~"?}}" { yypushback(3); return T_PHP_CONTENT;}
 }
 
-[^] { return TokenType.BAD_CHARACTER; }
+{WHITE_SPACE}+ { return TokenType.WHITE_SPACE; }
+[^]            { return TokenType.BAD_CHARACTER; }
