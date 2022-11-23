@@ -1,4 +1,4 @@
-Antlers File
+Antlers File:ParseComments.antlers.html
   AntlersTinesImpl(TINES)
     AntlersCommentBlockImpl(COMMENT_BLOCK)
       PsiElement({{#)('{{#')

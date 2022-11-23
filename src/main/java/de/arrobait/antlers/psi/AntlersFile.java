@@ -20,6 +20,6 @@ public class AntlersFile extends PsiFileBase {
 
     @Override
     public @NotNull String toString() {
-        return "Antlers File";
+        return "Antlers File:" + getName();
     }
 }
