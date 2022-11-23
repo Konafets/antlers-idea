@@ -2,14 +2,14 @@ package de.arrobait.antlers.editor.actions;
 
 public class AntlersTypedHandlerTest extends AntlersActionHandlerTest {
     public void testFirstCharTyped() {
-        doCharTest('{', "<caret>", "{<caret>");
+        doCharTest('{', "<caret>", "{<caret>}");
     }
 
     public void testSecondCharTyped() {
         // When typing anything but {, do to auto-complete
-        doCharTest('x', "{<caret>", "{x<caret>");
+        doCharTest('x', "{<caret>}", "{x<caret>}");
 
-        doCharTest('{', "{<caret>", "{{ <caret> }}");
+        doCharTest('{', "{<caret>}", "{{ <caret> }}");
     }
 
     public void testParenthesis() {
