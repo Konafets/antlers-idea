@@ -6,6 +6,8 @@
 ### Added
 
 ### Changed
+- Use JVM toolchain for configuring source/target compilation compatibility
+- 
 
 ### Deprecated
 
