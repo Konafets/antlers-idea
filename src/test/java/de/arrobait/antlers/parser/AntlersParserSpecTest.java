@@ -21,6 +21,11 @@ public class AntlersParserSpecTest extends AntlersParsingTest {
     }
 
     @Test
+    public void testParseEmptyFile() {
+        doTest(true);
+    }
+
+    @Test
     public void testParseComments() {
         doTest(true);
     }
