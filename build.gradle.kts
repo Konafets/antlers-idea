@@ -104,10 +104,6 @@ tasks {
         enabled = false
     }
 
-    runIde {
-        ideDir.set(file("/Applications/PhpStorm.app/Contents"))
-    }
-
     // Configure UI tests plugin
     // Read more: https://github.com/JetBrains/intellij-ui-test-robot
     runIdeForUiTests {
