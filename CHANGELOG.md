@@ -4,7 +4,9 @@
 
 ## [Unreleased]
 ### Added
-- Basic formatting for HTML
+- Add basic formatting for HTML and CSS. 
+- Do not mark inline CSS in `<style>`-Tag as an error
+- Better detection of Antlers and HTML/CSS/Javascript code.
 
 ### Changed
 - Use JVM toolchain for configuring source/target compilation compatibility
