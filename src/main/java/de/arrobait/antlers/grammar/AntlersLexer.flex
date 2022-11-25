@@ -96,13 +96,6 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 %%
 <YYINITIAL> {
-    {COMMENT_OPEN}       { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;}
-
-    // PHP nodes
-    "{{?"                { pushState(PHP_RAW); return T_PHP_RAW_OPEN; }
-    "{{$"                { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN; }
-
-
     ~"{{"                {
                             // backtrack over any stache characters at the end of this string
                             Integer length = yylength();
@@ -157,6 +150,12 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 }
 
 <ANTLERS_NODE> {
+    {COMMENT_OPEN}       { popState(); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN; }
+
+    // PHP nodes
+    "{{?"                { pushState(PHP_RAW); return T_PHP_RAW_OPEN; }
+    "{{$"                { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN; }
+
     {LD}                 { return T_LD; }
     {RD}                 { popState(); return T_RD; }
     {WHITE_SPACE}        { return WHITE_SPACE; }
@@ -361,6 +360,9 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 <ANTLERS_COMMENT> {
     {COMMENT_CLOSE}  { popState(); return T_COMMENT_CLOSE; }
     ~{COMMENT_CLOSE} { yypushback(3); return T_COMMENT_TEXT; }
+
+    // lex unclosed comments so that we can give better errors
+    !([^]*"}}"[^]*)  {  return T_UNCLOSED_COMMENT; }
 }
 
 <SINGLE_STRING> {

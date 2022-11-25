@@ -1800,6 +1800,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   //         | recursive_children_node
   //         | tine
   //         | comment_block
+  //         | unclosed_comment
   //         | php_node
   //         | outer_content)*
   public static boolean tines(PsiBuilder b, int l) {
@@ -1823,6 +1824,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   //         | recursive_children_node
   //         | tine
   //         | comment_block
+  //         | unclosed_comment
   //         | php_node
   //         | outer_content
   private static boolean tines_0(PsiBuilder b, int l) {
@@ -1838,10 +1840,17 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!r) r = recursive_children_node(b, l + 1);
     if (!r) r = tine(b, l + 1);
     if (!r) r = comment_block(b, l + 1);
+    if (!r) r = unclosed_comment(b, l + 1);
     if (!r) r = php_node(b, l + 1);
     if (!r) r = outer_content(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // T_UNCLOSED_COMMENT
+  static boolean unclosed_comment(PsiBuilder b, int l) {
+    return consumeToken(b, T_UNCLOSED_COMMENT);
   }
 
   /* ********************************************************** */

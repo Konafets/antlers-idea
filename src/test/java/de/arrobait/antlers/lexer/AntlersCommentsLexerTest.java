@@ -61,4 +61,14 @@ public class AntlersCommentsLexerTest extends LexerTest {
                 T_COMMENT_CLOSE, "#}}"
         );
     }
+
+    @Test
+    public void testUnclosedComment() {
+        givenInput("{{# An unclosed comment");
+
+        thenTokensAre(
+                T_COMMENT_OPEN, "{{#",
+                T_UNCLOSED_COMMENT, " An unclosed comment"
+        );
+    }
 }
