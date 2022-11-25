@@ -81,6 +81,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 // States
 %state ANTLERS_COMMENT
+%state ANTLERS_ESCAPED
 %state ANTLERS_NODE
 %state PROPERTY_ACCESS
 %state MODIFIER_LIST
@@ -97,17 +98,26 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 <YYINITIAL> {
     {COMMENT_OPEN}       { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;}
 
-    "@"                  { return T_AT; }
-
-    // Antlers node
-    {LD}                 { pushState(ANTLERS_NODE); return T_LD; }
-
     // PHP nodes
     "{{?"                { pushState(PHP_RAW); return T_PHP_RAW_OPEN; }
     "{{$"                { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN; }
 
-    // HTML content
-    !([^]*"{"[^]*)       {
+
+    ~"{{"                {
+                            // backtrack over any stache characters at the end of this string
+                            Integer length = yylength();
+                            CharSequence text = yytext();
+                            while(yylength() > 0 && yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")) {
+                                yypushback(1);
+                            }
+
+                            if (yylength() > 0 && yytext().toString().charAt(yylength() - 1) == '@'){
+                                yypushback(1);
+                                pushState(ANTLERS_ESCAPED);
+                            } else {
+                                pushState(ANTLERS_NODE);
+                            }
+
                             // The content before an Antlers delimiter could be an empty whitespace or HTML aka outer content.
                             // Here we disginguish between those to not create an extra token for empty strings. Those where
                             // handled by the lexer, which will produce a PsiWhitespace element.
@@ -118,10 +128,36 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
                                     return OUTER_CONTENT;
                                 }
                             }
+        }
+
+      // Check for anything that is not a string containing "{{"; that's OUTER_CONTENT like HTML, CSS or JS.
+      !([^]*"{{"[^]*)    { return OUTER_CONTENT; }
+}
+
+<ANTLERS_ESCAPED> {
+    "@"                 { return T_AT; }
+
+    // grab everything up to the next open delimiters
+    "{{"~"{{"           {
+                            // backtrack over any tine or escape characters at the end of this string
+                            while (yylength() > 0
+                                    && (yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")
+                                        || yytext().subSequence(yylength() - 1, yylength()).toString().equals("@"))) {
+                                yypushback(1);
+                            }
+
+                            popState();
+                            return OUTER_CONTENT;
+                         }
+
+    // otherwise, if the remaining text just contains the one escaped mustache, then its all other CONTENT like HTML, CSS or JS.
+    "{{"!([^]*"{{"[^]*)  {
+                            return OUTER_CONTENT;
                          }
 }
 
 <ANTLERS_NODE> {
+    {LD}                 { return T_LD; }
     {RD}                 { popState(); return T_RD; }
     {WHITE_SPACE}        { return WHITE_SPACE; }
 

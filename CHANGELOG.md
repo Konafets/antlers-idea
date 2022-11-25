@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 ### Added
+- Basic formatting for HTML
 
 ### Changed
 - Use JVM toolchain for configuring source/target compilation compatibility
