@@ -42,8 +42,8 @@ public class AntlersCommenter implements CommenterWithLineSuffix {
         return null;
     }
 
-    @Override
-    public boolean blockCommentRequiresFullLineSelection() {
-      return true;
-    }
+//    @Override
+//    public boolean blockCommentRequiresFullLineSelection() {
+//      return true;
+//    }
 }
