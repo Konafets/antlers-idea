@@ -121,11 +121,14 @@ tines ::= (conditional
         | recursive_children_node
         | tine
         | comment_block
+        | unclosed_comment
         | php_node
         | outer_content)*
 
 // Comments: {{# Here be dragons #}}
 comment_block ::= T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE { pin=1 }
+
+private unclosed_comment ::= T_UNCLOSED_COMMENT
 
 // HTML content
 private outer_content ::= "@"? OUTER_CONTENT
