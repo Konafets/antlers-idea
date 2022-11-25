@@ -16,11 +16,7 @@ public class NoParseLexerTest extends LexerTest {
         givenInput("@{{ hello_world }}");
         thenTokensAre(
                 T_AT, "@",
-                T_LD, "{{",
-                WHITE_SPACE, " ",
-                T_IDENTIFIER, "hello_world",
-                WHITE_SPACE, " ",
-                T_RD, "}}"
+                OUTER_CONTENT, "{{ hello_world }}"
         );
     }
 

@@ -1158,9 +1158,23 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // OUTER_CONTENT
+  // "@"? OUTER_CONTENT
   static boolean outer_content(PsiBuilder b, int l) {
-    return consumeToken(b, OUTER_CONTENT);
+    if (!recursion_guard_(b, l, "outer_content")) return false;
+    if (!nextTokenIs(b, "", OUTER_CONTENT, T_AT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = outer_content_0(b, l + 1);
+    r = r && consumeToken(b, OUTER_CONTENT);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // "@"?
+  private static boolean outer_content_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "outer_content_0")) return false;
+    consumeToken(b, T_AT);
+    return true;
   }
 
   /* ********************************************************** */

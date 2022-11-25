@@ -8,6 +8,7 @@
     <depends>com.intellij.modules.lang</depends>
     <depends>org.intellij.intelliLang</depends>
     <depends>com.jetbrains.php</depends>
+    <depends>com.intellij.css</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- File type -->
@@ -62,6 +63,14 @@
         <completion.contributor
                 language="Antlers"
                 implementationClass="de.arrobait.antlers.completion.AntlersModifierCompletionContributor"/>
+
+        <!-- Formatting -->
+        <lang.formatter
+                language="Antlers"
+                implementationClass="de.arrobait.antlers.format.AntlersFormattingModelBuilder"/>
+        <lang.substitutor
+                language="HTML"
+                implementationClass="de.arrobait.antlers.file.AntlersLanguageSubstitutor"/>
     </extensions>
 
     <actions>
