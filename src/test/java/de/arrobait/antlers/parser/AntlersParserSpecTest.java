@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
-public class AntlersParserSpecTest extends AntlersParsingTest {
+public class AntlersParserSpecTest extends AntlersParsingTestCase {
     public AntlersParserSpecTest() {
         super("parsing");
     }

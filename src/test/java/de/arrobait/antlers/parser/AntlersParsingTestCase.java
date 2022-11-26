@@ -10,12 +10,12 @@ import de.arrobait.antlers.file.AntlersFileType;
 import de.arrobait.antlers.util.AntlersTestUtils;
 import org.jetbrains.annotations.NotNull;
 
-public class AntlersParsingTest extends ParsingTestCase {
-    public AntlersParsingTest(@NotNull String dataPath) {
+abstract public class AntlersParsingTestCase extends ParsingTestCase {
+    public AntlersParsingTestCase(@NotNull String dataPath) {
         super(dataPath, AntlersFileType.DEFAULT_EXTENSION, new AntlersParserDefinition());
     }
 
-    public AntlersParsingTest(ParserDefinition @NotNull ... additionalDefinitions) {
+    public AntlersParsingTestCase(ParserDefinition @NotNull ... additionalDefinitions) {
         super("parsing", AntlersFileType.DEFAULT_EXTENSION, ArrayUtil.prepend(new AntlersParserDefinition(), additionalDefinitions));
     }
 
