@@ -1,4 +1,4 @@
-Antlers File
+Antlers File:ParseTagSwitch.antlers.html
   AntlersTinesImpl(TINES)
     PsiElement(OUTER_CONTENT)('<table>\n  ')
     AntlersTagNodeImpl(TAG_NODE)

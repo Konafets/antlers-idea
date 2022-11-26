@@ -1,4 +1,4 @@
-Antlers File
+Antlers File:ParseTagSvg.antlers.html
   AntlersTinesImpl(TINES)
     PsiElement(OUTER_CONTENT)('<!-- Using resources/svg/circle.svg -->\n')
     AntlersTagNodeImpl(TAG_NODE)

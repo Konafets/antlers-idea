@@ -1,4 +1,4 @@
-Antlers File
+Antlers File:ParseBoolean.antlers.html
   AntlersTinesImpl(TINES)
     AntlersTineImpl(TINE)
       PsiElement({{)('{{')

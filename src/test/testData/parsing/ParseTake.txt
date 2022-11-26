@@ -1,4 +1,4 @@
-Antlers File
+Antlers File:ParseTake.antlers.html
   AntlersTinesImpl(TINES)
     AntlersVariableAssignmentNodeImpl(VARIABLE_ASSIGNMENT_NODE)
       PsiElement({{)('{{')
