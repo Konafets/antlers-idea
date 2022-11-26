@@ -1,6 +1,6 @@
 package de.arrobait.antlers.parser;
 
-public class AntlersTagParsingTest extends AntlersParsingTest {
+public class AntlersTagParsingTest extends AntlersParsingTestCase {
     public AntlersTagParsingTest() {
         super("parsing/tags");
     }
