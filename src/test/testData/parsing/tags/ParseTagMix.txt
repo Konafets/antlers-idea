@@ -1,4 +1,4 @@
-Antlers File
+Antlers File:ParseTagMix.antlers.html
   AntlersTinesImpl(TINES)
     PsiElement(OUTER_CONTENT)('<link href="')
     AntlersTagNodeImpl(TAG_NODE)

@@ -39,7 +39,7 @@ public class AntlersParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public TokenSet getWhitespaceTokens() {
-      return AntlersTokenSets.WHITE_SPACE;
+      return AntlersTokenSets.WHITESPACES;
     }
 
     @Override
