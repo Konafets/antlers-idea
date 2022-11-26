@@ -3,144 +3,137 @@ package de.arrobait.antlers.psi;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.TokenSet;
 
+import static de.arrobait.antlers.psi.AntlersTypes.*;
+
 public class AntlersTokenSets {
-    public static final TokenSet ADVANCED_OPERATORS;
-    public static final TokenSet BOOLEANS;
-    public static final TokenSet BRACES;
-    public static final TokenSet BRACKETS;
-    public static final TokenSet COMMA;
-    public static final TokenSet COMMENTS;
-    public static final TokenSet IDENTIFIER;
-    public static final TokenSet KEYWORDS;
-    public static final TokenSet MODIFIERS;
-    public static final TokenSet NUMBERS;
-    public static final TokenSet OPERATORS;
-    public static final TokenSet PARENTHESES;
-    public static final TokenSet SEMICOLON;
-    public static final TokenSet STRINGS;
-    public static final TokenSet TAGS;
-    public static final TokenSet TAG_CONDITIONS;
-    public static final TokenSet TAG_METHOD_NAMES;
-    public static final TokenSet TAG_DISAMBIGUATION;
-    public static final TokenSet TAG_SHORTHAND_SEPARATOR;
-    public static final TokenSet WHITE_SPACE;
+    public static final TokenSet ADVANCED_OPERATORS = TokenSet.create(
+            T_GROUP_BY,
+            T_MERGE,
+            T_ORDER_BY,
+            T_PLUCK,
+            T_SKIP,
+            T_TAKE,
+            T_WHERE
+    );
 
-    private AntlersTokenSets() {}
+    public static final TokenSet BOOLEANS = TokenSet.create(
+            T_TRUE,
+            T_FALSE
+    );
 
-    static {
-        ADVANCED_OPERATORS = TokenSet.create(
-                AntlersTypes.T_GROUP_BY,
-                AntlersTypes.T_MERGE,
-                AntlersTypes.T_ORDER_BY,
-                AntlersTypes.T_PLUCK,
-                AntlersTypes.T_SKIP,
-                AntlersTypes.T_TAKE,
-                AntlersTypes.T_WHERE
-        );
-        BOOLEANS = TokenSet.create(
-                AntlersTypes.T_TRUE,
-                AntlersTypes.T_FALSE
-        );
-        BRACES = TokenSet.create(
-                AntlersTypes.T_LD,
-                AntlersTypes.T_RD,
-                AntlersTypes.T_LEFT_BRACE,
-                AntlersTypes.T_RIGHT_BRACE
-        );
-        BRACKETS = TokenSet.create(
-                AntlersTypes.T_LEFT_BRACKET,
-                AntlersTypes.T_RIGHT_BRACKET
-        );
-        COMMA = TokenSet.create(
-                AntlersTypes.T_COMMA
-        );
-        COMMENTS = TokenSet.create(
-                AntlersTypes.T_COMMENT_OPEN,
-                AntlersTypes.T_COMMENT_CLOSE,
-                AntlersTypes.T_COMMENT_TEXT
-        );
-        IDENTIFIER = TokenSet.create(
-                AntlersTypes.T_IDENTIFIER
-        );
-        KEYWORDS = TokenSet.create(
-                AntlersTypes.T_IF,
-                AntlersTypes.T_END_IF,
-                AntlersTypes.T_ELSE_IF,
-                AntlersTypes.T_ELSE,
-                AntlersTypes.T_UNLESS,
-                AntlersTypes.T_END_UNLESS,
-                AntlersTypes.T_SWITCH
-        );
-        MODIFIERS = TokenSet.create(
-                AntlersTypes.T_MODIFIER
-        );
-        NUMBERS = TokenSet.create(
-                AntlersTypes.T_INTEGER_NUMBER,
-                AntlersTypes.T_FLOAT_NUMBER
-        );
-        OPERATORS = TokenSet.create(
-                AntlersTypes.T_COLON,
-                AntlersTypes.T_DOT,
-                AntlersTypes.T_OP_ASSIGN,
-                AntlersTypes.T_OP_EXCLAMATION_MARK,
-                AntlersTypes.T_OP_QUESTIONMARK,
-                AntlersTypes.T_OP_PLUS,
-                AntlersTypes.T_OP_MINUS,
-                AntlersTypes.T_OP_MUL,
-                AntlersTypes.T_SLASH,
-                AntlersTypes.T_OP_MOD,
-                AntlersTypes.T_OP_POW,
-                AntlersTypes.T_OP_SELF_ASSIGN_ADD,
-                AntlersTypes.T_OP_SELF_ASSIGN_SUB,
-                AntlersTypes.T_OP_SELF_ASSIGN_MUL,
-                AntlersTypes.T_OP_SELF_ASSIGN_DIV,
-                AntlersTypes.T_OP_SELF_ASSIGN_MOD,
-                AntlersTypes.T_OP_EQ,
-                AntlersTypes.T_OP_NEQ,
-                AntlersTypes.T_OP_IDENT,
-                AntlersTypes.T_OP_NOT_IDENT,
-                AntlersTypes.T_OP_LT,
-                AntlersTypes.T_OP_LTE,
-                AntlersTypes.T_OP_GT,
-                AntlersTypes.T_OP_GTE,
-                AntlersTypes.T_OP_SPACESHIP,
-                AntlersTypes.T_OP_NULL_COALESCENCE,
-                AntlersTypes.T_OP_GATEKEEPER,
-                AntlersTypes.T_OP_AND,
-                AntlersTypes.T_OP_OR,
-                AntlersTypes.T_OP_XOR,
-                AntlersTypes.T_OP_ARROW
-                );
-        PARENTHESES = TokenSet.create(
-                AntlersTypes.T_LP,
-                AntlersTypes.T_RP
-        );
-        SEMICOLON = TokenSet.create(
-                AntlersTypes.T_SEMICOLON
-        );
-        STRINGS = TokenSet.create(
-                AntlersTypes.T_STRING_CONTENT,
-                AntlersTypes.T_STRING_START,
-                AntlersTypes.T_STRING_END
-        );
-        TAGS = TokenSet.create(
-                AntlersTypes.T_NOPARSE,
-                AntlersTypes.T_TAG
-        );
-        TAG_CONDITIONS = TokenSet.create(
-                AntlersTypes.T_TAG_CONDITION
-        );
-        TAG_METHOD_NAMES = TokenSet.create(
-                AntlersTypes.T_TAG_METHOD_NAME
-        );
-        TAG_DISAMBIGUATION = TokenSet.create(
-                AntlersTypes.T_DISAMBIGUATION
-        );
-        TAG_SHORTHAND_SEPARATOR = TokenSet.create(
-                AntlersTypes.T_SHORTHAND_SEPARATOR
-        );
-        WHITE_SPACE = TokenSet.create(
-                TokenType.WHITE_SPACE
-        );
+    public static final TokenSet BRACES = TokenSet.create(
+            T_LD,
+            T_RD,
+            T_LEFT_BRACE,
+            T_RIGHT_BRACE
+    );
+
+    public static final TokenSet BRACKETS = TokenSet.create(
+            T_LEFT_BRACKET,
+            T_RIGHT_BRACKET
+    );
+
+    public static final TokenSet COMMA = TokenSet.create(
+            T_COMMA
+    );
+
+    public static final TokenSet COMMENTS = TokenSet.create(
+            T_COMMENT_OPEN,
+            T_COMMENT_CLOSE,
+            T_COMMENT_TEXT
+    );
+
+    public static final TokenSet FOO = TokenSet.create(
+            TINE
+    );
+
+    public static TokenSet BLOCKS = TokenSet.create(
+            SWITCH_CASE,
+            TAG_NODE,
+            CONDITIONAL
+    );
+
+    public static final TokenSet IDENTIFIER = TokenSet.create(T_IDENTIFIER);
+
+    public static final TokenSet KEYWORDS = TokenSet.create(
+            T_IF,
+            T_END_IF,
+            T_ELSE_IF,
+            T_ELSE,
+            T_UNLESS,
+            T_END_UNLESS,
+            T_SWITCH
+    );
+
+    public static final TokenSet MODIFIERS = TokenSet.create(T_MODIFIER);
+
+    public static final TokenSet NUMBERS = TokenSet.create(
+            T_INTEGER_NUMBER,
+            T_FLOAT_NUMBER
+    );
+
+    public static final TokenSet OPERATORS = TokenSet.create(
+            T_COLON,
+            T_DOT,
+            T_OP_ASSIGN,
+            T_OP_EXCLAMATION_MARK,
+            T_OP_QUESTIONMARK,
+            T_OP_PLUS,
+            T_OP_MINUS,
+            T_OP_MUL,
+            T_SLASH,
+            T_OP_MOD,
+            T_OP_POW,
+            T_OP_SELF_ASSIGN_ADD,
+            T_OP_SELF_ASSIGN_SUB,
+            T_OP_SELF_ASSIGN_MUL,
+            T_OP_SELF_ASSIGN_DIV,
+            T_OP_SELF_ASSIGN_MOD,
+            T_OP_EQ,
+            T_OP_NEQ,
+            T_OP_IDENT,
+            T_OP_NOT_IDENT,
+            T_OP_LT,
+            T_OP_LTE,
+            T_OP_GT,
+            T_OP_GTE,
+            T_OP_SPACESHIP,
+            T_OP_NULL_COALESCENCE,
+            T_OP_GATEKEEPER,
+            T_OP_AND,
+            T_OP_OR,
+            T_OP_XOR,
+            T_OP_ARROW
+    );
+
+    public static final TokenSet PARENTHESES = TokenSet.create(
+            T_LP,
+            T_RP
+    );
+
+    public static final TokenSet SEMICOLON = TokenSet.create(T_SEMICOLON);
+
+    public static final TokenSet STRINGS = TokenSet.create(
+            T_STRING_CONTENT,
+            T_STRING_START,
+            T_STRING_END
+    );
+
+    public static final TokenSet TAGS = TokenSet.create(
+            T_NOPARSE,
+            T_TAG
+    );
+
+    public static final TokenSet TAG_CONDITIONS = TokenSet.create(T_TAG_CONDITION);
+
+    public static final TokenSet TAG_METHOD_NAMES = TokenSet.create(T_TAG_METHOD_NAME);
+
+    public static final TokenSet TAG_DISAMBIGUATION = TokenSet.create(T_DISAMBIGUATION);
+
+    public static final TokenSet TAG_SHORTHAND_SEPARATOR = TokenSet.create(T_SHORTHAND_SEPARATOR);
+
+    public static final TokenSet WHITESPACES = TokenSet.create(TokenType.WHITE_SPACE);
+
+    private AntlersTokenSets() {
     }
 }

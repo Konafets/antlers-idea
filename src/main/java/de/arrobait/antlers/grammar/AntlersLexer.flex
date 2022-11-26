@@ -42,8 +42,8 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 %type IElementType
 %unicode
 
-EOL=\R
-WHITE_SPACE=\s+
+LINE_TERMINATOR = \r|\n|\r\n
+WHITE_SPACE = {LINE_TERMINATOR} | [ \t\f]
 
 LD="{{"
 RD="}}"
@@ -81,6 +81,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 // States
 %state ANTLERS_COMMENT
+%state ANTLERS_ESCAPED
 %state ANTLERS_NODE
 %state PROPERTY_ACCESS
 %state MODIFIER_LIST
@@ -95,27 +96,67 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 %%
 <YYINITIAL> {
-    {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
-    {COMMENT_OPEN}       { yypushback(yylength() - 3); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;}
+    ~"{{"                {
+                            // backtrack over any stache characters at the end of this string
+                            Integer length = yylength();
+                            CharSequence text = yytext();
+                            while(yylength() > 0 && yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")) {
+                                yypushback(1);
+                            }
 
-    "@"                  { return T_AT; }
+                            if (yylength() > 0 && yytext().toString().charAt(yylength() - 1) == '@'){
+                                yypushback(1);
+                                pushState(ANTLERS_ESCAPED);
+                            } else {
+                                pushState(ANTLERS_NODE);
+                            }
 
-    // Lex a single { to mark an empty file as Antlers, otherwise it would be default to HTML and
-    // TypedHandler will not work correctly.
-    "{"                  { return T_HALF_ENDER; }
+                            // The content before an Antlers delimiter could be an empty whitespace or HTML aka outer content.
+                            // Here we disginguish between those to not create an extra token for empty strings. Those where
+                            // handled by the lexer, which will produce a PsiWhitespace element.
+                            if (!yytext().toString().equals("")) {
+                                if (yytext().toString().trim().length() == 0) {
+                                    return WHITE_SPACE;
+                                } else {
+                                    return OUTER_CONTENT;
+                                }
+                            }
+        }
 
-    // Antlers node
-    {LD}                 { pushState(ANTLERS_NODE); return T_LD; }
+      // Check for anything that is not a string containing "{{"; that's OUTER_CONTENT like HTML, CSS or JS.
+      !([^]*"{{"[^]*)    { return OUTER_CONTENT; }
+}
+
+<ANTLERS_ESCAPED> {
+    "@"                 { return T_AT; }
+
+    // grab everything up to the next open delimiters
+    "{{"~"{{"           {
+                            // backtrack over any tine or escape characters at the end of this string
+                            while (yylength() > 0
+                                    && (yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")
+                                        || yytext().subSequence(yylength() - 1, yylength()).toString().equals("@"))) {
+                                yypushback(1);
+                            }
+
+                            popState();
+                            return OUTER_CONTENT;
+                         }
+
+    // otherwise, if the remaining text just contains the one escaped mustache, then its all other CONTENT like HTML, CSS or JS.
+    "{{"!([^]*"{{"[^]*)  {
+                            return OUTER_CONTENT;
+                         }
+}
+
+<ANTLERS_NODE> {
+    {COMMENT_OPEN}       { popState(); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN; }
 
     // PHP nodes
     "{{?"                { pushState(PHP_RAW); return T_PHP_RAW_OPEN; }
     "{{$"                { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN; }
 
-    // HTML content
-    !([^]*"{"[^]*)       { return OUTER_CONTENT; }
-}
-
-<ANTLERS_NODE> {
+    {LD}                 { return T_LD; }
     {RD}                 { popState(); return T_RD; }
     {WHITE_SPACE}        { return WHITE_SPACE; }
 
@@ -319,6 +360,9 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 <ANTLERS_COMMENT> {
     {COMMENT_CLOSE}  { popState(); return T_COMMENT_CLOSE; }
     ~{COMMENT_CLOSE} { yypushback(3); return T_COMMENT_TEXT; }
+
+    // lex unclosed comments so that we can give better errors
+    !([^]*"}}"[^]*)  {  return T_UNCLOSED_COMMENT; }
 }
 
 <SINGLE_STRING> {
@@ -341,4 +385,5 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     ~"?}}" { yypushback(3); return T_PHP_CONTENT;}
 }
 
-[^] { return TokenType.BAD_CHARACTER; }
+{WHITE_SPACE}+ { return TokenType.WHITE_SPACE; }
+[^]            { return TokenType.BAD_CHARACTER; }

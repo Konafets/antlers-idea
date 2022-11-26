@@ -1,4 +1,4 @@
-Antlers File
+Antlers File:ParsePhp.antlers.html
   AntlersTinesImpl(TINES)
     AntlersPhpEchoNodeImpl(PHP_ECHO_NODE)
       PsiElement({{$)('{{$')

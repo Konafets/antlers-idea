@@ -1,4 +1,4 @@
-Antlers File
+Antlers File:ParseMerge.antlers.html
   AntlersTinesImpl(TINES)
     AntlersVariableAssignmentNodeImpl(VARIABLE_ASSIGNMENT_NODE)
       PsiElement({{)('{{')
