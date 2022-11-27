@@ -727,11 +727,11 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // string_literal
   public static boolean groupby_alias(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "groupby_alias")) return false;
-    if (!nextTokenIs(b, T_STRING_START)) return false;
+    if (!nextTokenIs(b, "<groupby alias>", T_DOUBLE_QUOTE, T_SINGLE_QUOTE)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, GROUPBY_ALIAS, "<groupby alias>");
     r = string_literal(b, l + 1);
-    exit_section_(b, m, GROUPBY_ALIAS, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1380,27 +1380,54 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_STRING_START T_STRING_CONTENT* T_STRING_END
+  // "'" T_STRING_CONTENT? "'"
+  //                   | '"' T_STRING_CONTENT? '"'
   public static boolean string_literal(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "string_literal")) return false;
-    if (!nextTokenIs(b, T_STRING_START)) return false;
+    if (!nextTokenIs(b, "<string literal>", T_DOUBLE_QUOTE, T_SINGLE_QUOTE)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, T_STRING_START);
-    r = r && string_literal_1(b, l + 1);
-    r = r && consumeToken(b, T_STRING_END);
-    exit_section_(b, m, STRING_LITERAL, r);
+    Marker m = enter_section_(b, l, _NONE_, STRING_LITERAL, "<string literal>");
+    r = string_literal_0(b, l + 1);
+    if (!r) r = string_literal_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // T_STRING_CONTENT*
+  // "'" T_STRING_CONTENT? "'"
+  private static boolean string_literal_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "string_literal_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_SINGLE_QUOTE);
+    r = r && string_literal_0_1(b, l + 1);
+    r = r && consumeToken(b, T_SINGLE_QUOTE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // T_STRING_CONTENT?
+  private static boolean string_literal_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "string_literal_0_1")) return false;
+    consumeToken(b, T_STRING_CONTENT);
+    return true;
+  }
+
+  // '"' T_STRING_CONTENT? '"'
   private static boolean string_literal_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "string_literal_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!consumeToken(b, T_STRING_CONTENT)) break;
-      if (!empty_element_parsed_guard_(b, "string_literal_1", c)) break;
-    }
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_DOUBLE_QUOTE);
+    r = r && string_literal_1_1(b, l + 1);
+    r = r && consumeToken(b, T_DOUBLE_QUOTE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // T_STRING_CONTENT?
+  private static boolean string_literal_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "string_literal_1_1")) return false;
+    consumeToken(b, T_STRING_CONTENT);
     return true;
   }
 
@@ -1558,11 +1585,11 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // string_literal
   public static boolean tag_attribute_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_attribute_value")) return false;
-    if (!nextTokenIs(b, T_STRING_START)) return false;
+    if (!nextTokenIs(b, "<tag attribute value>", T_DOUBLE_QUOTE, T_SINGLE_QUOTE)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, TAG_ATTRIBUTE_VALUE, "<tag attribute value>");
     r = string_literal(b, l + 1);
-    exit_section_(b, m, TAG_ATTRIBUTE_VALUE, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1768,11 +1795,11 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // string_literal
   public static boolean taxonomy_term(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "taxonomy_term")) return false;
-    if (!nextTokenIs(b, T_STRING_START)) return false;
+    if (!nextTokenIs(b, "<taxonomy term>", T_DOUBLE_QUOTE, T_SINGLE_QUOTE)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, TAXONOMY_TERM, "<taxonomy term>");
     r = string_literal(b, l + 1);
-    exit_section_(b, m, TAXONOMY_TERM, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 

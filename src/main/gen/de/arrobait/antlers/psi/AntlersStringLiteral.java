@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface AntlersStringLiteral extends PsiElement {
 
+  @Nullable
+  PsiElement getTStringContent();
+
 }

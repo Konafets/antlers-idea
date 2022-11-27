@@ -27,4 +27,10 @@ public class AntlersStringLiteralImpl extends ASTWrapperPsiElement implements An
     else super.accept(visitor);
   }
 
+  @Override
+  @Nullable
+  public PsiElement getTStringContent() {
+    return findChildByType(T_STRING_CONTENT);
+  }
+
 }
