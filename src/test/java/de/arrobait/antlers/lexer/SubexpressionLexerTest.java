@@ -51,9 +51,9 @@ public class SubexpressionLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_LP, "(",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "string",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 T_RP, ")",
                 WHITE_SPACE, " ",
                 T_RD, "}}"

@@ -17,15 +17,15 @@ public class ConcatLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "hello",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, ",world",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -41,9 +41,9 @@ public class ConcatLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "Foo",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -57,9 +57,9 @@ public class ConcatLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "Foo",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -68,9 +68,9 @@ public class ConcatLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "Foo",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
@@ -83,9 +83,9 @@ public class ConcatLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "Foo",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
@@ -102,9 +102,9 @@ public class ConcatLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "Foo",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
@@ -117,9 +117,9 @@ public class ConcatLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "Foo",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
@@ -136,9 +136,9 @@ public class ConcatLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "Foo",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -151,9 +151,9 @@ public class ConcatLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "Foo",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -169,9 +169,9 @@ public class ConcatLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_SELF_ASSIGN_ADD, "+=",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, " World",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );

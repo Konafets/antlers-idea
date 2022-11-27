@@ -18,25 +18,78 @@ public class StringsLexerTest extends LexerTest {
     }
 
     @Test
-    public void lex_single_and_double_quoted_string() {
-        givenInput("{{ \"I will eat you, donut\" }}");
-        thenTokensAre(
-                T_LD, "{{",
-                WHITE_SPACE, " ",
-                T_STRING_START, "\"",
-                T_STRING_CONTENT, "I will eat you, donut",
-                T_STRING_END, "\"",
-                WHITE_SPACE, " ",
-                T_RD, "}}"
-        );
-
+    public void lex_simple_single_quoted_string() {
         givenInput("{{ 'I will eat you, donut' }}");
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "I will eat you, donut",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
+
+    @Test
+    public void lex_single_quoted_string_with_escaped_quotes() {
+        givenInput("{{ 'I will \"eat\" you, donut' }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_SINGLE_QUOTE, "'",
+                T_STRING_CONTENT, "I will \"eat\" you, donut",
+                T_SINGLE_QUOTE, "'",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+
+        givenInput("{{ 'I will \\'eat\\' you, donut' }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_SINGLE_QUOTE, "'",
+                T_STRING_CONTENT, "I will \\'eat\\' you, donut",
+                T_SINGLE_QUOTE, "'",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
+
+    @Test
+    public void lex_simple_double_quoted_string() {
+        givenInput("{{ \"I will eat you, donut\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_DOUBLE_QUOTE, "\"",
+                T_STRING_CONTENT, "I will eat you, donut",
+                T_DOUBLE_QUOTE, "\"",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
+
+    @Test
+    public void lex_double_quoted_string_with_escaped_quotes() {
+        givenInput("{{ \"I will 'eat' you, donut\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_DOUBLE_QUOTE, "\"",
+                T_STRING_CONTENT, "I will 'eat' you, donut",
+                T_DOUBLE_QUOTE, "\"",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+
+        givenInput("{{ \"I will \\\"eat\\\" you, donut\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_DOUBLE_QUOTE, "\"",
+                T_STRING_CONTENT, "I will \\\"eat\\\" you, donut",
+                T_DOUBLE_QUOTE, "\"",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );

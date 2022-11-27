@@ -49,7 +49,7 @@ public class AntlersParserDefinition implements ParserDefinition {
 
     @Override
     public @NotNull TokenSet getStringLiteralElements() {
-        return TokenSet.EMPTY;
+        return TokenSet.create(AntlersTypes.STRING_LITERAL);
     }
 
     @NotNull

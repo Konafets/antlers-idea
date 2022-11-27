@@ -56,6 +56,8 @@ COMMENT_CLOSE="#}}"
 
 SINGLE_QUOTE="\'"
 DOUBLE_QUOTE="\""
+SINGLE_QUOTED_STR_CONTENT = ([^\\']|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))+
+DOUBLE_QUOTED_STR_CONTENT = ([^\\\"]|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))+
 
 MODIFIERS=add|add_slashes|ampersand_list|as|ascii|at|background_position|backspace|camelize|cdata|ceil|chunk|collapse|collapse_whitespace|compact|console_log|contains|contains_all|contains_any|count|count_substring|dashify|days_ago|decode|deslugify|divide|dl|dump|embed_url|ends_with|ensure_left|ensure_right|entities|excerpt|explode|favicon|first|flatten|flip|floor|format|format_localized|format_number|full_urls|get|gravatar|group_by|has_lower_case|has_upper_case|hours_ago|image|in_array|insert|is_after|is_alphanumeric|is_before|is_between|is_blank|is_email|is_embeddable|is_empty|is_future|is_json|is_leap_year|is_lowercase|is_numberwang|is_numeric|is_past|is_today|is_tomorrow|is_uppercase|is_url|is_weekday|is_weekend|is_yesterday|iso_format|join|last|lcfirst|length|limit|link|list|lower|macro|mailto|markdown|md5|merge|minutes_ago|mod|modify_date|months_ago|multiply|nl2br|obfuscate|obfuscate_email|offset|ol|option_list|output|path_info|pad|partial|piped|plural|raw|rawurlencode|ray|read_time|regex_replace|relative|remove_left|remove_right|repeat|replace|reverse|round|safe_truncate|sanitize|seconds_ago|segment|sentence_list|shuffle|singular|slugify|smartypants|sort|spaceless|starts_with|strip_tags|substr|subtract|sum|surround|swap_case|table|tidy|timezone|title|to_json|to_spaces|to_tabs|trans|trim|truncate|ucfirst|ul|url_info|underscored|unique|upper|url|urldecode|urlencode|weeks_ago|where|widont|word_count|wrap|years_ago
 
@@ -209,8 +211,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
     {RECURSIVE_CHILDREN} { yypushback(yylength()); pushState(RECURSIVE_CHILDREN); }
 
-    {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_STRING_START; }
-    {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_STRING_START; }
+    {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
+    {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
 
     {IDENTIFIER}         { return T_IDENTIFIER; }
     {IDENTIFIER_DOT}     { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
@@ -272,8 +274,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "["              { return T_LEFT_BRACKET; }
     "]"              { return T_RIGHT_BRACKET; }
     {INTEGER_NUMBER} { return T_INTEGER_NUMBER; }
-    {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_STRING_START; }
-    {DOUBLE_QUOTE}   { pushState(DOUBLE_STRING); return T_STRING_START; }
+    {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
+    {DOUBLE_QUOTE}   { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
     {IDENTIFIER}     { return T_IDENTIFIER; }
     [^]              {
                        yypushback(1);  // cancel unexpected char
@@ -294,8 +296,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     ")"              { popState(); return T_RP; }
     "["              { return T_LEFT_BRACKET; }
     "]"              { return T_RIGHT_BRACKET; }
-    {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_STRING_START; }
-    {DOUBLE_QUOTE}   { pushState(DOUBLE_STRING); return T_STRING_START; }
+    {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
+    {DOUBLE_QUOTE}   { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
     {IDENTIFIER}     { return T_IDENTIFIER; }
     {INTEGER_NUMBER} { return T_INTEGER_NUMBER; }
     {FLOAT_NUMBER}   { return T_FLOAT_NUMBER; }
@@ -336,8 +338,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "{"                     { return T_LEFT_BRACE; }
     "}"                     { return T_RIGHT_BRACE; }
     ":"                     { return T_DYNAMIC_BINDING; }
-    {SINGLE_QUOTE}          { pushState(SINGLE_STRING); return T_STRING_START; }
-    {DOUBLE_QUOTE}          { pushState(DOUBLE_STRING); return T_STRING_START; }
+    {SINGLE_QUOTE}          { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
+    {DOUBLE_QUOTE}          { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
     {IDENTIFIER}            { return T_IDENTIFIER; }
     [^]                     {
                               yybegin(ANTLERS_NODE);  // cancel unexpected char
@@ -366,13 +368,21 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 }
 
 <SINGLE_STRING> {
-    {SINGLE_QUOTE}  { popState(); return T_STRING_END; }
-    ~{SINGLE_QUOTE} { yypushback(1); return T_STRING_CONTENT; }
+    {SINGLE_QUOTE}              { popState(); return T_SINGLE_QUOTE; }
+    {SINGLE_QUOTED_STR_CONTENT} { return T_STRING_CONTENT; }
+    [^]                         {
+                                  yypushback(1); // cancel unexpected char
+                                  popState();    // and try to parse it again in <ANTLERS_NODE>
+                                }
 }
 
 <DOUBLE_STRING> {
-    {DOUBLE_QUOTE}  { popState(); return T_STRING_END; }
-    ~{DOUBLE_QUOTE} { yypushback(1); return T_STRING_CONTENT; }
+    {DOUBLE_QUOTE}              { popState(); return T_DOUBLE_QUOTE; }
+    {DOUBLE_QUOTED_STR_CONTENT} { return T_STRING_CONTENT; }
+    [^]                         {
+                                  yypushback(1); // cancel unexpected char
+                                  popState();    // and try to parse it again in <ANTLERS_NODE>
+                                }
 }
 
 <PHP_ECHO> {

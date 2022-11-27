@@ -21,15 +21,15 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_QUESTIONMARK, "?",
                 WHITE_SPACE, " ",
-                T_STRING_START, "\"",
+                T_DOUBLE_QUOTE, "\"",
                 T_STRING_CONTENT, "sold",
-                T_STRING_END, "\"",
+                T_DOUBLE_QUOTE, "\"",
                 WHITE_SPACE, " ",
                 T_COLON, ":",
                 WHITE_SPACE, " ",
-                T_STRING_START, "\"",
+                T_DOUBLE_QUOTE, "\"",
                 T_STRING_CONTENT, "for sale",
-                T_STRING_END, "\"",
+                T_DOUBLE_QUOTE, "\"",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -84,9 +84,9 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_EQ, "==",
                 WHITE_SPACE, " ",
-                T_STRING_START, "'",
+                T_SINGLE_QUOTE, "'",
                 T_STRING_CONTENT, "10",
-                T_STRING_END, "'",
+                T_SINGLE_QUOTE, "'",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -99,9 +99,9 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_EQ, "==",
                 WHITE_SPACE, " ",
-                T_STRING_START, "\"",
+                T_DOUBLE_QUOTE, "\"",
                 T_STRING_CONTENT, "10",
-                T_STRING_END, "\"",
+                T_DOUBLE_QUOTE, "\"",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -484,9 +484,9 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_NULL_COALESCENCE, "??",
                 WHITE_SPACE, " ",
-                T_STRING_START, "\"",
+                T_DOUBLE_QUOTE, "\"",
                 T_STRING_CONTENT, "Someone Forgot the Title",
-                T_STRING_END, "\"",
+                T_DOUBLE_QUOTE, "\"",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );

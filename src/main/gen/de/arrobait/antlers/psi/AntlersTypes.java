@@ -107,6 +107,7 @@ public interface AntlersTypes {
   IElementType T_COMMENT_TEXT = new AntlersTokenType("T_COMMENT_TEXT");
   IElementType T_DISAMBIGUATION = new AntlersTokenType("T_DISAMBIGUATION");
   IElementType T_DOT = new AntlersTokenType(".");
+  IElementType T_DOUBLE_QUOTE = new AntlersTokenType("\"");
   IElementType T_DYNAMIC_BINDING = new AntlersTokenType("T_DYNAMIC_BINDING");
   IElementType T_ELSE = new AntlersTokenType("else");
   IElementType T_ELSE_IF = new AntlersTokenType("elseif");
@@ -169,12 +170,11 @@ public interface AntlersTypes {
   IElementType T_RP = new AntlersTokenType(")");
   IElementType T_SEMICOLON = new AntlersTokenType(";");
   IElementType T_SHORTHAND_SEPARATOR = new AntlersTokenType("T_SHORTHAND_SEPARATOR");
+  IElementType T_SINGLE_QUOTE = new AntlersTokenType("'");
   IElementType T_SKIP = new AntlersTokenType("skip");
   IElementType T_SLASH = new AntlersTokenType("/");
   IElementType T_STAR = new AntlersTokenType("T_STAR");
   IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
-  IElementType T_STRING_END = new AntlersTokenType("T_STRING_END");
-  IElementType T_STRING_START = new AntlersTokenType("T_STRING_START");
   IElementType T_SWITCH = new AntlersTokenType("switch");
   IElementType T_TAG = new AntlersTokenType("T_TAG");
   IElementType T_TAG_CONDITION = new AntlersTokenType("T_TAG_CONDITION");

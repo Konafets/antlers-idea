@@ -104,6 +104,10 @@
 
         T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
         T_FLOAT_NUMBER='regexp:\d*\.\d+([eE][-+]?\d+)?|\d+[eE][-+]?\d+'
+
+        T_SINGLE_QUOTE="'"
+        T_DOUBLE_QUOTE='"'
+        T_STRING_CONTENT="regexp:([^\\']|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))*"
     ]
 
     extends(".*expr")=expr
@@ -347,6 +351,7 @@ literal_expr ::= number_literal
 
 // Literals
 number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER
-string_literal  ::= T_STRING_START T_STRING_CONTENT* T_STRING_END
+string_literal  ::= "'" T_STRING_CONTENT? "'"
+                  | '"' T_STRING_CONTENT? '"'
 boolean_literal ::= 'true' | 'false'
 

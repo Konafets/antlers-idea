@@ -115,8 +115,8 @@ public class AntlersTokenSets {
 
     public static final TokenSet STRINGS = TokenSet.create(
             T_STRING_CONTENT,
-            T_STRING_START,
-            T_STRING_END
+            T_SINGLE_QUOTE,
+            T_DOUBLE_QUOTE
     );
 
     public static final TokenSet TAGS = TokenSet.create(
