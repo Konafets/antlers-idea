@@ -97,6 +97,10 @@ public class AntlersTagParsingTest extends AntlersParsingTestCase {
         doTest(true);
     }
 
+    public void testParseTagNocache() {
+        doTest(true);
+    }
+
     public void testParseTagOauth() {
         doTest(true);
     }
