@@ -15,7 +15,8 @@
 
 ### Fixed
 - Fixed the detection of strings and improve the handling. Single and double quotes will not marked as an error when they are escaped.
-
+- Fixed detection of `switch` keyword for the control structure. The `switch` keyword for the control structure was only correctly detected when the opening parenthesis was immediately followed. If any whitespace or line break was in between, the term 
+ `switch` was tokenized as a TAG.
 ## [0.0.3] - 2022-08-08
 ### Added
 - New `mount_url` tag
