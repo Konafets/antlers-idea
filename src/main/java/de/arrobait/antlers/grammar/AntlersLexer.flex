@@ -173,9 +173,14 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "unless"             { return T_UNLESS; }
     "endunless"          { return T_END_UNLESS; }
     {SLASH} {UNLESS}     { return T_END_UNLESS; }
-    // Match keyword switch and the opening parenthesis, then go one char back and return the token for switch
-    // Doing this to distinguish between switch control structure and the switch Tag.
-    "switch" "("         { yypushback(1); return T_SWITCH; }
+
+    // Antlers supports a switch construct and a switch Tag. We need to distinguish between those two. Considering that the
+    // switch in the control structure is followed by an opening parenthesis, we can use the `/` lookahead of Flex.
+    // If the lexer finds `switch (`, he will match up to the open parenthesis (including any whitespaces between `switch` and `(`, but
+    // will throw away the whitespaces and parenthesis and return the `T_SWITCH` token to the parser. Those other characters will
+    // be tokenized in other rules as `WHITE_SPACE` and `T_LP`.
+    "switch" / {WHITE_SPACE}* "(" { return T_SWITCH; }
+
     "noparse"            { return T_NOPARSE;}
 
     // Advanced operators
