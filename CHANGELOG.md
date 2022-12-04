@@ -12,6 +12,7 @@
 ### Changed
 - Use JVM toolchain for configuring source/target compilation compatibility
 - Change the completion of Antlers delimiters. If you type the opening `{`, the closing `}` will be added automatically. When you type the second opening `{`, the matching `}` will be added and the spaces will be inserted as well. This means, just type `{{` will complete to `{{ <caret> }}`.
+- Remove deprecated usage of `THashSet`
 
 ### Fixed
 - Fixed the detection of strings and improve the handling. Single and double quotes will not marked as an error when they are escaped.
