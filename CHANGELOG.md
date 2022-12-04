@@ -3,8 +3,23 @@
 # Antlers Language Support Changelog
 
 ## [Unreleased]
+
 ### Added
-- Add basic formatting for HTML and CSS. 
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## 0.0.4 - 2022-12-04
+
+### Added
+- Add basic formatting for HTML and CSS.
 - Do not mark inline CSS in `<style>`-Tag as an error
 - Better detection of Antlers and HTML/CSS/Javascript code.
 - Added `nocache` tag
@@ -18,7 +33,9 @@
 - Fixed the detection of strings and improve the handling. Single and double quotes will not marked as an error when they are escaped.
 - Fixed detection of `switch` keyword for the control structure. The `switch` keyword for the control structure was only correctly detected when the opening parenthesis was immediately followed. If any whitespace or line break was in between, the term 
  `switch` was tokenized as a TAG.
-## [0.0.3] - 2022-08-08
+
+## 0.0.3 - 2022-08-08
+
 ### Added
 - New `mount_url` tag
 - New `path_info` and `url_info` modifiers
@@ -34,33 +51,32 @@
 - Dependencies - upgrade `org.jetbrains.kotlin.jvm` to `1.7.10`
 - Dependencies (GitHub Actions) - upgrade `JetBrains/qodana-action` to `v2022.2.1`
 
-## [0.0.2] - 2022-06-12
+## 0.0.2 - 2022-06-12
+
 ### Added
-- Support commenting code 
-  - `Code | Comment with Line Comment`
+- - `Code | Comment with Line Comment`
   - `Code | Comment with Block Comment`
-- Autocomplete and remove closing single and double quote  
-- Highlight all sort of brackets, parenthesis and braces as well Antlers' node delimiters 
+- Autocomplete and remove closing single and double quote
+- Highlight all sort of brackets, parenthesis and braces as well Antlers' node delimiters
 - Add autocompletion for Antlers delimiters. Type `{{` and the closing `}}` will be added automatically.
-- Support for scopes in the grammar #2 
+- Support for scopes in the grammar #2
 - Autocomplete Antlers core modifiers
 - Add support for modifiers in conditionals #3
 
 ### Changed
 - Add support for older IDE versions down to 2021.2
 
-## [0.0.1] - 2022-05-25
+## 0.0.1 - 2022-05-25
+
 ### Added
-- Infrastructure
-  - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+- - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
   - Setup Changelog for Gradle
   - Rename the groupID and namespace
   - A rad plugin icon
   - Antlers file type and icons
   - Action to create new Antlers file in project view
   - JUnit 5 (with support for JUnit 4)
-- Antlers related
-  - Add comments `{{# Comment #}}`
+- - Add comments `{{# Comment #}}`
   - Add support for raw PHP tag `{{? $foo ?}}`
   - Add support for echo PHP tag `{{$ $foo $}}`
   - Add plain Antlers node `{{ }}`
@@ -107,23 +123,19 @@
     - And `&&` / `and`
     - Or `||` / `or`
     - Xor `xor`
-- Add control structures
-  - if / elseif / else
+- - if / elseif / else
   - unless
 - Add switch structure
-- Add modifiers
-  - Supports new style for parameters `{{ foo | modifier(24) }}`
+- - Supports new style for parameters `{{ foo | modifier(24) }}`
   - Supports legacy style for parameters `{{ foo | modifier:24 }}` and `{{ foo | modifier="24" }}`
 - Add `noparse` region
 - Add `@` ignore sign
 - Add Tags
-- Add Tag Conditions
-  - Collection
+- - Collection
   - Taxonomy
   - Users
 - Add Recursive Children node
-- Add Advanced Operators
-  - groupby
+- - groupby
   - merge
   - orderby
   - pluck
