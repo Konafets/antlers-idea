@@ -67,7 +67,7 @@ public class AntlersFileViewProvider extends MultiplePsiFilesPerDocumentFileView
     @NotNull
     @Override
     public Set<Language> getLanguages() {
-        return new THashSet<>(Arrays.asList(myBaseLanguage, getTemplateDataLanguage()));
+        return Set.of(myBaseLanguage, getTemplateDataLanguage());
     }
 
     @NotNull
