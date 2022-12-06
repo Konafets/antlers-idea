@@ -67,6 +67,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitDefaultCase(@NotNull AntlersDefaultCase o) {
+    visitPsiElement(o);
+  }
+
   public void visitDivExpr(@NotNull AntlersDivExpr o) {
     visitExpr(o);
   }

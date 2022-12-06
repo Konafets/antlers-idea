@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface AntlersSwitchCase extends PsiElement {
+public interface AntlersDefaultCase extends PsiElement {
 
   @NotNull
-  AntlersExpr getExpr();
-
-  @Nullable
   AntlersStringLiteral getStringLiteral();
 
 }

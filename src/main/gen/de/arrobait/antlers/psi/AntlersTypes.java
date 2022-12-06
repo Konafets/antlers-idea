@@ -23,6 +23,7 @@ public interface AntlersTypes {
   IElementType CONDITIONAL_END = new AntlersElementType("CONDITIONAL_END");
   IElementType CONDITIONAL_IF = new AntlersElementType("CONDITIONAL_IF");
   IElementType CONDITIONAL_UNLESS = new AntlersElementType("CONDITIONAL_UNLESS");
+  IElementType DEFAULT_CASE = new AntlersElementType("DEFAULT_CASE");
   IElementType DIV_EXPR = new AntlersElementType("DIV_EXPR");
   IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
   IElementType EQ_EXPR = new AntlersElementType("EQ_EXPR");
@@ -233,6 +234,9 @@ public interface AntlersTypes {
       }
       else if (type == CONDITIONAL_UNLESS) {
         return new AntlersConditionalUnlessImpl(node);
+      }
+      else if (type == DEFAULT_CASE) {
+        return new AntlersDefaultCaseImpl(node);
       }
       else if (type == DIV_EXPR) {
         return new AntlersDivExprImpl(node);

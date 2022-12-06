@@ -7,7 +7,8 @@
 ### Added
 
 ### Changed
-- A comment is now lexed complete as `PsiComment` 
+- A comment is now lexed complete as `PsiComment`
+- Parse the default case of switch statement as own node
 
 ### Deprecated
 

@@ -203,9 +203,10 @@ conditional_else          ::= '{{' 'else' '}}' { pin=2 }
 private slash_unless_if   ::= '{{' (T_END_UNLESS | T_END_IF) '}}' { pin=2 }
 private endunless_endif   ::= '{{' ('endunless' | 'endif') '}}' { pin=2 }
 
-switch_node ::= '{{' switch_tag '}}' { pin=2 }
-switch_tag  ::= 'switch' '(' switch_case+ ')'
-switch_case ::= '(' group_comp? ')' '=>' string_literal ','? { pin=4 }
+switch_node  ::= '{{' switch_tag '}}' { pin=2 }
+switch_tag   ::= 'switch' '(' switch_case+ default_case? ')' { pin=1}
+switch_case  ::= '(' group_comp ')' '=>' string_literal ','? { pin=4 }
+default_case ::= '(' ')' '=>' string_literal ','? { pin=4 }
 
 // Expressions
 expr ::= interpolated_statement
@@ -318,6 +319,7 @@ groupby_arg        ::= antlers_expression_or_statement [groupby_alias]
 // TODO Maybe a good opportunity to refactor the string_literal and return dedicated tokens for single and double quotes
 groupby_alias      ::= string_literal
 
+// The merge operator can merge two or more "array-like" variables or expressions.
 merge              ::= 'merge' (variable | interpolated_statement)
 
 orderby            ::= 'orderby' '(' orderby_args_list ')'
@@ -354,4 +356,3 @@ number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER
 string_literal  ::= "'" T_STRING_CONTENT? "'"
                   | '"' T_STRING_CONTENT? '"'
 boolean_literal ::= 'true' | 'false'
-
