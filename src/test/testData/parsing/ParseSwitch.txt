@@ -117,7 +117,7 @@ Antlers File:ParseSwitch.antlers.html
             PsiElement(T_STRING_CONTENT)('90vw')
             PsiElement(')(''')
         PsiWhiteSpace('\n        ')
-        AntlersSwitchCaseImpl(SWITCH_CASE)
+        AntlersDefaultCaseImpl(DEFAULT_CASE)
           PsiElement(()('(')
           PsiElement())(')')
           PsiWhiteSpace(' ')

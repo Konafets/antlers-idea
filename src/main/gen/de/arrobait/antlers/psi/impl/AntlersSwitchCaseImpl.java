@@ -28,9 +28,9 @@ public class AntlersSwitchCaseImpl extends ASTWrapperPsiElement implements Antle
   }
 
   @Override
-  @Nullable
+  @NotNull
   public AntlersExpr getExpr() {
-    return findChildByClass(AntlersExpr.class);
+    return findNotNullChildByClass(AntlersExpr.class);
   }
 
   @Override
