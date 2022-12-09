@@ -16,7 +16,7 @@
 
 ### Security
 
-## 0.0.4 - 2022-12-04
+## 0.0.4 - 2022-12-05
 
 ### Added
 - Add basic formatting for HTML and CSS.
