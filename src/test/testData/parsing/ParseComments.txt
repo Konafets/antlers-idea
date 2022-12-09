@@ -1,6 +1,2 @@
 Antlers File:ParseComments.antlers.html
-  AntlersTinesImpl(TINES)
-    AntlersCommentBlockImpl(COMMENT_BLOCK)
-      PsiElement({{#)('{{#')
-      PsiElement(T_COMMENT_TEXT)(' Foo ')
-      PsiElement(#}})('#}}')
+  PsiComment(COMMENT_BLOCK)('{{# Foo #}}')

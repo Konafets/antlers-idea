@@ -7,14 +7,13 @@
 ### Added
 
 ### Changed
+- A comment is now lexed complete as `PsiComment` 
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
-
-### Security
 
 ## 0.0.4 - 2022-12-05
 
