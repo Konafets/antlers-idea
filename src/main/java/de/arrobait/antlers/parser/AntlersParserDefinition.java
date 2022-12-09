@@ -18,12 +18,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class AntlersParserDefinition implements ParserDefinition {
     public static final IFileElementType FILE = new IFileElementType(AntlersLanguage.INSTANCE);
-    public static final TokenSet COMMENTS = TokenSet.create(AntlersTypes.COMMENT_BLOCK);
+    public static final TokenSet COMMENTS = TokenSet.create(AntlersTypes.COMMENT_BLOCK, AntlersTypes.T_COMMENT_TEXT);
 
     @NotNull
     @Override
     public Lexer createLexer(Project project) {
-        return new AntlersLexerAdapter();
+        return new AntlersLexer();
     }
 
     @Override
