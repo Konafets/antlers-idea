@@ -1,6 +1,8 @@
 package de.arrobait.antlers.format;
 
 import com.intellij.formatting.Alignment;
+import com.intellij.formatting.Block;
+import com.intellij.formatting.Spacing;
 import com.intellij.formatting.Wrap;
 import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper;
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlock;
@@ -17,18 +19,32 @@ import java.util.List;
 
 public class AntlersBlock extends TemplateLanguageBlock {
 
+    private final AntlersSpacingProcessor mySpacingProcessor;
+
+    private final AntlersBlockContext myContext;
+
     public AntlersBlock(@NotNull ASTNode node,
                         @Nullable Wrap wrap,
                         @Nullable Alignment alignment,
                         @NotNull TemplateLanguageBlockFactory blockFactory,
                         @NotNull CodeStyleSettings settings,
                         @Nullable List<DataLanguageBlockWrapper> foreignChildren,
-                        HtmlPolicy policy) {
+                        @NotNull HtmlPolicy policy,
+                        @NotNull AntlersBlockContext context) {
         super(node, wrap, alignment, blockFactory, settings, foreignChildren);
+
+        myContext = context;
+        mySpacingProcessor = new AntlersSpacingProcessor(node, context.getAntlersCodeStyleSettings());
     }
 
     @Override
     protected IElementType getTemplateTextElementType() {
         return AntlersTypes.OUTER_CONTENT;
     }
+
+    @Override
+    public @Nullable Spacing getSpacing(@Nullable Block child1, @NotNull Block child2) {
+        return mySpacingProcessor.getSpacing(child1, child2);
+    }
+
 }
