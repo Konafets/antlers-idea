@@ -2424,30 +2424,34 @@ public class AntlersLexer implements FlexLexer {
             // fall through
           case 154: break;
           case 48: 
-            { // backtrack over any stache characters at the end of this string
-                            Integer length = yylength();
-                            CharSequence text = yytext();
-                            while(yylength() > 0 && yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")) {
-                                yypushback(1);
-                            }
+            { // This matches any chars before the opening delimiters, including the `{{` itself.
+                // We do this to catch the escape char `@` in front of the delimiters and to mark outer content like HTML, CSS and JS.
 
-                            if (yylength() > 0 && yytext().toString().charAt(yylength() - 1) == '@'){
-                                yypushback(1);
-                                pushState(ANTLERS_ESCAPED);
-                            } else {
-                                pushState(ANTLERS_NODE);
-                            }
+                // First we need to remove the matched `{{` characters from the match and put it back to the input string, so
+                // that the lexer can lex it again in a dedicated state.
+                while(yylength() > 0 && yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")) {
+                    yypushback(1);
+                }
 
-                            // The content before an Antlers delimiter could be an empty whitespace or HTML aka outer content.
-                            // Here we disginguish between those to not create an extra token for empty strings. Those where
-                            // handled by the lexer, which will produce a PsiWhitespace element.
-                            if (!yytext().toString().equals("")) {
-                                if (yytext().toString().trim().length() == 0) {
-                                    return WHITE_SPACE;
-                                } else {
-                                    return OUTER_CONTENT;
-                                }
-                            }
+                // Here we check if the char right before the `{{` is a `@`. If so, this is an escaped node, otherwise a
+                // regular Antlers node.
+                if (yylength() > 0 && yytext().toString().charAt(yylength() - 1) == '@'){
+                    yypushback(1);
+                    pushState(ANTLERS_ESCAPED);
+                } else {
+                    pushState(ANTLERS_NODE);
+                }
+
+                // The content before an Antlers delimiter could be an empty whitespace or HTML aka outer content.
+                // Here we disginguish between those to not create an extra token for empty strings. Those where
+                // handled by the lexer, which will produce a PsiWhitespace element.
+                if (!yytext().toString().equals("")) {
+                    if (yytext().toString().trim().length() == 0) {
+                        return WHITE_SPACE;
+                    } else {
+                        return OUTER_CONTENT;
+                    }
+                }
             } 
             // fall through
           case 155: break;
@@ -2651,14 +2655,14 @@ public class AntlersLexer implements FlexLexer {
           case 194: break;
           case 88: 
             { // backtrack over any tine or escape characters at the end of this string
-                            while (yylength() > 0
-                                    && (yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")
-                                        || yytext().subSequence(yylength() - 1, yylength()).toString().equals("@"))) {
-                                yypushback(1);
-                            }
+                while (yylength() > 0
+                        && (yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")
+                            || yytext().subSequence(yylength() - 1, yylength()).toString().equals("@"))) {
+                    yypushback(1);
+                }
 
-                            popState();
-                            return OUTER_CONTENT;
+                popState();
+                return OUTER_CONTENT;
             } 
             // fall through
           case 195: break;
