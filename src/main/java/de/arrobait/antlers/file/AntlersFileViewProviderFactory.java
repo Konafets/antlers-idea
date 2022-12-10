@@ -14,8 +14,8 @@ public class AntlersFileViewProviderFactory implements FileViewProviderFactory {
     public FileViewProvider createFileViewProvider(@NotNull VirtualFile file,
                                                    Language language,
                                                    @NotNull PsiManager manager,
-                                                   boolean eventSystemEnabled) {
+                                                   boolean physical) {
         assert language.isKindOf(AntlersLanguage.INSTANCE);
-        return new AntlersFileViewProvider(manager, file, eventSystemEnabled, language);
+        return new AntlersFileViewProvider(manager, file, physical, language);
     }
 }
