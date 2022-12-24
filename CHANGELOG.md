@@ -9,6 +9,7 @@
 ### Changed
 - A comment is now lexed complete as `PsiComment`
 - Parse the default case of switch statement as own node
+- Added `cache: gradle` to Github build workflow to improve build performance
 
 ### Deprecated
 
