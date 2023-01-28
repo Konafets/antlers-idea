@@ -1,15 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package de.arrobait.antlers.psi.impl;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static de.arrobait.antlers.psi.AntlersTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class AntlersGroupbyImpl extends ASTWrapperPsiElement implements AntlersGroupby {
 

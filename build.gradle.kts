@@ -4,11 +4,14 @@ import org.jetbrains.changelog.markdownToHTML
 fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
+    // Java support
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.7.21"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.10.1"
+    id("org.jetbrains.intellij") version "1.12.0"
+    // Gradle Changelog Plugin
     id("org.jetbrains.changelog") version "2.0.0"
+    // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
 }
 

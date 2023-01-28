@@ -1,15 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package de.arrobait.antlers.psi.impl;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static de.arrobait.antlers.psi.AntlersTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class AntlersConditionalImpl extends ASTWrapperPsiElement implements AntlersConditional {
 
@@ -29,6 +29,18 @@ public class AntlersConditionalImpl extends ASTWrapperPsiElement implements Antl
 
   @Override
   @Nullable
+  public AntlersBlockCloseNode getBlockCloseNode() {
+    return findChildByClass(AntlersBlockCloseNode.class);
+  }
+
+  @Override
+  @NotNull
+  public AntlersBlockOpenNode getBlockOpenNode() {
+    return findNotNullChildByClass(AntlersBlockOpenNode.class);
+  }
+
+  @Override
+  @Nullable
   public AntlersConditionalElse getConditionalElse() {
     return findChildByClass(AntlersConditionalElse.class);
   }
@@ -37,24 +49,6 @@ public class AntlersConditionalImpl extends ASTWrapperPsiElement implements Antl
   @NotNull
   public List<AntlersConditionalElseif> getConditionalElseifList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersConditionalElseif.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersConditionalEnd getConditionalEnd() {
-    return findChildByClass(AntlersConditionalEnd.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersConditionalIf getConditionalIf() {
-    return findChildByClass(AntlersConditionalIf.class);
-  }
-
-  @Override
-  @Nullable
-  public AntlersConditionalUnless getConditionalUnless() {
-    return findChildByClass(AntlersConditionalUnless.class);
   }
 
   @Override

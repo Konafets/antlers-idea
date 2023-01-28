@@ -1,13 +1,13 @@
 Antlers File:ParseTag404.antlers.html
   AntlersTinesImpl(TINES)
-    AntlersTagNodeImpl(TAG_NODE)
+    AntlersTagSingleImpl(TAG_SINGLE)
       AntlersTagNodeOpenImpl(TAG_NODE_OPEN)
-        PsiElement({{)('{{')
+        AntlersNodeOpenerImpl(NODE_OPENER)
+          PsiElement({{)('{{')
         PsiWhiteSpace(' ')
         AntlersTagImpl(TAG)
           AntlersTagNameImpl(TAG_NAME)
             PsiElement(T_TAG)('404')
         PsiWhiteSpace(' ')
-        PsiElement(}})('}}')
-      AntlersTinesImpl(TINES)
-        <empty list>
+        AntlersNodeCloserImpl(NODE_CLOSER)
+          PsiElement(}})('}}')

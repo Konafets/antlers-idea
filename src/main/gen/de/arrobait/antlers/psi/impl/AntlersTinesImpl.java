@@ -1,15 +1,14 @@
 // This is a generated file. Not intended for manual editing.
 package de.arrobait.antlers.psi.impl;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static de.arrobait.antlers.psi.AntlersTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.arrobait.antlers.psi.*;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class AntlersTinesImpl extends ASTWrapperPsiElement implements AntlersTines {
 
@@ -35,14 +34,14 @@ public class AntlersTinesImpl extends ASTWrapperPsiElement implements AntlersTin
 
   @Override
   @NotNull
-  public List<AntlersCommentBlock> getCommentBlockList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersCommentBlock.class);
+  public List<AntlersBlockWrapper> getBlockWrapperList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersBlockWrapper.class);
   }
 
   @Override
   @NotNull
-  public List<AntlersConditional> getConditionalList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersConditional.class);
+  public List<AntlersCommentBlock> getCommentBlockList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersCommentBlock.class);
   }
 
   @Override
@@ -77,8 +76,8 @@ public class AntlersTinesImpl extends ASTWrapperPsiElement implements AntlersTin
 
   @Override
   @NotNull
-  public List<AntlersTagNode> getTagNodeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTagNode.class);
+  public List<AntlersTagSingle> getTagSingleList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTagSingle.class);
   }
 
   @Override

@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 public class AntlersParserDefinition implements ParserDefinition {
     public static final IFileElementType FILE = new IFileElementType(AntlersLanguage.INSTANCE);
     public static final TokenSet COMMENTS = TokenSet.create(AntlersTypes.COMMENT_BLOCK, AntlersTypes.T_COMMENT_TEXT);
+    public static final TokenSet STRING_LITERALS = TokenSet.create(AntlersTypes.STRING_LITERAL);
 
     @NotNull
     @Override
@@ -49,7 +50,7 @@ public class AntlersParserDefinition implements ParserDefinition {
 
     @Override
     public @NotNull TokenSet getStringLiteralElements() {
-        return TokenSet.create(AntlersTypes.STRING_LITERAL);
+        return STRING_LITERALS;
     }
 
     @NotNull

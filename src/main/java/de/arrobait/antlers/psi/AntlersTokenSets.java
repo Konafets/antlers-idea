@@ -43,15 +43,17 @@ public class AntlersTokenSets {
             T_COMMENT_TEXT
     );
 
-    public static final TokenSet FOO = TokenSet.create(
-            TINE
+    public static final TokenSet NODES = TokenSet.create(
+            AntlersTypes.TINE,
+            BLOCK_OPEN_NODE,
+            TAG_SINGLE
     );
 
-    public static TokenSet BLOCKS = TokenSet.create(
-            SWITCH_CASE,
-            TAG_NODE,
-            CONDITIONAL
-    );
+//    public static TokenSet BLOCKS = TokenSet.create(
+//            SWITCH_CASE,
+//            TAG_PAIR,
+//            CONDITIONAL
+//    );
 
     public static final TokenSet IDENTIFIER = TokenSet.create(T_IDENTIFIER);
 

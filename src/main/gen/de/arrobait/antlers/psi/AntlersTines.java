@@ -1,9 +1,10 @@
 // This is a generated file. Not intended for manual editing.
 package de.arrobait.antlers.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public interface AntlersTines extends PsiElement {
 
@@ -11,10 +12,10 @@ public interface AntlersTines extends PsiElement {
   List<AntlersAntlersCloseNode> getAntlersCloseNodeList();
 
   @NotNull
-  List<AntlersCommentBlock> getCommentBlockList();
+  List<AntlersBlockWrapper> getBlockWrapperList();
 
   @NotNull
-  List<AntlersConditional> getConditionalList();
+  List<AntlersCommentBlock> getCommentBlockList();
 
   @NotNull
   List<AntlersNoparseRegion> getNoparseRegionList();
@@ -32,7 +33,7 @@ public interface AntlersTines extends PsiElement {
   List<AntlersSwitchNode> getSwitchNodeList();
 
   @NotNull
-  List<AntlersTagNode> getTagNodeList();
+  List<AntlersTagSingle> getTagSingleList();
 
   @NotNull
   List<AntlersTine> getTineList();

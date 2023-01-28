@@ -1,0 +1,25 @@
+{{hello_world}}
+{{main_content|upper}}
+<h1>{{"I will eat you, donut"|upper}}</h1>
+
+{{meta_title??title??"Someone Forgot the Title"}}
+{{show_bio?=author:bio}}
+
+{{foo=['pooh','pea']}}
+{{foo+=3}}
+{{foo-=3}}
+{{foo*=3}}
+{{foo/=3}}
+{{foo%=3}}
+
+
+{{ $title+" makes "+$quality+" donuts."}}
+
+{{switch(
+        (size=='sm')=>'(min-width: 768px) 35vw, 90vw',
+        (size=='md')=>'(min-width: 768px) 55vw, 90vw',
+        (size=='lg')=>'(min-width: 768px) 75vw, 90vw',
+        (size=='xl')=>'90vw',
+        ()=>'100vw'
+    )
+}}
