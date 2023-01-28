@@ -1,9 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package de.arrobait.antlers.psi;
 
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.IElementType;
 import de.arrobait.antlers.psi.impl.*;
 
 public interface AntlersTypes {
@@ -12,6 +12,9 @@ public interface AntlersTypes {
   IElementType AND_EXPR = new AntlersElementType("AND_EXPR");
   IElementType ANTLERS_CLOSE_NODE = new AntlersElementType("ANTLERS_CLOSE_NODE");
   IElementType ARRAY = new AntlersElementType("ARRAY");
+  IElementType BLOCK_CLOSE_NODE = new AntlersElementType("BLOCK_CLOSE_NODE");
+  IElementType BLOCK_OPEN_NODE = new AntlersElementType("BLOCK_OPEN_NODE");
+  IElementType BLOCK_WRAPPER = new AntlersElementType("BLOCK_WRAPPER");
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
   IElementType BRACKET_PROPERTY_ACCESS = new AntlersElementType("BRACKET_PROPERTY_ACCESS");
   IElementType COLON_PROPERTY_ACCESS = new AntlersElementType("COLON_PROPERTY_ACCESS");
@@ -47,6 +50,8 @@ public interface AntlersTypes {
   IElementType MOD_EXPR = new AntlersElementType("MOD_EXPR");
   IElementType MUL_EXPR = new AntlersElementType("MUL_EXPR");
   IElementType NEQ_EXPR = new AntlersElementType("NEQ_EXPR");
+  IElementType NODE_CLOSER = new AntlersElementType("NODE_CLOSER");
+  IElementType NODE_OPENER = new AntlersElementType("NODE_OPENER");
   IElementType NOPARSE_REGION = new AntlersElementType("NOPARSE_REGION");
   IElementType NOPARSE_REGION_CLOSE = new AntlersElementType("NOPARSE_REGION_CLOSE");
   IElementType NOPARSE_REGION_OPEN = new AntlersElementType("NOPARSE_REGION_OPEN");
@@ -78,9 +83,10 @@ public interface AntlersTypes {
   IElementType TAG_ATTRIBUTE_VALUE = new AntlersElementType("TAG_ATTRIBUTE_VALUE");
   IElementType TAG_METHOD_PART = new AntlersElementType("TAG_METHOD_PART");
   IElementType TAG_NAME = new AntlersElementType("TAG_NAME");
-  IElementType TAG_NODE = new AntlersElementType("TAG_NODE");
   IElementType TAG_NODE_CLOSE = new AntlersElementType("TAG_NODE_CLOSE");
   IElementType TAG_NODE_OPEN = new AntlersElementType("TAG_NODE_OPEN");
+  IElementType TAG_PAIR = new AntlersElementType("TAG_PAIR");
+  IElementType TAG_SINGLE = new AntlersElementType("TAG_SINGLE");
   IElementType TAG_TAXONOMY_CONDITION = new AntlersElementType("TAG_TAXONOMY_CONDITION");
   IElementType TAKE = new AntlersElementType("TAKE");
   IElementType TAXONOMY_NAME = new AntlersElementType("TAXONOMY_NAME");
@@ -202,6 +208,15 @@ public interface AntlersTypes {
       else if (type == ARRAY) {
         return new AntlersArrayImpl(node);
       }
+      else if (type == BLOCK_CLOSE_NODE) {
+        return new AntlersBlockCloseNodeImpl(node);
+      }
+      else if (type == BLOCK_OPEN_NODE) {
+        return new AntlersBlockOpenNodeImpl(node);
+      }
+      else if (type == BLOCK_WRAPPER) {
+        return new AntlersBlockWrapperImpl(node);
+      }
       else if (type == BOOLEAN_LITERAL) {
         return new AntlersBooleanLiteralImpl(node);
       }
@@ -304,6 +319,12 @@ public interface AntlersTypes {
       else if (type == NEQ_EXPR) {
         return new AntlersNeqExprImpl(node);
       }
+      else if (type == NODE_CLOSER) {
+        return new AntlersNodeCloserImpl(node);
+      }
+      else if (type == NODE_OPENER) {
+        return new AntlersNodeOpenerImpl(node);
+      }
       else if (type == NOPARSE_REGION) {
         return new AntlersNoparseRegionImpl(node);
       }
@@ -397,14 +418,17 @@ public interface AntlersTypes {
       else if (type == TAG_NAME) {
         return new AntlersTagNameImpl(node);
       }
-      else if (type == TAG_NODE) {
-        return new AntlersTagNodeImpl(node);
-      }
       else if (type == TAG_NODE_CLOSE) {
         return new AntlersTagNodeCloseImpl(node);
       }
       else if (type == TAG_NODE_OPEN) {
         return new AntlersTagNodeOpenImpl(node);
+      }
+      else if (type == TAG_PAIR) {
+        return new AntlersTagPairImpl(node);
+      }
+      else if (type == TAG_SINGLE) {
+        return new AntlersTagSingleImpl(node);
       }
       else if (type == TAG_TAXONOMY_CONDITION) {
         return new AntlersTagTaxonomyConditionImpl(node);

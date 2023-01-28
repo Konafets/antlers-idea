@@ -36,11 +36,16 @@
                 language="Antlers"
                 implementationClass="de.arrobait.antlers.highlighter.AntlersSyntaxHighlighterFactory"/>
 
+        <editorHighlighterProvider
+                filetype="Antlers"
+                implementationClass="de.arrobait.antlers.highlighter.AntlersHighlighterProvider"/>
+
         <colorSettingsPage
                 implementation="de.arrobait.antlers.highlighter.AntlersColorSettingsPage"/>
 
         <applicationService
                 serviceImplementation="de.arrobait.antlers.services.AntlersApplicationService"/>
+
         <projectService
                 serviceImplementation="de.arrobait.antlers.services.AntlersProjectService"/>
 
@@ -58,20 +63,37 @@
         <!-- Code completion -->
         <lang.quoteHandler
                 language="Antlers" implementationClass="de.arrobait.antlers.editor.AntlersQuoteHandler"/>
+
         <backspaceHandlerDelegate
                 implementation="de.arrobait.antlers.editor.actions.backspace.AntlersSingleQuotedStringBackspaceHandler"/>
+
         <backspaceHandlerDelegate
                 implementation="de.arrobait.antlers.editor.actions.backspace.AntlersDoubleQuotedStringBackspaceHandler"/>
+
         <typedHandler
                 implementation="de.arrobait.antlers.editor.actions.AntlersTypedHandler"/>
+
+        <enterHandlerDelegate
+                implementation="de.arrobait.antlers.editor.actions.AntlersEnterHandler"/>
+
         <completion.contributor
                 language="Antlers"
                 implementationClass="de.arrobait.antlers.completion.AntlersModifierCompletionContributor"/>
 
         <!-- Formatting -->
+        <codeStyleSettingsProvider
+                implementation="de.arrobait.antlers.codeStyle.AntlersCodeStyleSettingsProvider"/>
+
+        <langCodeStyleSettingsProvider
+                implementation="de.arrobait.antlers.codeStyle.AntlersLanguageCodeStyleSettingsProvider"/>
+
         <lang.formatter
                 language="Antlers"
                 implementationClass="de.arrobait.antlers.format.AntlersFormattingModelBuilder"/>
+
+        <fileIndentOptionsProvider
+                implementation="de.arrobait.antlers.format.AntlersFileIndentOptionsProvider"/>
+
         <lang.substitutor
                 language="HTML"
                 implementationClass="de.arrobait.antlers.file.AntlersLanguageSubstitutor"/>

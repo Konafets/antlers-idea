@@ -116,10 +116,10 @@
 }
 
 antlersFile ::= <<eof>> | [tines]
-tines ::= (conditional
+tines ::= (block_wrapper
         | antlers_close_node
         | switch_node
-        | tag_node
+        | tag_single
         | noparse_region
         | variable_assignment_node
         | recursive_children_node
@@ -142,14 +142,14 @@ private php_node ::= (php_raw_node | php_echo_node)
 php_raw_node   ::= "{{?" T_PHP_CONTENT* "?}}" { pin=1 }
 php_echo_node  ::= "{{$" T_PHP_CONTENT* "$}}" { pin=1 }
 
-tine ::= '{{' antlers_expression_or_statement  '}}' {
+tine ::= node_opener antlers_expression_or_statement  node_closer {
     pin=2
     recoverWhile=antlers_node_recover
 }
-private antlers_node_recover ::= !('{{' | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '[' | '{' | ':' | '=')
+private antlers_node_recover ::= !(node_opener | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '[' | '{' | ':' | '=')
 
 private antlers_expression_or_statement ::= expr ('|' modifier_list)*
-antlers_close_node ::= '{{' (T_SLASH variable) '}}' { pin=2 }
+antlers_close_node ::= node_opener (T_SLASH variable) node_closer { pin=2 }
 
 // Modifier
 // {{ summary | replace('It was', 'It was also') | replace('times', $noun) }}
@@ -167,12 +167,21 @@ modifier_param       ::= literal_expr | array
 
 // Special noparse tag
 noparse_region ::= noparse_region_open tines noparse_region_close { pin = 1 }
-noparse_region_open ::= '{{' 'noparse' '}}' { pin=2 }
-noparse_region_close ::= '{{' (T_SLASH 'noparse') '}}' { pin=2 }
+noparse_region_open ::= node_opener 'noparse' node_closer { pin=2 }
+noparse_region_close ::= node_opener (T_SLASH 'noparse') node_closer { pin=2 }
 
-tag_node ::= tag_node_open tines tag_node_close? { pin = 1 }
-tag_node_open ::= '{{' tag_with_attributes [T_SLASH] '}}' { pin=3 }
-tag_node_close ::= '{{' (T_SLASH tag) '}}' { pin=2 }
+/**
+ * Tags
+ */
+// {{ %partial:blog/card for="5 minutes" }}
+//tag_node ::= node_opener tag tag_parameters node_closer
+//tag ::= [T_DISAMBIGUATION] tag_name T_SHORTHAND_SEPARATOR tag_method
+//tag_name ::= 'partial'
+
+tag_single ::= tag_node_open
+tag_pair ::= tag_node_open tines tag_node_close { pin = 3 }
+tag_node_open ::= node_opener tag_with_attributes [T_SLASH] node_closer { pin=3 }
+tag_node_close ::= node_opener (T_SLASH tag) node_closer { pin=2 }
 
 private tag_with_attributes ::= tag (tag_attribute_assignment | tag_taxonomy_condition)*
 
@@ -191,19 +200,27 @@ tag_taxonomy_condition ::= T_TAXONOMY taxonomy_name '=' taxonomy_term
 taxonomy_name ::= T_IDENTIFIER
 taxonomy_term ::= string_literal
 
-recursive_children_node ::= '{{' T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR '}}' { pin=3 }
+recursive_children_node ::= node_opener T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR node_closer { pin=3 }
 
-conditional               ::= conditional_start tines (conditional_elseif tines)* (conditional_else tines)? conditional_end { pin=1 }
+/**
+ * Conditional
+ */
+block_wrapper ::= conditional
+                | tag_pair
+block_open_node ::= conditional_start
+block_close_node ::= conditional_end
+
+conditional               ::= block_open_node tines (conditional_elseif tines)* (conditional_else tines)? block_close_node { pin=1 }
 private conditional_start ::= (conditional_if | conditional_unless)
 conditional_end           ::= (slash_unless_if | endunless_endif)
-conditional_if            ::= '{{' 'if' expr ('|' modifier_list)* '}}' { pin=2 }
-conditional_unless        ::= '{{' 'unless' expr ('|' modifier_list)* '}}' { pin=2 }
-conditional_elseif        ::= '{{' 'elseif' expr ('|' modifier_list)* '}}' { pin=2 }
-conditional_else          ::= '{{' 'else' '}}' { pin=2 }
-private slash_unless_if   ::= '{{' (T_END_UNLESS | T_END_IF) '}}' { pin=2 }
-private endunless_endif   ::= '{{' ('endunless' | 'endif') '}}' { pin=2 }
+conditional_if            ::= node_opener 'if' expr ('|' modifier_list)* node_closer { pin=2 }
+conditional_unless        ::= node_opener 'unless' expr ('|' modifier_list)* node_closer { pin=2 }
+conditional_elseif        ::= node_opener 'elseif' expr ('|' modifier_list)* node_closer { pin=2 }
+conditional_else          ::= node_opener 'else' node_closer { pin=2 }
+private slash_unless_if   ::= node_opener (T_END_UNLESS | T_END_IF) node_closer { pin=2 }
+private endunless_endif   ::= node_opener ('endunless' | 'endif') node_closer { pin=2 }
 
-switch_node  ::= '{{' switch_tag '}}' { pin=2 }
+switch_node  ::= node_opener switch_tag node_closer { pin=2 }
 switch_tag   ::= 'switch' '(' switch_case+ default_case? ')' { pin=1}
 switch_case  ::= '(' group_comp ')' '=>' string_literal ','? { pin=4 }
 default_case ::= '(' ')' '=>' string_literal ','? { pin=4 }
@@ -289,7 +306,7 @@ colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_litera
 
 // {{ total = 0 }}
 // {{ todo = ['Get haircut', 'Bake bread', 'Eat soup'] }}
-variable_assignment_node ::= '{{' variable T_OP_ASSIGN assignable_items '}}' { pin=3 }
+variable_assignment_node ::= node_opener variable T_OP_ASSIGN assignable_items node_closer { pin=3 }
 private assignable_items ::= boolean_literal
                            | number_literal
                            | string_literal
@@ -347,12 +364,32 @@ private array_value ::= (string_literal | number_literal | array) ['=>' variable
 interpolated_statement ::= '{' (antlers_expression_or_statement | expr | tag_with_attributes) '}' { pin=1 }
 sub_expression ::= '(' (antlers_expression_or_statement | expr) ')' { pin=1 }
 literal_expr ::= number_literal
-                | boolean_literal
-                | string_literal
-                | variable variable_attribute_assignment*
+               | boolean_literal
+               | string_literal
+               | variable variable_attribute_assignment*
 
 // Literals
 number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER
 string_literal  ::= "'" T_STRING_CONTENT? "'"
                   | '"' T_STRING_CONTENT? '"'
 boolean_literal ::= 'true' | 'false'
+
+// Give the open and closing delimiter (double curly braces) a handle to be
+// able refer to them on other places.
+node_opener ::= T_LD
+node_closer ::= T_RD
+
+
+// {{ hello_world }}
+// T_LD handle T_RD
+// handle ::= variable
+
+// {{ 'hello_world' }}
+// T_LD handle T_RD
+// handle ::= variable | string
+
+// {{ skaters:0:name }}
+// {{ skaters.1.name }}<br>
+// {{ skaters[2]['name'] }}<br>
+// T_LD handle [plucks] T_RD
+// plucks ::= ':0' | '.0' | '[0]'

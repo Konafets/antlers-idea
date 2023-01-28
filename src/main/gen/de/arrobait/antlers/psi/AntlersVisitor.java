@@ -1,9 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package de.arrobait.antlers.psi;
 
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementVisitor;
+import org.jetbrains.annotations.NotNull;
 
 public class AntlersVisitor extends PsiElementVisitor {
 
@@ -20,6 +20,18 @@ public class AntlersVisitor extends PsiElementVisitor {
   }
 
   public void visitArray(@NotNull AntlersArray o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBlockCloseNode(@NotNull AntlersBlockCloseNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBlockOpenNode(@NotNull AntlersBlockOpenNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBlockWrapper(@NotNull AntlersBlockWrapper o) {
     visitPsiElement(o);
   }
 
@@ -163,6 +175,14 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitNodeCloser(@NotNull AntlersNodeCloser o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNodeOpener(@NotNull AntlersNodeOpener o) {
+    visitPsiElement(o);
+  }
+
   public void visitNoparseRegion(@NotNull AntlersNoparseRegion o) {
     visitPsiElement(o);
   }
@@ -287,15 +307,19 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitTagNode(@NotNull AntlersTagNode o) {
-    visitPsiElement(o);
-  }
-
   public void visitTagNodeClose(@NotNull AntlersTagNodeClose o) {
     visitPsiElement(o);
   }
 
   public void visitTagNodeOpen(@NotNull AntlersTagNodeOpen o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagPair(@NotNull AntlersTagPair o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTagSingle(@NotNull AntlersTagSingle o) {
     visitPsiElement(o);
   }
 
