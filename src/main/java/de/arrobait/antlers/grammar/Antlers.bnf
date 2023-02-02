@@ -129,19 +129,6 @@ tines ::= (block_wrapper
         | php_node
         | outer_content)*
 
-// Comments: {{# Here be dragons #}}
-comment_block ::= T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE { pin=1 }
-
-private unclosed_comment ::= T_UNCLOSED_COMMENT
-
-// HTML content
-private outer_content ::= "@"? OUTER_CONTENT
-
-// PHP expressions
-private php_node ::= (php_raw_node | php_echo_node)
-php_raw_node   ::= "{{?" T_PHP_CONTENT* "?}}" { pin=1 }
-php_echo_node  ::= "{{$" T_PHP_CONTENT* "$}}" { pin=1 }
-
 tine ::= node_opener antlers_expression_or_statement  node_closer {
     pin=2
     recoverWhile=antlers_node_recover
@@ -373,6 +360,19 @@ number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER
 string_literal  ::= "'" T_STRING_CONTENT? "'"
                   | '"' T_STRING_CONTENT? '"'
 boolean_literal ::= 'true' | 'false'
+
+// Comments: {{# Here be dragons #}}
+comment_block ::= T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE { pin=1 }
+
+private unclosed_comment ::= T_UNCLOSED_COMMENT
+
+// HTML content
+private outer_content ::= "@"? OUTER_CONTENT
+
+// PHP expressions
+private php_node ::= (php_raw_node | php_echo_node)
+php_raw_node   ::= "{{?" T_PHP_CONTENT* "?}}" { pin=1 }
+php_echo_node  ::= "{{$" T_PHP_CONTENT* "$}}" { pin=1 }
 
 // Give the open and closing delimiter (double curly braces) a handle to be
 // able refer to them on other places.
