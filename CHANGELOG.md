@@ -11,6 +11,7 @@
 - A comment is now lexed complete as `PsiComment`
 - Parse the default case of switch statement as own node
 - Update Gradle plugin to 1.12.0
+- Update Kotlin to 1.8.0
 
 ### Deprecated
 
