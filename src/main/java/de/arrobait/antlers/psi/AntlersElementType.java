@@ -7,6 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class AntlersElementType extends IElementType {
     public AntlersElementType(@NotNull @NonNls String debugName) {
-            super(debugName, AntlersLanguage.INSTANCE);
-        }
+        super(debugName, AntlersLanguage.INSTANCE);
+    }
 }

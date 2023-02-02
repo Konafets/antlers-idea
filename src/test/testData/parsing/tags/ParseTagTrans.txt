@@ -1,8 +1,9 @@
 Antlers File:ParseTagTrans.antlers.html
   AntlersTinesImpl(TINES)
-    AntlersTagNodeImpl(TAG_NODE)
+    AntlersTagSingleImpl(TAG_SINGLE)
       AntlersTagNodeOpenImpl(TAG_NODE_OPEN)
-        PsiElement({{)('{{')
+        AntlersNodeOpenerImpl(NODE_OPENER)
+          PsiElement({{)('{{')
         PsiWhiteSpace(' ')
         AntlersTagImpl(TAG)
           AntlersTagNameImpl(TAG_NAME)
@@ -21,6 +22,5 @@ Antlers File:ParseTagTrans.antlers.html
               PsiElement(T_STRING_CONTENT)('Bob')
               PsiElement(")('"')
         PsiWhiteSpace(' ')
-        PsiElement(}})('}}')
-      AntlersTinesImpl(TINES)
-        <empty list>
+        AntlersNodeCloserImpl(NODE_CLOSER)
+          PsiElement(}})('}}')

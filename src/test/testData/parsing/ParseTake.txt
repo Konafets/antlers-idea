@@ -1,7 +1,8 @@
 Antlers File:ParseTake.antlers.html
   AntlersTinesImpl(TINES)
     AntlersVariableAssignmentNodeImpl(VARIABLE_ASSIGNMENT_NODE)
-      PsiElement({{)('{{')
+      AntlersNodeOpenerImpl(NODE_OPENER)
+        PsiElement({{)('{{')
       PsiWhiteSpace(' ')
       AntlersVariableImpl(VARIABLE)
         PsiElement(T_IDENTIFIER)('articles')
@@ -20,4 +21,5 @@ Antlers File:ParseTake.antlers.html
             PsiElement(T_INTEGER_NUMBER)('2')
           PsiElement())(')')
       PsiWhiteSpace(' ')
-      PsiElement(}})('}}')
+      AntlersNodeCloserImpl(NODE_CLOSER)
+        PsiElement(}})('}}')

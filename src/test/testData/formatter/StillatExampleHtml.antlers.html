@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>.some-class { background-color: {{ backgroundColor ?= 'white' }};
+    color: {{ fontColor ?= 'black' }} }
+</style><title>{{ sitetitle }}</title>
+</head>
+<body>
+{{ if someValue              > 10 }}Branch one {{ elseif anotherValue < 50 }}Branch Two {{ else }} Else Branch {{ /if }}
+<script>
+let value = '{{ text }}';
+console.log(value);
+</script>
+</body>
+</html>

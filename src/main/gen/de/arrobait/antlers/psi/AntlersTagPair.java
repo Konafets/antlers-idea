@@ -1,19 +1,18 @@
 // This is a generated file. Not intended for manual editing.
 package de.arrobait.antlers.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
 
-public interface AntlersTagNode extends PsiElement {
+public interface AntlersTagPair extends PsiElement {
 
-  @Nullable
+  @NotNull
   AntlersTagNodeClose getTagNodeClose();
 
   @NotNull
   AntlersTagNodeOpen getTagNodeOpen();
 
-  @Nullable
+  @NotNull
   AntlersTines getTines();
 
 }
