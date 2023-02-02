@@ -5,10 +5,12 @@
 ## [Unreleased]
 
 ### Added
+- Add formatting
 
 ### Changed
 - A comment is now lexed complete as `PsiComment`
 - Parse the default case of switch statement as own node
+- Update Gradle plugin to 1.12.0
 
 ### Deprecated
 
