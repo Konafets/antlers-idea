@@ -7,6 +7,50 @@
 ### Added
 - Add formatting
 - Add checkout action to `ReleaseDraft` step
+- New modifiers
+  - `add_query_param`
+  - `alias`
+  - `antlers`
+  - `bard_html`
+  - `bard_items`
+  - `bard_text`
+  - `bools_string`
+  - `dd`
+  - `ddd`
+  - `dump`
+  - `diff_for_humans`
+  - `diff_for_owls`
+  - `extension`
+  - `format_translated`
+  - `is_alpha`
+  - `is_array`
+  - `is_iterable`
+  - `joinplode`
+  - `kebab`
+  - `key_by`
+  - `localize`
+  - `mark`
+  - `neatify`
+  - `parse_url`
+  - `pathinfo`
+  - `pluck`
+  - `random`
+  - `regex_mark`
+  - `remove_query_param`
+  - `scope`
+  - `set_query_param`
+  - `shrug`
+  - `split`
+  - `str_pad`
+  - `str_pad_both`
+  - `str_pad_left`
+  - `str_pad_right`
+  - `studly`
+  - `timestamp`
+  - `to_bool`
+  - `to_string`
+  - `trackable_embed_url`
+  - `type_of`
 
 ### Changed
 - Upgrade Gradle Wrapper to `8.0`
