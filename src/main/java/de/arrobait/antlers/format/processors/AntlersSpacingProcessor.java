@@ -91,7 +91,7 @@ public class AntlersSpacingProcessor {
             }
         }
 
-        if (hasElementType(node1, T_LD) || hasElementType(node2, T_RD)) {
+        if (hasElementType(node1, NODE_OPENER) || hasElementType(node2, NODE_CLOSER)) {
             if (settings.getCustomSettings(AntlersCodeStyleSettings.class).SPACE_AFTER_AND_BEFORE_ANTLERS_DELIMITERS) {
                 return addSingleSpace();
             }
