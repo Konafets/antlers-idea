@@ -13,6 +13,7 @@ import org.eclipse.sisu.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import static de.arrobait.antlers.psi.AntlersTypes.OUTER_CONTENT;
+import static de.arrobait.antlers.psi.AntlersTypes.TAG_ATTRIBUTE_ASSIGNMENT;
 
 /**
  * Various helper methods for working with PSI of Antlers language
@@ -103,5 +104,10 @@ public final class AntlersPsiUtil {
         PsiElement elementAtCaret = provider.findElementAt(offset - 1, AntlersLanguage.class);
         assert elementAtCaret != null;
         return elementAtCaret.getNode().getElementType() != OUTER_CONTENT;
+    }
+
+
+    public static boolean isAttributeElement(final IElementType element) {
+        return element == TAG_ATTRIBUTE_ASSIGNMENT;
     }
 }

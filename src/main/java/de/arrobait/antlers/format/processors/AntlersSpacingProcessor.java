@@ -12,6 +12,7 @@ import de.arrobait.antlers.codeStyle.AntlersCodeStyleSettings;
 import org.jetbrains.annotations.NotNull;
 
 import static de.arrobait.antlers.psi.AntlersPsiUtil.hasElementType;
+import static de.arrobait.antlers.psi.AntlersPsiUtil.isAttributeElement;
 import static de.arrobait.antlers.psi.AntlersTypes.*;
 
 public class AntlersSpacingProcessor {
@@ -80,7 +81,9 @@ public class AntlersSpacingProcessor {
         }
 
         if (hasElementType(node1, ASSIGN) || hasElementType(node2, ASSIGN)) {
-            if (settings.getCommonSettings(AntlersLanguage.INSTANCE).SPACE_AROUND_ASSIGNMENT_OPERATORS) {
+            if (isAttributeElement(elementType)) {
+                return Spacing.createSpacing(0, 0, 0, false, 1);
+            } else if (settings.getCommonSettings(AntlersLanguage.INSTANCE).SPACE_AROUND_ASSIGNMENT_OPERATORS) {
                 return addSingleSpace();
             }
         }
