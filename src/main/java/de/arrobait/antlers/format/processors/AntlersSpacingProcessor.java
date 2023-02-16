@@ -74,6 +74,10 @@ public class AntlersSpacingProcessor {
         // Here we add a single space around operators, except the colon in the property access
         if (elementType != COLON_PROPERTY_ACCESS) {
             if (hasElementType(node1, OPERATORS) || hasElementType(node2, OPERATORS)) {
+                if (elementType == TAG_NODE_CLOSE && hasElementType(node1, T_SLASH)) {
+                    return addZeroSpace();
+                }
+
                 if (settings.getCustomSettings(AntlersCodeStyleSettings.class).SPACE_AROUND_OPERATORS) {
                     return addSingleSpace();
                 }
@@ -82,7 +86,7 @@ public class AntlersSpacingProcessor {
 
         if (hasElementType(node1, ASSIGN) || hasElementType(node2, ASSIGN)) {
             if (isAttributeElement(elementType)) {
-                return Spacing.createSpacing(0, 0, 0, false, 1);
+                return addZeroSpace();
             } else if (settings.getCommonSettings(AntlersLanguage.INSTANCE).SPACE_AROUND_ASSIGNMENT_OPERATORS) {
                 return addSingleSpace();
             }
@@ -113,5 +117,9 @@ public class AntlersSpacingProcessor {
     private Spacing addSingleSpace() {
 //        return Spacing.createSpacing(1, 1, 0, false, settings.KEEP_BLANK_LINES_IN_CODE);
         return Spacing.createSpacing(1, 1, 0, false, 1);
+    }
+
+    private Spacing addZeroSpace() {
+        return Spacing.createSpacing(0, 0, 0, false, 1);
     }
 }
