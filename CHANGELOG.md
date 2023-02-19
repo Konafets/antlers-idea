@@ -8,10 +8,12 @@
 - Add formatting
 
 ### Changed
+- Upgrade Gradle Wrapper to `8.0`
+- Upgrade Gradle IntelliJ Plugin to `1.13.0`
 - A comment is now lexed complete as `PsiComment`
 - Parse the default case of switch statement as own node
-- Update Gradle plugin to 1.12.0
-- Update Kotlin to 1.8.0
+- Update Gradle plugin to `1.12.0`
+- Update Kotlin to `1.8.0`
 
 ### Deprecated
 
