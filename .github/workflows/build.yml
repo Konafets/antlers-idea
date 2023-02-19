@@ -46,16 +46,23 @@ jobs:
       changelog: ${{ steps.properties.outputs.changelog }}
 
     steps:
+      # Free GitHub Build Space
+      - name: Maximize Build Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/android
+          sudo rm -rf /opt/ghc
+
+      # Check out current repository
+      - name: Fetch Sources
+        uses: actions/checkout@v3
+
       # Setup Java 11 environment for the next steps
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: zulu
           java-version: 11
-
-      # Check out current repository
-      - name: Fetch Sources
-        uses: actions/checkout@v3
 
       # Cache Gradle Dependencies
       - name: Setup Gradle Dependencies Cache
