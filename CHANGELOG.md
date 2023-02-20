@@ -22,6 +22,7 @@
 ### Removed
 
 ### Fixed
+- Pass Plugin Signing secrets as environment variables in the Release workflow
 
 ## 0.0.4 - 2022-12-05
 
