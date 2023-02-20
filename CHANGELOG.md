@@ -6,6 +6,7 @@
 
 ### Added
 - Add formatting
+- Add checkout action to `ReleaseDraft` step
 
 ### Changed
 - Upgrade Gradle Wrapper to `8.0`
