@@ -16,6 +16,7 @@
 - Update Gradle plugin to `1.12.0`
 - Update Kotlin to `1.8.10`
 - Update Qodana to `v2022.3.4`
+- Removed deprecated `::set-output` in GitHub workflows
 
 ### Deprecated
 
