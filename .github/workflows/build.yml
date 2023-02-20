@@ -135,6 +135,8 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
 
       # Remove old release drafts by using the curl request for the available releases with draft flag
