@@ -108,7 +108,7 @@ jobs:
 
       # Run Qodana inspections
       - name: Qodana - Code Inspection
-        uses: JetBrains/qodana-action@v2022.2.3
+        uses: JetBrains/qodana-action@v2022.3.0
         if: ${{ false }}
 
       # Prepare plugin archive content for creating artifact
@@ -126,6 +126,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
+          name: ${{ steps.artifact.outputs.filename }}
           path: ./build/distributions/content/*/*
 
   # Prepare a draft release for GitHub Releases page for the manual verification

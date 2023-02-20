@@ -14,6 +14,7 @@
 - Parse the default case of switch statement as own node
 - Update Gradle plugin to `1.12.0`
 - Update Kotlin to `1.8.0`
+- Update Qodana to `v2022.3.0`
 
 ### Deprecated
 
