@@ -23,6 +23,7 @@
 ### Removed
 
 ### Fixed
+- Pass Plugin Signing secrets as environment variables in the Release workflow
 
 ### Fixed
 - GitHub Actions - use `$BRANCH` for creating changelog pull request
