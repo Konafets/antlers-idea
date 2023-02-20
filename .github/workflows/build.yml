@@ -21,31 +21,18 @@ on:
   pull_request:
 
 jobs:
+
   # Run Gradle Wrapper Validation Action to verify the wrapper's checksum
-  gradleValidation:
-    name: Gradle Wrapper
-    runs-on: ubuntu-latest
-    steps:
-      # Checkout the current repository
-      - name: Fetch Sources
-        uses: actions/checkout@v3
-
-      # Validate wrapper
-      - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1.0.6
-
-  # Run verifyPlugin, IntelliJ Plugin Verifier, and test Gradle tasks
+  # Run verifyPlugin and test Gradle tasks
   # Build plugin and provide the artifact for the next workflow jobs
   build:
     name: Build
-    needs: gradleValidation
     runs-on: ubuntu-latest
     outputs:
-      name: ${{ steps.properties.outputs.name }}
       version: ${{ steps.properties.outputs.version }}
       changelog: ${{ steps.properties.outputs.changelog }}
-
     steps:
+
       # Free GitHub Build Space
       - name: Maximize Build Space
         run: |
@@ -56,6 +43,10 @@ jobs:
       # Check out current repository
       - name: Fetch Sources
         uses: actions/checkout@v3
+
+      # Validate wrapper
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.5
 
       # Setup Java 11 environment for the next steps
       - name: Setup Java
@@ -152,7 +143,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.artifact.outputs.filename }}
           path: ./build/distributions/content/*/*
 
   # Prepare a draft release for GitHub Releases page for the manual verification
@@ -163,10 +153,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-
-      # Check out current repository
-      - name: Fetch Sources
-        uses: actions/checkout@v3
 
       # Remove old release drafts by using the curl request for the available releases with draft flag
       - name: Remove Old Release Drafts
