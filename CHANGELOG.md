@@ -23,6 +23,9 @@
 
 ### Fixed
 
+### Fixed
+- GitHub Actions - use `$BRANCH` for creating changelog pull request
+
 ## 0.0.4 - 2022-12-05
 
 ### Added
