@@ -33,7 +33,7 @@ jobs:
       changelog: ${{ steps.properties.outputs.changelog }}
     steps:
 
-      # Free GitHub Build Space
+      # Free GitHub Actions Environment Disk Space
       - name: Maximize Build Space
         run: |
           sudo rm -rf /usr/share/dotnet
@@ -54,23 +54,6 @@ jobs:
         with:
           distribution: zulu
           java-version: 11
-
-      # Cache Gradle Dependencies
-      - name: Setup Gradle Dependencies Cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', 'gradle.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-caches-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', 'gradle.properties') }}
-            ${{ runner.os }}-gradle-caches
-
-      # Cache Gradle Wrapper
-      - name: Setup Gradle Wrapper Cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
 
       # Set environment variables
       - name: Export Properties
