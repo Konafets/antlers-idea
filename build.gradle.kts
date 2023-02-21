@@ -63,8 +63,8 @@ qodana {
 sourceSets["main"].java.srcDirs("src/main/gen")
 
 dependencies {
-    testImplementation("junit:junit:4.13.2")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.9.1")
+    testImplementation(properties("jUnitVersion"))
+    testRuntimeOnly(properties("vintageEngineVersion"))
 }
 
 tasks {
