@@ -99,7 +99,7 @@ abstract class AntlersFormatterTestCase extends BasePlatformTestCase implements 
                                        String textAfter,
                                        String extension,
                                        LanguageFileType templateDataLanguageType) {
-        PsiFile baseFile = myFixture.configureByText("A." + extension, beforeText);
+        PsiFile baseFile = myFixture.configureByText("A" + extension, beforeText);
 
         VirtualFile virtualFile = baseFile.getVirtualFile();
         assert virtualFile != null;
