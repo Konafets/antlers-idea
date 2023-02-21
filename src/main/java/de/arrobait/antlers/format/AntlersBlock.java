@@ -7,6 +7,8 @@ import com.intellij.formatting.templateLanguages.TemplateLanguageBlock;
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlockFactory;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
+import com.intellij.psi.PsiComment;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiErrorElement;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.xml.HtmlPolicy;
@@ -15,6 +17,7 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.xml.XmlTag;
 import de.arrobait.antlers.format.processors.AntlersSpacingProcessor;
 import de.arrobait.antlers.format.processors.AntlersWrappingProcessor;
+import de.arrobait.antlers.psi.AntlersFile;
 import de.arrobait.antlers.psi.AntlersPsiUtil;
 import de.arrobait.antlers.psi.AntlersTypes;
 import org.jetbrains.annotations.NotNull;
@@ -89,10 +92,19 @@ public class AntlersBlock extends TemplateLanguageBlock {
             return Indent.getNoneIndent();
         }
 
+        // Comments needs dedicated handling. Only indent them when they are not on the root level
+        // aka a direct child of the root node (file).
+        if (myNode instanceof PsiComment) {
+            PsiElement parent = myNode.getTreeParent().getPsi();
+            if (!(parent instanceof AntlersFile)) {
+                return Indent.getNormalIndent();
+            }
+        }
+
         if (myNode.getTreeParent() != null
                 && AntlersPsiUtil.isNonRootStatementsElement(myNode.getTreeParent().getPsi())) {
             // we're computing the indent for a direct descendant of a non-root STATEMENTS:
-            //    if its Block parent (i.e. not Antlers AST Tree parent) is a Antlers block
+            //    if its Block parent (i.e. not Antlers AST Tree parent) is an Antlers block
             //    which has NOT been indented, then have the element provide the indent itself
             if (getParent() instanceof AntlersBlock && ((AntlersBlock)getParent()).getIndent() == Indent.getNoneIndent()) {
                 return Indent.getNormalIndent();

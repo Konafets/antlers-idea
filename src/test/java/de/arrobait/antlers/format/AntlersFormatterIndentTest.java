@@ -628,6 +628,83 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
         );
     }
 
+    /**
+     * Before:
+     * <pre>
+     * {{# FOO #}}
+     * </pre>
+     * After:
+     * <pre>
+     * {{# FOO #}}
+     * </pre>
+     */
+    public void testSingleComment() {
+        doStringBasedTest(
+                        "{{# FOO #}}\n",
+                        "{{# FOO #}}\n"
+        );
+    }
+
+    /**
+     * Before:
+     * <pre>
+     * {{ if true }}
+     * {{# FOO #}}
+     * {{ bar }}
+     * {{ /if }}
+     * </pre>
+     * After:
+     * <pre>
+     * {{ if true }}
+     *     {{# FOO #}}
+     *     {{ bar }}
+     * {{ /if }}
+     * </pre>
+     */
+    public void testCommentInsideBlock() {
+        doStringBasedTest(
+                "{{ if true }}\n" +
+                        "{{# FOO #}}\n" +
+                        "{{ bar }}\n" +
+                        "{{ /if }}\n",
+
+                "{{ if true }}\n" +
+                        "    {{# FOO #}}\n" +
+                        "    {{ bar }}\n" +
+                        "{{ /if }}\n"
+        );
+    }
+
+    /**
+     * Before:
+     * <pre>
+     * {{# FOO #}}
+     * {{ if true }}
+     * {{ bar }}
+     * {{ /if }}
+     * </pre>
+     * After:
+     * <pre>
+     * {{# FOO #}}
+     * {{ if true }}
+     *     {{ bar }}
+     * {{ /if }}
+     * </pre>
+     */
+    public void testCommentOutsideBlock() {
+        doStringBasedTest(
+                "{{# FOO #}}\n" +
+                        "{{ if true }}\n" +
+                        "{{ bar }}\n" +
+                        "{{ /if }}\n",
+
+                "{{# FOO #}}\n" +
+                        "{{ if true }}\n" +
+                        "    {{ bar }}\n" +
+                        "{{ /if }}\n"
+        );
+    }
+
     @NotNull
     private HtmlCodeStyleSettings getHtmlSettings() {
         return CodeStyle.getSettings(getProject()).getCustomSettings(HtmlCodeStyleSettings.class);

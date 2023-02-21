@@ -12,6 +12,7 @@ import de.arrobait.antlers.codeStyle.AntlersCodeStyleSettings;
 import org.jetbrains.annotations.NotNull;
 
 import static de.arrobait.antlers.psi.AntlersPsiUtil.hasElementType;
+import static de.arrobait.antlers.psi.AntlersPsiUtil.isAttributeElement;
 import static de.arrobait.antlers.psi.AntlersTypes.*;
 
 public class AntlersSpacingProcessor {
@@ -73,6 +74,10 @@ public class AntlersSpacingProcessor {
         // Here we add a single space around operators, except the colon in the property access
         if (elementType != COLON_PROPERTY_ACCESS) {
             if (hasElementType(node1, OPERATORS) || hasElementType(node2, OPERATORS)) {
+                if (elementType == TAG_NODE_CLOSE && hasElementType(node1, T_SLASH)) {
+                    return addZeroSpace();
+                }
+
                 if (settings.getCustomSettings(AntlersCodeStyleSettings.class).SPACE_AROUND_OPERATORS) {
                     return addSingleSpace();
                 }
@@ -80,7 +85,9 @@ public class AntlersSpacingProcessor {
         }
 
         if (hasElementType(node1, ASSIGN) || hasElementType(node2, ASSIGN)) {
-            if (settings.getCommonSettings(AntlersLanguage.INSTANCE).SPACE_AROUND_ASSIGNMENT_OPERATORS) {
+            if (isAttributeElement(elementType)) {
+                return addZeroSpace();
+            } else if (settings.getCommonSettings(AntlersLanguage.INSTANCE).SPACE_AROUND_ASSIGNMENT_OPERATORS) {
                 return addSingleSpace();
             }
         }
@@ -91,7 +98,7 @@ public class AntlersSpacingProcessor {
             }
         }
 
-        if (hasElementType(node1, T_LD) || hasElementType(node2, T_RD)) {
+        if (hasElementType(node1, NODE_OPENER) || hasElementType(node2, NODE_CLOSER)) {
             if (settings.getCustomSettings(AntlersCodeStyleSettings.class).SPACE_AFTER_AND_BEFORE_ANTLERS_DELIMITERS) {
                 return addSingleSpace();
             }
@@ -110,5 +117,9 @@ public class AntlersSpacingProcessor {
     private Spacing addSingleSpace() {
 //        return Spacing.createSpacing(1, 1, 0, false, settings.KEEP_BLANK_LINES_IN_CODE);
         return Spacing.createSpacing(1, 1, 0, false, 1);
+    }
+
+    private Spacing addZeroSpace() {
+        return Spacing.createSpacing(0, 0, 0, false, 1);
     }
 }

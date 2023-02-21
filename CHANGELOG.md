@@ -6,18 +6,71 @@
 
 ### Added
 - Add formatting
+- Add checkout action to `ReleaseDraft` step
+- New modifiers
+  - `add_query_param`
+  - `alias`
+  - `antlers`
+  - `bard_html`
+  - `bard_items`
+  - `bard_text`
+  - `bools_string`
+  - `dd`
+  - `ddd`
+  - `dump`
+  - `diff_for_humans`
+  - `diff_for_owls`
+  - `extension`
+  - `format_translated`
+  - `is_alpha`
+  - `is_array`
+  - `is_iterable`
+  - `joinplode`
+  - `kebab`
+  - `key_by`
+  - `localize`
+  - `mark`
+  - `neatify`
+  - `parse_url`
+  - `pathinfo`
+  - `pluck`
+  - `random`
+  - `regex_mark`
+  - `remove_query_param`
+  - `scope`
+  - `set_query_param`
+  - `shrug`
+  - `split`
+  - `str_pad`
+  - `str_pad_both`
+  - `str_pad_left`
+  - `str_pad_right`
+  - `studly`
+  - `timestamp`
+  - `to_bool`
+  - `to_string`
+  - `trackable_embed_url`
+  - `type_of`
 
 ### Changed
+- Upgrade Gradle Wrapper to `8.0`
+- Upgrade Gradle IntelliJ Plugin to `1.13.0`
 - A comment is now lexed complete as `PsiComment`
 - Parse the default case of switch statement as own node
-- Update Gradle plugin to 1.12.0
-- Update Kotlin to 1.8.0
+- Update Gradle plugin to `1.12.0`
+- Update Kotlin to `1.8.10`
+- Update Qodana to `v2022.3.4`
+- Removed deprecated `::set-output` in GitHub workflows
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+- Pass Plugin Signing secrets as environment variables in the Release workflow
+
+### Fixed
+- GitHub Actions - use `$BRANCH` for creating changelog pull request
 
 ## 0.0.4 - 2022-12-05
 
