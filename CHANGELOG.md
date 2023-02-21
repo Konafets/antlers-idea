@@ -61,6 +61,8 @@
 - Update Kotlin to `1.8.10`
 - Update Qodana to `v2022.3.4`
 - Removed deprecated `::set-output` in GitHub workflows
+- Update dependency `org.junit.vintage:junit-vintage-engine` to v5.9.2
+- Moved the version of JUnit and JUnit Vintage Engine to `gradle.properties`
 
 ### Deprecated
 
@@ -68,8 +70,6 @@
 
 ### Fixed
 - Pass Plugin Signing secrets as environment variables in the Release workflow
-
-### Fixed
 - GitHub Actions - use `$BRANCH` for creating changelog pull request
 
 ## 0.0.4 - 2022-12-05
