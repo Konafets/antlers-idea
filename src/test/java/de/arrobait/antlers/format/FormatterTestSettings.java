@@ -6,7 +6,7 @@ import com.intellij.psi.formatter.xml.HtmlCodeStyleSettings;
 
 /**
  * Provides a setup and tear down for tests to use to set up the app test fixture with
- * a standard of formtatter settings.
+ * a standard of formatter settings.
  */
 public class FormatterTestSettings {
     private final CodeStyleSettings mySettings;
