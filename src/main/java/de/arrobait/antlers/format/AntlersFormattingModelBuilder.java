@@ -11,6 +11,7 @@ import com.intellij.psi.formatter.DocumentBasedFormattingModel;
 import com.intellij.psi.formatter.FormattingDocumentModelImpl;
 import com.intellij.psi.formatter.xml.HtmlPolicy;
 import com.intellij.psi.templateLanguages.SimpleTemplateLanguageFormattingModelBuilder;
+import com.intellij.psi.tree.IElementType;
 import de.arrobait.antlers.psi.AntlersCustomElementTypes;
 import de.arrobait.antlers.psi.AntlersFile;
 import de.arrobait.antlers.psi.AntlersTokenSets;
@@ -18,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
+import static de.arrobait.antlers.psi.AntlersTypes.COMMENT_BLOCK;
 
 public class AntlersFormattingModelBuilder extends TemplateLanguageFormattingModelBuilder {
 
@@ -54,9 +57,17 @@ public class AntlersFormattingModelBuilder extends TemplateLanguageFormattingMod
                                                              @NotNull CodeStyleSettings settings) {
         final FormattingDocumentModel documentModel = FormattingDocumentModelImpl.createOn(node.getPsi().getContainingFile());
         HtmlPolicy policy = new HtmlPolicy(settings, documentModel);
-        return AntlersTokenSets.NODES.contains(node.getElementType()) ?
-                new AntlersNodeBlock(node, wrap, alignment, this, settings, foreignChildren, policy) :
-                new AntlersBlock(node, wrap, alignment, this, settings, foreignChildren, policy);
+        TemplateLanguageBlock block;
+        IElementType elementType = node.getElementType();
+        if (AntlersTokenSets.NODES.contains(elementType)) {
+            block = new AntlersNodeBlock(node, wrap, alignment, this, settings, foreignChildren, policy);
+        } else if (elementType == COMMENT_BLOCK) {
+            block = new AntlersCommentBlock(node, wrap, alignment, this, settings, foreignChildren, policy);
+        } else {
+            block = new AntlersBlock(node, wrap, alignment, this, settings, foreignChildren, policy);
+        }
+
+        return block;
     }
 
     /**
