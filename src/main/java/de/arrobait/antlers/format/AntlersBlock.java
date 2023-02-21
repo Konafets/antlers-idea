@@ -3,12 +3,8 @@ package de.arrobait.antlers.format;
 import com.intellij.formatting.*;
 import com.intellij.formatting.templateLanguages.BlockWithParent;
 import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper;
-import com.intellij.formatting.templateLanguages.TemplateLanguageBlock;
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlockFactory;
 import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiErrorElement;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.xml.HtmlPolicy;
@@ -17,7 +13,6 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.xml.XmlTag;
 import de.arrobait.antlers.format.processors.AntlersSpacingProcessor;
 import de.arrobait.antlers.format.processors.AntlersWrappingProcessor;
-import de.arrobait.antlers.psi.AntlersFile;
 import de.arrobait.antlers.psi.AntlersPsiUtil;
 import de.arrobait.antlers.psi.AntlersTypes;
 import org.jetbrains.annotations.NotNull;
@@ -27,14 +22,10 @@ import java.util.List;
 
 import static de.arrobait.antlers.psi.AntlersTypes.*;
 
-public class AntlersBlock extends TemplateLanguageBlock {
+public class AntlersBlock extends AntlersAbstractBlock {
 
     private final AntlersSpacingProcessor mySpacingProcessor;
 
-    @NotNull
-    protected final HtmlPolicy myHtmlPolicy;
-
-    private final ASTNode myNode;
     protected final AntlersWrappingProcessor myWrappingProcessor;
 
     private CodeStyleSettings myCustomSettings;
@@ -46,13 +37,10 @@ public class AntlersBlock extends TemplateLanguageBlock {
                         @NotNull CodeStyleSettings customSettings,
                         @Nullable List<DataLanguageBlockWrapper> foreignChildren,
                         @NotNull HtmlPolicy policy) {
-        super(node, wrap, alignment, blockFactory, customSettings, foreignChildren);
+        super(node, wrap, alignment, blockFactory, customSettings, foreignChildren, policy);
 
         mySpacingProcessor = new AntlersSpacingProcessor(node, customSettings);
         myWrappingProcessor = new AntlersWrappingProcessor(node);
-        myHtmlPolicy = policy;
-        myNode = node;
-        myCustomSettings = customSettings;
     }
 
     @Override
@@ -90,15 +78,6 @@ public class AntlersBlock extends TemplateLanguageBlock {
             }
 
             return Indent.getNoneIndent();
-        }
-
-        // Comments needs dedicated handling. Only indent them when they are not on the root level
-        // aka a direct child of the root node (file).
-        if (myNode instanceof PsiComment) {
-            PsiElement parent = myNode.getTreeParent().getPsi();
-            if (!(parent instanceof AntlersFile)) {
-                return Indent.getNormalIndent();
-            }
         }
 
         if (myNode.getTreeParent() != null
@@ -158,31 +137,13 @@ public class AntlersBlock extends TemplateLanguageBlock {
 
         return super.getWrap();
     }
-//
+
 //    @Override
 //    protected Wrap createChildWrap(ASTNode child) {
 //        final Wrap wrap = myWrappingProcessor.createChildWrap(child, myWrap);
 //
 //        return wrap;
 //    }
-
-    @Override
-    public boolean isIncomplete() {
-        boolean isIncomplete = super.isIncomplete();
-        return isIncomplete;
-    }
-
-    @Override
-    protected IElementType getTemplateTextElementType() {
-        // We ignore OUTER_CONTENT tokens since they get formatted by the templated language.
-        return AntlersTypes.OUTER_CONTENT;
-    }
-
-    @Override
-    public boolean isRequiredRange(TextRange range) {
-        return false;
-    }
-
 
     /**
      * Returns this blocks first real foreign block parent if it exists and null otherwise. (By "real" here, we mean that this method
