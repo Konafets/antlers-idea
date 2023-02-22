@@ -113,7 +113,7 @@ public class AntlersTypedHandler extends TypedHandlerDelegate {
             return;
         }
 
-        AntlersBlockOpenNode openBlock = AntlersPsiUtil.findParentOpenNodeElement(elementAtCaret);
+        PsiElement openBlock = AntlersPsiUtil.findParentOpenNodeElement(elementAtCaret);
 
         if (openBlock != null && openBlock.getChildren().length > 0) {
             AntlersConditionalIf conditionalIf = PsiTreeUtil.findChildOfType(openBlock, AntlersConditionalIf.class);

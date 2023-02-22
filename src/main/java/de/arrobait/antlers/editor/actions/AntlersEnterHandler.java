@@ -52,8 +52,8 @@ public class AntlersEnterHandler extends EnterHandlerDelegateAdapter {
         HighlighterIterator iterator = highlighter.createIterator(offset - 1);
 
         PsiDocumentManager.getInstance(file.getProject()).commitDocument(editor.getDocument());
-        final PsiElement openerElement = file.findElementAt(iterator.getStart());
 
+        final PsiElement openerElement = file.findElementAt(iterator.getStart());
         PsiElement openNode = AntlersPsiUtil.findParentOpenNodeElement(openerElement);
 
         if (openNode == null) {

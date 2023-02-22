@@ -117,6 +117,9 @@ public class AntlersBlock extends AntlersAbstractBlock {
                     return new ChildAttributes(Indent.getNormalIndent(), null);
                 }
             }
+            if (parentNode.getElementType() == TAG_PAIR) {
+                return new ChildAttributes(Indent.getNormalIndent(), null);
+            }
             return new ChildAttributes(Indent.getNoneIndent(), null);
         }
 
