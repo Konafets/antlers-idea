@@ -60,5 +60,4 @@ public class AntlersCodeStyleSettingsProvider extends CodeStyleSettingsProvider 
             return super.createHighlighter(scheme);
         }
     }
-
 }

@@ -189,14 +189,14 @@ taxonomy_term ::= string_literal
 
 recursive_children_node ::= node_opener T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR node_closer { pin=3 }
 
-/**
- * Conditional
- */
 block_wrapper ::= conditional
                 | tag_pair
 block_open_node ::= conditional_start
 block_close_node ::= conditional_end
 
+/**
+ * Conditional
+ */
 conditional               ::= block_open_node tines (conditional_elseif tines)* (conditional_else tines)? block_close_node { pin=1 }
 private conditional_start ::= (conditional_if | conditional_unless)
 conditional_end           ::= (slash_unless_if | endunless_endif)

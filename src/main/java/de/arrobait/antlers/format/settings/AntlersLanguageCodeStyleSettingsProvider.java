@@ -31,7 +31,6 @@ public class AntlersLanguageCodeStyleSettingsProvider extends LanguageCodeStyleS
     protected void customizeDefaults(@NotNull CommonCodeStyleSettings commonSettings,
                                      @NotNull CommonCodeStyleSettings.IndentOptions indentOptions) {
         indentOptions.TAB_SIZE = 4;
-        indentOptions.USE_TAB_CHARACTER = false;
         indentOptions.INDENT_SIZE = 4;
         indentOptions.CONTINUATION_INDENT_SIZE = 4;
         commonSettings.KEEP_BLANK_LINES_IN_CODE = 0;

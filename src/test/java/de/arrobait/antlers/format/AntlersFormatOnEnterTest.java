@@ -1844,4 +1844,146 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
                         "</body>"
         );
     }
+
+    public void testIssue74_1() {
+        doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\"><caret></ul>",
+
+                "<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    <caret>\n" +
+                        "</ul>"
+        );
+    }
+
+    public void testIssue74_2() {
+        doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}<caret>{{ /nav:collection:pages }}\n" +
+                        "</ul>",
+
+                "<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <caret>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>"
+                );
+    }
+
+    public void testIssue74_3() {
+        doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}<caret>\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>",
+
+                "<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <caret>\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>"
+                );
+    }
+
+    public void testIssue74_4() {
+        doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\"><caret>\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>",
+
+                "<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <caret>\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>"
+                );
+    }
+
+    public void testIssue74_5() {
+        doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a><caret>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>",
+
+                "<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "            <caret>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>"
+                );
+    }
+
+    public void testIssue74_6() {
+        doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li><caret>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>",
+
+                "<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li>\n" +
+                        "        <caret>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>"
+                );
+    }
+
+    public void testIssue74_7() {
+        doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}<caret>\n" +
+                        "</ul>",
+
+                "<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "    <caret>\n" +
+                        "</ul>"
+                );
+    }
+
+    public void testIssue74_8() {
+        doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul><caret>",
+
+                "<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
+                        "    {{ nav:collection:pages }}\n" +
+                        "        <li class=\"inline-block px-4 xl:px-8 pt-2 pb-3\">\n" +
+                        "            <a href=\"{{ url }}\" class=\"hover:text-amblue\" {{ is_current != 'text-amblue' }}>{{ title }}</a>\n" +
+                        "        </li>\n" +
+                        "    {{ /nav:collection:pages }}\n" +
+                        "</ul>\n" +
+                        "<caret>"
+        );
+    }
 }

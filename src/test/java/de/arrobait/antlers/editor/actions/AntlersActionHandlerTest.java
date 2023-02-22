@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class AntlersActionHandlerTest extends BasePlatformTestCase {
     private void performWriteAction(final Project project, final Runnable action) {
-        ApplicationManager.getApplication().runWriteAction(() -> CommandProcessor.getInstance().executeCommand(project, action, "test command", null));
+        ApplicationManager.getApplication().runWriteAction(() -> CommandProcessor.getInstance().executeCommand(project, action, "Test Command", null));
     }
 
     private void validateTestStrings(@NotNull String before, @NotNull String expected) {
