@@ -1,4 +1,4 @@
-package de.arrobait.antlers.codeStyle;
+package de.arrobait.antlers.format.settings;
 
 import com.intellij.application.options.CodeStyleAbstractPanel;
 import com.intellij.application.options.IndentOptionsEditor;

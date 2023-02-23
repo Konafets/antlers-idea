@@ -59,12 +59,14 @@ public class AntlersFormattingModelBuilder extends TemplateLanguageFormattingMod
         HtmlPolicy policy = new HtmlPolicy(settings, documentModel);
         TemplateLanguageBlock block;
         IElementType elementType = node.getElementType();
+        AntlersBlockContext context = new AntlersBlockContext(settings);
+
         if (AntlersTokenSets.NODES.contains(elementType)) {
-            block = new AntlersNodeBlock(node, wrap, alignment, this, settings, foreignChildren, policy);
+            block = new AntlersNodeBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy);
         } else if (elementType == COMMENT_BLOCK) {
-            block = new AntlersCommentBlock(node, wrap, alignment, this, settings, foreignChildren, policy);
+            block = new AntlersCommentBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy);
         } else {
-            block = new AntlersBlock(node, wrap, alignment, this, settings, foreignChildren, policy);
+            block = new AntlersBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy);
         }
 
         return block;

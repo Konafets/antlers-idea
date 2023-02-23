@@ -28,8 +28,9 @@ public class AntlersNodeBlock extends AntlersBlock {
                             @NotNull TemplateLanguageBlockFactory blockFactory,
                             @NotNull CodeStyleSettings settings,
                             @Nullable List<DataLanguageBlockWrapper> foreignChildren,
+                            @NotNull AntlersBlockContext context,
                             @NotNull HtmlPolicy policy) {
-        super(node, wrap, alignment, blockFactory, settings, foreignChildren, policy);
+        super(node, wrap, alignment, blockFactory, settings, foreignChildren, context, policy);
 
         myChildAttributeAlignment = Alignment.createAlignment();
     }

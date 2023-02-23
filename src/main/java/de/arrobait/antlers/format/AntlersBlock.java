@@ -28,18 +28,17 @@ public class AntlersBlock extends AntlersAbstractBlock {
 
     protected final AntlersWrappingProcessor myWrappingProcessor;
 
-    private CodeStyleSettings myCustomSettings;
-
     public AntlersBlock(@NotNull ASTNode node,
                         @Nullable Wrap wrap,
                         @Nullable Alignment alignment,
                         @NotNull TemplateLanguageBlockFactory blockFactory,
                         @NotNull CodeStyleSettings customSettings,
                         @Nullable List<DataLanguageBlockWrapper> foreignChildren,
+                        @NotNull AntlersBlockContext context,
                         @NotNull HtmlPolicy policy) {
-        super(node, wrap, alignment, blockFactory, customSettings, foreignChildren, policy);
+        super(node, wrap, alignment, blockFactory, customSettings, foreignChildren, context, policy);
 
-        mySpacingProcessor = new AntlersSpacingProcessor(node, customSettings);
+        mySpacingProcessor = new AntlersSpacingProcessor(node, context);
         myWrappingProcessor = new AntlersWrappingProcessor(node);
     }
 
