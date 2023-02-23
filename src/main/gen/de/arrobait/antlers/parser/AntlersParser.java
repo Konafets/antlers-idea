@@ -1192,7 +1192,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // variable orderby_direction
   public static boolean orderby_arg(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "orderby_arg")) return false;
-    if (!nextTokenIs(b, "<orderby arg>", T_AT, T_IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ORDERBY_ARG, "<orderby arg>");
     r = variable(b, l + 1);
@@ -1205,7 +1204,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // orderby_arg (',' orderby_arg)*
   public static boolean orderby_args_list(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "orderby_args_list")) return false;
-    if (!nextTokenIs(b, "<orderby args list>", T_AT, T_IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ORDERBY_ARGS_LIST, "<orderby args list>");
     r = orderby_arg(b, l + 1);
@@ -1981,14 +1979,13 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '@'? T_IDENTIFIER [property_access*]
+  // '@'? (T_IDENTIFIER | T_SLOT) [property_access*]
   public static boolean variable(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable")) return false;
-    if (!nextTokenIs(b, "<variable>", T_AT, T_IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, VARIABLE, "<variable>");
     r = variable_0(b, l + 1);
-    r = r && consumeToken(b, T_IDENTIFIER);
+    r = r && variable_1(b, l + 1);
     r = r && variable_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -1999,6 +1996,15 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "variable_0")) return false;
     consumeToken(b, T_AT);
     return true;
+  }
+
+  // T_IDENTIFIER | T_SLOT
+  private static boolean variable_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_1")) return false;
+    boolean r;
+    r = consumeToken(b, T_IDENTIFIER);
+    if (!r) r = consumeToken(b, T_SLOT);
+    return r;
   }
 
   // [property_access*]

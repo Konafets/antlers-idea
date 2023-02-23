@@ -180,6 +180,7 @@ public interface AntlersTypes {
   IElementType T_SINGLE_QUOTE = new AntlersTokenType("'");
   IElementType T_SKIP = new AntlersTokenType("skip");
   IElementType T_SLASH = new AntlersTokenType("/");
+  IElementType T_SLOT = new AntlersTokenType("T_SLOT");
   IElementType T_STAR = new AntlersTokenType("T_STAR");
   IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
   IElementType T_SWITCH = new AntlersTokenType("switch");
