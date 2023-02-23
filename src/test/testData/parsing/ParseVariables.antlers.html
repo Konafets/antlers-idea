@@ -63,3 +63,14 @@
         {{ partial src="page_builder/{type}" }}
     {{ /page_builder }}
 </main>
+
+<div class="modal">
+  {{ slot }}
+</div>
+
+<div class="modal">
+  <div class="modal-header">{{ slot:header }}</div>
+  <div class="modal-content">
+    {{ slot }}
+  </div>
+</div>

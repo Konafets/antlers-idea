@@ -7,6 +7,7 @@
 ### Added
 - Add formatting and formatting settings
 - Add checkout action to `ReleaseDraft` step
+- Add lexing and parsing for `{{ slot }}` and `{{ slot:name }}`
 - New modifiers
   - `add_query_param`
   - `alias`

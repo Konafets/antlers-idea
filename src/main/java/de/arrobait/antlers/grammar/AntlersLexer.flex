@@ -69,11 +69,13 @@ TAG_STRING_CONDITIONS=:contains|:doesnt_contain|:doesnt_end_with|:doesnt_exist|:
 RECURSIVE_CHILDREN=\*recursive
 
 PIPE="|"
+SLOT="slot"
 
 IDENTIFIER=[$_A-Za-z][-_0-9A-Za-z]*[_A-Za-z0-9]?
 IDENTIFIER_DOT={IDENTIFIER} "."
 IDENTIFIER_COLON={IDENTIFIER} ":"
 IDENTIFIER_BRACKET={IDENTIFIER} "["
+SLOT_COLON={SLOT} ":"
 
 UNLESS="unless"
 IF="if"
@@ -183,7 +185,9 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     // be tokenized in other rules as `WHITE_SPACE` and `T_LP`.
     "switch" / {WHITE_SPACE}* "(" { return T_SWITCH; }
 
-    "noparse"            { return T_NOPARSE;}
+    "noparse"            { return T_NOPARSE; }
+
+    "slot"               { return T_SLOT; }
 
     // Advanced operators
     "as"                 { return T_AS; }
@@ -222,6 +226,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
 
     {IDENTIFIER}         { return T_IDENTIFIER; }
+    {SLOT_COLON}         { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
     {IDENTIFIER_DOT}     { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
     {IDENTIFIER_COLON}   { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
     {IDENTIFIER_BRACKET} { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
@@ -283,6 +288,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {INTEGER_NUMBER} { return T_INTEGER_NUMBER; }
     {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
     {DOUBLE_QUOTE}   { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
+    {SLOT}           { return T_SLOT; }
     {IDENTIFIER}     { return T_IDENTIFIER; }
     [^]              {
                        yypushback(1);  // cancel unexpected char
