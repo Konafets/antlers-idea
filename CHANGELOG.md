@@ -5,7 +5,7 @@
 ## [Unreleased]
 
 ### Added
-- Add formatting
+- Add formatting and formatting settings
 - Add checkout action to `ReleaseDraft` step
 - New modifiers
   - `add_query_param`
