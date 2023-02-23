@@ -21,7 +21,7 @@ public abstract class AntlersAbstractBlock extends TemplateLanguageBlock {
     @NotNull
     protected final HtmlPolicy myHtmlPolicy;
 
-    protected final ASTNode myNode;
+    protected final AntlersBlockContext myContext;
 
     public AntlersAbstractBlock(@NotNull ASTNode node,
                                 @Nullable Wrap wrap,
@@ -29,11 +29,12 @@ public abstract class AntlersAbstractBlock extends TemplateLanguageBlock {
                                 @NotNull TemplateLanguageBlockFactory blockFactory,
                                 @NotNull CodeStyleSettings customSettings,
                                 @Nullable List<DataLanguageBlockWrapper> foreignChildren,
+                                @Nullable AntlersBlockContext context,
                                 @NotNull HtmlPolicy policy) {
         super(node, wrap, alignment, blockFactory, customSettings, foreignChildren);
 
+        myContext = context;
         myHtmlPolicy = policy;
-        myNode = node;
     }
 
     @Override

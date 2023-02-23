@@ -23,8 +23,9 @@ public class AntlersCommentBlock extends AntlersAbstractBlock {
                                @NotNull TemplateLanguageBlockFactory blockFactory,
                                @NotNull CodeStyleSettings customSettings,
                                @Nullable List<DataLanguageBlockWrapper> foreignChildren,
+                               @NotNull AntlersBlockContext context,
                                @NotNull HtmlPolicy policy) {
-        super(node, wrap, alignment, blockFactory, customSettings, foreignChildren, policy);
+        super(node, wrap, alignment, blockFactory, customSettings, foreignChildren, context, policy);
     }
 
     /**

@@ -13,7 +13,7 @@ public class AntlersBlockContext {
         this.antlersCodeStyleSettings = settings.getCommonSettings(AntlersLanguage.INSTANCE);
     }
 
-    public CodeStyleSettings getMySettings() {
+    public CodeStyleSettings getSettings() {
         return mySettings;
     }
 

@@ -3,12 +3,12 @@ package de.arrobait.antlers.format.processors;
 import com.intellij.formatting.Block;
 import com.intellij.formatting.Spacing;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
+import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.psi.formatter.common.AbstractBlock;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
-import de.arrobait.antlers.AntlersLanguage;
-import de.arrobait.antlers.codeStyle.AntlersCodeStyleSettings;
+import de.arrobait.antlers.format.AntlersBlockContext;
+import de.arrobait.antlers.format.settings.AntlersCodeStyleSettings;
 import org.jetbrains.annotations.NotNull;
 
 import static de.arrobait.antlers.psi.AntlersPsiUtil.hasElementType;
@@ -17,7 +17,10 @@ import static de.arrobait.antlers.psi.AntlersTypes.*;
 
 public class AntlersSpacingProcessor {
     private final ASTNode myNode;
-    private final CodeStyleSettings settings;
+
+    private final AntlersCodeStyleSettings myAntlersSettings;
+
+    private final CommonCodeStyleSettings myCommonSettings;
 
     public static final TokenSet ASSIGN = TokenSet.create(
             T_OP_ASSIGN,
@@ -56,9 +59,10 @@ public class AntlersSpacingProcessor {
             T_OP_ARROW
     );
 
-    public AntlersSpacingProcessor(@NotNull ASTNode node, CodeStyleSettings settings) {
-        this.myNode = node;
-        this.settings = settings;
+    public AntlersSpacingProcessor(@NotNull ASTNode node, AntlersBlockContext context) {
+        myNode = node;
+        myAntlersSettings = context.getSettings().getCustomSettings(AntlersCodeStyleSettings.class);
+        myCommonSettings = context.getAntlersCodeStyleSettings();
     }
 
     public Spacing getSpacing(final Block child1, final Block child2) {
@@ -72,54 +76,57 @@ public class AntlersSpacingProcessor {
         final ASTNode node2 = ((AbstractBlock) child2).getNode();
 
         // Here we add a single space around operators, except the colon in the property access
-        if (elementType != COLON_PROPERTY_ACCESS) {
-            if (hasElementType(node1, OPERATORS) || hasElementType(node2, OPERATORS)) {
-                if (elementType == TAG_NODE_CLOSE && hasElementType(node1, T_SLASH)) {
-                    return addZeroSpace();
-                }
+        if (hasElementType(node1, OPERATORS) || hasElementType(node2, OPERATORS)) {
+            if (elementType != TENARY_EXPR && (hasElementType(node1, T_COLON) || hasElementType(node2, T_COLON))) {
+                return addZeroSpace();
+            }
 
-                if (settings.getCustomSettings(AntlersCodeStyleSettings.class).SPACE_AROUND_OPERATORS) {
-                    return addSingleSpace();
-                }
+            if (elementType == TAG_NODE_CLOSE && hasElementType(node1, T_SLASH)) {
+                return addZeroSpace();
+            }
+
+            if (myAntlersSettings.SPACE_AROUND_OPERATORS) {
+                return addSingleSpace();
             }
         }
 
         if (hasElementType(node1, ASSIGN) || hasElementType(node2, ASSIGN)) {
             if (isAttributeElement(elementType)) {
                 return addZeroSpace();
-            } else if (settings.getCommonSettings(AntlersLanguage.INSTANCE).SPACE_AROUND_ASSIGNMENT_OPERATORS) {
+            } else if (myCommonSettings.SPACE_AROUND_ASSIGNMENT_OPERATORS) {
                 return addSingleSpace();
             }
         }
 
         if (hasElementType(node1, T_PIPE) || hasElementType(node2, T_PIPE)) {
-            if (settings.getCustomSettings(AntlersCodeStyleSettings.class).SPACE_AROUND_MODIFIER_PIPE) {
+            if (myAntlersSettings.SPACE_AROUND_MODIFIER_PIPE) {
                 return addSingleSpace();
             }
         }
 
         if (hasElementType(node1, NODE_OPENER) || hasElementType(node2, NODE_CLOSER)) {
-            if (settings.getCustomSettings(AntlersCodeStyleSettings.class).SPACE_AFTER_AND_BEFORE_ANTLERS_DELIMITERS) {
+            if (myAntlersSettings.SPACE_AFTER_AND_BEFORE_ANTLERS_DELIMITERS) {
                 return addSingleSpace();
             }
         }
 
         if (hasElementType(node1, T_COMMA)) {
-            if (settings.getCommonSettings(AntlersLanguage.INSTANCE).SPACE_AFTER_COMMA) {
+            if (myCommonSettings.SPACE_AFTER_COMMA) {
                 return addSingleSpace();
             }
         }
 
-//        return Spacing.createSpacing(0, 1, 0, settings.KEEP_LINE_BREAKS, settings.KEEP_BLANK_LINES_IN_CODE);
-        return Spacing.createSpacing(0, 1, 0, true, 1);
+//        return Spacing.createSpacing(0, 1, 0, true, 1);
+        return Spacing.createSpacing(0, 1, 0, myCommonSettings.KEEP_LINE_BREAKS, myCommonSettings.KEEP_BLANK_LINES_IN_CODE);
     }
 
     private Spacing addSingleSpace() {
 //        return Spacing.createSpacing(1, 1, 0, false, settings.KEEP_BLANK_LINES_IN_CODE);
-        return Spacing.createSpacing(1, 1, 0, false, 1);
+        return Spacing.createSpacing(1, 1, 0, myCommonSettings.KEEP_LINE_BREAKS, myCommonSettings.KEEP_BLANK_LINES_IN_CODE);
     }
 
     private Spacing addZeroSpace() {
-        return Spacing.createSpacing(0, 0, 0, false, 1);
+//        return Spacing.createSpacing(0, 0, 0, false, 1);
+        return Spacing.createSpacing(0, 0, 0, myCommonSettings.KEEP_LINE_BREAKS, myCommonSettings.KEEP_BLANK_LINES_IN_CODE);
     }
 }

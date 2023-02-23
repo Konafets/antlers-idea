@@ -82,10 +82,10 @@
 
         <!-- Formatting -->
         <codeStyleSettingsProvider
-                implementation="de.arrobait.antlers.codeStyle.AntlersCodeStyleSettingsProvider"/>
+                implementation="de.arrobait.antlers.format.settings.AntlersCodeStyleSettingsProvider"/>
 
         <langCodeStyleSettingsProvider
-                implementation="de.arrobait.antlers.codeStyle.AntlersLanguageCodeStyleSettingsProvider"/>
+                implementation="de.arrobait.antlers.format.settings.AntlersLanguageCodeStyleSettingsProvider"/>
 
         <lang.formatter
                 language="Antlers"

@@ -2,7 +2,10 @@ package de.arrobait.antlers.format;
 
 import com.intellij.ide.highlighter.HtmlFileType;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
+import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.psi.formatter.xml.HtmlCodeStyleSettings;
+import de.arrobait.antlers.AntlersLanguage;
+import de.arrobait.antlers.format.settings.AntlersCodeStyleSettings;
 
 /**
  * Provides a setup and tear down for tests to use to set up the app test fixture with
@@ -14,6 +17,7 @@ public class FormatterTestSettings {
     private int myPrevIndentSize;
     private String myPrevDoNotIndentSetting;
     private int myPrevKeepBlankLines;
+    private boolean myPrevKeepLineBreaks;
 
     public FormatterTestSettings(CodeStyleSettings codeStyleSettings) {
         mySettings = codeStyleSettings;
@@ -26,8 +30,11 @@ public class FormatterTestSettings {
         myPrevIndentSize = mySettings.getIndentOptions(HtmlFileType.INSTANCE).INDENT_SIZE;
         mySettings.getIndentOptions(HtmlFileType.INSTANCE).INDENT_SIZE = 4;
 
-        myPrevKeepBlankLines = getHtmlCodeStyleSettings().HTML_KEEP_BLANK_LINES;
-        getHtmlCodeStyleSettings().HTML_KEEP_BLANK_LINES = 0;
+        myPrevKeepLineBreaks = getAntlersStyleSettings().KEEP_LINE_BREAKS;
+        getAntlersStyleSettings().KEEP_BLANK_LINES_IN_CODE = 1;
+
+        myPrevKeepBlankLines = getAntlersStyleSettings().KEEP_BLANK_LINES_IN_CODE;
+        getAntlersStyleSettings().KEEP_BLANK_LINES_IN_CODE = 1;
 
         myPrevDoNotIndentSetting = getHtmlCodeStyleSettings().HTML_DO_NOT_INDENT_CHILDREN_OF;
         getHtmlCodeStyleSettings().HTML_DO_NOT_INDENT_CHILDREN_OF = "";
@@ -35,11 +42,16 @@ public class FormatterTestSettings {
 
     public void tearDown() {
         mySettings.getIndentOptions(HtmlFileType.INSTANCE).INDENT_SIZE = myPrevIndentSize;
+        getAntlersStyleSettings().KEEP_BLANK_LINES_IN_CODE = myPrevKeepBlankLines;
+        getAntlersStyleSettings().KEEP_LINE_BREAKS = myPrevKeepLineBreaks;
         getHtmlCodeStyleSettings().HTML_DO_NOT_INDENT_CHILDREN_OF = myPrevDoNotIndentSetting;
-        getHtmlCodeStyleSettings().HTML_KEEP_BLANK_LINES = myPrevKeepBlankLines;
     }
 
     private HtmlCodeStyleSettings getHtmlCodeStyleSettings() {
         return mySettings.getCustomSettings(HtmlCodeStyleSettings.class);
+    }
+
+    private CommonCodeStyleSettings getAntlersStyleSettings() {
+        return mySettings.getCommonSettings(AntlersLanguage.INSTANCE);
     }
 }
