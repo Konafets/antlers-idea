@@ -48,8 +48,8 @@
 {{ /blog }}
 
 {{ grouped = products groupby ((x => (x:category))) as 'my_group' }}
-{{ grouped = products groupby ((x => (x.title == 'someting'))) }}
-{{ grouped = products groupby ((x => x.title == 'someting')) as 'my_group' }}
+{{ grouped = products groupby ((x => (x.title == 'something'))) }}
+{{ grouped = products groupby ((x => x.title == 'something')) as 'my_group' }}
 
 
 {{#

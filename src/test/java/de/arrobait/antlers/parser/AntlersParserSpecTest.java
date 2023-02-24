@@ -11,6 +11,11 @@ public class AntlersParserSpecTest extends AntlersParsingTestCase {
     }
 
     @Test
+    public void testParseAsOr() {
+        doTest(true);
+    }
+
+    @Test
     public void testParseAssignments() {
         doTest(true);
     }

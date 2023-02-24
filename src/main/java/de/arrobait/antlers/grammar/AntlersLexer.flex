@@ -89,6 +89,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 %state ANTLERS_NODE
 %state PROPERTY_ACCESS
 %state MODIFIER_LIST
+%state GROUP_BY
 %state TAG_EXPRESSION
 %state TAG_SHORTHAND
 %state TAG_EXPRESSION_ATTRIBUTE_LIST
@@ -190,7 +191,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "slot"               { return T_SLOT; }
 
     // Advanced operators
-    "as"                 { return T_AS; }
+    "as" / {WHITE_SPACE}* {SINGLE_QUOTE} { return T_AS; }
     "groupby"            { return T_GROUP_BY; }
     //"groupby"            { pushState(GROUP_BY); return T_GROUP_BY; }
     "merge"              { return T_MERGE; }
@@ -339,6 +340,24 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
                         yypushback(1);  // cancel unexpected char
                         popState();     // and try to parse it again in <ANTLERS_NODE>
                       }
+}
+
+<GROUP_BY> {
+    {WHITE_SPACE}    { return TokenType.WHITE_SPACE; }
+    "as"             { return T_SLASH; }
+    ","              { return T_COMMA; }
+    ":"              { return T_COLON; }
+    "."              { return T_DOT; }
+    "("              { return T_LP; }
+    ")"              { return T_RP; }
+    "=>"             { return T_OP_ARROW; }
+    {PIPE}           { pushState(MODIFIER_LIST); return T_PIPE; }
+    {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
+    {IDENTIFIER}     { return T_IDENTIFIER; }
+    [^]              {
+                        yypushback(1);  // cancel unexpected char
+                        popState();     // and try to parse it again in <ANTLERS_NODE>
+                     }
 }
 
 <TAG_EXPRESSION_ATTRIBUTE_LIST> {
