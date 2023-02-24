@@ -232,6 +232,48 @@ public class AdvancedOperatorsLexerTest extends LexerTest {
     }
 
     @Test
+    public void it_lexes_groupby_with_arrow_function_and_dot_notation() {
+        givenInput("{{ grouped = products groupby ((x => x.title == 'something')) as 'my_group' }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "grouped",
+                WHITE_SPACE, " ",
+                T_OP_ASSIGN, "=",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "products",
+                WHITE_SPACE, " ",
+                T_GROUP_BY, "groupby",
+                WHITE_SPACE, " ",
+                T_LP, "(",
+                T_LP, "(",
+                T_IDENTIFIER, "x",
+                WHITE_SPACE, " ",
+                T_OP_ARROW, "=>",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "x",
+                T_DOT, ".",
+                T_IDENTIFIER, "title",
+                WHITE_SPACE, " ",
+                T_OP_EQ, "==",
+                WHITE_SPACE, " ",
+                T_SINGLE_QUOTE, "'",
+                T_STRING_CONTENT, "something",
+                T_SINGLE_QUOTE, "'",
+                T_RP, ")",
+                T_RP, ")",
+                WHITE_SPACE, " ",
+                T_AS, "as",
+                WHITE_SPACE, " ",
+                T_SINGLE_QUOTE, "'",
+                T_STRING_CONTENT, "my_group",
+                T_SINGLE_QUOTE, "'",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
+
+    @Test
     public void it_lexes_simple_merge() {
         givenInput("{{ articles = favourite_articles merge not_favourite_articles }}");
         thenTokensAre(
