@@ -4,13 +4,14 @@
 
 ## [Unreleased]
 
+## [0.0.5] - 2023-02-24
+
 ### Added
 - Add formatting and formatting settings
 - Add checkout action to `ReleaseDraft` step
 - Add lexing and parsing for `{{ slot }}` and `{{ slot:name }}`
 - Restrict the `as` operator to the `groupby` advanced operator, so that no error occurs for `{{ as or 'a' }}`.
-- New modifiers
-  - `add_query_param`
+- - `add_query_param`
   - `alias`
   - `antlers`
   - `bard_html`
@@ -66,15 +67,11 @@
 - Update dependency `org.junit.vintage:junit-vintage-engine` to v5.9.2
 - Moved the version of JUnit and JUnit Vintage Engine to `gradle.properties`
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 - Pass Plugin Signing secrets as environment variables in the Release workflow
 - GitHub Actions - use `$BRANCH` for creating changelog pull request
 
-## 0.0.4 - 2022-12-05
+## [0.0.4] - 2022-12-05
 
 ### Added
 - Add basic formatting for HTML and CSS.
@@ -92,7 +89,7 @@
 - Fixed detection of `switch` keyword for the control structure. The `switch` keyword for the control structure was only correctly detected when the opening parenthesis was immediately followed. If any whitespace or line break was in between, the term 
  `switch` was tokenized as a TAG.
 
-## 0.0.3 - 2022-08-08
+## [0.0.3] - 2022-08-08
 
 ### Added
 - New `mount_url` tag
@@ -109,7 +106,7 @@
 - Dependencies - upgrade `org.jetbrains.kotlin.jvm` to `1.7.10`
 - Dependencies (GitHub Actions) - upgrade `JetBrains/qodana-action` to `v2022.2.1`
 
-## 0.0.2 - 2022-06-12
+## [0.0.2] - 2022-06-12
 
 ### Added
 - - `Code | Comment with Line Comment`
@@ -124,7 +121,7 @@
 ### Changed
 - Add support for older IDE versions down to 2021.2
 
-## 0.0.1 - 2022-05-25
+## [0.0.1] - 2022-05-25
 
 ### Added
 - - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
@@ -201,3 +198,10 @@
   - take
   - where
 - Add language support for HTML
+
+[Unreleased]: null/compare/v0.0.5...HEAD
+[0.0.5]: null/compare/v0.0.4...v0.0.5
+[0.0.4]: null/compare/v0.0.3...v0.0.4
+[0.0.3]: null/compare/v0.0.2...v0.0.3
+[0.0.2]: null/compare/v0.0.1...v0.0.2
+[0.0.1]: null/commits/v0.0.1
