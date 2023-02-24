@@ -4,8 +4,6 @@
 
 ## [Unreleased]
 
-## [0.0.5] - 2023-02-24
-
 ### Added
 - Add formatting and formatting settings
 - Add checkout action to `ReleaseDraft` step
