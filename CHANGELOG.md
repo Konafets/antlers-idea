@@ -11,6 +11,7 @@
 - Add checkout action to `ReleaseDraft` step
 - Add lexing and parsing for `{{ slot }}` and `{{ slot:name }}`
 - Restrict the `as` operator to the `groupby` advanced operator, so that no error occurs for `{{ as or 'a' }}`.
+- Add new modifier
 - - `add_query_param`
   - `alias`
   - `antlers`
