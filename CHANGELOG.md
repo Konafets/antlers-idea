@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.0.5] - 2023-02-24
+
 ### Added
 - Add formatting and formatting settings
 - Add checkout action to `ReleaseDraft` step
@@ -198,9 +200,9 @@
   - where
 - Add language support for HTML
 
-[Unreleased]: null/compare/v0.0.5...HEAD
-[0.0.5]: null/compare/v0.0.4...v0.0.5
-[0.0.4]: null/compare/v0.0.3...v0.0.4
-[0.0.3]: null/compare/v0.0.2...v0.0.3
-[0.0.2]: null/compare/v0.0.1...v0.0.2
-[0.0.1]: null/commits/v0.0.1
+[Unreleased]: https://github.com/Konafets/antlers-idea/compare/v0.0.5...HEAD
+[0.0.5]: https://github.com/Konafets/antlers-idea/compare/v0.0.4...v0.0.5
+[0.0.4]: https://github.com/Konafets/antlers-idea/compare/v0.0.3...v0.0.4
+[0.0.3]: https://github.com/Konafets/antlers-idea/compare/v0.0.2...v0.0.3
+[0.0.2]: https://github.com/Konafets/antlers-idea/compare/v0.0.1...v0.0.2
+[0.0.1]: https://github.com/Konafets/antlers-idea/commits/v0.0.1
