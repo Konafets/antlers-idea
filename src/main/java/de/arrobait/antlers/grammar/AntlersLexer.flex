@@ -157,17 +157,17 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 }
 
 <ANTLERS_NODE, MODIFIER_LIST, GROUP_BY, TAG_EXPRESSION_ATTRIBUTE_LIST, RECURSIVE_CHILDREN> {
-    {WHITE_SPACE}        { return WHITE_SPACE; }
+    {WHITE_SPACE}  { return WHITE_SPACE; }
 }
 
 <ANTLERS_NODE, MODIFIER_LIST> {
-    "true"           { return T_TRUE; }
-    "false"          { return T_FALSE; }
+    "true"  { return T_TRUE; }
+    "false" { return T_FALSE; }
 }
 
 <ANTLERS_NODE, PROPERTY_ACCESS, MODIFIER_LIST, TAG_EXPRESSION_ATTRIBUTE_LIST> {
-    {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
-    {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
+    {SINGLE_QUOTE}  { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
+    {DOUBLE_QUOTE}  { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
 }
 
 <ANTLERS_NODE, GROUP_BY> {
@@ -182,12 +182,12 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 }
 
 <ANTLERS_NODE, TAG_EXPRESSION_ATTRIBUTE_LIST> {
-    "{"                     { return T_LEFT_BRACE; }
-    "}"                     { return T_RIGHT_BRACE; }
+    "{"  { return T_LEFT_BRACE; }
+    "}"  { return T_RIGHT_BRACE; }
 }
 
 <ANTLERS_NODE, PROPERTY_ACCESS, GROUP_BY, RECURSIVE_CHILDREN> {
-    ":"                  { return T_COLON; }
+    ":"  { return T_COLON; }
 }
 
 <ANTLERS_NODE> {
@@ -297,91 +297,91 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 // State to avoid ambiguity between float values (.0) with object access (person.name)
 <PROPERTY_ACCESS> {
-    "."              { return T_DOT; }
-    {INTEGER_NUMBER} { return T_INTEGER_NUMBER; }
-    {SLOT}           { return T_SLOT; }
+    "."               { return T_DOT; }
+    {INTEGER_NUMBER}  { return T_INTEGER_NUMBER; }
+    {SLOT}            { return T_SLOT; }
 }
 
 // Dedicated state to avoid ambiguity between core modifiers and custom variables like `{{ title | title }}`
 <MODIFIER_LIST> {
-    {MODIFIERS}      { return T_MODIFIER; }
-    ","              { return T_COMMA; }
-    "("              { return T_LP; }
-    ")"              { popState(); return T_RP; }
-    {INTEGER_NUMBER} { return T_INTEGER_NUMBER; }
-    {FLOAT_NUMBER}   { return T_FLOAT_NUMBER; }
+    {MODIFIERS}       { return T_MODIFIER; }
+    ","               { return T_COMMA; }
+    "("               { return T_LP; }
+    ")"               { popState(); return T_RP; }
+    {INTEGER_NUMBER}  { return T_INTEGER_NUMBER; }
+    {FLOAT_NUMBER}    { return T_FLOAT_NUMBER; }
 }
 
 <TAG_EXPRESSION> {
-    {WHITE_SPACE} { pushState(TAG_EXPRESSION_ATTRIBUTE_LIST); return TokenType.WHITE_SPACE; }
-    "%"           { return T_DISAMBIGUATION; }
-    ":"           { pushState(TAG_SHORTHAND); return T_SHORTHAND_SEPARATOR; }
-    {SLASH}       { return T_SLASH; }
-    {TAG_NAMES}   { return T_TAG; }
+    {WHITE_SPACE}  { pushState(TAG_EXPRESSION_ATTRIBUTE_LIST); return TokenType.WHITE_SPACE; }
+    "%"            { return T_DISAMBIGUATION; }
+    ":"            { pushState(TAG_SHORTHAND); return T_SHORTHAND_SEPARATOR; }
+    {SLASH}        { return T_SLASH; }
+    {TAG_NAMES}    { return T_TAG; }
 }
 
 <TAG_SHORTHAND> {TAG_METHOD_NAME} { return T_TAG_METHOD_NAME; }
 
 <GROUP_BY> {
-    "as"             { return T_AS; }
-    ","              { return T_COMMA; }
-    "."              { return T_DOT; }
-    {PIPE}           { pushState(MODIFIER_LIST); return T_PIPE; }
-    {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
+    "as"            { return T_AS; }
+    ","             { return T_COMMA; }
+    "."             { return T_DOT; }
+    {PIPE}          { pushState(MODIFIER_LIST); return T_PIPE; }
+    {SINGLE_QUOTE}  { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
 }
 
 <ANTLERS_NODE, GROUP_BY, TAG_EXPRESSION_ATTRIBUTE_LIST, RECURSIVE_CHILDREN, PROPERTY_ACCESS, MODIFIER_LIST, TAG_EXPRESSION> {
-    {IDENTIFIER}     { return T_IDENTIFIER; }
+    {IDENTIFIER}  { return T_IDENTIFIER; }
 }
 
 <TAG_EXPRESSION_ATTRIBUTE_LIST> {
-    {RD}                    { yybegin(YYINITIAL); return T_RD; }
-    {SLASH}                 { return T_SLASH; }
-    {TAG_STRING_CONDITIONS} { return T_TAG_CONDITION; }
-    "taxonomy:"             { return T_TAXONOMY; }
-    "="                     { return T_OP_ASSIGN; }
-    ":"                     { return T_DYNAMIC_BINDING; }
+    {RD}                     { yybegin(YYINITIAL); return T_RD; }
+    {SLASH}                  { return T_SLASH; }
+    {TAG_STRING_CONDITIONS}  { return T_TAG_CONDITION; }
+    "taxonomy:"              { return T_TAXONOMY; }
+    "="                      { return T_OP_ASSIGN; }
+    ":"                      { return T_DYNAMIC_BINDING; }
 }
 
 <RECURSIVE_CHILDREN> {
-    "*"                  { return T_STAR; }
-    "recursive children" { return T_RECURSIVE_CHILDREN; }
+    "*"                   { return T_STAR; }
+    "recursive children"  { return T_RECURSIVE_CHILDREN; }
 }
 
 <ANTLERS_COMMENT> {
-    {COMMENT_CLOSE}  { popState(); return T_COMMENT_CLOSE; }
-    ~{COMMENT_CLOSE} { yypushback(3); return T_COMMENT_TEXT; }
+    {COMMENT_CLOSE}   { popState(); return T_COMMENT_CLOSE; }
+    ~{COMMENT_CLOSE}  { yypushback(3); return T_COMMENT_TEXT; }
 
     // lex unclosed comments so that we can give better errors
-    !([^]*"}}"[^]*)  {  return T_UNCLOSED_COMMENT; }
+    !([^]*"}}"[^]*)   {  return T_UNCLOSED_COMMENT; }
 }
 
 <SINGLE_STRING> {
-    {SINGLE_QUOTE}              { popState(); return T_SINGLE_QUOTE; }
-    {SINGLE_QUOTED_STR_CONTENT} { return T_STRING_CONTENT; }
+    {SINGLE_QUOTE}               { popState(); return T_SINGLE_QUOTE; }
+    {SINGLE_QUOTED_STR_CONTENT}  { return T_STRING_CONTENT; }
 }
 
 <DOUBLE_STRING> {
-    {DOUBLE_QUOTE}              { popState(); return T_DOUBLE_QUOTE; }
-    {DOUBLE_QUOTED_STR_CONTENT} { return T_STRING_CONTENT; }
+    {DOUBLE_QUOTE}               { popState(); return T_DOUBLE_QUOTE; }
+    {DOUBLE_QUOTED_STR_CONTENT}  { return T_STRING_CONTENT; }
 }
 
 <PHP_ECHO> {
-    "$}}"  { popState(); return T_PHP_ECHO_CLOSE;}
-    ~"$}}" { yypushback(3); return T_PHP_CONTENT;}
+    "$}}"   { popState(); return T_PHP_ECHO_CLOSE;}
+    ~"$}}"  { yypushback(3); return T_PHP_CONTENT;}
 }
 
 <PHP_RAW> {
-    "?}}"  { popState(); return T_PHP_RAW_CLOSE;}
-    ~"?}}" { yypushback(3); return T_PHP_CONTENT;}
+    "?}}"   { popState(); return T_PHP_RAW_CLOSE;}
+    ~"?}}"  { yypushback(3); return T_PHP_CONTENT;}
 }
 
 <SINGLE_STRING, DOUBLE_STRING, RECURSIVE_CHILDREN, TAG_EXPRESSION_ATTRIBUTE_LIST, GROUP_BY, TAG_SHORTHAND, TAG_EXPRESSION, MODIFIER_LIST, PROPERTY_ACCESS> {
-    [^] {
+    [^]  {
             yypushback(1); // cancel unexpected char
             popState();    // and try to parse it again in <ANTLERS_NODE>
-        }
+         }
 }
 
-{WHITE_SPACE}+ { return TokenType.WHITE_SPACE; }
-[^]            { return TokenType.BAD_CHARACTER; }
+{WHITE_SPACE}+  { return TokenType.WHITE_SPACE; }
+[^]             { return TokenType.BAD_CHARACTER; }
