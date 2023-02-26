@@ -5,6 +5,8 @@
 ## [Unreleased]
 
 ### Added
+- Add support for LiveTemplates 
+- Add default LiveTemplates for `switch`, `if`, `if else` and `if elseif`. 
 
 ### Changed
 - Optimize the Lexer by removing duplicate actions and use multiple states.

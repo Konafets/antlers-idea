@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templateSet group="Antlers">
+    <template name="aif" value="{{ if $COMP$ }}&#10;    $END$&#10;{{ /if }}" description="If" toReformat="true" toShortenFQNames="true">
+        <variable name="COMP" expression="" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="ANTLERS" value="true" />
+        </context>
+    </template>
+    <template name="aifelse" value="{{ if $COMP$ }}&#10;    $IF_BRANCH$&#10;{{ else }}&#10;    $END$    &#10;{{ /if }}" description="If Else" toReformat="true" toShortenFQNames="true">
+      <variable name="COMP" expression="" defaultValue="" alwaysStopAt="true" />
+      <variable name="IF_BRANCH" expression="" defaultValue="" alwaysStopAt="true" />
+      <context>
+        <option name="ANTLERS" value="true" />
+      </context>
+    </template>
+    <template name="aifelse" value="{{ if $COMP$ }}&#10;    $END$&#10;{{ /if }}" description="If Else" toReformat="true" toShortenFQNames="true">
+      <variable name="COMP" expression="" defaultValue="" alwaysStopAt="true" />
+      <context>
+        <option name="ANTLERS" value="true" />
+      </context>
+    </template>
+    <template name="aelseif" value="{{ if $COMP$ }}&#10;    $IF_BRANCH$&#10;{{ elseif $COMPEI$ }}&#10;    $END$&#10;{{ /if }}" description="If Elseif" toReformat="true" toShortenFQNames="true">
+      <variable name="COMP" expression="" defaultValue="" alwaysStopAt="true" />
+      <variable name="IF_BRANCH" expression="" defaultValue="" alwaysStopAt="true" />
+      <variable name="COMPEI" expression="" defaultValue="" alwaysStopAt="true" />
+      <context>
+        <option name="ANTLERS" value="true" />
+      </context>
+    </template>
+    <template name="aswitch" value="{{ switch(&#10;        ($COMP$) =&gt; '$BRANCH$',&#10;        () =&gt; '$END$'&#10;    )&#10;}}" description="Switch" toReformat="true" toShortenFQNames="true">
+      <variable name="COMP" expression="" defaultValue="" alwaysStopAt="true" />
+      <variable name="BRANCH" expression="" defaultValue="" alwaysStopAt="true" />
+      <context>
+        <option name="ANTLERS" value="true" />
+      </context>
+    </template>
+</templateSet>
