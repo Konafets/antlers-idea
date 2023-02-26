@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+### Added
+
+### Changed
+- Optimize the Lexer by removing duplicate actions and use multiple states.
+
 ## [0.0.5] - 2023-02-24
 
 ### Added

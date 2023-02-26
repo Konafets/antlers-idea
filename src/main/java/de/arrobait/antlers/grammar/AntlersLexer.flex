@@ -156,6 +156,40 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "{{"!([^]*"{{"[^]*)  { return OUTER_CONTENT; }
 }
 
+<ANTLERS_NODE, MODIFIER_LIST, GROUP_BY, TAG_EXPRESSION_ATTRIBUTE_LIST, RECURSIVE_CHILDREN> {
+    {WHITE_SPACE}        { return WHITE_SPACE; }
+}
+
+<ANTLERS_NODE, MODIFIER_LIST> {
+    "true"           { return T_TRUE; }
+    "false"          { return T_FALSE; }
+}
+
+<ANTLERS_NODE, PROPERTY_ACCESS, MODIFIER_LIST, TAG_EXPRESSION_ATTRIBUTE_LIST> {
+    {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
+    {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
+}
+
+<ANTLERS_NODE, GROUP_BY> {
+    "("   { return T_LP; }
+    ")"   { return T_RP; }
+    "=>"  { return T_OP_ARROW; }
+}
+
+<ANTLERS_NODE, GROUP_BY, MODIFIER_LIST, PROPERTY_ACCESS> {
+    "["  { return T_LEFT_BRACKET; }
+    "]"  { return T_RIGHT_BRACKET; }
+}
+
+<ANTLERS_NODE, TAG_EXPRESSION_ATTRIBUTE_LIST> {
+    "{"                     { return T_LEFT_BRACE; }
+    "}"                     { return T_RIGHT_BRACE; }
+}
+
+<ANTLERS_NODE, PROPERTY_ACCESS, GROUP_BY, RECURSIVE_CHILDREN> {
+    ":"                  { return T_COLON; }
+}
+
 <ANTLERS_NODE> {
     {COMMENT_OPEN}       { popState(); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN; }
 
@@ -165,7 +199,6 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
     {LD}                 { return T_LD; }
     {RD}                 { popState(); return T_RD; }
-    {WHITE_SPACE}        { return WHITE_SPACE; }
 
     "@"                  { return T_AT; }
 
@@ -201,10 +234,6 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "take"               { return T_TAKE; }
     "where"              { return T_WHERE; }
 
-    // Boolean
-    "true"               { return T_TRUE; }
-    "false"              { return T_FALSE; }
-
     // Logical - Must come before {IDENTIFIER}
     "&&"|"and"           { return T_OP_AND; }
     "||"|"or"            { return T_OP_OR; }
@@ -223,10 +252,6 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
     {RECURSIVE_CHILDREN} { yypushback(yylength()); pushState(RECURSIVE_CHILDREN); }
 
-    {SINGLE_QUOTE}       { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
-    {DOUBLE_QUOTE}       { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
-
-    {IDENTIFIER}         { return T_IDENTIFIER; }
     {SLOT_COLON}         { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
     {IDENTIFIER_DOT}     { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
     {IDENTIFIER_COLON}   { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
@@ -241,8 +266,6 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
     ","                  { return T_COMMA; }
     ";"                  { return T_SEMICOLON; }
-    ":"                  { return T_COLON; }
-    "=>"                 { return T_OP_ARROW; }
 
     // Math
     "+"                  { return T_OP_PLUS; }
@@ -257,14 +280,6 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "-="                 { return T_OP_SELF_ASSIGN_SUB; }
     "*="                 { return T_OP_SELF_ASSIGN_MUL; }
     "%="                 { return T_OP_SELF_ASSIGN_MOD; }
-
-    // Parens, Brackets and Braces
-    "("                  { return T_LP; }
-    ")"                  { return T_RP; }
-    "{"                  { return T_LEFT_BRACE; }
-    "}"                  { return T_RIGHT_BRACE; }
-    "["                  { return T_LEFT_BRACKET; }
-    "]"                  { return T_RIGHT_BRACKET; }
 
     // Comparison
     "=="                 { return T_OP_EQ; }
@@ -282,43 +297,19 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 // State to avoid ambiguity between float values (.0) with object access (person.name)
 <PROPERTY_ACCESS> {
-    ":"              { return T_COLON; }
     "."              { return T_DOT; }
-    "["              { return T_LEFT_BRACKET; }
-    "]"              { return T_RIGHT_BRACKET; }
     {INTEGER_NUMBER} { return T_INTEGER_NUMBER; }
-    {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
-    {DOUBLE_QUOTE}   { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
     {SLOT}           { return T_SLOT; }
-    {IDENTIFIER}     { return T_IDENTIFIER; }
-    [^]              {
-                       yypushback(1);  // cancel unexpected char
-                       popState();     // and try to parse it again in <IN_ANTLERS>
-                     }
 }
 
-// State to avoid ambiguity between core modifiers and custom variables like: {{ title | title }}
+// Dedicated state to avoid ambiguity between core modifiers and custom variables like `{{ title | title }}`
 <MODIFIER_LIST> {
     {MODIFIERS}      { return T_MODIFIER; }
-    {WHITE_SPACE}    { return TokenType.WHITE_SPACE; }
-
-    // Boolean
-    "true"           { return T_TRUE; }
-    "false"          { return T_FALSE; }
     ","              { return T_COMMA; }
     "("              { return T_LP; }
     ")"              { popState(); return T_RP; }
-    "["              { return T_LEFT_BRACKET; }
-    "]"              { return T_RIGHT_BRACKET; }
-    {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
-    {DOUBLE_QUOTE}   { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
-    {IDENTIFIER}     { return T_IDENTIFIER; }
     {INTEGER_NUMBER} { return T_INTEGER_NUMBER; }
     {FLOAT_NUMBER}   { return T_FLOAT_NUMBER; }
-    [^]              {
-                       yypushback(1);  // cancel unexpected char
-                       popState();     // and try to parse it again in <IN_ANTLERS>
-                     }
 }
 
 <TAG_EXPRESSION> {
@@ -327,68 +318,34 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     ":"           { pushState(TAG_SHORTHAND); return T_SHORTHAND_SEPARATOR; }
     {SLASH}       { return T_SLASH; }
     {TAG_NAMES}   { return T_TAG; }
-    {IDENTIFIER}  { return T_IDENTIFIER; }
-    [^]           {
-                    yypushback(1);  // cancel unexpected char
-                    popState();     // and try to parse it again in <ANTLERS_NODE>
-                  }
 }
 
-<TAG_SHORTHAND> {
-    {TAG_METHOD_NAME} { return T_TAG_METHOD_NAME; }
-    [^]               {
-                        yypushback(1);  // cancel unexpected char
-                        popState();     // and try to parse it again in <ANTLERS_NODE>
-                      }
-}
+<TAG_SHORTHAND> {TAG_METHOD_NAME} { return T_TAG_METHOD_NAME; }
 
 <GROUP_BY> {
-    {WHITE_SPACE}    { return TokenType.WHITE_SPACE; }
-    "as"             { return T_SLASH; }
+    "as"             { return T_AS; }
     ","              { return T_COMMA; }
-    ":"              { return T_COLON; }
     "."              { return T_DOT; }
-    "("              { return T_LP; }
-    ")"              { return T_RP; }
-    "=>"             { return T_OP_ARROW; }
     {PIPE}           { pushState(MODIFIER_LIST); return T_PIPE; }
     {SINGLE_QUOTE}   { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
+}
+
+<ANTLERS_NODE, GROUP_BY, TAG_EXPRESSION_ATTRIBUTE_LIST, RECURSIVE_CHILDREN, PROPERTY_ACCESS, MODIFIER_LIST, TAG_EXPRESSION> {
     {IDENTIFIER}     { return T_IDENTIFIER; }
-    [^]              {
-                        yypushback(1);  // cancel unexpected char
-                        popState();     // and try to parse it again in <ANTLERS_NODE>
-                     }
 }
 
 <TAG_EXPRESSION_ATTRIBUTE_LIST> {
     {RD}                    { yybegin(YYINITIAL); return T_RD; }
     {SLASH}                 { return T_SLASH; }
-    {WHITE_SPACE}           { return TokenType.WHITE_SPACE; }
     {TAG_STRING_CONDITIONS} { return T_TAG_CONDITION; }
     "taxonomy:"             { return T_TAXONOMY; }
     "="                     { return T_OP_ASSIGN; }
-    "{"                     { return T_LEFT_BRACE; }
-    "}"                     { return T_RIGHT_BRACE; }
     ":"                     { return T_DYNAMIC_BINDING; }
-    {SINGLE_QUOTE}          { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
-    {DOUBLE_QUOTE}          { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE; }
-    {IDENTIFIER}            { return T_IDENTIFIER; }
-    [^]                     {
-                              yybegin(ANTLERS_NODE);  // cancel unexpected char
-                              popState();     // and try to parse it again in <ANTLERS_NODE>
-                            }
 }
 
 <RECURSIVE_CHILDREN> {
-    {WHITE_SPACE}        { return TokenType.WHITE_SPACE; }
     "*"                  { return T_STAR; }
-    ":"                  { return T_COLON; }
     "recursive children" { return T_RECURSIVE_CHILDREN; }
-    {IDENTIFIER}         { return T_IDENTIFIER; }
-    [^]                  {
-                           yypushback(1);  // cancel unexpected char
-                           popState();     // and try to parse it again in <ANTLERS_NODE>
-                         }
 }
 
 <ANTLERS_COMMENT> {
@@ -402,19 +359,11 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 <SINGLE_STRING> {
     {SINGLE_QUOTE}              { popState(); return T_SINGLE_QUOTE; }
     {SINGLE_QUOTED_STR_CONTENT} { return T_STRING_CONTENT; }
-    [^]                         {
-                                  yypushback(1); // cancel unexpected char
-                                  popState();    // and try to parse it again in <ANTLERS_NODE>
-                                }
 }
 
 <DOUBLE_STRING> {
     {DOUBLE_QUOTE}              { popState(); return T_DOUBLE_QUOTE; }
     {DOUBLE_QUOTED_STR_CONTENT} { return T_STRING_CONTENT; }
-    [^]                         {
-                                  yypushback(1); // cancel unexpected char
-                                  popState();    // and try to parse it again in <ANTLERS_NODE>
-                                }
 }
 
 <PHP_ECHO> {
@@ -425,6 +374,13 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 <PHP_RAW> {
     "?}}"  { popState(); return T_PHP_RAW_CLOSE;}
     ~"?}}" { yypushback(3); return T_PHP_CONTENT;}
+}
+
+<SINGLE_STRING, DOUBLE_STRING, RECURSIVE_CHILDREN, TAG_EXPRESSION_ATTRIBUTE_LIST, GROUP_BY, TAG_SHORTHAND, TAG_EXPRESSION, MODIFIER_LIST, PROPERTY_ACCESS> {
+    [^] {
+            yypushback(1); // cancel unexpected char
+            popState();    // and try to parse it again in <ANTLERS_NODE>
+        }
 }
 
 {WHITE_SPACE}+ { return TokenType.WHITE_SPACE; }
