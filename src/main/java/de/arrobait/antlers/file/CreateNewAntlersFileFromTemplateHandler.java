@@ -12,11 +12,16 @@ public class CreateNewAntlersFileFromTemplateHandler extends DefaultCreateFromTe
 
     @Override
     protected String checkAppendExtension(String fileName, @NotNull FileTemplate template) {
-        final String suggestedFileNameEnd = "." + AntlersFileType.DEFAULT_EXTENSION;
+        final String suggestedFileNameEnd = AntlersFileType.DOT_DEFAULT_EXTENSION;
+
+        if (fileName.endsWith(suggestedFileNameEnd)) {
+            return fileName;
+        }
 
         if (template.getName().endsWith("antlers")) {
             fileName += suggestedFileNameEnd;
         }
+
         return fileName;
     }
 }
