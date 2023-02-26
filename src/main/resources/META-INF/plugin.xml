@@ -97,6 +97,12 @@
         <lang.substitutor
                 language="HTML"
                 implementationClass="de.arrobait.antlers.file.AntlersLanguageSubstitutor"/>
+
+        <!-- Live Templates -->
+        <defaultLiveTemplates
+                file="liveTemplates/Antlers.xml"/>
+        <liveTemplateContext
+                implementation="de.arrobait.antlers.editor.templates.AntlersTemplateContextType"/>
     </extensions>
 
     <actions>
