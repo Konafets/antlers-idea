@@ -92,4 +92,10 @@ public class AntlersTinesImpl extends ASTWrapperPsiElement implements AntlersTin
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersVariableAssignmentNode.class);
   }
 
+  @Override
+  @NotNull
+  public List<AntlersYamlFrontmatter> getYamlFrontmatterList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersYamlFrontmatter.class);
+  }
+
 }
