@@ -46,6 +46,16 @@ public class AntlersParserSpecTest extends AntlersParsingTestCase {
     }
 
     @Test
+    public void testParseFrontmatter() {
+        doTest(true);
+    }
+
+    @Test
+    public void testParseDoubleFrontmatter() {
+        doTest(true);
+    }
+
+    @Test
     public void testParseFactorialExpressions() {
         doTest(true);
     }

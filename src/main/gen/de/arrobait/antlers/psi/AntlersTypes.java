@@ -105,8 +105,6 @@ public interface AntlersTypes {
   IElementType XOR_EXPR = new AntlersElementType("XOR_EXPR");
   IElementType YAML_FRONTMATTER = new AntlersElementType("YAML_FRONTMATTER");
 
-  IElementType FRONT_MATTER_HEADER_CONTENT = new AntlersTokenType("FRONT_MATTER_HEADER_CONTENT");
-  IElementType FRONT_MATTER_HEADER_DELIMITER = new AntlersTokenType("FRONT_MATTER_HEADER_DELIMITER");
   IElementType OUTER_CONTENT = new AntlersTokenType("OUTER_CONTENT");
   IElementType T_AS = new AntlersTokenType("as");
   IElementType T_AT = new AntlersTokenType("@");
@@ -125,6 +123,8 @@ public interface AntlersTypes {
   IElementType T_END_UNLESS = new AntlersTokenType("endunless");
   IElementType T_FALSE = new AntlersTokenType("false");
   IElementType T_FLOAT_NUMBER = new AntlersTokenType("T_FLOAT_NUMBER");
+  IElementType T_FRONTMATTER_CONTENT = new AntlersTokenType("T_FRONTMATTER_CONTENT");
+  IElementType T_FRONTMATTER_DELIMITER = new AntlersTokenType("T_FRONTMATTER_DELIMITER");
   IElementType T_GROUP_BY = new AntlersTokenType("groupby");
   IElementType T_IDENTIFIER = new AntlersTokenType("T_IDENTIFIER");
   IElementType T_IF = new AntlersTokenType("if");

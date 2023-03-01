@@ -372,7 +372,7 @@ private unclosed_comment ::= T_UNCLOSED_COMMENT
 // HTML content
 private outer_content ::= "@"? OUTER_CONTENT
 
-yaml_frontmatter ::= FRONT_MATTER_HEADER_DELIMITER FRONT_MATTER_HEADER_CONTENT* FRONT_MATTER_HEADER_DELIMITER { pin=1 }
+yaml_frontmatter ::= T_FRONTMATTER_DELIMITER T_FRONTMATTER_CONTENT* T_FRONTMATTER_DELIMITER { pin=1 }
 
 private yaml_unclosed_frontmatter ::= UNCLOSED_FRONT_MATTER
 

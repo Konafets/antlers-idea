@@ -2107,26 +2107,26 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // FRONT_MATTER_HEADER_DELIMITER FRONT_MATTER_HEADER_CONTENT* FRONT_MATTER_HEADER_DELIMITER
+  // T_FRONTMATTER_DELIMITER T_FRONTMATTER_CONTENT* T_FRONTMATTER_DELIMITER
   public static boolean yaml_frontmatter(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "yaml_frontmatter")) return false;
-    if (!nextTokenIs(b, FRONT_MATTER_HEADER_DELIMITER)) return false;
+    if (!nextTokenIs(b, T_FRONTMATTER_DELIMITER)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, YAML_FRONTMATTER, null);
-    r = consumeToken(b, FRONT_MATTER_HEADER_DELIMITER);
+    r = consumeToken(b, T_FRONTMATTER_DELIMITER);
     p = r; // pin = 1
     r = r && report_error_(b, yaml_frontmatter_1(b, l + 1));
-    r = p && consumeToken(b, FRONT_MATTER_HEADER_DELIMITER) && r;
+    r = p && consumeToken(b, T_FRONTMATTER_DELIMITER) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
-  // FRONT_MATTER_HEADER_CONTENT*
+  // T_FRONTMATTER_CONTENT*
   private static boolean yaml_frontmatter_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "yaml_frontmatter_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!consumeToken(b, FRONT_MATTER_HEADER_CONTENT)) break;
+      if (!consumeToken(b, T_FRONTMATTER_CONTENT)) break;
       if (!empty_element_parsed_guard_(b, "yaml_frontmatter_1", c)) break;
     }
     return true;
