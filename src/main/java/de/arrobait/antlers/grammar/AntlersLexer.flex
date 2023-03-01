@@ -80,6 +80,8 @@ SLOT_COLON={SLOT} ":"
 UNLESS="unless"
 IF="if"
 
+YAML_FRONT_MATTER_DELIMITER="---"
+
 INTEGER_NUMBER=0|[1-9]\d*
 FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
@@ -98,6 +100,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 %state DOUBLE_STRING
 %state PHP_ECHO
 %state PHP_RAW
+%state YAML_FRONT_MATTER
 
 %%
 <YYINITIAL> {
@@ -116,6 +119,12 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
                 if (yylength() > 0 && yytext().toString().charAt(yylength() - 1) == '@'){
                     yypushback(1);
                     pushState(ANTLERS_ESCAPED);
+                } else if (yylength() > 3 && yytext().subSequence(0, 3).toString().trim().equals("---")) {
+                    // Here we check if the match starts with "---", which means, we found a YAML fontmatter.
+                    // We put the match back to the input stream, except the "---" signs, navigate to the dedicated state
+                    // and lex the "---" as FRONT_MATTER_HEADER_DELIMITER.
+                    yypushback(yylength() - 3);
+                    pushState(YAML_FRONT_MATTER); return FRONT_MATTER_HEADER_DELIMITER;
                 } else {
                     pushState(ANTLERS_NODE);
                 }
@@ -132,8 +141,10 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
                 }
     }
 
-    // Check for anything that is not a string containing "{{"; that's OUTER_CONTENT like HTML, CSS or JS.
-    !([^]*"{{"[^]*)  { return OUTER_CONTENT; }
+    {YAML_FRONT_MATTER_DELIMITER} { pushState(YAML_FRONT_MATTER); return FRONT_MATTER_HEADER_DELIMITER; }
+
+    // Check for anything that is not a string containing "{{" or "---"; that's OUTER_CONTENT like HTML, CSS or JS.
+    !([^]*("{{"|"---")[^]*)  { return OUTER_CONTENT; }
 }
 
 <ANTLERS_ESCAPED> {
@@ -356,6 +367,13 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     !([^]*"}}"[^]*)   {  return T_UNCLOSED_COMMENT; }
 }
 
+<YAML_FRONT_MATTER> {
+    {YAML_FRONT_MATTER_DELIMITER}   { popState(); return FRONT_MATTER_HEADER_DELIMITER; }
+    ~{YAML_FRONT_MATTER_DELIMITER}  { yypushback(3); return FRONT_MATTER_HEADER_CONTENT; }
+
+    !([^]*"---"[^]*)   {  return UNCLOSED_FRONT_MATTER; }
+}
+
 <SINGLE_STRING> {
     {SINGLE_QUOTE}               { popState(); return T_SINGLE_QUOTE; }
     {SINGLE_QUOTED_STR_CONTENT}  { return T_STRING_CONTENT; }
@@ -376,7 +394,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     ~"?}}"  { yypushback(3); return T_PHP_CONTENT;}
 }
 
-<SINGLE_STRING, DOUBLE_STRING, RECURSIVE_CHILDREN, TAG_EXPRESSION_ATTRIBUTE_LIST, GROUP_BY, TAG_SHORTHAND, TAG_EXPRESSION, MODIFIER_LIST, PROPERTY_ACCESS> {
+<SINGLE_STRING, DOUBLE_STRING, RECURSIVE_CHILDREN, TAG_EXPRESSION_ATTRIBUTE_LIST, GROUP_BY, TAG_SHORTHAND, TAG_EXPRESSION, MODIFIER_LIST, PROPERTY_ACCESS, YAML_FRONT_MATTER> {
     [^]  {
             yypushback(1); // cancel unexpected char
             popState();    // and try to parse it again in <ANTLERS_NODE>

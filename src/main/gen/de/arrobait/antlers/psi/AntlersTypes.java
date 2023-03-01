@@ -103,7 +103,10 @@ public interface AntlersTypes {
   IElementType WHERE = new AntlersElementType("WHERE");
   IElementType WHERE_ARROW_FUNC = new AntlersElementType("WHERE_ARROW_FUNC");
   IElementType XOR_EXPR = new AntlersElementType("XOR_EXPR");
+  IElementType YAML_FRONTMATTER = new AntlersElementType("YAML_FRONTMATTER");
 
+  IElementType FRONT_MATTER_HEADER_CONTENT = new AntlersTokenType("FRONT_MATTER_HEADER_CONTENT");
+  IElementType FRONT_MATTER_HEADER_DELIMITER = new AntlersTokenType("FRONT_MATTER_HEADER_DELIMITER");
   IElementType OUTER_CONTENT = new AntlersTokenType("OUTER_CONTENT");
   IElementType T_AS = new AntlersTokenType("as");
   IElementType T_AT = new AntlersTokenType("@");
@@ -193,6 +196,7 @@ public interface AntlersTypes {
   IElementType T_UNCLOSED_COMMENT = new AntlersTokenType("T_UNCLOSED_COMMENT");
   IElementType T_UNLESS = new AntlersTokenType("unless");
   IElementType T_WHERE = new AntlersTokenType("where");
+  IElementType UNCLOSED_FRONT_MATTER = new AntlersTokenType("UNCLOSED_FRONT_MATTER");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -478,6 +482,9 @@ public interface AntlersTypes {
       }
       else if (type == XOR_EXPR) {
         return new AntlersXorExprImpl(node);
+      }
+      else if (type == YAML_FRONTMATTER) {
+        return new AntlersYamlFrontmatterImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

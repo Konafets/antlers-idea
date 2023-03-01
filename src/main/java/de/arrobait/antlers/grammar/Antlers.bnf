@@ -110,13 +110,15 @@
         T_STRING_CONTENT="regexp:([^\\']|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))*"
     ]
 
+    extends("yaml_frontmatter")="de.arrobait.antlers.psi.AntlersFrontMatterMixin"
     extends(".*expr")=expr
     extends(".*sub_expression")=expr
     extends(".*interpolated_statement")=expr
 }
 
 antlersFile ::= <<eof>> | [tines]
-tines ::= (block_wrapper
+tines ::= ( yaml_frontmatter
+        | block_wrapper
         | antlers_close_node
         | switch_node
         | tag_single
@@ -126,6 +128,7 @@ tines ::= (block_wrapper
         | tine
         | comment_block
         | unclosed_comment
+        | yaml_unclosed_frontmatter
         | php_node
         | outer_content)*
 
@@ -368,6 +371,10 @@ private unclosed_comment ::= T_UNCLOSED_COMMENT
 
 // HTML content
 private outer_content ::= "@"? OUTER_CONTENT
+
+yaml_frontmatter ::= FRONT_MATTER_HEADER_DELIMITER FRONT_MATTER_HEADER_CONTENT* FRONT_MATTER_HEADER_DELIMITER { pin=1 }
+
+private yaml_unclosed_frontmatter ::= UNCLOSED_FRONT_MATTER
 
 // PHP expressions
 private php_node ::= (php_raw_node | php_echo_node)

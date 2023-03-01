@@ -41,4 +41,7 @@ public interface AntlersTines extends PsiElement {
   @NotNull
   List<AntlersVariableAssignmentNode> getVariableAssignmentNodeList();
 
+  @NotNull
+  List<AntlersYamlFrontmatter> getYamlFrontmatterList();
+
 }

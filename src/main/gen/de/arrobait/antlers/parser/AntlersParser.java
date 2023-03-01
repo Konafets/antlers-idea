@@ -1916,7 +1916,8 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (block_wrapper
+  // ( yaml_frontmatter
+  //         | block_wrapper
   //         | antlers_close_node
   //         | switch_node
   //         | tag_single
@@ -1926,6 +1927,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   //         | tine
   //         | comment_block
   //         | unclosed_comment
+  //         | yaml_unclosed_frontmatter
   //         | php_node
   //         | outer_content)*
   public static boolean tines(PsiBuilder b, int l) {
@@ -1940,7 +1942,8 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // block_wrapper
+  // yaml_frontmatter
+  //         | block_wrapper
   //         | antlers_close_node
   //         | switch_node
   //         | tag_single
@@ -1950,13 +1953,15 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   //         | tine
   //         | comment_block
   //         | unclosed_comment
+  //         | yaml_unclosed_frontmatter
   //         | php_node
   //         | outer_content
   private static boolean tines_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tines_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = block_wrapper(b, l + 1);
+    r = yaml_frontmatter(b, l + 1);
+    if (!r) r = block_wrapper(b, l + 1);
     if (!r) r = antlers_close_node(b, l + 1);
     if (!r) r = switch_node(b, l + 1);
     if (!r) r = tag_single(b, l + 1);
@@ -1966,6 +1971,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     if (!r) r = tine(b, l + 1);
     if (!r) r = comment_block(b, l + 1);
     if (!r) r = unclosed_comment(b, l + 1);
+    if (!r) r = yaml_unclosed_frontmatter(b, l + 1);
     if (!r) r = php_node(b, l + 1);
     if (!r) r = outer_content(b, l + 1);
     exit_section_(b, m, null, r);
@@ -2098,6 +2104,38 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     r = arrow_func(b, l + 1);
     exit_section_(b, m, WHERE_ARROW_FUNC, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // FRONT_MATTER_HEADER_DELIMITER FRONT_MATTER_HEADER_CONTENT* FRONT_MATTER_HEADER_DELIMITER
+  public static boolean yaml_frontmatter(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "yaml_frontmatter")) return false;
+    if (!nextTokenIs(b, FRONT_MATTER_HEADER_DELIMITER)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, YAML_FRONTMATTER, null);
+    r = consumeToken(b, FRONT_MATTER_HEADER_DELIMITER);
+    p = r; // pin = 1
+    r = r && report_error_(b, yaml_frontmatter_1(b, l + 1));
+    r = p && consumeToken(b, FRONT_MATTER_HEADER_DELIMITER) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // FRONT_MATTER_HEADER_CONTENT*
+  private static boolean yaml_frontmatter_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "yaml_frontmatter_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, FRONT_MATTER_HEADER_CONTENT)) break;
+      if (!empty_element_parsed_guard_(b, "yaml_frontmatter_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // UNCLOSED_FRONT_MATTER
+  static boolean yaml_unclosed_frontmatter(PsiBuilder b, int l) {
+    return consumeToken(b, UNCLOSED_FRONT_MATTER);
   }
 
   /* ********************************************************** */

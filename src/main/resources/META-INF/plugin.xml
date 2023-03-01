@@ -9,6 +9,7 @@
     <depends>org.intellij.intelliLang</depends>
     <depends>com.jetbrains.php</depends>
     <depends>com.intellij.css</depends>
+    <depends>org.jetbrains.plugins.yaml</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- File type -->
@@ -103,6 +104,8 @@
                 file="liveTemplates/Antlers.xml"/>
         <liveTemplateContext
                 implementation="de.arrobait.antlers.editor.templates.AntlersTemplateContextType"/>
+
+        <multiHostInjector implementation="de.arrobait.antlers.frontmatter.YamlToAntlersInjector"/>
     </extensions>
 
     <actions>
