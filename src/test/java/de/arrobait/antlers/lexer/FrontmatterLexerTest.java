@@ -17,7 +17,7 @@ public class FrontmatterLexerTest extends LexerTest {
                 "---"
         );
         thenTokensAre(
-                FRONT_MATTER_HEADER_DELIMITER, "---"
+                T_FRONTMATTER_DELIMITER, "---"
         );
     }
 
@@ -28,8 +28,25 @@ public class FrontmatterLexerTest extends LexerTest {
                 "foo:bar"
         );
         thenTokensAre(
-                FRONT_MATTER_HEADER_DELIMITER, "---",
+                T_FRONTMATTER_DELIMITER, "---",
                 UNCLOSED_FRONT_MATTER, "foo:bar"
+        );
+    }
+
+    @Test
+    public void it_lexes_wrong_frontmatter() {
+        givenInput(
+                "---" +
+                "---" +
+                "---" +
+                "---"
+        );
+        thenTokensAre(
+                T_FRONTMATTER_DELIMITER, "---",
+                T_FRONTMATTER_CONTENT, "--",
+                T_FRONTMATTER_CONTENT, "--",
+                T_FRONTMATTER_CONTENT, "--",
+                T_FRONTMATTER_DELIMITER, "---"
         );
     }
 
@@ -40,8 +57,8 @@ public class FrontmatterLexerTest extends LexerTest {
                 "---"
         );
         thenTokensAre(
-                FRONT_MATTER_HEADER_DELIMITER, "---",
-                FRONT_MATTER_HEADER_DELIMITER, "---"
+                T_FRONTMATTER_DELIMITER, "---",
+                T_FRONTMATTER_DELIMITER, "---"
         );
     }
 
@@ -53,9 +70,9 @@ public class FrontmatterLexerTest extends LexerTest {
                 "---"
         );
         thenTokensAre(
-                FRONT_MATTER_HEADER_DELIMITER, "---",
-                FRONT_MATTER_HEADER_CONTENT, "sports:",
-                FRONT_MATTER_HEADER_DELIMITER, "---"
+                T_FRONTMATTER_DELIMITER, "---",
+                T_FRONTMATTER_CONTENT, "sports:",
+                T_FRONTMATTER_DELIMITER, "---"
         );
     }
 
@@ -71,9 +88,9 @@ public class FrontmatterLexerTest extends LexerTest {
                 "<p>Let's go {{ sports:0 }}, {{ sports.1 }} or {{ sports[2] }}.</p>");
 
         thenTokensAre(
-                FRONT_MATTER_HEADER_DELIMITER, "---",
-                FRONT_MATTER_HEADER_CONTENT, "sports:  - BMXing  - rollerblading  - skateboarding  - scootering",
-                FRONT_MATTER_HEADER_DELIMITER, "---",
+                T_FRONTMATTER_DELIMITER, "---",
+                T_FRONTMATTER_CONTENT, "sports:  - BMXing  - rollerblading  - skateboarding  - scootering",
+                T_FRONTMATTER_DELIMITER, "---",
                 OUTER_CONTENT, "<p>Let's go ",
                 T_LD, "{{",
                 WHITE_SPACE, " ",

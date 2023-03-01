@@ -122,9 +122,10 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
                 } else if (yylength() > 3 && yytext().subSequence(0, 3).toString().trim().equals("---")) {
                     // Here we check if the match starts with "---", which means, we found a YAML fontmatter.
                     // We put the match back to the input stream, except the "---" signs, navigate to the dedicated state
-                    // and lex the "---" as FRONT_MATTER_HEADER_DELIMITER.
+                    // and lex the "---" as T_FRONTMATTER_DELIMITER.
                     yypushback(yylength() - 3);
-                    pushState(YAML_FRONT_MATTER); return FRONT_MATTER_HEADER_DELIMITER;
+                    pushState(YAML_FRONT_MATTER);
+                    return T_FRONTMATTER_DELIMITER;
                 } else {
                     pushState(ANTLERS_NODE);
                 }
@@ -141,7 +142,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
                 }
     }
 
-    {YAML_FRONT_MATTER_DELIMITER} { pushState(YAML_FRONT_MATTER); return FRONT_MATTER_HEADER_DELIMITER; }
+    {YAML_FRONT_MATTER_DELIMITER} { pushState(YAML_FRONT_MATTER); return T_FRONTMATTER_DELIMITER; }
 
     // Check for anything that is not a string containing "{{" or "---"; that's OUTER_CONTENT like HTML, CSS or JS.
     !([^]*("{{"|"---")[^]*)  { return OUTER_CONTENT; }
@@ -368,10 +369,10 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 }
 
 <YAML_FRONT_MATTER> {
-    {YAML_FRONT_MATTER_DELIMITER}   { popState(); return FRONT_MATTER_HEADER_DELIMITER; }
-    ~{YAML_FRONT_MATTER_DELIMITER}  { yypushback(3); return FRONT_MATTER_HEADER_CONTENT; }
+    {YAML_FRONT_MATTER_DELIMITER}   { popState(); return T_FRONTMATTER_DELIMITER; }
+    ~{YAML_FRONT_MATTER_DELIMITER}  { yypushback(3); return T_FRONTMATTER_CONTENT; }
 
-    !([^]*"---"[^]*)   {  return UNCLOSED_FRONT_MATTER; }
+    !([^]*"---"[^]*)                {  return UNCLOSED_FRONT_MATTER; }
 }
 
 <SINGLE_STRING> {

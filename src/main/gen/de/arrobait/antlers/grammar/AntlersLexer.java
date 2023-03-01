@@ -2607,9 +2607,10 @@ public class AntlersLexer implements FlexLexer {
                 } else if (yylength() > 3 && yytext().subSequence(0, 3).toString().trim().equals("---")) {
                     // Here we check if the match starts with "---", which means, we found a YAML fontmatter.
                     // We put the match back to the input stream, except the "---" signs, navigate to the dedicated state
-                    // and lex the "---" as FRONT_MATTER_HEADER_DELIMITER.
+                    // and lex the "---" as T_FRONTMATTER_DELIMITER.
                     yypushback(yylength() - 3);
-                    pushState(YAML_FRONT_MATTER); return FRONT_MATTER_HEADER_DELIMITER;
+                    pushState(YAML_FRONT_MATTER);
+                    return T_FRONTMATTER_DELIMITER;
                 } else {
                     pushState(ANTLERS_NODE);
                 }
@@ -2753,7 +2754,7 @@ public class AntlersLexer implements FlexLexer {
             // fall through
           case 177: break;
           case 70:
-            { pushState(YAML_FRONT_MATTER); return FRONT_MATTER_HEADER_DELIMITER;
+            { pushState(YAML_FRONT_MATTER); return T_FRONTMATTER_DELIMITER;
             }
             // fall through
           case 178: break;
@@ -2834,7 +2835,7 @@ public class AntlersLexer implements FlexLexer {
             // fall through
           case 192: break;
           case 85:
-            { popState(); return FRONT_MATTER_HEADER_DELIMITER;
+            { popState(); return T_FRONTMATTER_DELIMITER;
             }
             // fall through
           case 193: break;
@@ -2887,7 +2888,7 @@ public class AntlersLexer implements FlexLexer {
             // fall through
           case 201: break;
           case 94:
-            { yypushback(3); return FRONT_MATTER_HEADER_CONTENT;
+            { yypushback(3); return T_FRONTMATTER_CONTENT;
             }
             // fall through
           case 202: break;
