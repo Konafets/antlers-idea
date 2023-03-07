@@ -2,6 +2,7 @@
     parserClass="de.arrobait.antlers.parser.AntlersParser"
     parserUtilClass="de.arrobait.antlers.parser.AntlersParserUtil"
 
+    implements="de.arrobait.antlers.psi.AntlersPsiElement"
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
     psiClassPrefix="Antlers"
@@ -13,7 +14,7 @@
     elementTypeClass="de.arrobait.antlers.psi.AntlersElementType"
     tokenTypeClass="de.arrobait.antlers.psi.AntlersTokenType"
 
-    mixin("comment_block")="de.arrobait.antlers.psi.mixins.AntlersCommentMixin"
+    psiImplUtilClass="de.arrobait.antlers.psi.impl.AntlersPsiImplUtil"
 
     tokens = [
         T_COMMENT_OPEN='{{#'
@@ -107,8 +108,11 @@
         T_SINGLE_QUOTE="'"
         T_DOUBLE_QUOTE='"'
         T_STRING_CONTENT="regexp:([^\\']|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))*"
+
+        T_IDENTIFIER="regexp:[$_[:jletter:]][-_[:jletterdigit:]]*[_[:jletterdigit:]]?"
     ]
 
+    mixin("comment_block")="de.arrobait.antlers.psi.mixins.AntlersCommentMixin"
     extends("yaml_frontmatter")="de.arrobait.antlers.psi.AntlersFrontMatterMixin"
     extends(".*expr")=expr
     extends(".*sub_expression")=expr
@@ -131,10 +135,19 @@ tines ::= ( yaml_frontmatter
         | php_node
         | outer_content)*
 
-tine ::= node_opener antlers_expression_or_statement  node_closer {
+tine ::= node_opener antlers_expression_or_statement node_closer {
     pin=2
-    recoverWhile=antlers_node_recover
+    recoverWhile="antlers_node_recover"
+    implements="de.arrobait.antlers.psi.AntlersNamedElement"
+    extends="de.arrobait.antlers.psi.impl.AntlersNamedElementImpl"
+    methods=[
+//        getName
+//        setName
+//        getNameIdentifier
+        getPresentation
+    ]
 }
+
 private antlers_node_recover ::= !(node_opener | outer_content | '{{#' | '{{?' | '{{$' | 'if' | 'else' | 'elseif' | 'endif' | 'unless' | 'endunless' | '/' | '[' | '{' | ':' | '=')
 
 private antlers_expression_or_statement ::= expr ('|' modifier_list)*

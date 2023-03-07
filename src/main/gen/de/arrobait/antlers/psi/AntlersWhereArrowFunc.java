@@ -2,7 +2,11 @@
 package de.arrobait.antlers.psi;
 
 import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
 
-public interface AntlersWhereArrowFunc extends PsiElement {
+public interface AntlersWhereArrowFunc extends AntlersPsiElement {
+
+  @NotNull
+  PsiElement getTIdentifier();
 
 }

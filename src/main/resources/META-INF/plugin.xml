@@ -105,7 +105,13 @@
         <liveTemplateContext
                 implementation="de.arrobait.antlers.editor.templates.AntlersTemplateContextType"/>
 
-        <multiHostInjector implementation="de.arrobait.antlers.frontmatter.YamlToAntlersInjector"/>
+        <multiHostInjector
+                implementation="de.arrobait.antlers.frontmatter.YamlToAntlersInjector"/>
+
+        <!--        <xml.zenCodingGenerator implementation="de.arrobait.antlers.editor.AntlersHtmlZenCodingGenerator" />-->
+        <lang.psiStructureViewFactory
+            language="Antlers"
+            implementationClass="de.arrobait.antlers.editor.structure.AntlersStructureViewFactory"/>
     </extensions>
 
     <actions>

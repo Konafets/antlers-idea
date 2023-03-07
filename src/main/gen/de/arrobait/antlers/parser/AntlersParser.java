@@ -1817,7 +1817,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // node_opener antlers_expression_or_statement  node_closer
+  // node_opener antlers_expression_or_statement node_closer
   public static boolean tine(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tine")) return false;
     boolean r, p;

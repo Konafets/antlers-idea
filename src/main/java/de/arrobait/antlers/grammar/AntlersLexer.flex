@@ -71,7 +71,7 @@ RECURSIVE_CHILDREN=\*recursive
 PIPE="|"
 SLOT="slot"
 
-IDENTIFIER=[$_A-Za-z][-_0-9A-Za-z]*[_A-Za-z0-9]?
+IDENTIFIER=[$_[:jletter:]][-_[:jletterdigit:]]*[_[:jletterdigit:]]?
 IDENTIFIER_DOT={IDENTIFIER} "."
 IDENTIFIER_COLON={IDENTIFIER} ":"
 IDENTIFIER_BRACKET={IDENTIFIER} "["
