@@ -4,10 +4,13 @@ package de.arrobait.antlers.psi;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
-public interface AntlersDotPropertyAccess extends PsiElement {
+public interface AntlersDotPropertyAccess extends AntlersPsiElement {
 
   @Nullable
   AntlersStringLiteral getStringLiteral();
+
+  @Nullable
+  PsiElement getTIdentifier();
 
   @Nullable
   PsiElement getTIntegerNumber();

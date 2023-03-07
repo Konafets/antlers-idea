@@ -11,6 +11,7 @@ import de.arrobait.antlers.psi.AntlersVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import static de.arrobait.antlers.psi.AntlersTypes.T_IDENTIFIER;
 import static de.arrobait.antlers.psi.AntlersTypes.T_INTEGER_NUMBER;
 
 public class AntlersColonPropertyAccessImpl extends ASTWrapperPsiElement implements AntlersColonPropertyAccess {
@@ -33,6 +34,12 @@ public class AntlersColonPropertyAccessImpl extends ASTWrapperPsiElement impleme
   @Nullable
   public AntlersStringLiteral getStringLiteral() {
     return findChildByClass(AntlersStringLiteral.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getTIdentifier() {
+    return findChildByType(T_IDENTIFIER);
   }
 
   @Override

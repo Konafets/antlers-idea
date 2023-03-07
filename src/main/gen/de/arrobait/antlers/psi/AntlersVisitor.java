@@ -1,7 +1,6 @@
 // This is a generated file. Not intended for manual editing.
 package de.arrobait.antlers.psi;
 
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
@@ -332,7 +331,7 @@ public class AntlersVisitor extends PsiElementVisitor {
   }
 
   public void visitTine(@NotNull AntlersTine o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitTines(@NotNull AntlersTines o) {
@@ -391,7 +390,11 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitPsiElement(@NotNull PsiElement o) {
+  public void visitNamedElement(@NotNull AntlersNamedElement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPsiElement(@NotNull AntlersPsiElement o) {
     visitElement(o);
   }
 

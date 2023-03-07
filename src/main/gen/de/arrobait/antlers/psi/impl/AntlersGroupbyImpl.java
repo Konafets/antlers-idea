@@ -3,6 +3,7 @@ package de.arrobait.antlers.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import de.arrobait.antlers.psi.*;
@@ -10,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
+import static de.arrobait.antlers.psi.AntlersTypes.T_IDENTIFIER;
 
 public class AntlersGroupbyImpl extends ASTWrapperPsiElement implements AntlersGroupby {
 
@@ -43,6 +46,12 @@ public class AntlersGroupbyImpl extends ASTWrapperPsiElement implements AntlersG
   @Nullable
   public AntlersStringLiteral getStringLiteral() {
     return findChildByClass(AntlersStringLiteral.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getTIdentifier() {
+    return findChildByType(T_IDENTIFIER);
   }
 
 }

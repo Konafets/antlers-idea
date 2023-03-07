@@ -4,7 +4,7 @@ package de.arrobait.antlers.psi;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
-public interface AntlersStringLiteral extends PsiElement {
+public interface AntlersStringLiteral extends AntlersPsiElement {
 
   @Nullable
   PsiElement getTStringContent();

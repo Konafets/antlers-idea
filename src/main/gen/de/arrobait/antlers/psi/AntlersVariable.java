@@ -3,10 +3,11 @@ package de.arrobait.antlers.psi;
 
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface AntlersVariable extends PsiElement {
+public interface AntlersVariable extends AntlersPsiElement {
 
   @NotNull
   List<AntlersBracketPropertyAccess> getBracketPropertyAccessList();
@@ -16,5 +17,8 @@ public interface AntlersVariable extends PsiElement {
 
   @NotNull
   List<AntlersDotPropertyAccess> getDotPropertyAccessList();
+
+  @Nullable
+  PsiElement getTIdentifier();
 
 }

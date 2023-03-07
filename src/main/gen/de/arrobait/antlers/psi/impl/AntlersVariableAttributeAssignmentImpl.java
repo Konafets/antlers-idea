@@ -3,12 +3,15 @@ package de.arrobait.antlers.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import de.arrobait.antlers.psi.AntlersStringLiteral;
 import de.arrobait.antlers.psi.AntlersVariableAttributeAssignment;
 import de.arrobait.antlers.psi.AntlersVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static de.arrobait.antlers.psi.AntlersTypes.T_IDENTIFIER;
 
 public class AntlersVariableAttributeAssignmentImpl extends ASTWrapperPsiElement implements AntlersVariableAttributeAssignment {
 
@@ -30,6 +33,12 @@ public class AntlersVariableAttributeAssignmentImpl extends ASTWrapperPsiElement
   @Nullable
   public AntlersStringLiteral getStringLiteral() {
     return findChildByClass(AntlersStringLiteral.class);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getTIdentifier() {
+    return findNotNullChildByType(T_IDENTIFIER);
   }
 
 }

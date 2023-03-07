@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface AntlersGroupby extends PsiElement {
+public interface AntlersGroupby extends AntlersPsiElement {
 
   @NotNull
   List<AntlersGroupbyArg> getGroupbyArgList();
@@ -17,5 +17,8 @@ public interface AntlersGroupby extends PsiElement {
 
   @Nullable
   AntlersStringLiteral getStringLiteral();
+
+  @Nullable
+  PsiElement getTIdentifier();
 
 }

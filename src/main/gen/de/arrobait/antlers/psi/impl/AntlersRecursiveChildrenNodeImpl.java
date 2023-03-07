@@ -3,6 +3,7 @@ package de.arrobait.antlers.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import de.arrobait.antlers.psi.AntlersNodeCloser;
 import de.arrobait.antlers.psi.AntlersNodeOpener;
@@ -10,6 +11,8 @@ import de.arrobait.antlers.psi.AntlersRecursiveChildrenNode;
 import de.arrobait.antlers.psi.AntlersVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static de.arrobait.antlers.psi.AntlersTypes.T_IDENTIFIER;
 
 public class AntlersRecursiveChildrenNodeImpl extends ASTWrapperPsiElement implements AntlersRecursiveChildrenNode {
 
@@ -37,6 +40,12 @@ public class AntlersRecursiveChildrenNodeImpl extends ASTWrapperPsiElement imple
   @NotNull
   public AntlersNodeOpener getNodeOpener() {
     return findNotNullChildByClass(AntlersNodeOpener.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getTIdentifier() {
+    return findChildByType(T_IDENTIFIER);
   }
 
 }
