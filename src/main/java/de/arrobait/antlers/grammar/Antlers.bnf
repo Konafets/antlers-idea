@@ -112,7 +112,6 @@
         T_IDENTIFIER="regexp:[$_[:jletter:]][-_[:jletterdigit:]]*[_[:jletterdigit:]]?"
     ]
 
-    mixin("comment_block")="de.arrobait.antlers.psi.mixins.AntlersCommentMixin"
     extends("yaml_frontmatter")="de.arrobait.antlers.psi.AntlersFrontMatterMixin"
     extends(".*expr")=expr
     extends(".*sub_expression")=expr
@@ -168,7 +167,10 @@ modifier_param       ::= literal_expr | array
 // Tags
 
 // Special noparse tag
-noparse_region ::= noparse_region_open tines noparse_region_close { pin = 1 }
+noparse_region ::= noparse_region_open tines noparse_region_close {
+    pin = 1
+    methods=[getPresentation]
+}
 noparse_region_open ::= node_opener 'noparse' node_closer { pin=2 }
 noparse_region_close ::= node_opener (T_SLASH 'noparse') node_closer { pin=2 }
 
@@ -180,8 +182,15 @@ noparse_region_close ::= node_opener (T_SLASH 'noparse') node_closer { pin=2 }
 //tag ::= [T_DISAMBIGUATION] tag_name T_SHORTHAND_SEPARATOR tag_method
 //tag_name ::= 'partial'
 
-tag_single ::= tag_node_open
-tag_pair ::= tag_node_open tines tag_node_close { pin = 3 }
+tag_single ::= tag_node_open {
+    methods=[getPresentation]
+}
+
+tag_pair ::= tag_node_open tines tag_node_close {
+    pin = 3
+    methods=[getPresentation]
+}
+
 tag_node_open ::= node_opener tag_with_attributes [T_SLASH] node_closer { pin=3 }
 tag_node_close ::= node_opener (T_SLASH tag) node_closer { pin=2 }
 
@@ -202,16 +211,24 @@ tag_taxonomy_condition ::= T_TAXONOMY taxonomy_name '=' taxonomy_term
 taxonomy_name ::= T_IDENTIFIER
 taxonomy_term ::= string_literal
 
-recursive_children_node ::= node_opener T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR node_closer { pin=3 }
+recursive_children_node ::= node_opener T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR node_closer {
+    pin=3
+    methods=[getPresentation]
+}
 
 block_wrapper ::= if_statement
                 | unless_statement
-                | tag_pair
+                | tag_pair {
+    methods=[getPresentation]
+}
 
 /**
  * Conditional
  */
-if_statement ::= if_open_node tines (elseif_node tines)* [else_node tines] if_close_node { pin=1 }
+if_statement ::= if_open_node tines (elseif_node tines)* [else_node tines] if_close_node {
+    pin=1
+    methods=[getPresentation]
+}
 if_open_node ::= node_opener 'if' conditional_node_signature node_closer { pin=2 }
 elseif_node ::= node_opener 'elseif' conditional_node_signature node_closer { pin=2 }
 private conditional_node_signature ::= expr ('|' modifier_list)*
@@ -220,13 +237,23 @@ if_close_node ::= node_opener (close_if | end_if) node_closer { pin=2 }
 private close_if ::= '/' 'if' { pin=2 }
 private end_if ::= 'endif'
 
-unless_statement ::= unless_open_node tines (elseif_node tines)* [else_node tines] unless_close_node { pin=1 }
+unless_statement ::= unless_open_node tines (elseif_node tines)* [else_node tines] unless_close_node {
+    pin=1
+    methods=[getPresentation]
+}
 unless_open_node ::= node_opener 'unless' conditional_node_signature node_closer { pin=2 }
 unless_close_node ::= node_opener (close_unless|end_unless) node_closer  { pin=2 }
 private close_unless ::= '/' 'unless' { pin=2 }
 private end_unless ::= 'endunless'
 
-switch_node  ::= node_opener switch_tag node_closer { pin=2 }
+switch_node ::= node_opener switch_tag node_closer {
+    pin=2
+    methods=[
+        getName
+        getNameIdentifier
+        getPresentation
+    ]
+}
 switch_tag   ::= 'switch' '(' switch_case+ default_case? ')' { pin=1}
 switch_case  ::= '(' group_comp ')' '=>' string_literal ','? { pin=4 }
 default_case ::= '(' ')' '=>' string_literal ','? { pin=4 }
@@ -278,7 +305,7 @@ gte_expr             ::= expr '>=' expr
 null_coalescing_expr ::= expr '??' expr
 gatekeeper_expr      ::= expr '?=' expr
 spaceship_expr       ::= expr '<=>' expr
-tenary_expr ::= expr '?' expr ':' expr
+tenary_expr          ::= expr '?' expr ':' expr
 
 // Math
 mul_expr ::= expr ('*' | '*=') expr
@@ -312,7 +339,11 @@ colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_litera
 
 // {{ total = 0 }}
 // {{ todo = ['Get haircut', 'Bake bread', 'Eat soup'] }}
-variable_assignment_node ::= node_opener variable T_OP_ASSIGN assignable_items node_closer { pin=3 }
+variable_assignment_node ::= node_opener variable T_OP_ASSIGN assignable_items node_closer {
+    pin=3
+    methods=[getPresentation]
+}
+
 private assignable_items ::= boolean_literal
                            | number_literal
                            | string_literal
@@ -381,7 +412,11 @@ string_literal  ::= "'" T_STRING_CONTENT? "'"
 boolean_literal ::= 'true' | 'false'
 
 // Comments: {{# Here be dragons #}}
-comment_block ::= T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE { pin=1 }
+comment_block ::= T_COMMENT_OPEN T_COMMENT_TEXT* T_COMMENT_CLOSE {
+    pin=1
+    mixin="de.arrobait.antlers.psi.mixins.AntlersCommentMixin"
+    methods=[getPresentation]
+}
 
 private unclosed_comment ::= T_UNCLOSED_COMMENT
 
@@ -394,8 +429,14 @@ private yaml_unclosed_frontmatter ::= UNCLOSED_FRONT_MATTER
 
 // PHP expressions
 private php_node ::= (php_raw_node | php_echo_node)
-php_raw_node   ::= "{{?" T_PHP_CONTENT* "?}}" { pin=1 }
-php_echo_node  ::= "{{$" T_PHP_CONTENT* "$}}" { pin=1 }
+php_raw_node   ::= "{{?" T_PHP_CONTENT* "?}}" {
+    pin=1
+    methods=[getPresentation]
+}
+php_echo_node  ::= "{{$" T_PHP_CONTENT* "$}}" {
+    pin=1
+    methods=[getPresentation]
+}
 
 // Give the open and closing delimiter (double curly braces) a handle to be
 // able refer to them on other places.

@@ -7,8 +7,7 @@ import com.intellij.psi.NavigatablePsiElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.ReflectionUtil;
 import de.arrobait.antlers.file.AntlersIcons;
-import de.arrobait.antlers.psi.AntlersPsiElement;
-import de.arrobait.antlers.psi.AntlersTines;
+import de.arrobait.antlers.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,7 +41,14 @@ public class AntlersTreeElement extends PsiTreeElementBase<NavigatablePsiElement
                 children.addAll(new AntlersTreeElement((AntlersPsiElement) childElement).getChildrenBase());
             }
 
+            if (childElement instanceof AntlersBlockWrapper) {
+                children.addAll(new AntlersTreeElement((AntlersPsiElement) childElement).getChildrenBase());
+            }
+
             for (Class suitableClass : AntlersStructureViewModel.Companion.getOurSuitableClasses()) {
+                if (childElement instanceof AntlersBlockWrapper) {
+                    continue;
+                }
                 if (ReflectionUtil.isAssignable(suitableClass, childElement.getClass())) {
                     children.add(new AntlersTreeElement((AntlersPsiElement) childElement));
                     break;
@@ -88,22 +94,4 @@ public class AntlersTreeElement extends PsiTreeElementBase<NavigatablePsiElement
     public boolean canNavigateToSource() {
         return myElement.canNavigateToSource();
     }
-
-    //
-//    @Override
-//    public @NotNull ItemPresentation getPresentation() {
-//        return new ItemPresentation() {
-//            @Override
-//            @Nullable
-//            public String getPresentableText() {
-//                return AntlersTreeElement.this.getPresentableText();
-//            }
-//
-//            @Override
-//            @Nullable
-//            public Icon getIcon(boolean unused) {
-//                return Objects.requireNonNull(getElement()).getIcon(0);
-//            }
-//        };
-//    }
 }

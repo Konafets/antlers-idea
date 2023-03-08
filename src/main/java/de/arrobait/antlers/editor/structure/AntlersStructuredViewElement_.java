@@ -1,6 +1,5 @@
 package de.arrobait.antlers.editor.structure;
 
-import com.android.aapt.Resources;
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement;
@@ -16,11 +15,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AntlersStructuredViewElement implements StructureViewTreeElement, SortableTreeElement {
+//public class AntlersStructuredViewElement implements StructureViewTreeElement, SortableTreeElement {
+public class AntlersStructuredViewElement_ implements StructureViewTreeElement, SortableTreeElement {
 
     private final NavigatablePsiElement myElement;
 
-    public AntlersStructuredViewElement(NavigatablePsiElement myElement) {
+    public AntlersStructuredViewElement_(NavigatablePsiElement myElement) {
         this.myElement = myElement;
     }
 
@@ -49,7 +49,7 @@ public class AntlersStructuredViewElement implements StructureViewTreeElement, S
             List<AntlersTine> tines = PsiTreeUtil.getChildrenOfTypeAsList(myElement, AntlersTine.class);
             List<TreeElement> treeElements = new ArrayList<>(tines.size());
             for (AntlersTine tine : tines) {
-                treeElements.add(new AntlersStructuredViewElement((AntlersTineImpl) tine));
+                treeElements.add(new AntlersStructuredViewElement_((AntlersTineImpl) tine));
             }
             return treeElements.toArray(new TreeElement[0]);
 

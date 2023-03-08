@@ -22,11 +22,6 @@ public abstract class AntlersTemplateLanguageStructureViewBuilder extends Templa
         @Override
         protected TreeBasedStructureViewBuilder createMainBuilder(@NotNull PsiFile psi) {
           return modelFactory == null ? null : new TreeBasedStructureViewBuilder() {
-            @Override
-            public boolean isRootNodeShown() {
-              return true;
-            }
-
             @NotNull
             @Override
             public StructureViewModel createStructureViewModel(@Nullable Editor editor) {

@@ -2,6 +2,7 @@
 package de.arrobait.antlers.psi.impl;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
 import de.arrobait.antlers.psi.AntlersCommentBlock;
 import de.arrobait.antlers.psi.AntlersVisitor;
@@ -22,6 +23,11 @@ public class AntlersCommentBlockImpl extends AntlersCommentMixin implements Antl
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof AntlersVisitor) accept((AntlersVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  public ItemPresentation getPresentation() {
+    return AntlersPsiImplUtil.getPresentation(this);
   }
 
 }

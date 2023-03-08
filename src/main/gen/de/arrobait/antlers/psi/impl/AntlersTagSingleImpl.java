@@ -3,6 +3,7 @@ package de.arrobait.antlers.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
 import de.arrobait.antlers.psi.AntlersTagNodeOpen;
 import de.arrobait.antlers.psi.AntlersTagSingle;
@@ -29,6 +30,11 @@ public class AntlersTagSingleImpl extends ASTWrapperPsiElement implements Antler
   @NotNull
   public AntlersTagNodeOpen getTagNodeOpen() {
     return findNotNullChildByClass(AntlersTagNodeOpen.class);
+  }
+
+  @Override
+  public ItemPresentation getPresentation() {
+    return AntlersPsiImplUtil.getPresentation(this);
   }
 
 }

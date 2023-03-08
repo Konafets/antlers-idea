@@ -8,4 +8,7 @@ object AntlersIcons {
 
     @JvmField
     val DOUBLE_BRACES = IconLoader.getIcon("/icons/structuredView.svg", AntlersIcons::class.java)
+
+    @JvmField
+    val COMMENT = IconLoader.getIcon("/icons/comment.svg", AntlersIcons::class.java)
 }

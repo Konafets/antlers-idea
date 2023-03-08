@@ -3,6 +3,7 @@ package de.arrobait.antlers.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
 import de.arrobait.antlers.psi.*;
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +41,11 @@ public class AntlersBlockWrapperImpl extends ASTWrapperPsiElement implements Ant
   @Nullable
   public AntlersUnlessStatement getUnlessStatement() {
     return findChildByClass(AntlersUnlessStatement.class);
+  }
+
+  @Override
+  public ItemPresentation getPresentation() {
+    return AntlersPsiImplUtil.getPresentation(this);
   }
 
 }

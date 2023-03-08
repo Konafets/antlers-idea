@@ -3,6 +3,7 @@ package de.arrobait.antlers.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import de.arrobait.antlers.psi.*;
@@ -79,6 +80,11 @@ public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement impl
   @NotNull
   public List<AntlersVariable> getVariableList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersVariable.class);
+  }
+
+  @Override
+  public ItemPresentation getPresentation() {
+    return AntlersPsiImplUtil.getPresentation(this);
   }
 
 }
