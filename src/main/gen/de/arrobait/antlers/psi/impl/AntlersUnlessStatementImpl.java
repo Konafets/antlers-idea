@@ -3,6 +3,7 @@ package de.arrobait.antlers.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import de.arrobait.antlers.psi.*;
@@ -55,6 +56,11 @@ public class AntlersUnlessStatementImpl extends ASTWrapperPsiElement implements 
   @NotNull
   public AntlersUnlessOpenNode getUnlessOpenNode() {
     return findNotNullChildByClass(AntlersUnlessOpenNode.class);
+  }
+
+  @Override
+  public ItemPresentation getPresentation() {
+    return AntlersPsiImplUtil.getPresentation(this);
   }
 
 }
