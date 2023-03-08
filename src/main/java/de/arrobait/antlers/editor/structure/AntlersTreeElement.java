@@ -12,10 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class AntlersTreeElement extends PsiTreeElementBase<NavigatablePsiElement> {
     private final NavigatablePsiElement myElement;
@@ -65,7 +62,7 @@ public class AntlersTreeElement extends PsiTreeElementBase<NavigatablePsiElement
 
     @Override
     public @Nullable String getPresentableText() {
-        return myElement.getName();
+        return Objects.requireNonNull(myElement.getPresentation()).getPresentableText();
     }
 
     @Override

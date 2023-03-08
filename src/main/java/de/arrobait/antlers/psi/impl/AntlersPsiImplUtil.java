@@ -23,6 +23,10 @@ public class AntlersPsiImplUtil {
             name = element.getText();
         } else if (element instanceof AntlersPhpEchoNode || element instanceof AntlersPhpRawNode) {
             name = element.getText();
+        } else if (element instanceof AntlersIfStatement) {
+            name = ((AntlersIfStatement) element).getNameIdentifier().getText();
+        } else if (element instanceof AntlersUnlessStatement) {
+            name = ((AntlersUnlessStatement) element).getNameIdentifier().getText();
         }
 
         return name;
@@ -30,6 +34,24 @@ public class AntlersPsiImplUtil {
 
     public static PsiElement getNameIdentifier(PsiElement element) {
         ASTNode keyNode = element.getNode().findChildByType(AntlersTypes.TINE);
+        if (keyNode != null) {
+            return keyNode.getPsi();
+        } else {
+            return null;
+        }
+    }
+
+    public static PsiElement getNameIdentifier(AntlersIfStatement element) {
+        ASTNode keyNode = element.getNode().getFirstChildNode().findChildByType(AntlersTypes.IF_STATEMENT);
+        if (keyNode != null) {
+            return keyNode.getPsi();
+        } else {
+            return null;
+        }
+    }
+
+    public static PsiElement getNameIdentifier(AntlersUnlessStatement element) {
+        ASTNode keyNode = element.getNode().getFirstChildNode().findChildByType(AntlersTypes.UNLESS_STATEMENT);
         if (keyNode != null) {
             return keyNode.getPsi();
         } else {
@@ -147,7 +169,7 @@ public class AntlersPsiImplUtil {
         return new ItemPresentation() {
             @Override
             public String getPresentableText() {
-                return ifStatement.getText();
+                return ifStatement.getName();
             }
 
             @Override
@@ -168,7 +190,7 @@ public class AntlersPsiImplUtil {
         return new ItemPresentation() {
             @Override
             public String getPresentableText() {
-                return unlessStatement.getText();
+                return unlessStatement.getName();
             }
 
             @Override
@@ -180,7 +202,7 @@ public class AntlersPsiImplUtil {
 
             @Override
             public Icon getIcon(boolean unused) {
-                return AllIcons.Vcs.Branch;
+                return PlatformIcons.XML_TAG_ICON;
             }
         };
     }

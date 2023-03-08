@@ -31,9 +31,4 @@ public abstract class AntlersTemplateLanguageStructureViewBuilder extends Templa
         }
       };
     }
-
-    @Override
-    public boolean isRootNodeShown() {
-        return true;
-    }
 }

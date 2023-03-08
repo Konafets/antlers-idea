@@ -1,7 +1,9 @@
 package de.arrobait.antlers.structureView;
 
+import com.intellij.ide.structureView.StructureView;
 import com.intellij.ide.structureView.StructureViewBuilder;
 import com.intellij.ide.structureView.StructureViewModel;
+import com.intellij.ide.structureView.impl.StructureViewComposite;
 import com.intellij.ide.structureView.newStructureView.StructureViewComponent;
 import com.intellij.ide.util.treeView.smartTree.TreeElement;
 import com.intellij.lang.LanguageStructureViewBuilder;
@@ -12,6 +14,7 @@ import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import com.intellij.util.Consumer;
+import com.intellij.util.PlatformIcons;
 import de.arrobait.antlers.file.AntlersFileType;
 import de.arrobait.antlers.file.AntlersIcons;
 import de.arrobait.antlers.util.AntlersTestUtils;
@@ -31,7 +34,19 @@ public class AntlersStructureViewTest extends BasePlatformTestCase {
             assertEquals("aaa.antlers.html", model.getRoot().getPresentation().getPresentableText());
             assertEquals(AntlersIcons.FILE, model.getRoot().getPresentation().getIcon(false));
             assertEquals(1, children.length);
-            assertEquals("identifier", children[0].getPresentation().getPresentableText());
+            assertEquals("{{ identifier }}", children[0].getPresentation().getPresentableText());
+            assertEquals(PlatformIcons.VARIABLE_ICON, children[0].getPresentation().getIcon(false));
+        });
+    }
+
+    public void testConditionalAntlers() throws Exception {
+        doTestTreeStructure(model -> {
+            TreeElement[] children = model.getRoot().getChildren();
+            assertEquals("aaa.antlers.html", model.getRoot().getPresentation().getPresentableText());
+            assertEquals(AntlersIcons.FILE, model.getRoot().getPresentation().getIcon(false));
+            assertEquals(1, children.length);
+            assertEquals("{{ if 10 > 11 }}", children[0].getPresentation().getPresentableText());
+            assertEquals(PlatformIcons.XML_TAG_ICON, children[0].getPresentation().getIcon(false));
         });
     }
 
@@ -63,7 +78,9 @@ public class AntlersStructureViewTest extends BasePlatformTestCase {
 
         try {
             final FileEditor editor = FileEditorManager.getInstance(getProject()).getSelectedEditor(myFixture.getFile().getVirtualFile());
-            component = (StructureViewComponent) builder.createStructureView(editor, myFixture.getProject());
+            StructureViewComposite structureView = (StructureViewComposite) builder.createStructureView(editor, myFixture.getProject());
+            component = (StructureViewComponent) structureView.getSelectedStructureView();
+            assert component != null;
             final StructureViewModel model = component.getTreeModel();
             consumer.consume(model);
         }

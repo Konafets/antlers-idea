@@ -2,6 +2,7 @@
 package de.arrobait.antlers.psi;
 
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,6 +24,10 @@ public interface AntlersIfStatement extends AntlersPsiElement {
 
   @NotNull
   List<AntlersTines> getTinesList();
+
+  PsiElement getNameIdentifier();
+
+  String getName();
 
   ItemPresentation getPresentation();
 

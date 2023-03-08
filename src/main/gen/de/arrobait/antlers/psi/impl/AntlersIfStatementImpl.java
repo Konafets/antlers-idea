@@ -4,6 +4,7 @@ package de.arrobait.antlers.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import de.arrobait.antlers.psi.*;
@@ -56,6 +57,16 @@ public class AntlersIfStatementImpl extends ASTWrapperPsiElement implements Antl
   @NotNull
   public List<AntlersTines> getTinesList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersTines.class);
+  }
+
+  @Override
+  public PsiElement getNameIdentifier() {
+    return AntlersPsiImplUtil.getNameIdentifier(this);
+  }
+
+  @Override
+  public String getName() {
+    return AntlersPsiImplUtil.getName(this);
   }
 
   @Override
