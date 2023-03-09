@@ -2,6 +2,7 @@
 package de.arrobait.antlers.psi;
 
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
 public interface AntlersTagPair extends AntlersPsiElement {
@@ -14,6 +15,10 @@ public interface AntlersTagPair extends AntlersPsiElement {
 
   @NotNull
   AntlersTines getTines();
+
+  String getName();
+
+  PsiElement getNameIdentifier();
 
   ItemPresentation getPresentation();
 

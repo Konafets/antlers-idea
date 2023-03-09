@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 public class AntlersStructureViewFactory implements PsiStructureViewFactory {
     @Nullable
     @Override
-    public StructureViewBuilder getStructureViewBuilder(@NotNull PsiFile psiFile) {
+    public StructureViewBuilder getStructureViewBuilder(@NotNull final PsiFile psiFile) {
         if (!(psiFile instanceof AntlersFile)) {
             return null;
         }
