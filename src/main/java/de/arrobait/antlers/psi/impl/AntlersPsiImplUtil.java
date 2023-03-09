@@ -14,11 +14,11 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class AntlersPsiImplUtil {
+public final class AntlersPsiImplUtil {
     public static String getName(PsiElement element) {
         String name = "Not yet implemented";
         if (element instanceof AntlersSwitchNode) {
-            name = ((AntlersSwitchNode) element).getSwitchTag().getFirstChild().getText();
+            name = "{{ " + ((AntlersSwitchNode) element).getNameIdentifier().getText() + " }}";
         } else if (element instanceof AntlersVariableAssignmentNode) {
             name = element.getText();
         } else if (element instanceof AntlersPhpEchoNode || element instanceof AntlersPhpRawNode) {
@@ -27,6 +27,10 @@ public class AntlersPsiImplUtil {
             name = ((AntlersIfStatement) element).getNameIdentifier().getText();
         } else if (element instanceof AntlersUnlessStatement) {
             name = ((AntlersUnlessStatement) element).getNameIdentifier().getText();
+        } else if (element instanceof AntlersTagPair) {
+            name = "{{ " + ((AntlersTagPair) element).getNameIdentifier().getText() + " }}";
+        } else if (element instanceof AntlersNoparseRegion) {
+            name = ((AntlersNoparseRegion) element).getNameIdentifier().getText();
         }
 
         return name;
@@ -34,11 +38,8 @@ public class AntlersPsiImplUtil {
 
     public static PsiElement getNameIdentifier(PsiElement element) {
         ASTNode keyNode = element.getNode().findChildByType(AntlersTypes.TINE);
-        if (keyNode != null) {
-            return keyNode.getPsi();
-        } else {
-            return null;
-        }
+
+        return keyNode == null ? null : keyNode.getPsi();
     }
 
     public static PsiElement getNameIdentifier(AntlersIfStatement element) {
@@ -57,6 +58,24 @@ public class AntlersPsiImplUtil {
         } else {
             return null;
         }
+    }
+
+    public static PsiElement getNameIdentifier(AntlersSwitchNode element) {
+        ASTNode keyNode = element.getSwitchTag().getFirstChild().getNode();
+
+        return keyNode == null ? null : keyNode.getPsi();
+    }
+
+    public static PsiElement getNameIdentifier(AntlersTagPair element) {
+        ASTNode keyNode = element.getNode().getLastChildNode().findChildByType(AntlersTypes.TAG);
+
+        return keyNode == null ? null : keyNode.getPsi();
+    }
+
+    public static PsiElement getNameIdentifier(AntlersNoparseRegion element) {
+        ASTNode keyNode = element.getNode().getFirstChildNode();
+
+        return keyNode == null ? null : keyNode.getPsi();
     }
 
     public static ItemPresentation getPresentation(@NotNull final AntlersTine tine) {
@@ -127,7 +146,7 @@ public class AntlersPsiImplUtil {
         return new ItemPresentation() {
             @Override
             public String getPresentableText() {
-                return tagPair.getText();
+                return tagPair.getName();
             }
 
             @Override
@@ -211,7 +230,7 @@ public class AntlersPsiImplUtil {
         return new ItemPresentation() {
             @Override
             public String getPresentableText() {
-                return AntlersPsiImplUtil.getName(switchNode);
+                return switchNode.getName();
             }
 
             @Override
@@ -253,7 +272,7 @@ public class AntlersPsiImplUtil {
         return new ItemPresentation() {
             @Override
             public String getPresentableText() {
-                return noparseRegion.getText();
+                return noparseRegion.getName();
             }
 
             @Override

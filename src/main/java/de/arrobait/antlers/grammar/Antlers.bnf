@@ -169,7 +169,11 @@ modifier_param       ::= literal_expr | array
 // Special noparse tag
 noparse_region ::= noparse_region_open tines noparse_region_close {
     pin = 1
-    methods=[getPresentation]
+    methods=[
+        getName
+        getNameIdentifier
+        getPresentation
+    ]
 }
 noparse_region_open ::= node_opener 'noparse' node_closer { pin=2 }
 noparse_region_close ::= node_opener (T_SLASH 'noparse') node_closer { pin=2 }
@@ -183,12 +187,18 @@ noparse_region_close ::= node_opener (T_SLASH 'noparse') node_closer { pin=2 }
 //tag_name ::= 'partial'
 
 tag_single ::= tag_node_open {
-    methods=[getPresentation]
+    methods=[
+        getPresentation
+    ]
 }
 
 tag_pair ::= tag_node_open tines tag_node_close {
     pin = 3
-    methods=[getPresentation]
+    methods=[
+        getName
+        getNameIdentifier
+        getPresentation
+    ]
 }
 
 tag_node_open ::= node_opener tag_with_attributes [T_SLASH] node_closer { pin=3 }

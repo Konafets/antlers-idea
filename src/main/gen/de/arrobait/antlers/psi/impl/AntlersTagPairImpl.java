@@ -4,6 +4,7 @@ package de.arrobait.antlers.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import de.arrobait.antlers.psi.*;
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +41,16 @@ public class AntlersTagPairImpl extends ASTWrapperPsiElement implements AntlersT
   @NotNull
   public AntlersTines getTines() {
     return findNotNullChildByClass(AntlersTines.class);
+  }
+
+  @Override
+  public String getName() {
+    return AntlersPsiImplUtil.getName(this);
+  }
+
+  @Override
+  public PsiElement getNameIdentifier() {
+    return AntlersPsiImplUtil.getNameIdentifier(this);
   }
 
   @Override
