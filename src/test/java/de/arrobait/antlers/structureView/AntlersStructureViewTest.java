@@ -64,7 +64,7 @@ public class AntlersStructureViewTest extends BasePlatformTestCase {
             TreeElement[] children = model.getRoot().getChildren();
             assertEquals("aaa.antlers.html", model.getRoot().getPresentation().getPresentableText());
             assertEquals(AntlersIcons.FILE, model.getRoot().getPresentation().getIcon(false));
-            assertEquals(1, children.length);
+            assertEquals(2, children.length);
 
             TreeElement element = children[0];
             assertEquals("{{ if 10 > 11 }}", element.getPresentation().getPresentableText());
