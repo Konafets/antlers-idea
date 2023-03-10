@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import de.arrobait.antlers.psi.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class AntlersTagPairImpl extends ASTWrapperPsiElement implements AntlersTagPair {
 
@@ -44,16 +45,19 @@ public class AntlersTagPairImpl extends ASTWrapperPsiElement implements AntlersT
   }
 
   @Override
+  @NotNull
   public String getName() {
     return AntlersPsiImplUtil.getName(this);
   }
 
   @Override
+  @Nullable
   public PsiElement getNameIdentifier() {
     return AntlersPsiImplUtil.getNameIdentifier(this);
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

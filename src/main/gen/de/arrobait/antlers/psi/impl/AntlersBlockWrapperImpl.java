@@ -44,6 +44,7 @@ public class AntlersBlockWrapperImpl extends ASTWrapperPsiElement implements Ant
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

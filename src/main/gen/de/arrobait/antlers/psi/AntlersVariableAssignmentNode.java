@@ -36,6 +36,7 @@ public interface AntlersVariableAssignmentNode extends AntlersPsiElement {
   @NotNull
   List<AntlersVariable> getVariableList();
 
+  @NotNull
   ItemPresentation getPresentation();
 
 }

@@ -26,6 +26,7 @@ public class AntlersCommentBlockImpl extends AntlersCommentMixin implements Antl
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

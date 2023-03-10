@@ -17,10 +17,13 @@ public interface AntlersSwitchNode extends AntlersPsiElement {
   @NotNull
   AntlersSwitchTag getSwitchTag();
 
+  @NotNull
   String getName();
 
+  @Nullable
   PsiElement getNameIdentifier();
 
+  @NotNull
   ItemPresentation getPresentation();
 
 }

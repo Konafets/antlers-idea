@@ -45,16 +45,19 @@ public class AntlersNoparseRegionImpl extends ASTWrapperPsiElement implements An
   }
 
   @Override
+  @NotNull
   public String getName() {
     return AntlersPsiImplUtil.getName(this);
   }
 
   @Override
+  @Nullable
   public PsiElement getNameIdentifier() {
     return AntlersPsiImplUtil.getNameIdentifier(this);
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

@@ -17,10 +17,13 @@ public interface AntlersNoparseRegion extends AntlersPsiElement {
   @Nullable
   AntlersTines getTines();
 
+  @NotNull
   String getName();
 
+  @Nullable
   PsiElement getNameIdentifier();
 
+  @NotNull
   ItemPresentation getPresentation();
 
 }

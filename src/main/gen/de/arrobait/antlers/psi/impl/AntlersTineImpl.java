@@ -52,6 +52,7 @@ public class AntlersTineImpl extends AntlersNamedElementImpl implements AntlersT
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

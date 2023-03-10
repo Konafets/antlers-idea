@@ -25,10 +25,13 @@ public interface AntlersUnlessStatement extends AntlersPsiElement {
   @NotNull
   AntlersUnlessOpenNode getUnlessOpenNode();
 
+  @Nullable
   PsiElement getNameIdentifier();
 
+  @NotNull
   String getName();
 
+  @NotNull
   ItemPresentation getPresentation();
 
 }

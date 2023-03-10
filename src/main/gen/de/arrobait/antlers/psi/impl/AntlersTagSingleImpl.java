@@ -33,6 +33,7 @@ public class AntlersTagSingleImpl extends ASTWrapperPsiElement implements Antler
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

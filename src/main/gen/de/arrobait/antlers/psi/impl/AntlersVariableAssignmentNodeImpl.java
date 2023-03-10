@@ -83,6 +83,7 @@ public class AntlersVariableAssignmentNodeImpl extends ASTWrapperPsiElement impl
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

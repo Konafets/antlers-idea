@@ -21,6 +21,7 @@ public interface AntlersTine extends AntlersNamedElement {
   @NotNull
   AntlersNodeOpener getNodeOpener();
 
+  @NotNull
   ItemPresentation getPresentation();
 
 }
