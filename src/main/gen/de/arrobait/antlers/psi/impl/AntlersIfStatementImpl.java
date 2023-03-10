@@ -60,16 +60,19 @@ public class AntlersIfStatementImpl extends ASTWrapperPsiElement implements Antl
   }
 
   @Override
+  @Nullable
   public PsiElement getNameIdentifier() {
     return AntlersPsiImplUtil.getNameIdentifier(this);
   }
 
   @Override
+  @NotNull
   public String getName() {
     return AntlersPsiImplUtil.getName(this);
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

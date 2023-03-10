@@ -26,6 +26,7 @@ public class AntlersPhpEchoNodeImpl extends ASTWrapperPsiElement implements Antl
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

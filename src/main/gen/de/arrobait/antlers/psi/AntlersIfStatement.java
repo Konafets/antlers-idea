@@ -25,10 +25,13 @@ public interface AntlersIfStatement extends AntlersPsiElement {
   @NotNull
   List<AntlersTines> getTinesList();
 
+  @Nullable
   PsiElement getNameIdentifier();
 
+  @NotNull
   String getName();
 
+  @NotNull
   ItemPresentation getPresentation();
 
 }

@@ -9,6 +9,7 @@ public interface AntlersTagSingle extends AntlersPsiElement {
   @NotNull
   AntlersTagNodeOpen getTagNodeOpen();
 
+  @NotNull
   ItemPresentation getPresentation();
 
 }

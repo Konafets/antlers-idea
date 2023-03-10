@@ -2,6 +2,7 @@
 package de.arrobait.antlers.psi;
 
 import com.intellij.navigation.ItemPresentation;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface AntlersBlockWrapper extends AntlersPsiElement {
@@ -15,6 +16,7 @@ public interface AntlersBlockWrapper extends AntlersPsiElement {
   @Nullable
   AntlersUnlessStatement getUnlessStatement();
 
+  @NotNull
   ItemPresentation getPresentation();
 
 }

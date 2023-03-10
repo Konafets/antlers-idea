@@ -17,6 +17,7 @@ public interface AntlersRecursiveChildrenNode extends AntlersPsiElement {
   @Nullable
   PsiElement getTIdentifier();
 
+  @NotNull
   ItemPresentation getPresentation();
 
 }

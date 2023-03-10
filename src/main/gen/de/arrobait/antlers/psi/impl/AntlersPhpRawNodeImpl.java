@@ -26,6 +26,7 @@ public class AntlersPhpRawNodeImpl extends ASTWrapperPsiElement implements Antle
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }

@@ -50,6 +50,7 @@ public class AntlersRecursiveChildrenNodeImpl extends ASTWrapperPsiElement imple
   }
 
   @Override
+  @NotNull
   public ItemPresentation getPresentation() {
     return AntlersPsiImplUtil.getPresentation(this);
   }
