@@ -7,6 +7,7 @@
 ### Added
 - Add support for LiveTemplates 
 - Add default LiveTemplates for `switch`, `if`, `if else` and `if elseif`. 
+- StructureView
 
 ### Changed
 - Optimize the Lexer by removing duplicate actions and use multiple states.
