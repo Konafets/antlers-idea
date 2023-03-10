@@ -4,7 +4,7 @@ import com.intellij.icons.AllIcons;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
+import com.intellij.psi.tree.TokenSet;
 import com.intellij.util.PlatformIcons;
 import de.arrobait.antlers.file.AntlersIcons;
 import de.arrobait.antlers.psi.*;
@@ -87,13 +87,6 @@ public final class AntlersPsiImplUtil {
 
             @Override
             @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = tine.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
-            }
-
-            @Override
-            @Nullable
             public Icon getIcon(boolean unused) {
                 return PlatformIcons.VARIABLE_ICON;
             }
@@ -105,13 +98,6 @@ public final class AntlersPsiImplUtil {
             @Override
             public String getPresentableText() {
                 return commentBlock.getText();
-            }
-
-            @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = commentBlock.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
             }
 
             @Override
@@ -129,13 +115,6 @@ public final class AntlersPsiImplUtil {
             }
 
             @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = tagSingle.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
-            }
-
-            @Override
             public Icon getIcon(boolean unused) {
                 return AllIcons.Nodes.Type;
             }
@@ -147,13 +126,6 @@ public final class AntlersPsiImplUtil {
             @Override
             public String getPresentableText() {
                 return tagPair.getName();
-            }
-
-            @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = tagPair.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
             }
 
             @Override
@@ -171,13 +143,6 @@ public final class AntlersPsiImplUtil {
             }
 
             @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = blockWrapper.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
-            }
-
-            @Override
             public Icon getIcon(boolean unused) {
                 return PlatformIcons.XML_TAG_ICON;
             }
@@ -189,13 +154,6 @@ public final class AntlersPsiImplUtil {
             @Override
             public String getPresentableText() {
                 return ifStatement.getName();
-            }
-
-            @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = ifStatement.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
             }
 
             @Override
@@ -211,14 +169,7 @@ public final class AntlersPsiImplUtil {
             public String getPresentableText() {
                 return unlessStatement.getName();
             }
-
-            @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = unlessStatement.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
-            }
-
+            
             @Override
             public Icon getIcon(boolean unused) {
                 return PlatformIcons.XML_TAG_ICON;
@@ -231,13 +182,6 @@ public final class AntlersPsiImplUtil {
             @Override
             public String getPresentableText() {
                 return switchNode.getName();
-            }
-
-            @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = switchNode.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
             }
 
             @Override
@@ -255,13 +199,6 @@ public final class AntlersPsiImplUtil {
             }
 
             @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = variableAssignmentNode.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
-            }
-
-            @Override
             public Icon getIcon(boolean unused) {
                 return PlatformIcons.VARIABLE_ICON;
             }
@@ -273,13 +210,6 @@ public final class AntlersPsiImplUtil {
             @Override
             public String getPresentableText() {
                 return noparseRegion.getName();
-            }
-
-            @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = noparseRegion.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
             }
 
             @Override
@@ -297,13 +227,6 @@ public final class AntlersPsiImplUtil {
             }
 
             @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = recursiveChildrenNode.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
-            }
-
-            @Override
             public Icon getIcon(boolean unused) {
                 return PlatformIcons.VARIABLE_ICON;
             }
@@ -318,13 +241,6 @@ public final class AntlersPsiImplUtil {
             }
 
             @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = phpEchoNode.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
-            }
-
-            @Override
             public Icon getIcon(boolean unused) {
                 return PhpIcons.PhpIcon;
             }
@@ -336,13 +252,6 @@ public final class AntlersPsiImplUtil {
             @Override
             public String getPresentableText() {
                 return rawNode.getText();
-            }
-
-            @Override
-            @Nullable
-            public String getLocationString() {
-                PsiFile containingFile = rawNode.getContainingFile();
-                return containingFile == null ? null : containingFile.getName();
             }
 
             @Override
