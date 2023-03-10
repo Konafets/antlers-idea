@@ -10,6 +10,7 @@
 
 ### Changed
 - Optimize the Lexer by removing duplicate actions and use multiple states.
+- Update plugin org.jetbrains.intellij to v1.13.2 #115
 
 ### Fixed
 - When creating a new Antles file via _New File_-Dialog do not append `.antlers.html` when the user already provides the extension in the dialog.
