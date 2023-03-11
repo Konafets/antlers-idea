@@ -110,7 +110,7 @@
 
     <actions>
         <action id="AddNewAntlersFile" class="de.arrobait.antlers.file.CreateAntlersFileAction">
-          <add-to-group group-id="NewGroup" anchor="first"/>
+          <add-to-group group-id="NewGroup" anchor="before" relative-to-action="FileTemplateSeparatorGroup"/>
         </action>
     </actions>
 
