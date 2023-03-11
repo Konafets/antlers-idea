@@ -72,7 +72,7 @@ abstract class AntlersFormatterTestCase extends BasePlatformTestCase implements 
     }
 
     void doStringBasedTest(@NonNls final String text, @NonNls String textAfter) throws IncorrectOperationException {
-        doTextTest(text, textAfter, "antlers.html", AntlersLanguage.getDefaultTemplateLang());
+        doTextTest(text, textAfter, AntlersFileType.DOT_DEFAULT_EXTENSION, AntlersLanguage.getDefaultTemplateLang());
     }
 
     void doTextTest(final String beforeText, String textAfter, String extension, LanguageFileType templateDataLanguageType) throws IncorrectOperationException {
