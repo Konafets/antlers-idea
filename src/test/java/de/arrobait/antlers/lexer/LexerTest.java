@@ -5,13 +5,13 @@ import com.intellij.openapi.util.Pair;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NonNls;
 import org.junit.Assert;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-import static de.arrobait.antlers.psi.AntlersTypes.T_LD;
-import static de.arrobait.antlers.psi.AntlersTypes.T_RD;
-import static com.intellij.psi.TokenType.WHITE_SPACE;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
 
+@RunWith(JUnit4.class)
 public abstract class LexerTest {
     private final Lexer lexer;
 
@@ -84,16 +84,4 @@ public abstract class LexerTest {
 
    		if (idx < expectedTokens.length) fail("Not enough tokens from lexer, expected " + expectedTokens.length + " but got only " + idx);
    	}
-
-    protected Pair ws() {
-        return Pair.create(WHITE_SPACE, " ");
-    }
-
-    protected Pair ld() {
-        return Pair.create(T_LD, "{{");
-    }
-
-    protected Pair rd() {
-        return Pair.create(T_RD, "}}");
-    }
 }

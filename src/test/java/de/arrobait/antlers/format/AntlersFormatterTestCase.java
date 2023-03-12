@@ -6,9 +6,9 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.impl.DocumentImpl;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
+import com.intellij.openapi.editor.impl.DocumentImpl;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.util.io.FileUtil;
@@ -24,9 +24,12 @@ import de.arrobait.antlers.AntlersLanguage;
 import de.arrobait.antlers.file.AntlersFileType;
 import de.arrobait.antlers.util.AntlersTestUtils;
 import org.jetbrains.annotations.NonNls;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.File;
 
+@RunWith(JUnit4.class)
 abstract class AntlersFormatterTestCase extends BasePlatformTestCase implements AntlersFormattingModelBuilderTest {
     private static final String TEST_DATA_PATH = new File(AntlersTestUtils.BASE_TEST_DATA_PATH, "formatter").getAbsolutePath();
 
@@ -123,7 +126,7 @@ abstract class AntlersFormatterTestCase extends BasePlatformTestCase implements 
         final Document doc = EditorFactory.getInstance().createDocument(actual);
         CommandProcessor.getInstance().executeCommand(getProject(), () -> ApplicationManager.getApplication().runWriteAction(() -> {
             ((DocumentImpl) doc).stripTrailingSpaces(getProject());
-        }), "formatting", null);
+        }), "Formatting", null);
 
         return doc.getText();
     }

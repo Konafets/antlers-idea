@@ -5,12 +5,15 @@ import com.intellij.ide.highlighter.HtmlFileType;
 import com.intellij.psi.formatter.xml.HtmlCodeStyleSettings;
 import de.arrobait.antlers.file.AntlersFileType;
 import org.jetbrains.annotations.NotNull;
+import org.junit.Ignore;
+import org.junit.Test;
 
 public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
 
     /**
      * Sanity check that we respect non-default (i.e. 4) indent sizes
      */
+    @Test
     public void testNonDefaultIndentSize() {
         int previousHtmlIndent = CodeStyle.getSettings(getProject()).getIndentOptions(HtmlFileType.INSTANCE).INDENT_SIZE;
         CodeStyle.getSettings(getProject()).getIndentOptions(HtmlFileType.INSTANCE).INDENT_SIZE = 2;
@@ -46,6 +49,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ foo }}
      * </pre>
      */
+    @Test
     public void testSimpleNode() {
         doStringBasedTest(
                 "{{ foo }}",
@@ -67,6 +71,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testSimpleBlock() {
         doStringBasedTest(
                 "{{ if true }}\n" +
@@ -91,7 +96,9 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ /if }}
      * </pre>
      */
-    public void _testSimpleBlock2() {
+    @Test
+    @Ignore
+    public void testSimpleBlock2() {
         doStringBasedTest(
                 "hello world{{ if true }}{{ bar }}{{ else }} bar {{ /if }}hello_world\n",
 
@@ -127,6 +134,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testNestedBlocks() {
         doStringBasedTest(
                 "{{ if true }}\n" +
@@ -161,6 +169,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * </div>
      * </pre>
      */
+    @Test
     public void testSimpleNodeInDiv() {
         doStringBasedTest(
                 "<div>\n" +
@@ -187,6 +196,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testMarkupInBlockNode() {
         doStringBasedTest(
                 "{{ if true }}\n" +
@@ -217,6 +227,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * </div>
      * </pre>
      */
+    @Test
     public void testSimpleBlockInDiv() {
         doStringBasedTest(
                 "<div>\n" +
@@ -251,6 +262,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * </div>
      * </pre>
      */
+    @Test
     public void testAttributeNodes() {
         doStringBasedTest(
                 "<div {{ foo }}>\n" +
@@ -285,6 +297,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * </div>
      * </pre>
      */
+    @Test
     public void testMixedContentInDiv1() {
         doStringBasedTest(
                 "<div>\n" +
@@ -319,6 +332,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * </div>
      * </pre>
      */
+    @Test
     public void testMixedContentInDiv2() {
         doStringBasedTest(
                 "<div>\n" +
@@ -353,6 +367,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testSimpleNodeInNestedDiv() {
         doStringBasedTest(
                 "{{ if true }}\n" +
@@ -391,6 +406,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testBlockNodeInNestedDiv() {
         doStringBasedTest(
                 "{{ if true }}\n" +
@@ -441,6 +457,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testNestedDivsInBlock() {
         doStringBasedTest(
                 "{{ if true }}\n" +
@@ -488,6 +505,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * </body>
      * </pre>
      */
+    @Test
     public void testFormattingInsideDoNotIndentElems1() {
         HtmlCodeStyleSettings settings = getHtmlSettings();
         settings.HTML_DO_NOT_INDENT_CHILDREN_OF = "body";
@@ -523,6 +541,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * </body>
      * </pre>
      */
+    @Test
     public void testFormattingInsideDoNotIndentElems2() {
         HtmlCodeStyleSettings settings = getHtmlSettings();
         settings.HTML_DO_NOT_INDENT_CHILDREN_OF = "body";
@@ -558,6 +577,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * </body>
      * </pre>
      */
+    @Test
     public void testFormattingInsideDoNotIndentElems3() {
         HtmlCodeStyleSettings settings = getHtmlSettings();
         settings.HTML_DO_NOT_INDENT_CHILDREN_OF = "body";
@@ -601,7 +621,9 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * </span>
      * </pre>
      */
-    public void _testFormattingInsideNestedDoNotIndentElems() {
+    @Test
+    @Ignore
+    public void testFormattingInsideNestedDoNotIndentElems() {
         HtmlCodeStyleSettings settings = getHtmlSettings();
         settings.HTML_DO_NOT_INDENT_CHILDREN_OF = "span";
 
@@ -638,6 +660,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{# FOO #}}
      * </pre>
      */
+    @Test
     public void testSingleComment() {
         doStringBasedTest(
                         "{{# FOO #}}\n",
@@ -661,6 +684,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testCommentInsideBlock() {
         doStringBasedTest(
                 "{{ if true }}\n" +
@@ -691,6 +715,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testCommentOutsideBlock() {
         doStringBasedTest(
                 "{{# FOO #}}\n" +

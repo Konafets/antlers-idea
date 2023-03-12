@@ -5,7 +5,6 @@ import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.psi.formatter.xml.HtmlCodeStyleSettings;
 import de.arrobait.antlers.AntlersLanguage;
-import de.arrobait.antlers.format.settings.AntlersCodeStyleSettings;
 
 /**
  * Provides a setup and tear down for tests to use to set up the app test fixture with
