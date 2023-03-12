@@ -71,7 +71,6 @@ public class AntlersSpacingProcessor {
         }
 
         final IElementType elementType = myNode.getElementType();
-        final IElementType parentType = myNode.getTreeParent() == null ? null : myNode.getTreeParent().getElementType();
         final ASTNode node1 = ((AbstractBlock) child1).getNode();
         final ASTNode node2 = ((AbstractBlock) child2).getNode();
 
@@ -81,7 +80,7 @@ public class AntlersSpacingProcessor {
                 return addZeroSpace();
             }
 
-            if (elementType == TAG_NODE_CLOSE && hasElementType(node1, T_SLASH)) {
+            if ((elementType == TAG_NODE_CLOSE || elementType == IF_CLOSE_NODE || elementType == UNLESS_CLOSE_NODE) && hasElementType(node1, T_SLASH)) {
                 return addZeroSpace();
             }
 

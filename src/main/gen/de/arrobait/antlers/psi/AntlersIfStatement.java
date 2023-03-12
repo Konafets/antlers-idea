@@ -7,19 +7,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface AntlersConditional extends PsiElement {
+public interface AntlersIfStatement extends PsiElement {
 
   @Nullable
-  AntlersBlockCloseNode getBlockCloseNode();
+  AntlersElseNode getElseNode();
 
   @NotNull
-  AntlersBlockOpenNode getBlockOpenNode();
+  List<AntlersElseifNode> getElseifNodeList();
 
   @Nullable
-  AntlersConditionalElse getConditionalElse();
+  AntlersIfCloseNode getIfCloseNode();
 
   @NotNull
-  List<AntlersConditionalElseif> getConditionalElseifList();
+  AntlersIfOpenNode getIfOpenNode();
 
   @NotNull
   List<AntlersTines> getTinesList();

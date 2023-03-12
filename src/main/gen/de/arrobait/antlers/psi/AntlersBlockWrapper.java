@@ -7,9 +7,12 @@ import org.jetbrains.annotations.Nullable;
 public interface AntlersBlockWrapper extends PsiElement {
 
   @Nullable
-  AntlersConditional getConditional();
+  AntlersIfStatement getIfStatement();
 
   @Nullable
   AntlersTagPair getTagPair();
+
+  @Nullable
+  AntlersUnlessStatement getUnlessStatement();
 
 }

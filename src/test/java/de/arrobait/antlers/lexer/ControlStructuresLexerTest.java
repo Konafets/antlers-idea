@@ -234,7 +234,8 @@ public class ControlStructuresLexerTest extends LexerTest {
                 T_COMMENT_CLOSE, "#}}",
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_END_IF, "/if",
+                T_SLASH, "/",
+                T_IF, "if",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -256,7 +257,8 @@ public class ControlStructuresLexerTest extends LexerTest {
                 T_COMMENT_CLOSE, "#}}",
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_END_UNLESS, "/unless",
+                T_SLASH, "/",
+                T_UNLESS, "unless",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -382,7 +384,8 @@ public class ControlStructuresLexerTest extends LexerTest {
                 OUTER_CONTENT, "\n  <p>It is quiet.</p>\n",
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_END_IF, "/if",
+                T_SLASH, "/",
+                T_IF, "if",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );

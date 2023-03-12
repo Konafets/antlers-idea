@@ -4,19 +4,21 @@ package de.arrobait.antlers.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import de.arrobait.antlers.psi.AntlersBlockCloseNode;
-import de.arrobait.antlers.psi.AntlersConditionalEnd;
+import de.arrobait.antlers.psi.AntlersIfCloseNode;
+import de.arrobait.antlers.psi.AntlersNodeCloser;
+import de.arrobait.antlers.psi.AntlersNodeOpener;
 import de.arrobait.antlers.psi.AntlersVisitor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class AntlersBlockCloseNodeImpl extends ASTWrapperPsiElement implements AntlersBlockCloseNode {
+public class AntlersIfCloseNodeImpl extends ASTWrapperPsiElement implements AntlersIfCloseNode {
 
-  public AntlersBlockCloseNodeImpl(@NotNull ASTNode node) {
+  public AntlersIfCloseNodeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitBlockCloseNode(this);
+    visitor.visitIfCloseNode(this);
   }
 
   @Override
@@ -26,9 +28,15 @@ public class AntlersBlockCloseNodeImpl extends ASTWrapperPsiElement implements A
   }
 
   @Override
+  @Nullable
+  public AntlersNodeCloser getNodeCloser() {
+    return findChildByClass(AntlersNodeCloser.class);
+  }
+
+  @Override
   @NotNull
-  public AntlersConditionalEnd getConditionalEnd() {
-    return findNotNullChildByClass(AntlersConditionalEnd.class);
+  public AntlersNodeOpener getNodeOpener() {
+    return findNotNullChildByClass(AntlersNodeOpener.class);
   }
 
 }

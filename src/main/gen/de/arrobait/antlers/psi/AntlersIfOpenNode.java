@@ -5,7 +5,15 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public interface AntlersConditionalElse extends PsiElement {
+import java.util.List;
+
+public interface AntlersIfOpenNode extends PsiElement {
+
+  @Nullable
+  AntlersExpr getExpr();
+
+  @NotNull
+  List<AntlersModifierList> getModifierListList();
 
   @Nullable
   AntlersNodeCloser getNodeCloser();

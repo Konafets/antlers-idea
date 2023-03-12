@@ -79,7 +79,7 @@ public final class AntlersPsiUtil {
      * @return An ancestor of type {@link AntlersBlockOpenNode} or null if none exists
      */
     public static PsiElement findParentOpenNodeElement(PsiElement element) {
-        return PsiTreeUtil.findFirstParent(element, true, element1 -> element1 instanceof AntlersBlockOpenNode || element1 instanceof AntlersTagNodeOpen);
+        return PsiTreeUtil.findFirstParent(element, true, element1 -> element1 instanceof AntlersIfOpenNode || element1 instanceof AntlersUnlessOpenNode || element1 instanceof AntlersTagNodeOpen);
     }
 
     /**
@@ -93,7 +93,7 @@ public final class AntlersPsiUtil {
      * @return An ancestor of type {@link AntlersBlockCloseNode} or null if none exists
      */
     public static PsiElement findParentCloseNodeElement(PsiElement element) {
-        return PsiTreeUtil.findFirstParent(element, true, element1 -> (element1 instanceof AntlersBlockCloseNode || element1 instanceof AntlersTagNodeClose));
+        return PsiTreeUtil.findFirstParent(element, true, element1 -> (element1 instanceof AntlersIfCloseNode || element1 instanceof AntlersUnlessCloseNode || element1 instanceof AntlersTagNodeClose));
     }
 
     public static AntlersNodeCloser findNodeCloserElement(PsiElement element) {

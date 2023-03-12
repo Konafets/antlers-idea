@@ -63,6 +63,8 @@ public class AntlersFormattingModelBuilder extends TemplateLanguageFormattingMod
 
         if (AntlersTokenSets.NODES.contains(elementType)) {
             block = new AntlersNodeBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy);
+        } else if (AntlersTokenSets.CONDITIONAL_BLOCKS.contains(elementType)) {
+            block = new AntlersConditionalBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy);
         } else if (elementType == COMMENT_BLOCK) {
             block = new AntlersCommentBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy);
         } else {

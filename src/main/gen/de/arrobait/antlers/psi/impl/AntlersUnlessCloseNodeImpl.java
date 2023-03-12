@@ -4,21 +4,21 @@ package de.arrobait.antlers.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import de.arrobait.antlers.psi.AntlersConditionalElse;
 import de.arrobait.antlers.psi.AntlersNodeCloser;
 import de.arrobait.antlers.psi.AntlersNodeOpener;
+import de.arrobait.antlers.psi.AntlersUnlessCloseNode;
 import de.arrobait.antlers.psi.AntlersVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class AntlersConditionalElseImpl extends ASTWrapperPsiElement implements AntlersConditionalElse {
+public class AntlersUnlessCloseNodeImpl extends ASTWrapperPsiElement implements AntlersUnlessCloseNode {
 
-  public AntlersConditionalElseImpl(@NotNull ASTNode node) {
+  public AntlersUnlessCloseNodeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitConditionalElse(this);
+    visitor.visitUnlessCloseNode(this);
   }
 
   @Override

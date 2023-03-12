@@ -4,27 +4,39 @@ package de.arrobait.antlers.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import de.arrobait.antlers.psi.AntlersConditionalEnd;
-import de.arrobait.antlers.psi.AntlersNodeCloser;
-import de.arrobait.antlers.psi.AntlersNodeOpener;
-import de.arrobait.antlers.psi.AntlersVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
+import de.arrobait.antlers.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class AntlersConditionalEndImpl extends ASTWrapperPsiElement implements AntlersConditionalEnd {
+import java.util.List;
 
-  public AntlersConditionalEndImpl(@NotNull ASTNode node) {
+public class AntlersIfOpenNodeImpl extends ASTWrapperPsiElement implements AntlersIfOpenNode {
+
+  public AntlersIfOpenNodeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitConditionalEnd(this);
+    visitor.visitIfOpenNode(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof AntlersVisitor) accept((AntlersVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public AntlersExpr getExpr() {
+    return findChildByClass(AntlersExpr.class);
+  }
+
+  @Override
+  @NotNull
+  public List<AntlersModifierList> getModifierListList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersModifierList.class);
   }
 
   @Override

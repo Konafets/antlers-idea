@@ -4,10 +4,7 @@ package de.arrobait.antlers.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import de.arrobait.antlers.psi.AntlersBlockWrapper;
-import de.arrobait.antlers.psi.AntlersConditional;
-import de.arrobait.antlers.psi.AntlersTagPair;
-import de.arrobait.antlers.psi.AntlersVisitor;
+import de.arrobait.antlers.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,14 +26,20 @@ public class AntlersBlockWrapperImpl extends ASTWrapperPsiElement implements Ant
 
   @Override
   @Nullable
-  public AntlersConditional getConditional() {
-    return findChildByClass(AntlersConditional.class);
+  public AntlersIfStatement getIfStatement() {
+    return findChildByClass(AntlersIfStatement.class);
   }
 
   @Override
   @Nullable
   public AntlersTagPair getTagPair() {
     return findChildByClass(AntlersTagPair.class);
+  }
+
+  @Override
+  @Nullable
+  public AntlersUnlessStatement getUnlessStatement() {
+    return findChildByClass(AntlersUnlessStatement.class);
   }
 
 }

@@ -6,7 +6,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.tree.IElementType;
 import de.arrobait.antlers.psi.AntlersPsiUtil;
 
-import static de.arrobait.antlers.psi.AntlersTypes.CONDITIONAL_IF;
+import static de.arrobait.antlers.psi.AntlersTypes.*;
 
 public class AntlersWrappingProcessor {
     private final ASTNode myNode;
@@ -19,7 +19,7 @@ public class AntlersWrappingProcessor {
         final IElementType childType = child.getElementType();
         final IElementType elementType = myNode.getElementType();
 
-        if (AntlersPsiUtil.hasElementType(myNode, CONDITIONAL_IF)) {
+        if (AntlersPsiUtil.hasElementType(myNode, IF_STATEMENT) || AntlersPsiUtil.hasElementType(myNode, UNLESS_STATEMENT)) {
             return Wrap.createWrap(WrapType.ALWAYS, false);
         }
 //        if (isAttribute(child)) {

@@ -45,15 +45,13 @@ public class AntlersTokenSets {
 
     public static final TokenSet NODES = TokenSet.create(
             AntlersTypes.TINE,
-            BLOCK_OPEN_NODE,
             TAG_SINGLE
     );
 
-//    public static TokenSet BLOCKS = TokenSet.create(
-//            SWITCH_CASE,
-//            TAG_PAIR,
-//            CONDITIONAL
-//    );
+    public static final TokenSet CONDITIONAL_BLOCKS = TokenSet.create(
+            IF_OPEN_NODE,
+            UNLESS_OPEN_NODE
+    );
 
     public static final TokenSet IDENTIFIER = TokenSet.create(T_IDENTIFIER);
 

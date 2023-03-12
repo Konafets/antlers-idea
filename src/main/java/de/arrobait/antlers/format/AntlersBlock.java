@@ -110,7 +110,7 @@ public class AntlersBlock extends AntlersAbstractBlock {
         boolean parentInstanceOfDataLangBlockWrapper = parent instanceof DataLanguageBlockWrapper;
 
         if (newChildIndex == 0) {
-            if (parentNode.getElementType() == CONDITIONAL) {
+            if (parentNode.getElementType() == IF_STATEMENT || parentNode.getElementType() == UNLESS_STATEMENT) {
                 if (elementType == TINES) {
                     return new ChildAttributes(Indent.getNoneIndent(), null);
                 } else {
@@ -123,7 +123,7 @@ public class AntlersBlock extends AntlersAbstractBlock {
             return new ChildAttributes(Indent.getNoneIndent(), null);
         }
 
-        if ((elementType == AntlersTypes.BLOCK_WRAPPER || elementType == CONDITIONAL || elementType == TAG_PAIR)
+        if ((elementType == AntlersTypes.BLOCK_WRAPPER || elementType == IF_STATEMENT || elementType == UNLESS_STATEMENT || elementType == TAG_PAIR)
                 || (parentInstanceOfDataLangBlockWrapper && (elementType != TINES || elementType != TAG_SINGLE || myNode.getTreeNext() instanceof PsiErrorElement))) {
           return new ChildAttributes(Indent.getNormalIndent(), null);
         }

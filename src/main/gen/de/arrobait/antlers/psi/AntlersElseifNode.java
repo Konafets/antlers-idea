@@ -2,20 +2,23 @@
 package de.arrobait.antlers.psi;
 
 import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public interface AntlersConditionalEnd extends PsiElement {
+import java.util.List;
+
+public interface AntlersElseifNode extends PsiElement {
 
   @Nullable
-  AntlersIfCloseNode getIfCloseNode();
+  AntlersExpr getExpr();
+
+  @NotNull
+  List<AntlersModifierList> getModifierListList();
 
   @Nullable
   AntlersNodeCloser getNodeCloser();
 
-  @Nullable
+  @NotNull
   AntlersNodeOpener getNodeOpener();
-
-  @Nullable
-  AntlersUnlessCloseNode getUnlessCloseNode();
 
 }

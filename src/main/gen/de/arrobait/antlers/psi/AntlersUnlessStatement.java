@@ -7,18 +7,21 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface AntlersConditionalElseif extends PsiElement {
+public interface AntlersUnlessStatement extends PsiElement {
 
   @Nullable
-  AntlersExpr getExpr();
+  AntlersElseNode getElseNode();
 
   @NotNull
-  List<AntlersModifierList> getModifierListList();
+  List<AntlersElseifNode> getElseifNodeList();
+
+  @NotNull
+  List<AntlersTines> getTinesList();
 
   @Nullable
-  AntlersNodeCloser getNodeCloser();
+  AntlersUnlessCloseNode getUnlessCloseNode();
 
   @NotNull
-  AntlersNodeOpener getNodeOpener();
+  AntlersUnlessOpenNode getUnlessOpenNode();
 
 }
