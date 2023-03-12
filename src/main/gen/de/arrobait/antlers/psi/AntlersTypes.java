@@ -12,23 +12,17 @@ public interface AntlersTypes {
   IElementType AND_EXPR = new AntlersElementType("AND_EXPR");
   IElementType ANTLERS_CLOSE_NODE = new AntlersElementType("ANTLERS_CLOSE_NODE");
   IElementType ARRAY = new AntlersElementType("ARRAY");
-  IElementType BLOCK_CLOSE_NODE = new AntlersElementType("BLOCK_CLOSE_NODE");
-  IElementType BLOCK_OPEN_NODE = new AntlersElementType("BLOCK_OPEN_NODE");
   IElementType BLOCK_WRAPPER = new AntlersElementType("BLOCK_WRAPPER");
   IElementType BOOLEAN_LITERAL = new AntlersElementType("BOOLEAN_LITERAL");
   IElementType BRACKET_PROPERTY_ACCESS = new AntlersElementType("BRACKET_PROPERTY_ACCESS");
   IElementType COLON_PROPERTY_ACCESS = new AntlersElementType("COLON_PROPERTY_ACCESS");
   IElementType COMMENT_BLOCK = new AntlersElementType("COMMENT_BLOCK");
   IElementType CONCAT_EXPR = new AntlersElementType("CONCAT_EXPR");
-  IElementType CONDITIONAL = new AntlersElementType("CONDITIONAL");
-  IElementType CONDITIONAL_ELSE = new AntlersElementType("CONDITIONAL_ELSE");
-  IElementType CONDITIONAL_ELSEIF = new AntlersElementType("CONDITIONAL_ELSEIF");
-  IElementType CONDITIONAL_END = new AntlersElementType("CONDITIONAL_END");
-  IElementType CONDITIONAL_IF = new AntlersElementType("CONDITIONAL_IF");
-  IElementType CONDITIONAL_UNLESS = new AntlersElementType("CONDITIONAL_UNLESS");
   IElementType DEFAULT_CASE = new AntlersElementType("DEFAULT_CASE");
   IElementType DIV_EXPR = new AntlersElementType("DIV_EXPR");
   IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
+  IElementType ELSEIF_NODE = new AntlersElementType("ELSEIF_NODE");
+  IElementType ELSE_NODE = new AntlersElementType("ELSE_NODE");
   IElementType EQ_EXPR = new AntlersElementType("EQ_EXPR");
   IElementType EXPR = new AntlersElementType("EXPR");
   IElementType GATEKEEPER_EXPR = new AntlersElementType("GATEKEEPER_EXPR");
@@ -39,6 +33,9 @@ public interface AntlersTypes {
   IElementType GTE_EXPR = new AntlersElementType("GTE_EXPR");
   IElementType GT_EXPR = new AntlersElementType("GT_EXPR");
   IElementType IDENT_EXPR = new AntlersElementType("IDENT_EXPR");
+  IElementType IF_CLOSE_NODE = new AntlersElementType("IF_CLOSE_NODE");
+  IElementType IF_OPEN_NODE = new AntlersElementType("IF_OPEN_NODE");
+  IElementType IF_STATEMENT = new AntlersElementType("IF_STATEMENT");
   IElementType INTERPOLATED_STATEMENT = new AntlersElementType("INTERPOLATED_STATEMENT");
   IElementType LITERAL_EXPR = new AntlersElementType("LITERAL_EXPR");
   IElementType LTE_EXPR = new AntlersElementType("LTE_EXPR");
@@ -97,6 +94,9 @@ public interface AntlersTypes {
   IElementType UNARY_FACTORIAL_EXPR = new AntlersElementType("UNARY_FACTORIAL_EXPR");
   IElementType UNARY_MINUS_EXPR = new AntlersElementType("UNARY_MINUS_EXPR");
   IElementType UNARY_NOT_EXPR = new AntlersElementType("UNARY_NOT_EXPR");
+  IElementType UNLESS_CLOSE_NODE = new AntlersElementType("UNLESS_CLOSE_NODE");
+  IElementType UNLESS_OPEN_NODE = new AntlersElementType("UNLESS_OPEN_NODE");
+  IElementType UNLESS_STATEMENT = new AntlersElementType("UNLESS_STATEMENT");
   IElementType VARIABLE = new AntlersElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT_NODE = new AntlersElementType("VARIABLE_ASSIGNMENT_NODE");
   IElementType VARIABLE_ATTRIBUTE_ASSIGNMENT = new AntlersElementType("VARIABLE_ATTRIBUTE_ASSIGNMENT");
@@ -128,7 +128,6 @@ public interface AntlersTypes {
   IElementType T_GROUP_BY = new AntlersTokenType("groupby");
   IElementType T_IDENTIFIER = new AntlersTokenType("T_IDENTIFIER");
   IElementType T_IF = new AntlersTokenType("if");
-  IElementType T_IF_END = new AntlersTokenType("/if");
   IElementType T_INTEGER_NUMBER = new AntlersTokenType("T_INTEGER_NUMBER");
   IElementType T_LD = new AntlersTokenType("{{");
   IElementType T_LEFT_BRACE = new AntlersTokenType("{");
@@ -213,12 +212,6 @@ public interface AntlersTypes {
       else if (type == ARRAY) {
         return new AntlersArrayImpl(node);
       }
-      else if (type == BLOCK_CLOSE_NODE) {
-        return new AntlersBlockCloseNodeImpl(node);
-      }
-      else if (type == BLOCK_OPEN_NODE) {
-        return new AntlersBlockOpenNodeImpl(node);
-      }
       else if (type == BLOCK_WRAPPER) {
         return new AntlersBlockWrapperImpl(node);
       }
@@ -237,24 +230,6 @@ public interface AntlersTypes {
       else if (type == CONCAT_EXPR) {
         return new AntlersConcatExprImpl(node);
       }
-      else if (type == CONDITIONAL) {
-        return new AntlersConditionalImpl(node);
-      }
-      else if (type == CONDITIONAL_ELSE) {
-        return new AntlersConditionalElseImpl(node);
-      }
-      else if (type == CONDITIONAL_ELSEIF) {
-        return new AntlersConditionalElseifImpl(node);
-      }
-      else if (type == CONDITIONAL_END) {
-        return new AntlersConditionalEndImpl(node);
-      }
-      else if (type == CONDITIONAL_IF) {
-        return new AntlersConditionalIfImpl(node);
-      }
-      else if (type == CONDITIONAL_UNLESS) {
-        return new AntlersConditionalUnlessImpl(node);
-      }
       else if (type == DEFAULT_CASE) {
         return new AntlersDefaultCaseImpl(node);
       }
@@ -263,6 +238,12 @@ public interface AntlersTypes {
       }
       else if (type == DOT_PROPERTY_ACCESS) {
         return new AntlersDotPropertyAccessImpl(node);
+      }
+      else if (type == ELSEIF_NODE) {
+        return new AntlersElseifNodeImpl(node);
+      }
+      else if (type == ELSE_NODE) {
+        return new AntlersElseNodeImpl(node);
       }
       else if (type == EQ_EXPR) {
         return new AntlersEqExprImpl(node);
@@ -290,6 +271,15 @@ public interface AntlersTypes {
       }
       else if (type == IDENT_EXPR) {
         return new AntlersIdentExprImpl(node);
+      }
+      else if (type == IF_CLOSE_NODE) {
+        return new AntlersIfCloseNodeImpl(node);
+      }
+      else if (type == IF_OPEN_NODE) {
+        return new AntlersIfOpenNodeImpl(node);
+      }
+      else if (type == IF_STATEMENT) {
+        return new AntlersIfStatementImpl(node);
       }
       else if (type == INTERPOLATED_STATEMENT) {
         return new AntlersInterpolatedStatementImpl(node);
@@ -464,6 +454,15 @@ public interface AntlersTypes {
       }
       else if (type == UNARY_NOT_EXPR) {
         return new AntlersUnaryNotExprImpl(node);
+      }
+      else if (type == UNLESS_CLOSE_NODE) {
+        return new AntlersUnlessCloseNodeImpl(node);
+      }
+      else if (type == UNLESS_OPEN_NODE) {
+        return new AntlersUnlessOpenNodeImpl(node);
+      }
+      else if (type == UNLESS_STATEMENT) {
+        return new AntlersUnlessStatementImpl(node);
       }
       else if (type == VARIABLE) {
         return new AntlersVariableImpl(node);

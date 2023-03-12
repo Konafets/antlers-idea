@@ -11,14 +11,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AntlersConditionalImpl extends ASTWrapperPsiElement implements AntlersConditional {
+public class AntlersIfStatementImpl extends ASTWrapperPsiElement implements AntlersIfStatement {
 
-  public AntlersConditionalImpl(@NotNull ASTNode node) {
+  public AntlersIfStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitConditional(this);
+    visitor.visitIfStatement(this);
   }
 
   @Override
@@ -29,26 +29,26 @@ public class AntlersConditionalImpl extends ASTWrapperPsiElement implements Antl
 
   @Override
   @Nullable
-  public AntlersBlockCloseNode getBlockCloseNode() {
-    return findChildByClass(AntlersBlockCloseNode.class);
+  public AntlersElseNode getElseNode() {
+    return findChildByClass(AntlersElseNode.class);
   }
 
   @Override
   @NotNull
-  public AntlersBlockOpenNode getBlockOpenNode() {
-    return findNotNullChildByClass(AntlersBlockOpenNode.class);
+  public List<AntlersElseifNode> getElseifNodeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersElseifNode.class);
   }
 
   @Override
   @Nullable
-  public AntlersConditionalElse getConditionalElse() {
-    return findChildByClass(AntlersConditionalElse.class);
+  public AntlersIfCloseNode getIfCloseNode() {
+    return findChildByClass(AntlersIfCloseNode.class);
   }
 
   @Override
   @NotNull
-  public List<AntlersConditionalElseif> getConditionalElseifList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersConditionalElseif.class);
+  public AntlersIfOpenNode getIfOpenNode() {
+    return findNotNullChildByClass(AntlersIfOpenNode.class);
   }
 
   @Override

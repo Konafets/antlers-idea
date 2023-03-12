@@ -80,7 +80,6 @@
         T_END_IF='endif'
         T_ELSE_IF='elseif'
         T_ELSE='else'
-        T_IF_END='/if'
         T_UNLESS='unless'
         T_END_UNLESS='endunless'
 
@@ -192,23 +191,27 @@ taxonomy_term ::= string_literal
 
 recursive_children_node ::= node_opener T_STAR T_RECURSIVE_CHILDREN [':' T_IDENTIFIER] T_STAR node_closer { pin=3 }
 
-block_wrapper ::= conditional
+block_wrapper ::= if_statement
+                | unless_statement
                 | tag_pair
-block_open_node ::= conditional_start
-block_close_node ::= conditional_end
 
 /**
  * Conditional
  */
-conditional               ::= block_open_node tines (conditional_elseif tines)* (conditional_else tines)? block_close_node { pin=1 }
-private conditional_start ::= (conditional_if | conditional_unless)
-conditional_end           ::= (slash_unless_if | endunless_endif)
-conditional_if            ::= node_opener 'if' expr ('|' modifier_list)* node_closer { pin=2 }
-conditional_unless        ::= node_opener 'unless' expr ('|' modifier_list)* node_closer { pin=2 }
-conditional_elseif        ::= node_opener 'elseif' expr ('|' modifier_list)* node_closer { pin=2 }
-conditional_else          ::= node_opener 'else' node_closer { pin=2 }
-private slash_unless_if   ::= node_opener (T_END_UNLESS | T_END_IF) node_closer { pin=2 }
-private endunless_endif   ::= node_opener ('endunless' | 'endif') node_closer { pin=2 }
+if_statement ::= if_open_node tines (elseif_node tines)* [else_node tines] if_close_node { pin=1 }
+if_open_node ::= node_opener 'if' conditional_node_signature node_closer { pin=2 }
+elseif_node ::= node_opener 'elseif' conditional_node_signature node_closer { pin=2 }
+private conditional_node_signature ::= expr ('|' modifier_list)*
+else_node ::= node_opener 'else' node_closer { pin=2 }
+if_close_node ::= node_opener (close_if | end_if) node_closer { pin=2 }
+private close_if ::= '/' 'if' { pin=2 }
+private end_if ::= 'endif'
+
+unless_statement ::= unless_open_node tines (elseif_node tines)* [else_node tines] unless_close_node { pin=1 }
+unless_open_node ::= node_opener 'unless' conditional_node_signature node_closer { pin=2 }
+unless_close_node ::= node_opener (close_unless|end_unless) node_closer  { pin=2 }
+private close_unless ::= '/' 'unless' { pin=2 }
+private end_unless ::= 'endunless'
 
 switch_node  ::= node_opener switch_tag node_closer { pin=2 }
 switch_tag   ::= 'switch' '(' switch_case+ default_case? ')' { pin=1}

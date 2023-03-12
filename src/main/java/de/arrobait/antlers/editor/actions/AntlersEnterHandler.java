@@ -10,6 +10,7 @@ import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import de.arrobait.antlers.file.AntlersFileType;
 import de.arrobait.antlers.psi.AntlersFile;
 import de.arrobait.antlers.psi.AntlersPsiUtil;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +31,7 @@ public class AntlersEnterHandler extends EnterHandlerDelegateAdapter {
          * <caret>
          * {{/foo}}
          *
-         * (Note: <caret> me be indented depending on formatter settings.)
+         * (Note: <caret> may be indented depending on formatter settings.)
          */
         if (file instanceof AntlersFile && isBetweenAntlersNodes(editor, file, caretOffset.get())) {
             originalHandler.execute(editor, editor.getCaretModel().getCurrentCaret(), dataContext);

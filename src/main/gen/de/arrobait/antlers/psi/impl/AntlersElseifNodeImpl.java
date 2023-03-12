@@ -11,14 +11,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AntlersConditionalIfImpl extends ASTWrapperPsiElement implements AntlersConditionalIf {
+public class AntlersElseifNodeImpl extends ASTWrapperPsiElement implements AntlersElseifNode {
 
-  public AntlersConditionalIfImpl(@NotNull ASTNode node) {
+  public AntlersElseifNodeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AntlersVisitor visitor) {
-    visitor.visitConditionalIf(this);
+    visitor.visitElseifNode(this);
   }
 
   @Override

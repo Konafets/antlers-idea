@@ -215,14 +215,12 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "@"                  { return T_AT; }
 
     // Control
-    {IF}                 { return T_IF; }
+    "if"                 { return T_IF; }
     "elseif"             { return T_ELSE_IF; }
     "else"               { return T_ELSE; }
     "endif"              { return T_END_IF; }
-    {SLASH} {IF}         { return T_END_IF; }
     "unless"             { return T_UNLESS; }
     "endunless"          { return T_END_UNLESS; }
-    {SLASH} {UNLESS}     { return T_END_UNLESS; }
 
     // Antlers supports a switch construct and a switch Tag. We need to distinguish between those two. Considering that the
     // switch in the control structure is followed by an opening parenthesis, we can use the `/` lookahead of Flex.

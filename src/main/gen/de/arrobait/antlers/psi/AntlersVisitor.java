@@ -23,14 +23,6 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitBlockCloseNode(@NotNull AntlersBlockCloseNode o) {
-    visitPsiElement(o);
-  }
-
-  public void visitBlockOpenNode(@NotNull AntlersBlockOpenNode o) {
-    visitPsiElement(o);
-  }
-
   public void visitBlockWrapper(@NotNull AntlersBlockWrapper o) {
     visitPsiElement(o);
   }
@@ -55,30 +47,6 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
-  public void visitConditional(@NotNull AntlersConditional o) {
-    visitPsiElement(o);
-  }
-
-  public void visitConditionalElse(@NotNull AntlersConditionalElse o) {
-    visitPsiElement(o);
-  }
-
-  public void visitConditionalElseif(@NotNull AntlersConditionalElseif o) {
-    visitPsiElement(o);
-  }
-
-  public void visitConditionalEnd(@NotNull AntlersConditionalEnd o) {
-    visitPsiElement(o);
-  }
-
-  public void visitConditionalIf(@NotNull AntlersConditionalIf o) {
-    visitPsiElement(o);
-  }
-
-  public void visitConditionalUnless(@NotNull AntlersConditionalUnless o) {
-    visitPsiElement(o);
-  }
-
   public void visitDefaultCase(@NotNull AntlersDefaultCase o) {
     visitPsiElement(o);
   }
@@ -88,6 +56,14 @@ public class AntlersVisitor extends PsiElementVisitor {
   }
 
   public void visitDotPropertyAccess(@NotNull AntlersDotPropertyAccess o) {
+    visitPsiElement(o);
+  }
+
+  public void visitElseNode(@NotNull AntlersElseNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitElseifNode(@NotNull AntlersElseifNode o) {
     visitPsiElement(o);
   }
 
@@ -129,6 +105,18 @@ public class AntlersVisitor extends PsiElementVisitor {
 
   public void visitIdentExpr(@NotNull AntlersIdentExpr o) {
     visitExpr(o);
+  }
+
+  public void visitIfCloseNode(@NotNull AntlersIfCloseNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIfOpenNode(@NotNull AntlersIfOpenNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIfStatement(@NotNull AntlersIfStatement o) {
+    visitPsiElement(o);
   }
 
   public void visitInterpolatedStatement(@NotNull AntlersInterpolatedStatement o) {
@@ -361,6 +349,18 @@ public class AntlersVisitor extends PsiElementVisitor {
 
   public void visitUnaryNotExpr(@NotNull AntlersUnaryNotExpr o) {
     visitExpr(o);
+  }
+
+  public void visitUnlessCloseNode(@NotNull AntlersUnlessCloseNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitUnlessOpenNode(@NotNull AntlersUnlessOpenNode o) {
+    visitPsiElement(o);
+  }
+
+  public void visitUnlessStatement(@NotNull AntlersUnlessStatement o) {
+    visitPsiElement(o);
   }
 
   public void visitVariable(@NotNull AntlersVariable o) {
