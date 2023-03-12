@@ -3,7 +3,6 @@ package de.arrobait.antlers.psi.impl
 import com.intellij.icons.AllIcons
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.TokenSet
 import com.intellij.util.PlatformIcons
 import de.arrobait.antlers.file.AntlersIcons
 import de.arrobait.antlers.psi.*
@@ -17,7 +16,7 @@ object AntlersPsiImplUtil {
 
         when (element) {
             is AntlersSwitchNode -> {
-                name = "{{ " + element.nameIdentifier!!.text + " }}";
+                name = "{{ " + element.nameIdentifier!!.text + " }}"
             }
 
             is AntlersVariableAssignmentNode, is AntlersPhpEchoNode, is AntlersPhpRawNode -> {
@@ -51,14 +50,14 @@ object AntlersPsiImplUtil {
 
     @JvmStatic
     fun getNameIdentifier(element: AntlersIfStatement): PsiElement? {
-        val keyNode = element.node.firstChildNode.findChildByType(AntlersTypes.IF_STATEMENT)
+        val keyNode = element.node.firstChildNode
 
         return keyNode?.psi
     }
 
     @JvmStatic
     fun getNameIdentifier(element: AntlersUnlessStatement): PsiElement? {
-        val keyNode = element.node.firstChildNode.findChildByType(AntlersTypes.UNLESS_STATEMENT)
+        val keyNode = element.node.firstChildNode
 
         return keyNode?.psi
     }
@@ -126,7 +125,7 @@ object AntlersPsiImplUtil {
     @JvmStatic
     fun getPresentation(node: AntlersTagPair): ItemPresentation {
         return object : ItemPresentation {
-            override fun getPresentableText(): String? {
+            override fun getPresentableText(): String {
                 return node.name
             }
 
@@ -152,7 +151,7 @@ object AntlersPsiImplUtil {
     @JvmStatic
     fun getPresentation(node: AntlersIfStatement): ItemPresentation {
         return object : ItemPresentation {
-            override fun getPresentableText(): String? {
+            override fun getPresentableText(): String {
                 return node.name
             }
 
@@ -165,7 +164,7 @@ object AntlersPsiImplUtil {
     @JvmStatic
     fun getPresentation(node: AntlersUnlessStatement): ItemPresentation {
         return object : ItemPresentation {
-            override fun getPresentableText(): String? {
+            override fun getPresentableText(): String {
                 return node.name
             }
 
