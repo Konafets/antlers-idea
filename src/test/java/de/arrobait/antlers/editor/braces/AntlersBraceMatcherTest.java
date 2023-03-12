@@ -66,7 +66,7 @@ public class AntlersBraceMatcherTest extends BasePlatformTestCase {
         String caretIndicator = "<caret>";
         String textWithCaret = new StringBuilder(fileText).insert(caretPosition, caretIndicator).toString();
 
-        myFixture.configureByText(AntlersFileType.INSTANCE, textWithCaret);
+        myFixture.configureByText(AntlersFileType.Companion.getINSTANCE(), textWithCaret);
 
         boolean caretFirst = expectedMatchBracePosition > caretPosition;
         int actualBraceMatchPosition = BraceMatchingUtil.getMatchedBraceOffset(myFixture.getEditor(), caretFirst, myFixture.getFile());

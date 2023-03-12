@@ -34,7 +34,7 @@ abstract class AntlersFormatterTestCase extends BasePlatformTestCase implements 
     private static final String TEST_DATA_PATH = new File(AntlersTestUtils.BASE_TEST_DATA_PATH, "formatter").getAbsolutePath();
 
     protected String getFileExtension() {
-        return AntlersFileType.DOT_DEFAULT_EXTENSION;
+        return AntlersFileType.Companion.getDOT_DEFAULT_EXTENSION();
     }
 
     protected FormatterTestSettings formatterTestSettings;
@@ -75,7 +75,7 @@ abstract class AntlersFormatterTestCase extends BasePlatformTestCase implements 
     }
 
     void doStringBasedTest(@NonNls final String text, @NonNls String textAfter) throws IncorrectOperationException {
-        doTextTest(text, textAfter, AntlersFileType.DOT_DEFAULT_EXTENSION, AntlersLanguage.getDefaultTemplateLang());
+        doTextTest(text, textAfter, AntlersFileType.Companion.getDOT_DEFAULT_EXTENSION(), AntlersLanguage.getDefaultTemplateLang());
     }
 
     void doTextTest(final String beforeText, String textAfter, String extension, LanguageFileType templateDataLanguageType) throws IncorrectOperationException {

@@ -18,8 +18,8 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
         int previousHtmlIndent = CodeStyle.getSettings(getProject()).getIndentOptions(HtmlFileType.INSTANCE).INDENT_SIZE;
         CodeStyle.getSettings(getProject()).getIndentOptions(HtmlFileType.INSTANCE).INDENT_SIZE = 2;
 
-        int previousAntlersIndent = CodeStyle.getSettings(getProject()).getIndentOptions(AntlersFileType.INSTANCE).INDENT_SIZE;
-        CodeStyle.getSettings(getProject()).getIndentOptions(AntlersFileType.INSTANCE).INDENT_SIZE = 2;
+        int previousAntlersIndent = CodeStyle.getSettings(getProject()).getIndentOptions(AntlersFileType.Companion.getINSTANCE()).INDENT_SIZE;
+        CodeStyle.getSettings(getProject()).getIndentOptions(AntlersFileType.Companion.getINSTANCE()).INDENT_SIZE = 2;
 
         doStringBasedTest(
                 "{{ if true }}\n" +
@@ -36,7 +36,7 @@ public class AntlersFormatterIndentTest extends AntlersFormatterTestCase {
         );
 
         CodeStyle.getSettings(getProject()).getIndentOptions(HtmlFileType.INSTANCE).INDENT_SIZE = previousHtmlIndent;
-        CodeStyle.getSettings(getProject()).getIndentOptions(AntlersFileType.INSTANCE).INDENT_SIZE = previousAntlersIndent;
+        CodeStyle.getSettings(getProject()).getIndentOptions(AntlersFileType.Companion.getINSTANCE()).INDENT_SIZE = previousAntlersIndent;
     }
 
     /**

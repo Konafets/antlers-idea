@@ -10,7 +10,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class AntlersModifierCompletionTest extends BasePlatformTestCase {
     public void doBasicTest(String text, String... expected) {
-        myFixture.configureByText(AntlersFileType.INSTANCE, text);
+        myFixture.configureByText(AntlersFileType.Companion.getINSTANCE(), text);
         myFixture.complete(CompletionType.BASIC);
         assertContainsElements(myFixture.getLookupElementStrings(), expected);
     }

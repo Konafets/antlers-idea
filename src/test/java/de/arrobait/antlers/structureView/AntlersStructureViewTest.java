@@ -215,7 +215,7 @@ public class AntlersStructureViewTest extends BasePlatformTestCase {
     }
 
     protected String getFileExtension() {
-        return AntlersFileType.DOT_DEFAULT_EXTENSION;
+        return AntlersFileType.Companion.getDOT_DEFAULT_EXTENSION();
     }
 
     private void doTest(final String expected) {
@@ -227,7 +227,7 @@ public class AntlersStructureViewTest extends BasePlatformTestCase {
     }
 
     private void doTestTreeStructure(@NotNull Consumer<StructureViewModel> consumer) throws Exception {
-        myFixture.configureByText(AntlersFileType.INSTANCE, loadFile(getTestName(false) + getFileExtension()));
+        myFixture.configureByText(AntlersFileType.Companion.getINSTANCE(), loadFile(getTestName(false) + getFileExtension()));
         final StructureViewBuilder builder = LanguageStructureViewBuilder.INSTANCE.getStructureViewBuilder(myFixture.getFile());
         assertNotNull(builder);
         StructureViewComponent component = null;

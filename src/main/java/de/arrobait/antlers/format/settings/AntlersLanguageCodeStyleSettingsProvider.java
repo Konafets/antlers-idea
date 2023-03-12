@@ -76,7 +76,7 @@ public class AntlersLanguageCodeStyleSettingsProvider extends LanguageCodeStyleS
     }
 
     private static String loadSample(@NotNull SettingsType settingsType) {
-        String name = settingsType.name() + AntlersFileType.DOT_DEFAULT_EXTENSION;
+        String name = settingsType.name() + AntlersFileType.Companion.getDOT_DEFAULT_EXTENSION();
 
         return CodeStyleAbstractPanel.readFromFile(AntlersLanguageCodeStyleSettingsProvider.class, name);
     }

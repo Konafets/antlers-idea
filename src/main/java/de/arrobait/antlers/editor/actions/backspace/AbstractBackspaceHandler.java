@@ -26,7 +26,7 @@ public abstract class AbstractBackspaceHandler extends BackspaceHandlerDelegate 
         if (c != expectedDeletedChar) {
             return false;
         }
-        if (file.getFileType() != AntlersFileType.INSTANCE) {
+        if (file.getFileType() != AntlersFileType.Companion.getINSTANCE()) {
             return false;
         }
 

@@ -39,7 +39,7 @@ public class AntlersFormattingTest extends FormatterTestCase implements AntlersF
 
     @Override
     protected String getFileExtension() {
-        return AntlersFileType.DOT_DEFAULT_EXTENSION;
+        return AntlersFileType.Companion.getDOT_DEFAULT_EXTENSION();
     }
 
     @Override
