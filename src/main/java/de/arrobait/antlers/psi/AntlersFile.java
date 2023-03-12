@@ -21,7 +21,7 @@ public class AntlersFile extends PsiFileBase implements AntlersFileInterface {
     @NotNull
     @Override
     public FileType getFileType() {
-        return AntlersFileType.INSTANCE;
+        return AntlersFileType.Companion.getINSTANCE();
     }
 
     @Override

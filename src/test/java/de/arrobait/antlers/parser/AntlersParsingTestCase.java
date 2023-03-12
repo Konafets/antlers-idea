@@ -12,11 +12,11 @@ import org.jetbrains.annotations.NotNull;
 
 abstract public class AntlersParsingTestCase extends ParsingTestCase {
     public AntlersParsingTestCase(@NotNull String dataPath) {
-        super(dataPath, AntlersFileType.DEFAULT_EXTENSION, new AntlersParserDefinition());
+        super(dataPath, AntlersFileType.Companion.getDEFAULT_EXTENSION(), new AntlersParserDefinition());
     }
 
     public AntlersParsingTestCase(ParserDefinition @NotNull ... additionalDefinitions) {
-        super("parsing", AntlersFileType.DEFAULT_EXTENSION, ArrayUtil.prepend(new AntlersParserDefinition(), additionalDefinitions));
+        super("parsing", AntlersFileType.Companion.getDEFAULT_EXTENSION(), ArrayUtil.prepend(new AntlersParserDefinition(), additionalDefinitions));
     }
 
     @Override

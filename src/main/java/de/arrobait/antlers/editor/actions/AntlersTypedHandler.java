@@ -30,7 +30,7 @@ public class AntlersTypedHandler extends TypedHandlerDelegate {
         }
 
         // TODO: Add the *.antlers.php extension here
-        if (file.getName().endsWith(AntlersFileType.DEFAULT_EXTENSION)) {
+        if (file.getName().endsWith(AntlersFileType.Companion.getDEFAULT_EXTENSION())) {
             if (c == '{') {
                 PsiDocumentManager.getInstance(project).commitDocument(editor.getDocument());
 

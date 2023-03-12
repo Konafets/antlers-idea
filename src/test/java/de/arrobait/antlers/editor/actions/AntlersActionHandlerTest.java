@@ -59,7 +59,7 @@ public abstract class AntlersActionHandlerTest extends BasePlatformTestCase {
     private void doExecuteActionTest(@NotNull String before, @NotNull String expected, @NotNull Runnable action) {
         validateTestStrings(before, expected);
 
-        myFixture.configureByText(AntlersFileType.INSTANCE, before);
+        myFixture.configureByText(AntlersFileType.Companion.getINSTANCE(), before);
         performWriteAction(myFixture.getProject(), action);
         myFixture.checkResult(expected);
     }

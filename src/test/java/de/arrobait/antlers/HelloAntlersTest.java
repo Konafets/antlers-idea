@@ -11,6 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class HelloAntlersTest {
     @Test
     public void it_gets_file_description() {
-        assertEquals("Antlers template file", AntlersFileType.INSTANCE.getDescription());
+        assertEquals("Antlers template file", AntlersFileType.Companion.getINSTANCE().getDescription());
     }
 }
