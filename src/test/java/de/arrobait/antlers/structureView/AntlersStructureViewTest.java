@@ -1,7 +1,6 @@
 package de.arrobait.antlers.structureView;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.ide.structureView.StructureView;
 import com.intellij.ide.structureView.StructureViewBuilder;
 import com.intellij.ide.structureView.StructureViewModel;
 import com.intellij.ide.structureView.impl.StructureViewComposite;

@@ -1,6 +1,7 @@
 package de.arrobait.antlers.format;
 
 import de.arrobait.antlers.editor.actions.AntlersActionHandlerTest;
+import org.junit.Test;
 
 public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implements AntlersFormattingModelBuilderTest {
     /**
@@ -14,6 +15,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *     <caret>
      * </pre>
      */
+    @Test
     public void testSimpleAntlers() {
         doEnterTest(
                 "{{ foo }}<caret>",
@@ -33,6 +35,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *     <caret>
      * </pre>
      */
+    @Test
     public void testSimpleBlock1() {
         doEnterTest(
                 "{{ if true }}<caret>",
@@ -54,6 +57,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *     <caret>htmlPadding
      * </pre>
      */
+    @Test
     public void testSimpleBlock2() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -80,6 +84,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testSimpleBlock3() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -116,6 +121,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testNestedBlocks1() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -160,6 +166,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testNestedBlocks2() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -203,6 +210,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testNestedBlocks3() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -238,6 +246,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testSimpleNodeInDiv1() {
         doEnterTest(
                 "<div><caret>\n" +
@@ -266,6 +275,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testSimpleNodeInDiv2() {
         doEnterTest(
                 "<div>\n" +
@@ -292,6 +302,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *     <caret>
      * </pre
      */
+    @Test
     public void testSimpleNodeInDiv3() {
         doEnterTest(
                 "<div>\n" +
@@ -318,6 +329,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre
      */
+    @Test
     public void testMarkupInBlockNodes1() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -346,6 +358,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre
      */
+    @Test
     public void testMarkupInBlockNodes2() {
         doEnterTest(
                 "{{ if true }}<caret>\n" +
@@ -372,6 +385,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *     <caret>
      * </pre
      */
+    @Test
     public void testMarkupInBlockNodes3() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -400,6 +414,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testEmptyBlockInDiv1() {
         doEnterTest(
                 "<div>\n" +
@@ -431,6 +446,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testEmptyBlockInDiv2() {
         doEnterTest(
                 "<div>\n" +
@@ -460,6 +476,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * htmlPadding
      * </pre
      */
+    @Test
     public void testEmptyBlockInDiv3() {
         doEnterTest(
                 "<div>\n" +
@@ -489,6 +506,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testEmptyBlockInDiv4() {
         doEnterTest(
                 "<div>\n" +
@@ -520,6 +538,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testSimpleBlockInDiv1() {
         doEnterTest(
                 "<div>\n" +
@@ -556,6 +575,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testSimpleBlockInDiv2() {
         doEnterTest(
                 "<div>\n" +
@@ -592,6 +612,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testSimpleBlockInDiv3() {
         doEnterTest(
                 "<div>\n" +
@@ -626,6 +647,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testSimpleBlockInDiv4() {
         doEnterTest(
                 "<div>\n" +
@@ -656,6 +678,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * htmlPadding
      * </pre
      */
+    @Test
     public void testSimpleBlockInDiv5() {
         doEnterTest(
                 "<div>\n" +
@@ -688,6 +711,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *     <caret>
      * </pre
      */
+    @Test
     public void testSimpleBlockInDiv6() {
         doEnterTest(
                 "<div>\n" +
@@ -720,6 +744,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *     {{ /if }}
      * </pre
      */
+    @Test
     public void testSimpleBlockInDiv7() {
         doEnterTest(
                 "<div>\n" +
@@ -753,6 +778,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testSimpleBlockInDiv8() {
         doEnterTest(
                 "<div>\n" +
@@ -789,6 +815,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testAttributeNodes1() {
         doEnterTest(
                 "<div {{ foo }}><caret>\n" +
@@ -825,6 +852,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testAttributeNodes2() {
         doEnterTest(
                 "<div {{ foo }}>\n" +
@@ -861,6 +889,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testAttributeNodes3() {
         doEnterTest(
                 "<div {{ foo }}>\n" +
@@ -888,6 +917,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * <div {{ foo }}>
      * </pre
      */
+    @Test
     public void testAttributeNodes4() {
         doEnterTest(
                 "<div {{ foo }}><caret>",
@@ -910,6 +940,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *         <caret>
      * </pre
      */
+    @Test
     public void testAttributeNodes5() {
         doEnterTest(
                 "<div {{ foo }}>\n" +
@@ -936,6 +967,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *         <caret>
      * </pre
      */
+    @Test
     public void testAttributeNodes6() {
         doEnterTest(
                 "<div {{ foo }}>\n" +
@@ -968,6 +1000,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testMixedContentInDiv1() {
         doEnterTest(
                 "<div>\n" +
@@ -1004,6 +1037,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testMixedContentInDiv2() {
         doEnterTest(
                 "<div>\n" +
@@ -1040,6 +1074,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testMixedContentInDiv3() {
         doEnterTest(
                 "<div>\n" +
@@ -1076,6 +1111,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </div>
      * </pre
      */
+    @Test
     public void testMixedContentInDiv4() {
         doEnterTest(
                 "<div>\n" +
@@ -1108,6 +1144,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *         <span class="{{ bat }}">{{ bar }}</span>
      * </pre
      */
+    @Test
     public void testMixedContentInDiv5() {
         doEnterTest(
                 "<div><caret>\n" +
@@ -1136,6 +1173,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *         <span class="{{ bat }}">{{ bar }}</span>
      * </pre
      */
+    @Test
     public void testMixedContentInDiv6() {
         doEnterTest(
                 "<div>\n" +
@@ -1164,6 +1202,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *         <caret>
      * </pre
      */
+    @Test
     public void testMixedContentInDiv7() {
         doEnterTest(
                 "<div>\n" +
@@ -1194,6 +1233,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *     <caret>
      * </pre
      */
+    @Test
     public void testMixedContentInDiv8() {
         doEnterTest(
                 "<div>\n" +
@@ -1230,6 +1270,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *
      * </pre>
      */
+    @Test
     public void testEmptyLinesAfterOpenBlock1() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -1277,6 +1318,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      *
      * </pre>
      */
+    @Test
     public void testEmptyLinesAfterOpenBlock2() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -1321,6 +1363,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testSimpleNodeInNestedDiv1() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -1357,6 +1400,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testSimpleNodeInNestedDiv2() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -1397,6 +1441,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testBlockNodeInNestedDiv1() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -1441,6 +1486,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testBlockNodeInNestedDiv2() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -1485,6 +1531,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testBlockNodeInNestedDiv3() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -1529,6 +1576,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testBlockNodeInNestedDiv4() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -1562,6 +1610,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testSimpleAntlersBetweenEmptyNodes() {
         doEnterTest(
                 "{{ if }}<caret>{{ /if }}",
@@ -1586,6 +1635,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testSimpleAntlersBetweenNodesWithAntlerNode() {
         doEnterTest(
                 "{{ if }}\n" +
@@ -1613,6 +1663,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testSimpleAntlersBetweenNodesWithString() {
         doEnterTest(
                 "{{ if }}\n" +
@@ -1640,6 +1691,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * {{ /if }}
      * </pre>
      */
+    @Test
     public void testSimpleAntlersBetweenNodesWithStringAndAntlersNode() {
         doEnterTest(
                 "{{ if true }}\n" +
@@ -1702,6 +1754,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </body>
      * </pre>
      */
+    @Test
     public void _testFormattingInsideBody1() {
         doEnterTest(
                 "<body>\n" +
@@ -1743,6 +1796,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </body>
      * </pre>
      */
+    @Test
     public void testFormattingInsideBody2() {
         doEnterTest(
                 "<body>\n" +
@@ -1785,6 +1839,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </body>
      * </pre>
      */
+    @Test
     public void testFormattingInsideBody3() {
         doEnterTest(
                 "<body>\n" +
@@ -1826,6 +1881,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
      * </body>
      * </pre>
      */
+    @Test
     public void testFormattingInsideBody4() {
         doEnterTest(
                 "<body>\n" +
@@ -1845,6 +1901,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
         );
     }
 
+    @Test
     public void testIssue74_1() {
         doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\"><caret></ul>",
 
@@ -1854,6 +1911,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
         );
     }
 
+    @Test
     public void testIssue74_2() {
         doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
                         "    {{ nav:collection:pages }}<caret>{{ /nav:collection:pages }}\n" +
@@ -1867,6 +1925,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
                 );
     }
 
+    @Test
     public void testIssue74_3() {
         doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
                         "    {{ nav:collection:pages }}<caret>\n" +
@@ -1887,6 +1946,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
                 );
     }
 
+    @Test
     public void testIssue74_4() {
         doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
                         "    {{ nav:collection:pages }}\n" +
@@ -1907,6 +1967,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
                 );
     }
 
+    @Test
     public void testIssue74_5() {
         doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
                         "    {{ nav:collection:pages }}\n" +
@@ -1927,6 +1988,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
                 );
     }
 
+    @Test
     public void testIssue74_6() {
         doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
                         "    {{ nav:collection:pages }}\n" +
@@ -1947,6 +2009,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
                 );
     }
 
+    @Test
     public void testIssue74_7() {
         doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
                         "    {{ nav:collection:pages }}\n" +
@@ -1967,6 +2030,7 @@ public class AntlersFormatOnEnterTest extends AntlersActionHandlerTest implement
                 );
     }
 
+    @Test
     public void testIssue74_8() {
         doEnterTest("<ul class=\"uppercase text-md font-bold flex flex-col sm:flex-row justify-center items-center text-center\">\n" +
                         "    {{ nav:collection:pages }}\n" +

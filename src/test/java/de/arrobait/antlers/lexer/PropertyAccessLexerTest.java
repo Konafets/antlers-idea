@@ -1,6 +1,5 @@
 package de.arrobait.antlers.lexer;
 
-import com.intellij.openapi.util.Pair;
 import de.arrobait.antlers.parser.AntlersLexerAdapter;
 import org.junit.Test;
 

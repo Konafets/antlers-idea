@@ -4,7 +4,12 @@ import com.intellij.application.options.CodeStyle;
 import com.intellij.psi.formatter.FormatterTestCase;
 import de.arrobait.antlers.file.AntlersFileType;
 import de.arrobait.antlers.util.AntlersTestUtils;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
+@RunWith(JUnit4.class)
 public class AntlersFormattingTest extends FormatterTestCase implements AntlersFormattingModelBuilderTest {
     protected FormatterTestSettings formatterTestSettings;
 
@@ -48,43 +53,55 @@ public class AntlersFormattingTest extends FormatterTestCase implements AntlersF
         doTest(testName + getFileExtension(), testName + "_expected" + getFileExtension(), resultNumber);
     }
 
+    @Test
     public void testSimpleAntlers() throws Exception {
         doTest();
     }
 
+    @Test
     public void testSpaceAroundOperators() throws Exception {
         doTest();
     }
 
+    @Test
     public void testModifiers() throws Exception {
         doTest();
     }
 
-    public void _testConditionals() throws Exception {
+    @Test
+    @Ignore
+    public void testConditionals() throws Exception {
         doTest();
     }
 
+    @Test
     public void testHTML() throws Exception {
         doTest();
     }
 
+    @Test
     public void testAntlersEmbeddedInHtmlFile() throws Exception {
         doTest();
     }
 
+    @Test
     public void testStillatExampleHtml() throws Exception {
         doTest();
     }
 
+    @Test
     public void testIssue74() throws Exception {
         doTest();
     }
 
+    @Test
     public void testIssue116() throws Exception {
         doTest();
     }
 
-    public void _testSwitch() throws Exception {
+    @Test
+    @Ignore
+    public void testSwitch() throws Exception {
         // TODO: The last braces is not indented correctly
         doTest();
     }

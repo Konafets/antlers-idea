@@ -11,6 +11,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import de.arrobait.antlers.file.AntlersFileType;
 import org.jetbrains.annotations.NotNull;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
  * Base test for plugin action handlers
@@ -22,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  * Optionally, a chunk of given text may be marked with <selection>SELECTED TEXT</selection> to indicate the selection.
  */
+@RunWith(JUnit4.class)
 public abstract class AntlersActionHandlerTest extends BasePlatformTestCase {
     private void performWriteAction(final Project project, final Runnable action) {
         ApplicationManager.getApplication().runWriteAction(() -> CommandProcessor.getInstance().executeCommand(project, action, "Test Command", null));
