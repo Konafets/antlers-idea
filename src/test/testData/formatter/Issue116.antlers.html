@@ -1,0 +1,11 @@
+<tr>
+  {{ cells }}
+    {{ if first && first_column_headers }}
+      <th class="border-b border-black bg-black px-3 py-3 text-left font-anton uppercase tracking-wider text-white xl:px-6">
+        {{ value }}
+      </th>
+    {{ else }}
+      <td class="border-b border-black px-3 py-3 text-black xl:px-6">{{ value }}</td>
+    {{ /if }}
+  {{ /cells }}
+</tr>

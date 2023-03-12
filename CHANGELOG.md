@@ -17,6 +17,7 @@
 ### Fixed
 - When creating a new Antles file via _New File_-Dialog do not append `.antlers.html` when the user already provides the extension in the dialog.
 - Plugin confuses regular .HTML files #113
+- Space in variables pair leads to error #116
 
 ## [0.0.5] - 2023-02-24
 

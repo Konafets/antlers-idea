@@ -80,8 +80,14 @@ public class AntlersSpacingProcessor {
                 return addZeroSpace();
             }
 
-            if ((elementType == TAG_NODE_CLOSE || elementType == IF_CLOSE_NODE || elementType == UNLESS_CLOSE_NODE) && hasElementType(node1, T_SLASH)) {
-                return addZeroSpace();
+            if (hasElementType(node1, T_SLASH)) {
+                if (elementType == TAG_NODE_CLOSE
+                        || elementType == IF_CLOSE_NODE
+                        || elementType == UNLESS_CLOSE_NODE
+                        || hasElementType(node2, VARIABLE)
+                ) {
+                    return addZeroSpace();
+                }
             }
 
             if (myAntlersSettings.SPACE_AROUND_OPERATORS) {
@@ -115,17 +121,14 @@ public class AntlersSpacingProcessor {
             }
         }
 
-//        return Spacing.createSpacing(0, 1, 0, true, 1);
         return Spacing.createSpacing(0, 1, 0, myCommonSettings.KEEP_LINE_BREAKS, myCommonSettings.KEEP_BLANK_LINES_IN_CODE);
     }
 
     private Spacing addSingleSpace() {
-//        return Spacing.createSpacing(1, 1, 0, false, settings.KEEP_BLANK_LINES_IN_CODE);
         return Spacing.createSpacing(1, 1, 0, myCommonSettings.KEEP_LINE_BREAKS, myCommonSettings.KEEP_BLANK_LINES_IN_CODE);
     }
 
     private Spacing addZeroSpace() {
-//        return Spacing.createSpacing(0, 0, 0, false, 1);
         return Spacing.createSpacing(0, 0, 0, myCommonSettings.KEEP_LINE_BREAKS, myCommonSettings.KEEP_BLANK_LINES_IN_CODE);
     }
 }
