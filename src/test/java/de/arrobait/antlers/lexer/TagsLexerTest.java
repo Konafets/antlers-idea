@@ -35,7 +35,7 @@ public class TagsLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_DISAMBIGUATION, "%",
+                T_PERCENT, "%",
                 T_TAG, "collection",
                 WHITE_SPACE, " ",
                 T_RD, "}}",

@@ -281,7 +281,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "+"                  { return T_OP_PLUS; }
     "-"                  { return T_OP_MINUS; }
     "*"                  { return T_OP_MUL; }
-    "%"                  { return T_OP_MOD; }
+    "%"                  { return T_PERCENT; }
     "**"                 { return T_OP_POW; }
     "!"                  { return T_OP_EXCLAMATION_MARK; }
     "?"                  { return T_OP_QUESTIONMARK; }
@@ -324,7 +324,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 <TAG_EXPRESSION> {
     {WHITE_SPACE}  { pushState(TAG_EXPRESSION_ATTRIBUTE_LIST); return TokenType.WHITE_SPACE; }
-    "%"            { return T_DISAMBIGUATION; }
+    "%"            { return T_PERCENT; }
     ":"            { pushState(TAG_SHORTHAND); return T_COLON; }
     {SLASH}        { return T_SLASH; }
     {TAG_NAMES}    { return T_TAG; }

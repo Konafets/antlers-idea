@@ -308,7 +308,7 @@ public class MathLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "$a",
                 WHITE_SPACE, " ",
-                T_OP_MOD, "%",
+                T_PERCENT, "%",
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "$b",
                 WHITE_SPACE, " ",

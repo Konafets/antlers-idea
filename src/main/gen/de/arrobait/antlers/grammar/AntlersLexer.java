@@ -241,40 +241,40 @@ public class AntlersLexer implements FlexLexer {
     "\1\22\1\23\1\24\1\25\1\26\1\27\1\30\1\31"+
     "\1\32\1\33\1\4\1\34\1\35\1\36\1\37\2\40"+
     "\1\16\1\17\1\16\1\17\1\41\26\16\1\40\1\42"+
-    "\1\40\1\16\1\23\2\43\1\12\23\16\1\44\1\45"+
-    "\1\40\1\46\1\10\1\11\1\13\1\16\1\47\1\16"+
-    "\1\50\1\51\1\52\1\40\1\51\1\53\1\40\1\4"+
-    "\1\5\2\4\1\5\1\4\2\3\1\1\1\54\1\1"+
-    "\1\2\1\0\1\2\1\1\1\55\1\56\1\57\1\60"+
-    "\1\61\3\16\1\62\2\16\2\0\5\16\1\63\27\16"+
-    "\1\64\1\63\10\16\1\65\5\16\1\66\24\0\1\17"+
-    "\1\0\1\67\1\70\1\0\1\71\1\65\1\72\1\73"+
-    "\1\74\1\75\1\76\1\77\1\100\1\101\10\16\1\102"+
-    "\11\16\1\102\4\16\1\102\76\16\1\103\7\16\1\104"+
-    "\21\16\1\104\12\16\1\0\1\105\1\16\11\0\1\16"+
-    "\12\0\2\3\1\1\1\54\1\106\1\2\1\0\1\107"+
-    "\1\1\1\110\1\111\1\112\1\113\7\16\1\67\1\0"+
-    "\2\16\1\0\1\114\1\16\1\77\1\16\1\115\1\63"+
-    "\45\16\1\116\3\16\7\0\1\63\21\0\1\63\13\0"+
-    "\1\63\1\0\1\117\1\120\11\16\1\102\13\16\1\102"+
-    "\23\16\1\102\22\16\1\102\134\16\1\104\1\16\7\0"+
-    "\3\121\3\0\1\16\3\0\1\122\1\0\1\123\1\3"+
-    "\1\124\2\0\1\125\1\0\1\126\1\127\1\16\1\130"+
-    "\1\16\1\63\5\16\1\131\16\16\1\132\1\133\15\16"+
-    "\46\0\1\132\1\16\1\130\62\16\1\102\73\16\1\102"+
-    "\2\16\1\104\26\16\13\0\1\121\1\0\1\16\2\0"+
-    "\1\134\2\135\1\126\1\16\1\63\1\16\1\136\2\16"+
-    "\1\137\3\16\1\140\1\16\1\141\20\16\1\142\2\0"+
-    "\1\63\26\0\1\16\1\102\15\16\1\136\70\16\1\102"+
-    "\15\16\1\104\21\16\16\0\1\16\2\0\1\135\2\16"+
-    "\1\143\1\144\6\16\1\63\11\16\1\0\1\63\21\0"+
-    "\14\16\1\102\106\16\13\0\5\16\1\0\1\145\2\16"+
-    "\1\146\2\16\1\147\1\150\16\0\21\16\1\102\46\16"+
-    "\12\0\4\16\10\0\25\16\1\102\6\16\2\102\10\16"+
-    "\11\0\2\16\1\151\3\0\27\16\1\102\1\16\1\152"+
-    "\5\0\1\121\4\0\2\16\1\0\1\153\21\16\13\0"+
+    "\1\40\1\16\1\23\2\43\1\12\23\16\1\20\1\44"+
+    "\1\40\1\45\1\10\1\11\1\13\1\16\1\46\1\16"+
+    "\1\47\1\50\1\51\1\40\1\50\1\52\1\40\1\4"+
+    "\1\5\2\4\1\5\1\4\2\3\1\1\1\53\1\1"+
+    "\1\2\1\0\1\2\1\1\1\54\1\55\1\56\1\57"+
+    "\1\60\3\16\1\61\2\16\2\0\5\16\1\62\27\16"+
+    "\1\63\1\62\10\16\1\64\5\16\1\65\24\0\1\17"+
+    "\1\0\1\66\1\67\1\0\1\70\1\64\1\71\1\72"+
+    "\1\73\1\74\1\75\1\76\1\77\1\100\10\16\1\101"+
+    "\11\16\1\101\4\16\1\101\76\16\1\102\7\16\1\103"+
+    "\21\16\1\103\12\16\1\0\1\104\1\16\11\0\1\16"+
+    "\12\0\2\3\1\1\1\53\1\105\1\2\1\0\1\106"+
+    "\1\1\1\107\1\110\1\111\1\112\7\16\1\66\1\0"+
+    "\2\16\1\0\1\113\1\16\1\76\1\16\1\114\1\62"+
+    "\45\16\1\115\3\16\7\0\1\62\21\0\1\62\13\0"+
+    "\1\62\1\0\1\116\1\117\11\16\1\101\13\16\1\101"+
+    "\23\16\1\101\22\16\1\101\134\16\1\103\1\16\7\0"+
+    "\3\120\3\0\1\16\3\0\1\121\1\0\1\122\1\3"+
+    "\1\123\2\0\1\124\1\0\1\125\1\126\1\16\1\127"+
+    "\1\16\1\62\5\16\1\130\16\16\1\131\1\132\15\16"+
+    "\46\0\1\131\1\16\1\127\62\16\1\101\73\16\1\101"+
+    "\2\16\1\103\26\16\13\0\1\120\1\0\1\16\2\0"+
+    "\1\133\2\134\1\125\1\16\1\62\1\16\1\135\2\16"+
+    "\1\136\3\16\1\137\1\16\1\140\20\16\1\141\2\0"+
+    "\1\62\26\0\1\16\1\101\15\16\1\135\70\16\1\101"+
+    "\15\16\1\103\21\16\16\0\1\16\2\0\1\134\2\16"+
+    "\1\142\1\143\6\16\1\62\11\16\1\0\1\62\21\0"+
+    "\14\16\1\101\106\16\13\0\5\16\1\0\1\144\2\16"+
+    "\1\145\2\16\1\146\1\147\16\0\21\16\1\101\46\16"+
+    "\12\0\4\16\10\0\25\16\1\101\6\16\2\101\10\16"+
+    "\11\0\2\16\1\150\3\0\27\16\1\101\1\16\1\151"+
+    "\5\0\1\120\4\0\2\16\1\0\1\152\21\16\13\0"+
     "\12\16\10\0\10\16\6\0\6\16\3\0\3\16\1\0"+
-    "\1\16\3\0\1\154";
+    "\1\16\3\0\1\153";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[1524];
@@ -2746,219 +2746,214 @@ public class AntlersLexer implements FlexLexer {
             { return OUTER_CONTENT;
             }
             // fall through
-          case 109: break;
+          case 108: break;
           case 2:
             { return T_UNCLOSED_COMMENT;
             }
             // fall through
-          case 110: break;
+          case 109: break;
           case 3:
             { return UNCLOSED_FRONT_MATTER;
             }
             // fall through
-          case 111: break;
+          case 110: break;
           case 4:
             { return TokenType.BAD_CHARACTER;
             }
             // fall through
-          case 112: break;
+          case 111: break;
           case 5:
             { return TokenType.WHITE_SPACE;
             }
             // fall through
-          case 113: break;
+          case 112: break;
           case 6:
             { return T_AT;
             }
             // fall through
-          case 114: break;
+          case 113: break;
           case 7:
             { return WHITE_SPACE;
             }
             // fall through
-          case 115: break;
+          case 114: break;
           case 8:
             { return T_LEFT_BRACE;
             }
             // fall through
-          case 116: break;
+          case 115: break;
           case 9:
             { return T_RIGHT_BRACE;
             }
             // fall through
-          case 117: break;
+          case 116: break;
           case 10:
             { return T_SLASH;
             }
             // fall through
-          case 118: break;
+          case 117: break;
           case 11:
             { return T_OP_ASSIGN;
             }
             // fall through
-          case 119: break;
+          case 118: break;
           case 12:
             { pushState(SINGLE_STRING); return T_SINGLE_QUOTE;
             }
             // fall through
-          case 120: break;
+          case 119: break;
           case 13:
             { pushState(DOUBLE_STRING); return T_DOUBLE_QUOTE;
             }
             // fall through
-          case 121: break;
+          case 120: break;
           case 14:
             { return T_IDENTIFIER;
             }
             // fall through
-          case 122: break;
+          case 121: break;
           case 15:
             { return T_INTEGER_NUMBER;
             }
             // fall through
-          case 123: break;
+          case 122: break;
           case 16:
-            { return T_OP_MOD;
+            { return T_PERCENT;
             }
             // fall through
-          case 124: break;
+          case 123: break;
           case 17:
             { return T_COLON;
             }
             // fall through
-          case 125: break;
+          case 124: break;
           case 18:
             { return T_OP_MUL;
             }
             // fall through
-          case 126: break;
+          case 125: break;
           case 19:
             { pushState(MODIFIER_LIST); return T_PIPE;
             }
             // fall through
-          case 127: break;
+          case 126: break;
           case 20:
             { return T_OP_MINUS;
             }
             // fall through
-          case 128: break;
+          case 127: break;
           case 21:
             { return T_LEFT_BRACKET;
             }
             // fall through
-          case 129: break;
+          case 128: break;
           case 22:
             { return T_OP_PLUS;
             }
             // fall through
-          case 130: break;
+          case 129: break;
           case 23:
             { return T_LP;
             }
             // fall through
-          case 131: break;
+          case 130: break;
           case 24:
             { return T_RP;
             }
             // fall through
-          case 132: break;
+          case 131: break;
           case 25:
             { return T_OP_GT;
             }
             // fall through
-          case 133: break;
+          case 132: break;
           case 26:
             { return T_RIGHT_BRACKET;
             }
             // fall through
-          case 134: break;
+          case 133: break;
           case 27:
             { return T_OP_QUESTIONMARK;
             }
             // fall through
-          case 135: break;
+          case 134: break;
           case 28:
             { return T_COMMA;
             }
             // fall through
-          case 136: break;
+          case 135: break;
           case 29:
             { return T_SEMICOLON;
             }
             // fall through
-          case 137: break;
+          case 136: break;
           case 30:
             { return T_OP_EXCLAMATION_MARK;
             }
             // fall through
-          case 138: break;
+          case 137: break;
           case 31:
             { return T_OP_LT;
             }
             // fall through
-          case 139: break;
+          case 138: break;
           case 32:
             { yypushback(1); // cancel unexpected char
             popState();    // and try to parse it again in <ANTLERS_NODE>
             }
             // fall through
-          case 140: break;
+          case 139: break;
           case 33:
             { return T_DOT;
             }
             // fall through
-          case 141: break;
+          case 140: break;
           case 34:
             { popState(); return T_RP;
             }
             // fall through
-          case 142: break;
+          case 141: break;
           case 35:
             { pushState(TAG_EXPRESSION_ATTRIBUTE_LIST); return TokenType.WHITE_SPACE;
             }
             // fall through
-          case 143: break;
+          case 142: break;
           case 36:
-            { return T_DISAMBIGUATION;
-            }
-            // fall through
-          case 144: break;
-          case 37:
             { pushState(TAG_SHORTHAND); return T_COLON;
             }
             // fall through
-          case 145: break;
-          case 38:
+          case 143: break;
+          case 37:
             { return T_TAG_METHOD_NAME;
             }
             // fall through
-          case 146: break;
-          case 39:
+          case 144: break;
+          case 38:
             { return T_DYNAMIC_BINDING;
             }
             // fall through
-          case 147: break;
-          case 40:
+          case 145: break;
+          case 39:
             { return T_STAR;
             }
             // fall through
-          case 148: break;
-          case 41:
+          case 146: break;
+          case 40:
             { return T_STRING_CONTENT;
             }
             // fall through
-          case 149: break;
-          case 42:
+          case 147: break;
+          case 41:
             { popState(); return T_SINGLE_QUOTE;
             }
             // fall through
-          case 150: break;
-          case 43:
+          case 148: break;
+          case 42:
             { popState(); return T_DOUBLE_QUOTE;
             }
             // fall through
-          case 151: break;
-          case 44:
+          case 149: break;
+          case 43:
             { // This matches any chars before the opening delimiters, including the `{{` itself.
                 // We do this to catch the escape char `@` in front of the delimiters and to mark outer content like HTML, CSS and JS.
 
@@ -2996,219 +2991,219 @@ public class AntlersLexer implements FlexLexer {
                 }
             }
             // fall through
-          case 152: break;
-          case 45:
+          case 150: break;
+          case 44:
             { return T_LD;
             }
             // fall through
-          case 153: break;
-          case 46:
+          case 151: break;
+          case 45:
             { popState(); return T_RD;
             }
             // fall through
-          case 154: break;
-          case 47:
+          case 152: break;
+          case 46:
             { return T_OP_SELF_ASSIGN_DIV;
             }
             // fall through
-          case 155: break;
-          case 48:
+          case 153: break;
+          case 47:
             { return T_OP_EQ;
             }
             // fall through
-          case 156: break;
-          case 49:
+          case 154: break;
+          case 48:
             { return T_OP_ARROW;
             }
             // fall through
-          case 157: break;
-          case 50:
+          case 155: break;
+          case 49:
             { yypushback(yylength()); pushState(PROPERTY_ACCESS);
             }
             // fall through
-          case 158: break;
-          case 51:
+          case 156: break;
+          case 50:
             { yypushback(yylength()); pushState(TAG_EXPRESSION);
             }
             // fall through
-          case 159: break;
-          case 52:
+          case 157: break;
+          case 51:
             { return T_IF;
             }
             // fall through
-          case 160: break;
-          case 53:
+          case 158: break;
+          case 52:
             { return T_OP_OR;
             }
             // fall through
-          case 161: break;
-          case 54:
+          case 159: break;
+          case 53:
             { return T_OP_SELF_ASSIGN_MOD;
             }
             // fall through
-          case 162: break;
-          case 55:
+          case 160: break;
+          case 54:
             { return T_FLOAT_NUMBER;
             }
             // fall through
-          case 163: break;
-          case 56:
+          case 161: break;
+          case 55:
             { return T_OP_SELF_ASSIGN_MUL;
             }
             // fall through
-          case 164: break;
-          case 57:
+          case 162: break;
+          case 56:
             { return T_OP_POW;
             }
             // fall through
-          case 165: break;
-          case 58:
+          case 163: break;
+          case 57:
             { return T_OP_SELF_ASSIGN_SUB;
             }
             // fall through
-          case 166: break;
-          case 59:
+          case 164: break;
+          case 58:
             { return T_OP_SELF_ASSIGN_ADD;
             }
             // fall through
-          case 167: break;
-          case 60:
+          case 165: break;
+          case 59:
             { return T_OP_GTE;
             }
             // fall through
-          case 168: break;
-          case 61:
+          case 166: break;
+          case 60:
             { return T_OP_GATEKEEPER;
             }
             // fall through
-          case 169: break;
-          case 62:
+          case 167: break;
+          case 61:
             { return T_OP_NULL_COALESCENCE;
             }
             // fall through
-          case 170: break;
-          case 63:
+          case 168: break;
+          case 62:
             { return T_OP_AND;
             }
             // fall through
-          case 171: break;
-          case 64:
+          case 169: break;
+          case 63:
             { return T_OP_NEQ;
             }
             // fall through
-          case 172: break;
-          case 65:
+          case 170: break;
+          case 64:
             { return T_OP_LTE;
             }
             // fall through
-          case 173: break;
-          case 66:
+          case 171: break;
+          case 65:
             { return T_MODIFIER;
             }
             // fall through
-          case 174: break;
-          case 67:
+          case 172: break;
+          case 66:
             { return T_AS;
             }
             // fall through
-          case 175: break;
-          case 68:
+          case 173: break;
+          case 67:
             { return T_TAG;
             }
             // fall through
-          case 176: break;
-          case 69:
+          case 174: break;
+          case 68:
             { yybegin(YYINITIAL); return T_RD;
             }
             // fall through
-          case 177: break;
-          case 70:
+          case 175: break;
+          case 69:
             { pushState(YAML_FRONT_MATTER); return T_FRONTMATTER_DELIMITER;
             }
             // fall through
-          case 178: break;
-          case 71:
+          case 176: break;
+          case 70:
             { popState(); return T_COMMENT_CLOSE;
             }
             // fall through
-          case 179: break;
-          case 72:
+          case 177: break;
+          case 71:
             { popState(); pushState(ANTLERS_COMMENT); return T_COMMENT_OPEN;
             }
             // fall through
-          case 180: break;
-          case 73:
+          case 178: break;
+          case 72:
             { pushState(PHP_RAW); return T_PHP_RAW_OPEN;
             }
             // fall through
-          case 181: break;
-          case 74:
+          case 179: break;
+          case 73:
             { pushState(PHP_ECHO); return T_PHP_ECHO_OPEN;
             }
             // fall through
-          case 182: break;
-          case 75:
+          case 180: break;
+          case 74:
             { return T_OP_IDENT;
             }
             // fall through
-          case 183: break;
-          case 76:
+          case 181: break;
+          case 75:
             // lookahead expression with fixed base length
             zzMarkedPos = Character.offsetByCodePoints
                 (zzBufferL/*, zzStartRead, zzEndRead - zzStartRead*/, zzStartRead, 2);
             { return T_AS;
             }
             // fall through
-          case 184: break;
-          case 77:
+          case 182: break;
+          case 76:
             // lookahead expression with fixed lookahead length
             zzMarkedPos = Character.offsetByCodePoints
                 (zzBufferL/*, zzStartRead, zzEndRead - zzStartRead*/, zzMarkedPos, -1);
             { return T_IDENTIFIER;
             }
             // fall through
-          case 185: break;
-          case 78:
+          case 183: break;
+          case 77:
             { return T_OP_XOR;
             }
             // fall through
-          case 186: break;
-          case 79:
+          case 184: break;
+          case 78:
             { return T_OP_NOT_IDENT;
             }
             // fall through
-          case 187: break;
-          case 80:
+          case 185: break;
+          case 79:
             { return T_OP_SPACESHIP;
             }
             // fall through
-          case 188: break;
-          case 81:
+          case 186: break;
+          case 80:
             { return T_TAG_CONDITION;
             }
             // fall through
-          case 189: break;
-          case 82:
+          case 187: break;
+          case 81:
             { popState(); return T_PHP_ECHO_CLOSE;
             }
             // fall through
-          case 190: break;
-          case 83:
+          case 188: break;
+          case 82:
             { popState(); return T_PHP_RAW_CLOSE;
             }
             // fall through
-          case 191: break;
-          case 84:
+          case 189: break;
+          case 83:
             { popState(); return T_FRONTMATTER_DELIMITER;
             }
             // fall through
-          case 192: break;
-          case 85:
+          case 190: break;
+          case 84:
             { yypushback(3); return T_COMMENT_TEXT;
             }
             // fall through
-          case 193: break;
-          case 86:
+          case 191: break;
+          case 85:
             { // backtrack over any tine or escape characters at the end of this string
                 while (yylength() > 0
                         && (yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")
@@ -3220,120 +3215,120 @@ public class AntlersLexer implements FlexLexer {
                 return OUTER_CONTENT;
             }
             // fall through
-          case 194: break;
-          case 87:
+          case 192: break;
+          case 86:
             { return T_TAKE;
             }
             // fall through
-          case 195: break;
-          case 88:
+          case 193: break;
+          case 87:
             { return T_TRUE;
             }
             // fall through
-          case 196: break;
-          case 89:
+          case 194: break;
+          case 88:
             { return T_ELSE;
             }
             // fall through
-          case 197: break;
-          case 90:
+          case 195: break;
+          case 89:
             { return T_SLOT;
             }
             // fall through
-          case 198: break;
-          case 91:
+          case 196: break;
+          case 90:
             { return T_SKIP;
             }
             // fall through
-          case 199: break;
-          case 92:
+          case 197: break;
+          case 91:
             { yypushback(3); return T_PHP_CONTENT;
             }
             // fall through
-          case 200: break;
-          case 93:
+          case 198: break;
+          case 92:
             { yypushback(3); return T_FRONTMATTER_CONTENT;
             }
             // fall through
-          case 201: break;
-          case 94:
+          case 199: break;
+          case 93:
             { return T_FALSE;
             }
             // fall through
-          case 202: break;
-          case 95:
+          case 200: break;
+          case 94:
             { return T_END_IF;
             }
             // fall through
-          case 203: break;
-          case 96:
+          case 201: break;
+          case 95:
             { return T_PLUCK;
             }
             // fall through
-          case 204: break;
-          case 97:
+          case 202: break;
+          case 96:
             { return T_MERGE;
             }
             // fall through
-          case 205: break;
-          case 98:
+          case 203: break;
+          case 97:
             { return T_WHERE;
             }
             // fall through
-          case 206: break;
-          case 99:
+          case 204: break;
+          case 98:
             { return T_UNLESS;
             }
             // fall through
-          case 207: break;
-          case 100:
+          case 205: break;
+          case 99:
             { return T_ELSE_IF;
             }
             // fall through
-          case 208: break;
-          case 101:
+          case 206: break;
+          case 100:
             // lookahead expression with fixed base length
             zzMarkedPos = Character.offsetByCodePoints
                 (zzBufferL/*, zzStartRead, zzEndRead - zzStartRead*/, zzStartRead, 6);
             { return T_SWITCH;
             }
             // fall through
-          case 209: break;
-          case 102:
+          case 207: break;
+          case 101:
             { return T_NOPARSE;
             }
             // fall through
-          case 210: break;
-          case 103:
+          case 208: break;
+          case 102:
             { return T_GROUP_BY;
             }
             // fall through
-          case 211: break;
-          case 104:
+          case 209: break;
+          case 103:
             { return T_ORDER_BY;
             }
             // fall through
-          case 212: break;
-          case 105:
+          case 210: break;
+          case 104:
             { return T_END_UNLESS;
             }
             // fall through
-          case 213: break;
-          case 106:
+          case 211: break;
+          case 105:
             { return T_TAXONOMY;
             }
             // fall through
-          case 214: break;
-          case 107:
+          case 212: break;
+          case 106:
             { yypushback(yylength()); pushState(RECURSIVE_CHILDREN);
             }
             // fall through
-          case 215: break;
-          case 108:
+          case 213: break;
+          case 107:
             { return T_RECURSIVE_CHILDREN;
             }
             // fall through
-          case 216: break;
+          case 214: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

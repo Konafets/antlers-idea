@@ -544,6 +544,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // T_PERCENT
+  static boolean disambiguation_char(PsiBuilder b, int l) {
+    return consumeToken(b, T_PERCENT);
+  }
+
+  /* ********************************************************** */
   // '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
   public static boolean dot_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dot_property_access")) return false;
@@ -1522,10 +1528,10 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // [T_DISAMBIGUATION] (shorthand_tag | regular_tag)
+  // [disambiguation_char] (shorthand_tag | regular_tag)
   public static boolean tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag")) return false;
-    if (!nextTokenIs(b, "<tag>", T_DISAMBIGUATION, T_TAG)) return false;
+    if (!nextTokenIs(b, "<tag>", T_PERCENT, T_TAG)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TAG, "<tag>");
     r = tag_0(b, l + 1);
@@ -1534,10 +1540,10 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [T_DISAMBIGUATION]
+  // [disambiguation_char]
   private static boolean tag_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_0")) return false;
-    consumeToken(b, T_DISAMBIGUATION);
+    disambiguation_char(b, l + 1);
     return true;
   }
 
@@ -1755,7 +1761,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // tag (tag_attribute_assignment | tag_taxonomy_condition)*
   static boolean tag_with_attributes(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_with_attributes")) return false;
-    if (!nextTokenIs(b, "", T_DISAMBIGUATION, T_TAG)) return false;
+    if (!nextTokenIs(b, "", T_PERCENT, T_TAG)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = tag(b, l + 1);
@@ -2382,7 +2388,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   private static boolean mod_expr_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mod_expr_0")) return false;
     boolean r;
-    r = consumeTokenSmart(b, T_OP_MOD);
+    r = consumeTokenSmart(b, T_PERCENT);
     if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_MOD);
     return r;
   }

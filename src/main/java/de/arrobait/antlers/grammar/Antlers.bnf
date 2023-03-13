@@ -53,7 +53,6 @@
         T_OP_MINUS='-'
         T_OP_MUL='*'
         T_SLASH='/'
-        T_OP_MOD='%'
         T_OP_POW='**'
         T_OP_SELF_ASSIGN_ADD='+='
         T_OP_SELF_ASSIGN_SUB='-='
@@ -114,6 +113,8 @@
         T_IDENTIFIER="regexp:[$_[:jletter:]][-_[:jletterdigit:]]*[_[:jletterdigit:]]?"
 
         T_FRONTMATTER_DELIMITER="---"
+
+        T_PERCENT="%"
 
         T_MODIFIER="regexp:add|add_query_param|add_slashes|alias|ampersand_list|antlers|ascii|as|at|background_position|backspace|bard_html|bard_items|bard_text|bool_string|camelize|cdata|ceil|chunk|collapse|collapse_whitespace|compact|console_log|contains|contains_all|contains_any|count|count_substring|dashify|days_ago|dd|ddd|debug|decode|deslugify|diff_for_humans|diff_for_owls|divide|dl|dump|embed_url|ends_with|ensure_left|ensure_right|entities|excerpt|explode|extension|favicon|first|flatten|flip|floor|format|format_localized|format_number|format_translated|full_urls|get|gravatar|group_by|has_lower_case|has_upper_case|hours_ago|image|in_array|insert|is_after|is_alpha|is_alphanumeric|is_array|is_before|is_between|is_blank|is_email|is_embeddable|is_empty|is_future|is_iterable|is_json|is_leap_year|is_lowercase|is_numberwang|is_numeric|iso_format|is_past|is_today|is_tomorrow|is_uppercase|is_url|is_weekday|is_weekend|is_yesterday|join|joinplode|kebab|key_by|last|lcfirst|length|limit|link|list|localize|lower|macro|mailto|mark|markdown|md5|merge|minutes_ago|mod|modify_date|months_ago|multiply|neatify|nl2br|obfuscate|obfuscate_email|offset|ol|option_list|output|pad|parse_url|partial|pathinfo|pluck|piped|plural|random|raw|rawurlencode|ray|read_time|regex_mark|regex_replace|relative|remove_left|remove_query_param|remove_right|repeat|replace|reverse|round|scope|safe_truncate|sanitize|seconds_ago|segment|sentence_list|set_query_parm|shrug|shuffle|singular|slugify|smartypants|snake|sort|spaceless|split|starts_with|strip_tags|str_pad|str_pad_both|str_pad_left|str_pad_right|studly|substr|subtract|sum|surround|swap_case|table|tidy|timestamp|timezone|title|to_bool|to_json|to_spaces|to_string|to_tabs|trackable_embed_url|trans|trans_choice|trim|truncate|type_of|ucfirst|ul|underscored|unique|upper|url|urldecode|urlencode|url_info|weeks_ago|where|widont|word_count|wrap|years_ago"
     ]
@@ -189,7 +190,7 @@ noparse_region_close ::= node_opener (T_SLASH 'noparse') node_closer { pin=2 }
  */
 // {{ %partial:blog/card for="5 minutes" }}
 //tag_node ::= node_opener tag tag_parameters node_closer
-//tag ::= [T_DISAMBIGUATION] tag_name shorthand_separator tag_method
+//tag ::= [disambiguation_char] tag_name shorthand_separator tag_method
 //tag_name ::= 'partial'
 
 tag_single ::= tag_node_open {
@@ -212,13 +213,14 @@ tag_node_close ::= node_opener (T_SLASH tag) node_closer { pin=2 }
 
 private tag_with_attributes ::= tag (tag_attribute_assignment | tag_taxonomy_condition)*
 
-tag ::= [T_DISAMBIGUATION] (shorthand_tag | regular_tag)
+tag ::= [disambiguation_char] (shorthand_tag | regular_tag)
 private shorthand_tag ::= regular_tag shorthand_separator tag_method_part { pin=2 }
 private regular_tag ::= tag_name
 tag_name ::= T_TAG
 tag_method_part ::= tag_method_name (shorthand_separator tag_method_name)*
 private tag_method_name ::= T_TAG_METHOD_NAME
 private shorthand_separator ::= T_COLON
+private disambiguation_char ::= T_PERCENT
 
 tag_attribute_assignment ::= T_DYNAMIC_BINDING* tag_attribute_key '=' tag_attribute_value
 tag_attribute_key ::= T_IDENTIFIER [T_TAG_CONDITION]

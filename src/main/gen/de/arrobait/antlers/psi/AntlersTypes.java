@@ -113,7 +113,6 @@ public interface AntlersTypes {
   IElementType T_COMMENT_CLOSE = new AntlersTokenType("#}}");
   IElementType T_COMMENT_OPEN = new AntlersTokenType("{{#");
   IElementType T_COMMENT_TEXT = new AntlersTokenType("T_COMMENT_TEXT");
-  IElementType T_DISAMBIGUATION = new AntlersTokenType("T_DISAMBIGUATION");
   IElementType T_DOT = new AntlersTokenType(".");
   IElementType T_DOUBLE_QUOTE = new AntlersTokenType("\"");
   IElementType T_DYNAMIC_BINDING = new AntlersTokenType("T_DYNAMIC_BINDING");
@@ -148,7 +147,6 @@ public interface AntlersTypes {
   IElementType T_OP_LT = new AntlersTokenType("<");
   IElementType T_OP_LTE = new AntlersTokenType("<=");
   IElementType T_OP_MINUS = new AntlersTokenType("-");
-  IElementType T_OP_MOD = new AntlersTokenType("%");
   IElementType T_OP_MUL = new AntlersTokenType("*");
   IElementType T_OP_NEQ = new AntlersTokenType("!=");
   IElementType T_OP_NOT_IDENT = new AntlersTokenType("!==");
@@ -165,6 +163,7 @@ public interface AntlersTypes {
   IElementType T_OP_SPACESHIP = new AntlersTokenType("<=>");
   IElementType T_OP_XOR = new AntlersTokenType("xor");
   IElementType T_ORDER_BY = new AntlersTokenType("orderby");
+  IElementType T_PERCENT = new AntlersTokenType("%");
   IElementType T_PHP_CONTENT = new AntlersTokenType("T_PHP_CONTENT");
   IElementType T_PHP_ECHO_CLOSE = new AntlersTokenType("$}}");
   IElementType T_PHP_ECHO_OPEN = new AntlersTokenType("{{$");
