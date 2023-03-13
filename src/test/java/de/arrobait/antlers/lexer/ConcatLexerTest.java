@@ -37,7 +37,7 @@ public class ConcatLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
@@ -53,7 +53,7 @@ public class ConcatLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
@@ -74,7 +74,7 @@ public class ConcatLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -90,7 +90,7 @@ public class ConcatLexerTest extends LexerTest {
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );

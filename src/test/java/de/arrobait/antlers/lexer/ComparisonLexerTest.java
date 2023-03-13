@@ -45,7 +45,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_EQ, "==",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -58,7 +58,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_EQ, "==",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -67,11 +67,11 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_EQ, "==",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -80,7 +80,7 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_EQ, "==",
                 WHITE_SPACE, " ",
@@ -95,7 +95,7 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_EQ, "==",
                 WHITE_SPACE, " ",
@@ -117,7 +117,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_NEQ, "!=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -130,7 +130,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_NEQ, "!=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -139,11 +139,11 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_NEQ, "!=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -159,7 +159,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_IDENT, "===",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -172,7 +172,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_IDENT, "===",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -181,11 +181,11 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_IDENT, "===",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -201,7 +201,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_NOT_IDENT, "!==",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -214,7 +214,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_NOT_IDENT, "!==",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -223,11 +223,11 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_NOT_IDENT, "!==",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -243,7 +243,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_GT, ">",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -256,7 +256,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_GT, ">",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -265,11 +265,11 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_GT, ">",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -285,7 +285,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_GTE, ">=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -298,7 +298,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_GTE, ">=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -307,11 +307,11 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_GTE, ">=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -327,7 +327,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_LT, "<",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -340,7 +340,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_LT, "<",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -349,11 +349,11 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_LT, "<",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -369,7 +369,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_LTE, "<=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -382,7 +382,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_LTE, "<=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -391,11 +391,11 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_LTE, "<=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -434,11 +434,11 @@ public class ComparisonLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_OP_SPACESHIP, "<=>",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -451,7 +451,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_SPACESHIP, "<=>",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -464,7 +464,7 @@ public class ComparisonLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_SPACESHIP, "<=>",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );

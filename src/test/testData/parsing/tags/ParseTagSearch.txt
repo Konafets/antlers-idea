@@ -82,7 +82,7 @@ Antlers File:ParseTagSearch.antlers.html
                       AntlersModifierParamImpl(MODIFIER_PARAM)
                         AntlersLiteralExprImpl(LITERAL_EXPR)
                           AntlersNumberLiteralImpl(NUMBER_LITERAL)
-                            PsiElement(T_INTEGER_NUMBER)('240')
+                            PsiElement(T_INTEGER)('240')
                   PsiWhiteSpace(' ')
                   AntlersNodeCloserImpl(NODE_CLOSER)
                     PsiElement(}})('}}')

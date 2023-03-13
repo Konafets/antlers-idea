@@ -29,7 +29,7 @@ public class SubexpressionLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_LP, "(",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 T_RP, ")",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
@@ -40,7 +40,7 @@ public class SubexpressionLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_LP, "(",
-                T_FLOAT_NUMBER, ".04",
+                T_FLOAT, ".04",
                 T_RP, ")",
                 WHITE_SPACE, " ",
                 T_RD, "}}"

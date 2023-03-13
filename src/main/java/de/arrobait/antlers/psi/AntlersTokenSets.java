@@ -68,8 +68,8 @@ public class AntlersTokenSets {
     public static final TokenSet MODIFIERS = TokenSet.create(T_MODIFIER);
 
     public static final TokenSet NUMBERS = TokenSet.create(
-            T_INTEGER_NUMBER,
-            T_FLOAT_NUMBER
+            T_INTEGER,
+            T_FLOAT
     );
 
     public static final TokenSet OPERATORS = TokenSet.create(

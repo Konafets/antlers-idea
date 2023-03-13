@@ -19,7 +19,7 @@ public class PropertyAccessLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "skaters",
                 T_COLON, ":",
-                T_INTEGER_NUMBER, "0",
+                T_INTEGER, "0",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -30,7 +30,7 @@ public class PropertyAccessLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "skaters",
                 T_COLON, ":",
-                T_INTEGER_NUMBER, "0",
+                T_INTEGER, "0",
                 T_COLON, ":",
                 T_IDENTIFIER, "name",
                 WHITE_SPACE, " ",
@@ -57,7 +57,7 @@ public class PropertyAccessLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "sports",
                 T_DOT, ".",
-                T_INTEGER_NUMBER, "0",
+                T_INTEGER, "0",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -68,7 +68,7 @@ public class PropertyAccessLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "skaters",
                 T_DOT, ".",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 T_DOT, ".",
                 T_IDENTIFIER, "name",
                 WHITE_SPACE, " ",
@@ -84,7 +84,7 @@ public class PropertyAccessLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "sports",
                 T_LEFT_BRACKET, "[",
-                T_INTEGER_NUMBER, "2",
+                T_INTEGER, "2",
                 T_RIGHT_BRACKET, "]",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
@@ -96,7 +96,7 @@ public class PropertyAccessLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "skaters",
                 T_LEFT_BRACKET, "[",
-                T_INTEGER_NUMBER, "2",
+                T_INTEGER, "2",
                 T_RIGHT_BRACKET, "]",
                 T_LEFT_BRACKET, "[",
                 T_SINGLE_QUOTE, "'",
@@ -132,7 +132,7 @@ public class PropertyAccessLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "complex_data",
                 T_LEFT_BRACKET, "[",
-                T_INTEGER_NUMBER, "3",
+                T_INTEGER, "3",
                 T_RIGHT_BRACKET, "]",
                 T_LEFT_BRACKET, "[",
                 T_IDENTIFIER, "field",

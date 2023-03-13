@@ -10,8 +10,8 @@ import de.arrobait.antlers.psi.AntlersVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static de.arrobait.antlers.psi.AntlersTypes.T_FLOAT_NUMBER;
-import static de.arrobait.antlers.psi.AntlersTypes.T_INTEGER_NUMBER;
+import static de.arrobait.antlers.psi.AntlersTypes.T_FLOAT;
+import static de.arrobait.antlers.psi.AntlersTypes.T_INTEGER;
 
 public class AntlersNumberLiteralImpl extends ASTWrapperPsiElement implements AntlersNumberLiteral {
 
@@ -31,14 +31,14 @@ public class AntlersNumberLiteralImpl extends ASTWrapperPsiElement implements An
 
   @Override
   @Nullable
-  public PsiElement getTFloatNumber() {
-    return findChildByType(T_FLOAT_NUMBER);
+  public PsiElement getTFloat() {
+    return findChildByType(T_FLOAT);
   }
 
   @Override
   @Nullable
-  public PsiElement getTIntegerNumber() {
-    return findChildByType(T_INTEGER_NUMBER);
+  public PsiElement getTInteger() {
+    return findChildByType(T_INTEGER);
   }
 
 }

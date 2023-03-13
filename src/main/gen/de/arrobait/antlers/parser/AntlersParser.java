@@ -361,7 +361,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement) ']'
+  // '[' (T_INTEGER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement) ']'
   public static boolean bracket_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "bracket_property_access")) return false;
     if (!nextTokenIs(b, T_LEFT_BRACKET)) return false;
@@ -374,12 +374,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement
+  // T_INTEGER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement
   private static boolean bracket_property_access_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "bracket_property_access_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, T_INTEGER_NUMBER);
+    r = consumeToken(b, T_INTEGER);
     if (!r) r = bracket_property_access_1_1(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
     if (!r) r = interpolated_statement(b, l + 1);
@@ -439,7 +439,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+  // ':' (T_INTEGER | T_IDENTIFIER | string_literal)
   public static boolean colon_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "colon_property_access")) return false;
     if (!nextTokenIs(b, T_COLON)) return false;
@@ -451,11 +451,11 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
+  // T_INTEGER | T_IDENTIFIER | string_literal
   private static boolean colon_property_access_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "colon_property_access_1")) return false;
     boolean r;
-    r = consumeToken(b, T_INTEGER_NUMBER);
+    r = consumeToken(b, T_INTEGER);
     if (!r) r = consumeToken(b, T_IDENTIFIER);
     if (!r) r = string_literal(b, l + 1);
     return r;
@@ -550,7 +550,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+  // '.' (T_INTEGER | T_IDENTIFIER | string_literal)
   public static boolean dot_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dot_property_access")) return false;
     if (!nextTokenIs(b, T_DOT)) return false;
@@ -562,11 +562,11 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
+  // T_INTEGER | T_IDENTIFIER | string_literal
   private static boolean dot_property_access_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dot_property_access_1")) return false;
     boolean r;
-    r = consumeToken(b, T_INTEGER_NUMBER);
+    r = consumeToken(b, T_INTEGER);
     if (!r) r = consumeToken(b, T_IDENTIFIER);
     if (!r) r = string_literal(b, l + 1);
     return r;
@@ -1107,14 +1107,14 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_INTEGER_NUMBER | T_FLOAT_NUMBER
+  // T_INTEGER | T_FLOAT
   public static boolean number_literal(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "number_literal")) return false;
-    if (!nextTokenIs(b, "<number literal>", T_FLOAT_NUMBER, T_INTEGER_NUMBER)) return false;
+    if (!nextTokenIs(b, "<number literal>", T_FLOAT, T_INTEGER)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NUMBER_LITERAL, "<number literal>");
-    r = consumeToken(b, T_INTEGER_NUMBER);
-    if (!r) r = consumeToken(b, T_FLOAT_NUMBER);
+    r = consumeToken(b, T_INTEGER);
+    if (!r) r = consumeToken(b, T_FLOAT);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

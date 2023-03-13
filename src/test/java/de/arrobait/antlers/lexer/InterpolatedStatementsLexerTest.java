@@ -22,7 +22,7 @@ public class InterpolatedStatementsLexerTest extends LexerTest {
                 T_OP_ASSIGN, "=",
                 WHITE_SPACE, " ",
                 T_LEFT_BRACE, "{",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 T_RIGHT_BRACE, "}",
                 WHITE_SPACE, " ",
                 T_RD, "}}"

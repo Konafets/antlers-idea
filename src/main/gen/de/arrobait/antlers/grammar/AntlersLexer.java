@@ -2813,7 +2813,7 @@ public class AntlersLexer implements FlexLexer {
             // fall through
           case 121: break;
           case 15:
-            { return T_INTEGER_NUMBER;
+            { return T_INTEGER;
             }
             // fall through
           case 122: break;
@@ -3043,7 +3043,7 @@ public class AntlersLexer implements FlexLexer {
             // fall through
           case 160: break;
           case 54:
-            { return T_FLOAT_NUMBER;
+            { return T_FLOAT;
             }
             // fall through
           case 161: break;

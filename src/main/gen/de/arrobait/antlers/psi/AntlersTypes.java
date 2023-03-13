@@ -121,13 +121,13 @@ public interface AntlersTypes {
   IElementType T_END_IF = new AntlersTokenType("endif");
   IElementType T_END_UNLESS = new AntlersTokenType("endunless");
   IElementType T_FALSE = new AntlersTokenType("false");
-  IElementType T_FLOAT_NUMBER = new AntlersTokenType("T_FLOAT_NUMBER");
+  IElementType T_FLOAT = new AntlersTokenType("T_FLOAT");
   IElementType T_FRONTMATTER_CONTENT = new AntlersTokenType("T_FRONTMATTER_CONTENT");
   IElementType T_FRONTMATTER_DELIMITER = new AntlersTokenType("---");
   IElementType T_GROUP_BY = new AntlersTokenType("groupby");
   IElementType T_IDENTIFIER = new AntlersTokenType("T_IDENTIFIER");
   IElementType T_IF = new AntlersTokenType("if");
-  IElementType T_INTEGER_NUMBER = new AntlersTokenType("T_INTEGER_NUMBER");
+  IElementType T_INTEGER = new AntlersTokenType("T_INTEGER");
   IElementType T_LD = new AntlersTokenType("{{");
   IElementType T_LEFT_BRACE = new AntlersTokenType("{");
   IElementType T_LEFT_BRACKET = new AntlersTokenType("[");

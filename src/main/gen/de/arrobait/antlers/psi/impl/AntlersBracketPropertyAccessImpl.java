@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static de.arrobait.antlers.psi.AntlersTypes.T_IDENTIFIER;
-import static de.arrobait.antlers.psi.AntlersTypes.T_INTEGER_NUMBER;
+import static de.arrobait.antlers.psi.AntlersTypes.T_INTEGER;
 
 public class AntlersBracketPropertyAccessImpl extends ASTWrapperPsiElement implements AntlersBracketPropertyAccess {
 
@@ -60,8 +60,8 @@ public class AntlersBracketPropertyAccessImpl extends ASTWrapperPsiElement imple
 
   @Override
   @Nullable
-  public PsiElement getTIntegerNumber() {
-    return findChildByType(T_INTEGER_NUMBER);
+  public PsiElement getTInteger() {
+    return findChildByType(T_INTEGER);
   }
 
 }

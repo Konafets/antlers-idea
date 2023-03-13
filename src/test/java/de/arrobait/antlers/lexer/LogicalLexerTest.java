@@ -17,11 +17,11 @@ public class LogicalLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_OP_AND, "&&",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -34,7 +34,7 @@ public class LogicalLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_AND, "&&",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -43,11 +43,11 @@ public class LogicalLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_OP_AND, "and",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -60,7 +60,7 @@ public class LogicalLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_AND, "and",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -72,11 +72,11 @@ public class LogicalLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_OP_OR, "||",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -89,7 +89,7 @@ public class LogicalLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_OR, "||",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -98,11 +98,11 @@ public class LogicalLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_OP_OR, "or",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -115,7 +115,7 @@ public class LogicalLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_OR, "or",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -148,7 +148,7 @@ public class LogicalLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_EXCLAMATION_MARK, "!",
-                T_INTEGER_NUMBER, "54",
+                T_INTEGER, "54",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -267,11 +267,11 @@ public class LogicalLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_OP_XOR, "xor",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -280,11 +280,11 @@ public class LogicalLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_OP_XOR, "xor",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -297,7 +297,7 @@ public class LogicalLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_XOR, "xor",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "20",
+                T_INTEGER, "20",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );

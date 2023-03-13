@@ -7,9 +7,9 @@ import org.jetbrains.annotations.Nullable;
 public interface AntlersNumberLiteral extends AntlersPsiElement {
 
   @Nullable
-  PsiElement getTFloatNumber();
+  PsiElement getTFloat();
 
   @Nullable
-  PsiElement getTIntegerNumber();
+  PsiElement getTInteger();
 
 }

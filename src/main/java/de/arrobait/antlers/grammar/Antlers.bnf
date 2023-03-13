@@ -103,8 +103,8 @@
 
         T_TAXONOMY='taxonomy:'
 
-        T_INTEGER_NUMBER='regexp:0|[1-9]\d*'
-        T_FLOAT_NUMBER='regexp:\d*\.\d+([eE][-+]?\d+)?|\d+[eE][-+]?\d+'
+        T_INTEGER='regexp:0|[1-9]\d*'
+        T_FLOAT='regexp:\d*\.\d+([eE][-+]?\d+)?|\d+[eE][-+]?\d+'
 
         T_SINGLE_QUOTE="'"
         T_DOUBLE_QUOTE='"'
@@ -357,12 +357,12 @@ unary_factorial_expr ::= expr '!'
 // Variable
 variable ::= '@'? (T_IDENTIFIER | T_SLOT) [property_access*]
 private property_access ::= bracket_property_access | dot_property_access | colon_property_access
-bracket_property_access ::= '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement) ']'
-dot_property_access     ::= '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
-colon_property_access   ::= ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+bracket_property_access ::= '[' (T_INTEGER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement) ']'
+dot_property_access     ::= '.' (T_INTEGER | T_IDENTIFIER | string_literal)
+colon_property_access   ::= ':' (T_INTEGER | T_IDENTIFIER | string_literal)
 
 // TODO: Extract the access key into own rule
-//private property_access_keys ::= T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
+//private property_access_keys ::= T_INTEGER | T_IDENTIFIER | string_literal
 
 // {{ total = 0 }}
 // {{ todo = ['Get haircut', 'Bake bread', 'Eat soup'] }}
@@ -433,7 +433,7 @@ literal_expr ::= number_literal
                | variable variable_attribute_assignment*
 
 // Literals
-number_literal  ::= T_INTEGER_NUMBER | T_FLOAT_NUMBER
+number_literal  ::= T_INTEGER | T_FLOAT
 string_literal  ::= "'" T_STRING_CONTENT? "'"
                   | '"' T_STRING_CONTENT? '"'
 boolean_literal ::= 'true' | 'false'
