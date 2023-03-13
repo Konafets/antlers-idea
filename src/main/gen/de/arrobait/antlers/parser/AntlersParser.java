@@ -573,6 +573,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // T_DYNAMIC_BINDING
+  static boolean dynamic_binding(PsiBuilder b, int l) {
+    return consumeToken(b, T_DYNAMIC_BINDING);
+  }
+
+  /* ********************************************************** */
   // node_opener 'else' node_closer
   public static boolean else_node(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "else_node")) return false;
@@ -1557,7 +1563,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_DYNAMIC_BINDING* tag_attribute_key '=' tag_attribute_value
+  // dynamic_binding* tag_attribute_key '=' tag_attribute_value
   public static boolean tag_attribute_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_attribute_assignment")) return false;
     if (!nextTokenIs(b, "<tag attribute assignment>", T_DYNAMIC_BINDING, T_IDENTIFIER)) return false;
@@ -1571,12 +1577,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_DYNAMIC_BINDING*
+  // dynamic_binding*
   private static boolean tag_attribute_assignment_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_attribute_assignment_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!consumeToken(b, T_DYNAMIC_BINDING)) break;
+      if (!dynamic_binding(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "tag_attribute_assignment_0", c)) break;
     }
     return true;

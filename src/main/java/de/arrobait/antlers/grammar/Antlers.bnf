@@ -222,9 +222,10 @@ private tag_method_name ::= T_TAG_METHOD_NAME
 private shorthand_separator ::= T_COLON
 private disambiguation_char ::= T_PERCENT
 
-tag_attribute_assignment ::= T_DYNAMIC_BINDING* tag_attribute_key '=' tag_attribute_value
+tag_attribute_assignment ::= dynamic_binding* tag_attribute_key '=' tag_attribute_value
 tag_attribute_key ::= T_IDENTIFIER [T_TAG_CONDITION]
 tag_attribute_value ::= string_literal
+private dynamic_binding ::= T_DYNAMIC_BINDING
 
 tag_taxonomy_condition ::= T_TAXONOMY taxonomy_name '=' taxonomy_term
 taxonomy_name ::= T_IDENTIFIER
