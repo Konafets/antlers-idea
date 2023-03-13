@@ -325,7 +325,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 <TAG_EXPRESSION> {
     {WHITE_SPACE}  { pushState(TAG_EXPRESSION_ATTRIBUTE_LIST); return TokenType.WHITE_SPACE; }
     "%"            { return T_DISAMBIGUATION; }
-    ":"            { pushState(TAG_SHORTHAND); return T_SHORTHAND_SEPARATOR; }
+    ":"            { pushState(TAG_SHORTHAND); return T_COLON; }
     {SLASH}        { return T_SLASH; }
     {TAG_NAMES}    { return T_TAG; }
 }

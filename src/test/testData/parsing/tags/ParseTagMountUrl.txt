@@ -31,7 +31,7 @@ Antlers File:ParseTagMountUrl.antlers.html
         AntlersTagImpl(TAG)
           AntlersTagNameImpl(TAG_NAME)
             PsiElement(T_TAG)('mount_url')
-          PsiElement(T_SHORTHAND_SEPARATOR)(':')
+          PsiElement(:)(':')
           AntlersTagMethodPartImpl(TAG_METHOD_PART)
             PsiElement(T_TAG_METHOD_NAME)('blog')
         PsiWhiteSpace(' ')

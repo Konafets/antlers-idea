@@ -189,7 +189,7 @@ noparse_region_close ::= node_opener (T_SLASH 'noparse') node_closer { pin=2 }
  */
 // {{ %partial:blog/card for="5 minutes" }}
 //tag_node ::= node_opener tag tag_parameters node_closer
-//tag ::= [T_DISAMBIGUATION] tag_name T_SHORTHAND_SEPARATOR tag_method
+//tag ::= [T_DISAMBIGUATION] tag_name shorthand_separator tag_method
 //tag_name ::= 'partial'
 
 tag_single ::= tag_node_open {
@@ -213,11 +213,12 @@ tag_node_close ::= node_opener (T_SLASH tag) node_closer { pin=2 }
 private tag_with_attributes ::= tag (tag_attribute_assignment | tag_taxonomy_condition)*
 
 tag ::= [T_DISAMBIGUATION] (shorthand_tag | regular_tag)
-private shorthand_tag ::= regular_tag T_SHORTHAND_SEPARATOR tag_method_part { pin=2 }
+private shorthand_tag ::= regular_tag shorthand_separator tag_method_part { pin=2 }
 private regular_tag ::= tag_name
 tag_name ::= T_TAG
-tag_method_part ::= tag_method_name (T_SHORTHAND_SEPARATOR tag_method_name)*
+tag_method_part ::= tag_method_name (shorthand_separator tag_method_name)*
 private tag_method_name ::= T_TAG_METHOD_NAME
+private shorthand_separator ::= T_COLON
 
 tag_attribute_assignment ::= T_DYNAMIC_BINDING* tag_attribute_key '=' tag_attribute_value
 tag_attribute_key ::= T_IDENTIFIER [T_TAG_CONDITION]

@@ -1335,14 +1335,20 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // regular_tag T_SHORTHAND_SEPARATOR tag_method_part
+  // T_COLON
+  static boolean shorthand_separator(PsiBuilder b, int l) {
+    return consumeToken(b, T_COLON);
+  }
+
+  /* ********************************************************** */
+  // regular_tag shorthand_separator tag_method_part
   static boolean shorthand_tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shorthand_tag")) return false;
     if (!nextTokenIs(b, T_TAG)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
     r = regular_tag(b, l + 1);
-    r = r && consumeToken(b, T_SHORTHAND_SEPARATOR);
+    r = r && shorthand_separator(b, l + 1);
     p = r; // pin = 2
     r = r && tag_method_part(b, l + 1);
     exit_section_(b, l, m, r, p, null);
@@ -1609,7 +1615,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // tag_method_name (T_SHORTHAND_SEPARATOR tag_method_name)*
+  // tag_method_name (shorthand_separator tag_method_name)*
   public static boolean tag_method_part(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_method_part")) return false;
     if (!nextTokenIs(b, T_TAG_METHOD_NAME)) return false;
@@ -1621,7 +1627,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (T_SHORTHAND_SEPARATOR tag_method_name)*
+  // (shorthand_separator tag_method_name)*
   private static boolean tag_method_part_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_method_part_1")) return false;
     while (true) {
@@ -1632,12 +1638,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // T_SHORTHAND_SEPARATOR tag_method_name
+  // shorthand_separator tag_method_name
   private static boolean tag_method_part_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_method_part_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, T_SHORTHAND_SEPARATOR);
+    r = shorthand_separator(b, l + 1);
     r = r && tag_method_name(b, l + 1);
     exit_section_(b, m, null, r);
     return r;

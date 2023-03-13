@@ -130,8 +130,6 @@ public class AntlersTokenSets {
 
     public static final TokenSet TAG_DISAMBIGUATION = TokenSet.create(T_DISAMBIGUATION);
 
-    public static final TokenSet TAG_SHORTHAND_SEPARATOR = TokenSet.create(T_SHORTHAND_SEPARATOR);
-
     public static final TokenSet WHITESPACES = TokenSet.create(TokenType.WHITE_SPACE);
 
     private AntlersTokenSets() {

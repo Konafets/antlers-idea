@@ -2924,7 +2924,7 @@ public class AntlersLexer implements FlexLexer {
             // fall through
           case 144: break;
           case 37:
-            { pushState(TAG_SHORTHAND); return T_SHORTHAND_SEPARATOR;
+            { pushState(TAG_SHORTHAND); return T_COLON;
             }
             // fall through
           case 145: break;
