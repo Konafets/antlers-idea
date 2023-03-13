@@ -124,7 +124,7 @@ public interface AntlersTypes {
   IElementType T_FALSE = new AntlersTokenType("false");
   IElementType T_FLOAT_NUMBER = new AntlersTokenType("T_FLOAT_NUMBER");
   IElementType T_FRONTMATTER_CONTENT = new AntlersTokenType("T_FRONTMATTER_CONTENT");
-  IElementType T_FRONTMATTER_DELIMITER = new AntlersTokenType("T_FRONTMATTER_DELIMITER");
+  IElementType T_FRONTMATTER_DELIMITER = new AntlersTokenType("---");
   IElementType T_GROUP_BY = new AntlersTokenType("groupby");
   IElementType T_IDENTIFIER = new AntlersTokenType("T_IDENTIFIER");
   IElementType T_IF = new AntlersTokenType("if");
@@ -173,7 +173,7 @@ public interface AntlersTypes {
   IElementType T_PIPE = new AntlersTokenType("|");
   IElementType T_PLUCK = new AntlersTokenType("pluck");
   IElementType T_RD = new AntlersTokenType("}}");
-  IElementType T_RECURSIVE_CHILDREN = new AntlersTokenType("T_RECURSIVE_CHILDREN");
+  IElementType T_RECURSIVE_CHILDREN = new AntlersTokenType("recursive children");
   IElementType T_RIGHT_BRACE = new AntlersTokenType("}");
   IElementType T_RIGHT_BRACKET = new AntlersTokenType("]");
   IElementType T_RP = new AntlersTokenType(")");
@@ -182,7 +182,7 @@ public interface AntlersTypes {
   IElementType T_SINGLE_QUOTE = new AntlersTokenType("'");
   IElementType T_SKIP = new AntlersTokenType("skip");
   IElementType T_SLASH = new AntlersTokenType("/");
-  IElementType T_SLOT = new AntlersTokenType("T_SLOT");
+  IElementType T_SLOT = new AntlersTokenType("slot");
   IElementType T_STAR = new AntlersTokenType("T_STAR");
   IElementType T_STRING_CONTENT = new AntlersTokenType("T_STRING_CONTENT");
   IElementType T_SWITCH = new AntlersTokenType("switch");

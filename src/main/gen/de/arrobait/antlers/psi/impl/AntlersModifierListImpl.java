@@ -3,12 +3,15 @@ package de.arrobait.antlers.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import de.arrobait.antlers.psi.AntlersModifierList;
 import de.arrobait.antlers.psi.AntlersModifierParamsList;
 import de.arrobait.antlers.psi.AntlersVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static de.arrobait.antlers.psi.AntlersTypes.T_MODIFIER;
 
 public class AntlersModifierListImpl extends ASTWrapperPsiElement implements AntlersModifierList {
 
@@ -30,6 +33,12 @@ public class AntlersModifierListImpl extends ASTWrapperPsiElement implements Ant
   @Nullable
   public AntlersModifierParamsList getModifierParamsList() {
     return findChildByClass(AntlersModifierParamsList.class);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getTModifier() {
+    return findNotNullChildByType(T_MODIFIER);
   }
 
 }

@@ -604,7 +604,7 @@ Antlers File:ParseTagNav.antlers.html
                           PsiElement({{)('{{')
                         PsiWhiteSpace(' ')
                         PsiElement(T_STAR)('*')
-                        PsiElement(T_RECURSIVE_CHILDREN)('recursive children')
+                        PsiElement(recursive children)('recursive children')
                         PsiElement(T_STAR)('*')
                         PsiWhiteSpace(' ')
                         AntlersNodeCloserImpl(NODE_CLOSER)
