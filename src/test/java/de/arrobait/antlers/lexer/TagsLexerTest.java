@@ -272,4 +272,39 @@ public class TagsLexerTest extends LexerTest {
                 T_RD, "}}"
         );
     }
+
+    @Test
+    public void it_lexes_unknown_tag_from_addon() {
+        givenInput("{{ imagekit :src=\"foo\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_UNKNOWN_TAG, "imagekit",
+                WHITE_SPACE, " ",
+                T_DYNAMIC_BINDING, ":",
+                T_IDENTIFIER, "src",
+                T_OP_ASSIGN, "=",
+                T_DOUBLE_QUOTE, "\"",
+                T_STRING_CONTENT, "foo",
+                T_DOUBLE_QUOTE, "\"",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+
+        givenInput("{{ imagekit  :src=\"foo\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_UNKNOWN_TAG, "imagekit",
+                WHITE_SPACE, "  ",
+                T_DYNAMIC_BINDING, ":",
+                T_IDENTIFIER, "src",
+                T_OP_ASSIGN, "=",
+                T_DOUBLE_QUOTE, "\"",
+                T_STRING_CONTENT, "foo",
+                T_DOUBLE_QUOTE, "\"",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
 }

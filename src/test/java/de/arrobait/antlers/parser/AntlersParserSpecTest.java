@@ -71,6 +71,11 @@ public class AntlersParserSpecTest extends AntlersParsingTestCase {
     }
 
     @Test
+    public void testParseIssue120() {
+        doTest(true);
+    }
+
+    @Test
     public void testParseLogicalExpressions() {
         doTest(true);
     }

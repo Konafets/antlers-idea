@@ -1344,15 +1344,14 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // regular_tag ':' tag_method_part
   static boolean shorthand_tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shorthand_tag")) return false;
-    if (!nextTokenIs(b, T_TAG)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_);
+    if (!nextTokenIs(b, "", T_TAG, T_UNKNOWN_TAG)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
     r = regular_tag(b, l + 1);
     r = r && consumeToken(b, T_COLON);
-    p = r; // pin = 2
     r = r && tag_method_part(b, l + 1);
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -1525,7 +1524,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // ['%'] (shorthand_tag | regular_tag)
   public static boolean tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag")) return false;
-    if (!nextTokenIs(b, "<tag>", T_PERCENT, T_TAG)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TAG, "<tag>");
     r = tag_0(b, l + 1);
@@ -1650,14 +1648,15 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_TAG
+  // T_TAG | T_UNKNOWN_TAG
   public static boolean tag_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_name")) return false;
-    if (!nextTokenIs(b, T_TAG)) return false;
+    if (!nextTokenIs(b, "<tag name>", T_TAG, T_UNKNOWN_TAG)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, TAG_NAME, "<tag name>");
     r = consumeToken(b, T_TAG);
-    exit_section_(b, m, TAG_NAME, r);
+    if (!r) r = consumeToken(b, T_UNKNOWN_TAG);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1755,7 +1754,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // tag (tag_attribute_assignment | tag_taxonomy_condition)*
   static boolean tag_with_attributes(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_with_attributes")) return false;
-    if (!nextTokenIs(b, "", T_PERCENT, T_TAG)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = tag(b, l + 1);

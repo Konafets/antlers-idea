@@ -191,6 +191,7 @@ public interface AntlersTypes {
   IElementType T_TAXONOMY = new AntlersTokenType("taxonomy:");
   IElementType T_TRUE = new AntlersTokenType("true");
   IElementType T_UNCLOSED_COMMENT = new AntlersTokenType("T_UNCLOSED_COMMENT");
+  IElementType T_UNKNOWN_TAG = new AntlersTokenType("T_UNKNOWN_TAG");
   IElementType T_UNLESS = new AntlersTokenType("unless");
   IElementType T_WHERE = new AntlersTokenType("where");
   IElementType UNCLOSED_FRONT_MATTER = new AntlersTokenType("UNCLOSED_FRONT_MATTER");
