@@ -75,7 +75,7 @@ public class VariableLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_ASSIGN, "=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -88,7 +88,7 @@ public class VariableLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_ASSIGN, "=",
                 WHITE_SPACE, " ",
-                T_FLOAT_NUMBER, "0.10",
+                T_FLOAT, "0.10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -117,7 +117,7 @@ public class VariableLexerTest extends LexerTest {
                 T_OP_ASSIGN, "=",
                 WHITE_SPACE, " ",
                 T_LP, "(",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 T_RP, ")",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
@@ -132,7 +132,7 @@ public class VariableLexerTest extends LexerTest {
                 T_OP_ASSIGN, "=",
                 WHITE_SPACE, " ",
                 T_LEFT_BRACE, "{",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 T_RIGHT_BRACE, "}",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
@@ -150,7 +150,7 @@ public class VariableLexerTest extends LexerTest {
                 T_OP_ASSIGN, "=",
                 WHITE_SPACE, " ",
                 T_LEFT_BRACKET, "[",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 T_RIGHT_BRACKET, "]",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
@@ -222,10 +222,10 @@ public class VariableLexerTest extends LexerTest {
                 T_OP_ASSIGN, "=",
                 WHITE_SPACE, " ",
                 T_LEFT_BRACKET, "[",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 T_COMMA, ",",
                 WHITE_SPACE, " ",
-                T_FLOAT_NUMBER, "4.2",
+                T_FLOAT, "4.2",
                 T_RIGHT_BRACKET, "]",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
@@ -240,10 +240,10 @@ public class VariableLexerTest extends LexerTest {
                 T_OP_ASSIGN, "=",
                 WHITE_SPACE, " ",
                 T_LEFT_BRACKET, "[",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 T_COMMA, ",",
                 WHITE_SPACE, " ",
-                T_FLOAT_NUMBER, "4.2",
+                T_FLOAT, "4.2",
                 T_COMMA, ",",
                 WHITE_SPACE, " ",
                 T_LEFT_BRACKET, "[",

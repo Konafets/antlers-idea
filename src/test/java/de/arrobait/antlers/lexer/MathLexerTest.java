@@ -34,7 +34,7 @@ public class MathLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_SELF_ASSIGN_ADD, "+=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "10",
+                T_INTEGER, "10",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -43,11 +43,11 @@ public class MathLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "3",
+                T_INTEGER, "3",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "4",
+                T_INTEGER, "4",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -62,7 +62,7 @@ public class MathLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "4",
+                T_INTEGER, "4",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -147,12 +147,12 @@ public class MathLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -162,12 +162,12 @@ public class MathLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -177,10 +177,10 @@ public class MathLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 T_OP_MINUS, "-",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -190,9 +190,9 @@ public class MathLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -203,10 +203,10 @@ public class MathLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_LP, "(",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 T_RP, ")",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -217,10 +217,10 @@ public class MathLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_LEFT_BRACE, "{",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 T_RIGHT_BRACE, "}",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -308,7 +308,7 @@ public class MathLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "$a",
                 WHITE_SPACE, " ",
-                T_OP_MOD, "%",
+                T_PERCENT, "%",
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "$b",
                 WHITE_SPACE, " ",
@@ -346,7 +346,7 @@ public class MathLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_LP, "(",
-                T_INTEGER_NUMBER, "5",
+                T_INTEGER, "5",
                 T_RP, ")",
                 T_OP_EXCLAMATION_MARK, "!",
                 WHITE_SPACE, " ",
@@ -358,11 +358,11 @@ public class MathLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_LP, "(",
-                T_INTEGER_NUMBER, "2",
+                T_INTEGER, "2",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "3",
+                T_INTEGER, "3",
                 T_RP, ")",
                 T_OP_EXCLAMATION_MARK, "!",
                 WHITE_SPACE, " ",
@@ -374,17 +374,17 @@ public class MathLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_LP, "(",
-                T_INTEGER_NUMBER, "2",
+                T_INTEGER, "2",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "3",
+                T_INTEGER, "3",
                 T_RP, ")",
                 T_OP_EXCLAMATION_MARK, "!",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "2",
+                T_INTEGER, "2",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -394,17 +394,17 @@ public class MathLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_LP, "(",
-                T_INTEGER_NUMBER, "2",
+                T_INTEGER, "2",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "3",
+                T_INTEGER, "3",
                 T_RP, ")",
                 T_OP_EXCLAMATION_MARK, "!",
                 WHITE_SPACE, " ",
                 T_OP_PLUS, "+",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "5",
+                T_INTEGER, "5",
                 T_OP_EXCLAMATION_MARK, "!",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
@@ -427,7 +427,7 @@ public class MathLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "5",
+                T_INTEGER, "5",
                 T_OP_EXCLAMATION_MARK, "!",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
@@ -438,7 +438,7 @@ public class MathLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_LP, "(",
-                T_INTEGER_NUMBER, "5",
+                T_INTEGER, "5",
                 T_RP, ")",
                 T_OP_EXCLAMATION_MARK, "!",
                 WHITE_SPACE, " ",

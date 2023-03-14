@@ -597,7 +597,7 @@ Antlers File:ParseGroupBy.antlers.html
         AntlersTagImpl(TAG)
           AntlersTagNameImpl(TAG_NAME)
             PsiElement(T_TAG)('collection')
-          PsiElement(T_SHORTHAND_SEPARATOR)(':')
+          PsiElement(:)(':')
           AntlersTagMethodPartImpl(TAG_METHOD_PART)
             PsiElement(T_TAG_METHOD_NAME)('blog')
         PsiElement(})('}')

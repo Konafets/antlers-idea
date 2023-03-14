@@ -82,8 +82,8 @@ IF="if"
 
 YAML_FRONT_MATTER_DELIMITER="---"
 
-INTEGER_NUMBER=0|[1-9]\d*
-FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
+INTEGER=0|[1-9]\d*
+FLOAT=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 // States
 %state ANTLERS_COMMENT
@@ -267,8 +267,8 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {IDENTIFIER_COLON}   { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
     {IDENTIFIER_BRACKET} { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
 
-    {INTEGER_NUMBER}     { return T_INTEGER_NUMBER; }
-    {FLOAT_NUMBER}       { return T_FLOAT_NUMBER; }
+    {INTEGER}            { return T_INTEGER; }
+    {FLOAT}              { return T_FLOAT; }
     {PIPE}               { pushState(MODIFIER_LIST); return T_PIPE; }
 
     {SLASH_ASSIGN}       { return T_OP_SELF_ASSIGN_DIV; }
@@ -281,7 +281,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "+"                  { return T_OP_PLUS; }
     "-"                  { return T_OP_MINUS; }
     "*"                  { return T_OP_MUL; }
-    "%"                  { return T_OP_MOD; }
+    "%"                  { return T_PERCENT; }
     "**"                 { return T_OP_POW; }
     "!"                  { return T_OP_EXCLAMATION_MARK; }
     "?"                  { return T_OP_QUESTIONMARK; }
@@ -308,7 +308,7 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 // State to avoid ambiguity between float values (.0) with object access (person.name)
 <PROPERTY_ACCESS> {
     "."               { return T_DOT; }
-    {INTEGER_NUMBER}  { return T_INTEGER_NUMBER; }
+    {INTEGER}         { return T_INTEGER; }
     {SLOT}            { return T_SLOT; }
 }
 
@@ -318,14 +318,14 @@ FLOAT_NUMBER=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     ","               { return T_COMMA; }
     "("               { return T_LP; }
     ")"               { popState(); return T_RP; }
-    {INTEGER_NUMBER}  { return T_INTEGER_NUMBER; }
-    {FLOAT_NUMBER}    { return T_FLOAT_NUMBER; }
+    {INTEGER}         { return T_INTEGER; }
+    {FLOAT}           { return T_FLOAT; }
 }
 
 <TAG_EXPRESSION> {
     {WHITE_SPACE}  { pushState(TAG_EXPRESSION_ATTRIBUTE_LIST); return TokenType.WHITE_SPACE; }
-    "%"            { return T_DISAMBIGUATION; }
-    ":"            { pushState(TAG_SHORTHAND); return T_SHORTHAND_SEPARATOR; }
+    "%"            { return T_PERCENT; }
+    ":"            { pushState(TAG_SHORTHAND); return T_COLON; }
     {SLASH}        { return T_SLASH; }
     {TAG_NAMES}    { return T_TAG; }
 }

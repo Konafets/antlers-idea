@@ -40,7 +40,7 @@ public class AntlersSpacingProcessor {
             T_OP_MINUS,
             T_OP_MUL,
             T_SLASH,
-            T_OP_MOD,
+            T_PERCENT,
             T_OP_POW,
             T_OP_EQ,
             T_OP_NEQ,

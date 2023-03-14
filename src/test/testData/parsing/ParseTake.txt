@@ -18,7 +18,7 @@ Antlers File:ParseTake.antlers.html
           PsiWhiteSpace(' ')
           PsiElement(()('(')
           AntlersNumberLiteralImpl(NUMBER_LITERAL)
-            PsiElement(T_INTEGER_NUMBER)('2')
+            PsiElement(T_INTEGER)('2')
           PsiElement())(')')
       PsiWhiteSpace(' ')
       AntlersNodeCloserImpl(NODE_CLOSER)

@@ -1,9 +1,9 @@
 Antlers File:ParseDoubleFrontmatter.antlers.html
   AntlersTinesImpl(TINES)
     AntlersYamlFrontmatterImpl(YAML_FRONTMATTER)
-      PsiElement(T_FRONTMATTER_DELIMITER)('---')
+      PsiElement(---)('---')
       PsiElement(T_FRONTMATTER_CONTENT)('\nsports:\n  - foo\n  - bar\n  - baz\n')
-      PsiElement(T_FRONTMATTER_DELIMITER)('---')
+      PsiElement(---)('---')
     PsiElement(OUTER_CONTENT)('\n--')
     PsiElement(OUTER_CONTENT)('-\nFoo: bar\n--')
     PsiElement(OUTER_CONTENT)('-')

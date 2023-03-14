@@ -13,6 +13,6 @@ public interface AntlersColonPropertyAccess extends AntlersPsiElement {
   PsiElement getTIdentifier();
 
   @Nullable
-  PsiElement getTIntegerNumber();
+  PsiElement getTInteger();
 
 }

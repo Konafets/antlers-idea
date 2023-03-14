@@ -361,7 +361,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '[' (T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement) ']'
+  // '[' (T_INTEGER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement) ']'
   public static boolean bracket_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "bracket_property_access")) return false;
     if (!nextTokenIs(b, T_LEFT_BRACKET)) return false;
@@ -374,12 +374,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_INTEGER_NUMBER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement
+  // T_INTEGER | T_IDENTIFIER [dot_property_access | colon_property_access] | string_literal | interpolated_statement
   private static boolean bracket_property_access_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "bracket_property_access_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, T_INTEGER_NUMBER);
+    r = consumeToken(b, T_INTEGER);
     if (!r) r = bracket_property_access_1_1(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
     if (!r) r = interpolated_statement(b, l + 1);
@@ -439,7 +439,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ':' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+  // ':' (T_INTEGER | T_IDENTIFIER | string_literal)
   public static boolean colon_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "colon_property_access")) return false;
     if (!nextTokenIs(b, T_COLON)) return false;
@@ -451,11 +451,11 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
+  // T_INTEGER | T_IDENTIFIER | string_literal
   private static boolean colon_property_access_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "colon_property_access_1")) return false;
     boolean r;
-    r = consumeToken(b, T_INTEGER_NUMBER);
+    r = consumeToken(b, T_INTEGER);
     if (!r) r = consumeToken(b, T_IDENTIFIER);
     if (!r) r = string_literal(b, l + 1);
     return r;
@@ -544,7 +544,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '.' (T_INTEGER_NUMBER | T_IDENTIFIER | string_literal)
+  // '.' (T_INTEGER | T_IDENTIFIER | string_literal)
   public static boolean dot_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dot_property_access")) return false;
     if (!nextTokenIs(b, T_DOT)) return false;
@@ -556,14 +556,20 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_INTEGER_NUMBER | T_IDENTIFIER | string_literal
+  // T_INTEGER | T_IDENTIFIER | string_literal
   private static boolean dot_property_access_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dot_property_access_1")) return false;
     boolean r;
-    r = consumeToken(b, T_INTEGER_NUMBER);
+    r = consumeToken(b, T_INTEGER);
     if (!r) r = consumeToken(b, T_IDENTIFIER);
     if (!r) r = string_literal(b, l + 1);
     return r;
+  }
+
+  /* ********************************************************** */
+  // T_DYNAMIC_BINDING
+  static boolean dynamic_binding(PsiBuilder b, int l) {
+    return consumeToken(b, T_DYNAMIC_BINDING);
   }
 
   /* ********************************************************** */
@@ -1101,14 +1107,14 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_INTEGER_NUMBER | T_FLOAT_NUMBER
+  // T_INTEGER | T_FLOAT
   public static boolean number_literal(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "number_literal")) return false;
-    if (!nextTokenIs(b, "<number literal>", T_FLOAT_NUMBER, T_INTEGER_NUMBER)) return false;
+    if (!nextTokenIs(b, "<number literal>", T_FLOAT, T_INTEGER)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NUMBER_LITERAL, "<number literal>");
-    r = consumeToken(b, T_INTEGER_NUMBER);
-    if (!r) r = consumeToken(b, T_FLOAT_NUMBER);
+    r = consumeToken(b, T_INTEGER);
+    if (!r) r = consumeToken(b, T_FLOAT);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1335,14 +1341,14 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // regular_tag T_SHORTHAND_SEPARATOR tag_method_part
+  // regular_tag ':' tag_method_part
   static boolean shorthand_tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shorthand_tag")) return false;
     if (!nextTokenIs(b, T_TAG)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
     r = regular_tag(b, l + 1);
-    r = r && consumeToken(b, T_SHORTHAND_SEPARATOR);
+    r = r && consumeToken(b, T_COLON);
     p = r; // pin = 2
     r = r && tag_method_part(b, l + 1);
     exit_section_(b, l, m, r, p, null);
@@ -1516,10 +1522,10 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // [T_DISAMBIGUATION] (shorthand_tag | regular_tag)
+  // ['%'] (shorthand_tag | regular_tag)
   public static boolean tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag")) return false;
-    if (!nextTokenIs(b, "<tag>", T_DISAMBIGUATION, T_TAG)) return false;
+    if (!nextTokenIs(b, "<tag>", T_PERCENT, T_TAG)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TAG, "<tag>");
     r = tag_0(b, l + 1);
@@ -1528,10 +1534,10 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [T_DISAMBIGUATION]
+  // ['%']
   private static boolean tag_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_0")) return false;
-    consumeToken(b, T_DISAMBIGUATION);
+    consumeToken(b, T_PERCENT);
     return true;
   }
 
@@ -1545,7 +1551,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_DYNAMIC_BINDING* tag_attribute_key '=' tag_attribute_value
+  // dynamic_binding* tag_attribute_key '=' tag_attribute_value
   public static boolean tag_attribute_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_attribute_assignment")) return false;
     if (!nextTokenIs(b, "<tag attribute assignment>", T_DYNAMIC_BINDING, T_IDENTIFIER)) return false;
@@ -1559,12 +1565,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_DYNAMIC_BINDING*
+  // dynamic_binding*
   private static boolean tag_attribute_assignment_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_attribute_assignment_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!consumeToken(b, T_DYNAMIC_BINDING)) break;
+      if (!dynamic_binding(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "tag_attribute_assignment_0", c)) break;
     }
     return true;
@@ -1609,7 +1615,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // tag_method_name (T_SHORTHAND_SEPARATOR tag_method_name)*
+  // tag_method_name (':' tag_method_name)*
   public static boolean tag_method_part(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_method_part")) return false;
     if (!nextTokenIs(b, T_TAG_METHOD_NAME)) return false;
@@ -1621,7 +1627,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (T_SHORTHAND_SEPARATOR tag_method_name)*
+  // (':' tag_method_name)*
   private static boolean tag_method_part_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_method_part_1")) return false;
     while (true) {
@@ -1632,12 +1638,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // T_SHORTHAND_SEPARATOR tag_method_name
+  // ':' tag_method_name
   private static boolean tag_method_part_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_method_part_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, T_SHORTHAND_SEPARATOR);
+    r = consumeToken(b, T_COLON);
     r = r && tag_method_name(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -1749,7 +1755,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // tag (tag_attribute_assignment | tag_taxonomy_condition)*
   static boolean tag_with_attributes(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_with_attributes")) return false;
-    if (!nextTokenIs(b, "", T_DISAMBIGUATION, T_TAG)) return false;
+    if (!nextTokenIs(b, "", T_PERCENT, T_TAG)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = tag(b, l + 1);
@@ -2376,7 +2382,7 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   private static boolean mod_expr_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mod_expr_0")) return false;
     boolean r;
-    r = consumeTokenSmart(b, T_OP_MOD);
+    r = consumeTokenSmart(b, T_PERCENT);
     if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_MOD);
     return r;
   }

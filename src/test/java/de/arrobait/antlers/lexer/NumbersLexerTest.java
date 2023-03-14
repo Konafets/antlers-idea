@@ -17,7 +17,7 @@ public class NumbersLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "42",
+                T_INTEGER, "42",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -26,7 +26,7 @@ public class NumbersLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "420",
+                T_INTEGER, "420",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -35,7 +35,7 @@ public class NumbersLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "420000",
+                T_INTEGER, "420000",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -46,7 +46,7 @@ public class NumbersLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_FLOAT_NUMBER, ".42",
+                T_FLOAT, ".42",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -55,7 +55,7 @@ public class NumbersLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_FLOAT_NUMBER, "0.42",
+                T_FLOAT, "0.42",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -68,7 +68,7 @@ public class NumbersLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "42",
+                T_INTEGER, "42",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -78,7 +78,7 @@ public class NumbersLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "420",
+                T_INTEGER, "420",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -88,7 +88,7 @@ public class NumbersLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_INTEGER_NUMBER, "420000",
+                T_INTEGER, "420000",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -98,7 +98,7 @@ public class NumbersLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_FLOAT_NUMBER, ".42",
+                T_FLOAT, ".42",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -108,7 +108,7 @@ public class NumbersLexerTest extends LexerTest {
                 T_LD, "{{",
                 WHITE_SPACE, " ",
                 T_OP_MINUS, "-",
-                T_FLOAT_NUMBER, "0.42",
+                T_FLOAT, "0.42",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );

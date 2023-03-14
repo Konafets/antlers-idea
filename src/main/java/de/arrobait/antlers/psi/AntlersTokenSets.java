@@ -68,8 +68,8 @@ public class AntlersTokenSets {
     public static final TokenSet MODIFIERS = TokenSet.create(T_MODIFIER);
 
     public static final TokenSet NUMBERS = TokenSet.create(
-            T_INTEGER_NUMBER,
-            T_FLOAT_NUMBER
+            T_INTEGER,
+            T_FLOAT
     );
 
     public static final TokenSet OPERATORS = TokenSet.create(
@@ -82,7 +82,7 @@ public class AntlersTokenSets {
             T_OP_MINUS,
             T_OP_MUL,
             T_SLASH,
-            T_OP_MOD,
+            T_PERCENT,
             T_OP_POW,
             T_OP_SELF_ASSIGN_ADD,
             T_OP_SELF_ASSIGN_SUB,
@@ -128,9 +128,7 @@ public class AntlersTokenSets {
 
     public static final TokenSet TAG_METHOD_NAMES = TokenSet.create(T_TAG_METHOD_NAME);
 
-    public static final TokenSet TAG_DISAMBIGUATION = TokenSet.create(T_DISAMBIGUATION);
-
-    public static final TokenSet TAG_SHORTHAND_SEPARATOR = TokenSet.create(T_SHORTHAND_SEPARATOR);
+    public static final TokenSet TAG_DISAMBIGUATION = TokenSet.create(T_PERCENT);
 
     public static final TokenSet WHITESPACES = TokenSet.create(TokenType.WHITE_SPACE);
 

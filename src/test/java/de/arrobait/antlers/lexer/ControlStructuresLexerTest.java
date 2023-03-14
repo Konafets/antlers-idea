@@ -87,7 +87,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_EQ, "==",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -102,7 +102,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_NEQ, "!=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -117,7 +117,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_IDENT, "===",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -132,7 +132,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_NOT_IDENT, "!==",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -147,7 +147,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_GT, ">",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "100",
+                T_INTEGER, "100",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -162,7 +162,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_GTE, ">=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "100",
+                T_INTEGER, "100",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -177,7 +177,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_LT, "<",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "100",
+                T_INTEGER, "100",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -192,7 +192,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_LTE, "<=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "100",
+                T_INTEGER, "100",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -207,12 +207,12 @@ public class ControlStructuresLexerTest extends LexerTest {
                 T_IF, "if",
                 WHITE_SPACE, " ",
                 T_LEFT_BRACE, "{",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 T_RIGHT_BRACE, "}",
                 WHITE_SPACE, " ",
                 T_OP_GTE, ">=",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "100",
+                T_INTEGER, "100",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );
@@ -352,7 +352,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_IDENT, "===",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "1",
+                T_INTEGER, "1",
                 WHITE_SPACE, " ",
                 T_RD, "}}",
                 OUTER_CONTENT, "\n  <p>This is a song!</p>\n",
@@ -364,7 +364,7 @@ public class ControlStructuresLexerTest extends LexerTest {
                 WHITE_SPACE, " ",
                 T_OP_GT, ">",
                 WHITE_SPACE, " ",
-                T_INTEGER_NUMBER, "100",
+                T_INTEGER, "100",
                 WHITE_SPACE, " ",
                 T_RD, "}}",
                 OUTER_CONTENT, "\n  <p>This is noisy!</p>\n",

@@ -22,6 +22,6 @@ public interface AntlersBracketPropertyAccess extends AntlersPsiElement {
   PsiElement getTIdentifier();
 
   @Nullable
-  PsiElement getTIntegerNumber();
+  PsiElement getTInteger();
 
 }
