@@ -1,6 +1,5 @@
 package de.arrobait.antlers.frontmatter
 
-import com.intellij.json.JsonLanguage
 import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.psi.PsiElement

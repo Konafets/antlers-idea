@@ -6,20 +6,7 @@ import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
-import de.arrobait.antlers.psi.AntlersBlockWrapper
-import de.arrobait.antlers.psi.AntlersCommentBlock
-import de.arrobait.antlers.psi.AntlersFile
-import de.arrobait.antlers.psi.AntlersIfStatement
-import de.arrobait.antlers.psi.AntlersNoparseRegion
-import de.arrobait.antlers.psi.AntlersPhpEchoNode
-import de.arrobait.antlers.psi.AntlersPhpRawNode
-import de.arrobait.antlers.psi.AntlersRecursiveChildrenNode
-import de.arrobait.antlers.psi.AntlersSwitchNode
-import de.arrobait.antlers.psi.AntlersTagPair
-import de.arrobait.antlers.psi.AntlersTagSingle
-import de.arrobait.antlers.psi.AntlersTine
-import de.arrobait.antlers.psi.AntlersUnlessStatement
-import de.arrobait.antlers.psi.AntlersVariableAssignmentNode
+import de.arrobait.antlers.psi.*
 
 class AntlersStructureViewModel(psiFile: PsiFile, editor: Editor?) : StructureViewModelBase(psiFile, editor, AntlersStructureViewFile(psiFile as AntlersFile)), StructureViewModel.ElementInfoProvider {
     companion object {
