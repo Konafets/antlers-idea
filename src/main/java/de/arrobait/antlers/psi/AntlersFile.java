@@ -4,7 +4,6 @@ import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.stubs.StubElement;
 import com.intellij.psi.tree.TokenSet;
 import de.arrobait.antlers.AntlersLanguage;
 import de.arrobait.antlers.file.AntlersFileType;

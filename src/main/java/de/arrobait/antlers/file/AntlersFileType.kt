@@ -10,7 +10,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.templateLanguages.TemplateDataLanguageMappings
 import de.arrobait.antlers.AntlersLanguage
 import java.nio.charset.Charset
-import javax.swing.Icon
 
 class AntlersFileType(language: Language) : XmlLikeFileType(language), TemplateLanguageFileType {
     constructor() : this(AntlersLanguage.INSTANCE)

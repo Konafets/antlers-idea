@@ -7,7 +7,9 @@ import com.intellij.psi.NavigatablePsiElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.ReflectionUtil;
 import de.arrobait.antlers.file.AntlersIcons;
-import de.arrobait.antlers.psi.*;
+import de.arrobait.antlers.psi.AntlersBlockWrapper;
+import de.arrobait.antlers.psi.AntlersPsiElement;
+import de.arrobait.antlers.psi.AntlersTines;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
