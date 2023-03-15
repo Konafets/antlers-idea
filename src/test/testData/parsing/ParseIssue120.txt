@@ -156,7 +156,7 @@ Antlers File:ParseIssue120.antlers.html
                           PsiWhiteSpace('\n    ')
                           AntlersTagImpl(TAG)
                             AntlersTagNameImpl(TAG_NAME)
-                              PsiElement(T_UNKNOWN_TAG)('imagekit')
+                              PsiElement(T_TAG)('imagekit')
                           PsiWhiteSpace(' ')
                           AntlersTagAttributeAssignmentImpl(TAG_ATTRIBUTE_ASSIGNMENT)
                             PsiElement(T_DYNAMIC_BINDING)(':')

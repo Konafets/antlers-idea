@@ -275,13 +275,12 @@ public class TagsLexerTest extends LexerTest {
     }
 
     @Test
-    @Ignore
     public void it_lexes_unknown_tag_from_addon_with_params() {
         givenInput("{{ imagekit src=\"foo\" }}");
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_UNKNOWN_TAG, "imagekit",
+                T_TAG, "imagekit",
                 WHITE_SPACE, " ",
                 T_IDENTIFIER, "src",
                 T_OP_ASSIGN, "=",
@@ -299,7 +298,7 @@ public class TagsLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_UNKNOWN_TAG, "imagekit",
+                T_TAG, "imagekit",
                 WHITE_SPACE, " ",
                 T_DYNAMIC_BINDING, ":",
                 T_IDENTIFIER, "src",
@@ -318,7 +317,7 @@ public class TagsLexerTest extends LexerTest {
         thenTokensAre(
                 T_LD, "{{",
                 WHITE_SPACE, " ",
-                T_UNKNOWN_TAG, "imagekit",
+                T_TAG, "imagekit",
                 WHITE_SPACE, "  ",
                 T_DYNAMIC_BINDING, ":",
                 T_IDENTIFIER, "src",

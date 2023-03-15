@@ -101,6 +101,12 @@ public class AntlersFormattingTest extends FormatterTestCase implements AntlersF
 
     @Test
     @Ignore
+    public void testIssue120() throws Exception {
+        doTest();
+    }
+
+    @Test
+    @Ignore
     public void testSwitch() throws Exception {
         // TODO: The last braces is not indented correctly
         doTest();
