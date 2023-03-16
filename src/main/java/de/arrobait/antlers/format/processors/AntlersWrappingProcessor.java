@@ -6,7 +6,8 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.tree.IElementType;
 import de.arrobait.antlers.psi.AntlersPsiUtil;
 
-import static de.arrobait.antlers.psi.AntlersTypes.*;
+import static de.arrobait.antlers.psi.AntlersTypes.IF_STATEMENT;
+import static de.arrobait.antlers.psi.AntlersTypes.UNLESS_STATEMENT;
 
 public class AntlersWrappingProcessor {
     private final ASTNode myNode;

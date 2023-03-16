@@ -1,8 +1,10 @@
 package de.arrobait.antlers.psi;
 
 import com.intellij.psi.tree.IElementType;
+import de.arrobait.antlers.parser.AntlersOuterElementType;
 
 public interface AntlersCustomElementTypes {
-    IElementType OUTER_ELEMENT_TYPE = new AntlersElementType("ANTLERS_FRAGMENT");
+    AntlersOuterElementType OUTER_ANTLERS = new AntlersOuterElementType("ANTLERS_FRAGMENT");
+
     IElementType UNCLOSED_COMMENT = new AntlersElementType("UNCLOSED_COMMENT");
 }

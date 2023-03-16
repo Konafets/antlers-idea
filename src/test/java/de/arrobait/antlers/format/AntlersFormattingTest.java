@@ -100,7 +100,6 @@ public class AntlersFormattingTest extends FormatterTestCase implements AntlersF
     }
 
     @Test
-    @Ignore
     public void testIssue120() throws Exception {
         doTest();
     }

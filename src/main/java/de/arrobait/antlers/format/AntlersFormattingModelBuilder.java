@@ -42,8 +42,8 @@ public class AntlersFormattingModelBuilder extends TemplateLanguageFormattingMod
 
         final ASTNode node = file instanceof AntlersFile ? file.getNode() : context.getNode();
 
-        if (node.getElementType() == AntlersCustomElementTypes.OUTER_ELEMENT_TYPE) {
-            // If we're looking at a AntlersCustomElementTypes.OUTER_ELEMENT_TYPE element, then we've been invoked by our templated
+        if (node.getElementType() == AntlersCustomElementTypes.OUTER_ANTLERS) {
+            // If we're looking at a AntlersCustomElementTypes.OUTER_ANTLERS element, then we've been invoked by our templated
             // language. Make a dummy block to allow that formatter to continue.
             return new SimpleTemplateLanguageFormattingModelBuilder().createModel(context);
         } else {

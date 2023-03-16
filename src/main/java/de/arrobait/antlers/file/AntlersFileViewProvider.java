@@ -18,38 +18,30 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
-import static de.arrobait.antlers.psi.AntlersCustomElementTypes.OUTER_ELEMENT_TYPE;
+import static de.arrobait.antlers.psi.AntlersCustomElementTypes.OUTER_ANTLERS;
 import static de.arrobait.antlers.psi.AntlersTypes.OUTER_CONTENT;
 
 public class AntlersFileViewProvider extends MultiplePsiFilesPerDocumentFileViewProvider implements TemplateLanguageFileViewProvider {
     private final Language myBaseLanguage;
-    private final Language myTemplateLanguage;
-    private static final ConcurrentMap<String, TemplateDataElementType> TEMPLATE_DATA_TO_LANG = new ConcurrentHashMap<>();
 
-    public AntlersFileViewProvider(PsiManager manager, VirtualFile file, boolean physical, Language baseLanguage) {
-        this(manager, file, physical, baseLanguage, getTemplateDataLanguage(manager, file));
+    private final Language myTemplateLanguage;
+
+    public static IElementType templateDataElement = new TemplateDataElementType(
+            "ANTLERS_TEMPLATE_DATA",
+            AntlersLanguage.INSTANCE,
+            OUTER_CONTENT,
+            OUTER_ANTLERS
+    );
+
+    public AntlersFileViewProvider(PsiManager manager, VirtualFile file, boolean eventSystemEnabled, Language baseLanguage) {
+        this(manager, file, eventSystemEnabled, baseLanguage, getTemplateDataLanguage(manager, file));
     }
 
-    public AntlersFileViewProvider(PsiManager manager, VirtualFile file, boolean physical, Language baseLanguage, Language templateLanguage) {
-        super(manager, file, physical);
+    public AntlersFileViewProvider(PsiManager manager, VirtualFile file, boolean eventSystemEnabled, Language baseLanguage, Language templateLanguage) {
+        super(manager, file, eventSystemEnabled);
         myBaseLanguage = baseLanguage;
         myTemplateLanguage = templateLanguage;
-    }
-
-    private static TemplateDataElementType getTemplateDataElementType(Language language) {
-        TemplateDataElementType result = TEMPLATE_DATA_TO_LANG.get(language.getID());
-
-        if (result != null) {
-            return result;
-        }
-
-        TemplateDataElementType created = new TemplateDataElementType("ANTLERS_TEMPLATE_DATA", language, OUTER_CONTENT, OUTER_ELEMENT_TYPE);
-        TemplateDataElementType preValue = TEMPLATE_DATA_TO_LANG.putIfAbsent(language.getID(), created);
-
-        return preValue == null ? created : preValue;
     }
 
     @NotNull
@@ -94,18 +86,15 @@ public class AntlersFileViewProvider extends MultiplePsiFilesPerDocumentFileView
     @Nullable
     @Override
     protected PsiFile createFile(@NotNull Language language) {
-        ParserDefinition parserDefinition = getDefinition(language);
+        ParserDefinition parserDefinition = getParserDefinition(language);
 
         if (parserDefinition == null) {
             return null;
         }
 
         if (language.is(getTemplateDataLanguage())) {
-            PsiFile file = parserDefinition.createFile(this);
-            IElementType type = getContentElementType(language);
-            if (type != null) {
-                ((PsiFileImpl) file).setContentElementType(type);
-            }
+            PsiFileImpl file = (PsiFileImpl) parserDefinition.createFile(this);
+            file.setContentElementType(templateDataElement);
             return file;
         } else if (language.isKindOf(getBaseLanguage())) {
             return parserDefinition.createFile(this);
@@ -114,16 +103,7 @@ public class AntlersFileViewProvider extends MultiplePsiFilesPerDocumentFileView
         }
     }
 
-    @Override
-    public @Nullable IElementType getContentElementType(@NotNull Language language) {
-        if (language.is(getTemplateDataLanguage())) {
-            return getTemplateDataElementType(getBaseLanguage());
-        }
-
-        return null;
-    }
-
-    private ParserDefinition getDefinition(Language language) {
+    private ParserDefinition getParserDefinition(Language language) {
         ParserDefinition parserDefinition;
         if (language.isKindOf(getBaseLanguage())) {
             parserDefinition = LanguageParserDefinitions.INSTANCE.forLanguage(language.is(getBaseLanguage()) ? language : getBaseLanguage());
