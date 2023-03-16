@@ -544,6 +544,18 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // T_SLASH
+  public static boolean div_op(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "div_op")) return false;
+    if (!nextTokenIs(b, T_SLASH)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_SLASH);
+    exit_section_(b, m, DIV_OP, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // '.' (T_INTEGER | T_IDENTIFIER | string_literal)
   public static boolean dot_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dot_property_access")) return false;
@@ -1821,6 +1833,18 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // ':'
+  public static boolean tenary_branch_op(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tenary_branch_op")) return false;
+    if (!nextTokenIs(b, T_COLON)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COLON);
+    exit_section_(b, m, TENARY_BRANCH_OP, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // node_opener antlers_expression_or_statement node_closer
   public static boolean tine(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tine")) return false;
@@ -2329,12 +2353,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ':' expr
+  // tenary_branch_op expr
   private static boolean tenary_expr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tenary_expr_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, T_COLON);
+    r = tenary_branch_op(b, l + 1);
     r = r && expr(b, l + 1, -1);
     exit_section_(b, m, null, r);
     return r;
@@ -2367,11 +2391,11 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_SLASH | T_OP_SELF_ASSIGN_DIV
+  // div_op | T_OP_SELF_ASSIGN_DIV
   private static boolean div_expr_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "div_expr_0")) return false;
     boolean r;
-    r = consumeTokenSmart(b, T_SLASH);
+    r = div_op(b, l + 1);
     if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_DIV);
     return r;
   }

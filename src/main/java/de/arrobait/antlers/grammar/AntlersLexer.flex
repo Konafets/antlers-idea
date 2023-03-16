@@ -386,11 +386,13 @@ FLOAT=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 }
 
 <PHP_ECHO> {
+    {WHITE_SPACE}  { return WHITE_SPACE; }
     "$}}"   { popState(); return T_PHP_ECHO_CLOSE;}
     [^ }}]*   { return T_PHP_CONTENT;}
 }
 
 <PHP_RAW> {
+    {WHITE_SPACE}  { return WHITE_SPACE; }
     "?}}"   { popState(); return T_PHP_RAW_CLOSE;}
     [^ }}]*  { return T_PHP_CONTENT;}
 }

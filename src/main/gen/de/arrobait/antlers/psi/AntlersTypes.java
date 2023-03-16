@@ -20,6 +20,7 @@ public interface AntlersTypes {
   IElementType CONCAT_EXPR = new AntlersElementType("CONCAT_EXPR");
   IElementType DEFAULT_CASE = new AntlersElementType("DEFAULT_CASE");
   IElementType DIV_EXPR = new AntlersElementType("DIV_EXPR");
+  IElementType DIV_OP = new AntlersElementType("DIV_OP");
   IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
   IElementType ELSEIF_NODE = new AntlersElementType("ELSEIF_NODE");
   IElementType ELSE_NODE = new AntlersElementType("ELSE_NODE");
@@ -88,6 +89,7 @@ public interface AntlersTypes {
   IElementType TAKE = new AntlersElementType("TAKE");
   IElementType TAXONOMY_NAME = new AntlersElementType("TAXONOMY_NAME");
   IElementType TAXONOMY_TERM = new AntlersElementType("TAXONOMY_TERM");
+  IElementType TENARY_BRANCH_OP = new AntlersElementType("TENARY_BRANCH_OP");
   IElementType TENARY_EXPR = new AntlersElementType("TENARY_EXPR");
   IElementType TINE = new AntlersElementType("TINE");
   IElementType TINES = new AntlersElementType("TINES");
@@ -234,6 +236,9 @@ public interface AntlersTypes {
       }
       else if (type == DIV_EXPR) {
         return new AntlersDivExprImpl(node);
+      }
+      else if (type == DIV_OP) {
+        return new AntlersDivOpImpl(node);
       }
       else if (type == DOT_PROPERTY_ACCESS) {
         return new AntlersDotPropertyAccessImpl(node);
@@ -435,6 +440,9 @@ public interface AntlersTypes {
       }
       else if (type == TAXONOMY_TERM) {
         return new AntlersTaxonomyTermImpl(node);
+      }
+      else if (type == TENARY_BRANCH_OP) {
+        return new AntlersTenaryBranchOpImpl(node);
       }
       else if (type == TENARY_EXPR) {
         return new AntlersTenaryExprImpl(node);

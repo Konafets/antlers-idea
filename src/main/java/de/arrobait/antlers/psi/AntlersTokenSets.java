@@ -2,6 +2,7 @@ package de.arrobait.antlers.psi;
 
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.TokenSet;
+import org.jetbrains.annotations.NotNull;
 
 import static de.arrobait.antlers.psi.AntlersTypes.*;
 
@@ -73,7 +74,7 @@ public class AntlersTokenSets {
     );
 
     public static final TokenSet OPERATORS = TokenSet.create(
-            T_COLON,
+            TENARY_BRANCH_OP,
             T_DOT,
             T_OP_ASSIGN,
             T_OP_EXCLAMATION_MARK,
@@ -81,7 +82,7 @@ public class AntlersTokenSets {
             T_OP_PLUS,
             T_OP_MINUS,
             T_OP_MUL,
-            T_SLASH,
+            DIV_OP,
             T_PERCENT,
             T_OP_POW,
             T_OP_SELF_ASSIGN_ADD,
@@ -131,6 +132,11 @@ public class AntlersTokenSets {
     public static final TokenSet TAG_DISAMBIGUATION = TokenSet.create(T_PERCENT);
 
     public static final TokenSet WHITESPACES = TokenSet.create(TokenType.WHITE_SPACE);
+
+    @NotNull
+    public static final TokenSet OPENING_DELIMITERS = TokenSet.create(AntlersTypes.NODE_OPENER, AntlersTypes.T_COMMENT_OPEN, AntlersTypes.T_PHP_RAW_OPEN, AntlersTypes.T_PHP_ECHO_OPEN);
+
+    public static final TokenSet CLOSING_DELIMITERS = TokenSet.create(AntlersTypes.NODE_CLOSER, AntlersTypes.T_COMMENT_CLOSE, AntlersTypes.T_PHP_RAW_CLOSE, AntlersTypes.T_PHP_ECHO_CLOSE);
 
     private AntlersTokenSets() {
     }

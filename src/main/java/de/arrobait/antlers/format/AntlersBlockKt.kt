@@ -6,6 +6,10 @@ import com.intellij.psi.codeStyle.CodeStyleSettings
 import com.intellij.psi.formatter.xml.XmlFormattingPolicy
 import com.intellij.xml.template.formatter.AbstractXmlTemplateFormattingModelBuilder
 import com.intellij.xml.template.formatter.TemplateLanguageBlock
+import de.arrobait.antlers.AntlersLanguage
+import de.arrobait.antlers.parser.AntlersParserDefinition.COMMENTS
+import de.arrobait.antlers.psi.AntlersPsiUtil
+import de.arrobait.antlers.psi.AntlersTypes
 
 class AntlersBlockKt(
     builder: AbstractXmlTemplateFormattingModelBuilder,
@@ -14,7 +18,8 @@ class AntlersBlockKt(
     alignment: Alignment?,
     settings: CodeStyleSettings,
     xmlFormattingPolicy: XmlFormattingPolicy,
-    indent: Indent
+    indent: Indent,
+    var spacingBuilder: SpacingBuilder,
 ) : TemplateLanguageBlock(builder, node, wrap, alignment, settings, xmlFormattingPolicy, indent) {
 
     init {
@@ -25,7 +30,7 @@ class AntlersBlockKt(
     }
 
     override fun getIndent(): Indent? {
-        return super.getIndent()
+        return Indent.getNoneIndent()
     }
 
     override fun getChildIndent(node: ASTNode): Indent {
@@ -37,6 +42,10 @@ class AntlersBlockKt(
     }
 
     override fun getSpacing(child1: Block?, child2: Block): Spacing? {
-        return null
+        return spacingBuilder.getSpacing(this, child1, child2)
+    }
+
+    override fun isLeaf(): Boolean {
+        return COMMENTS.contains(node.elementType)
     }
 }

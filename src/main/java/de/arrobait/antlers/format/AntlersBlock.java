@@ -54,9 +54,9 @@ public class AntlersBlock extends AntlersAbstractBlock {
             return Indent.getNoneIndent();
         }
 
-        if (isAttribute(myNode)) {
-            return null;
-        }
+//        if (isAttribute(myNode)) {
+//            return null;
+//        }
 
         if (AntlersPsiUtil.isNonRootStatementsElement(myNode.getPsi())) {
             // we're computing the indent for a non-root STATEMENTS:
@@ -70,7 +70,7 @@ public class AntlersBlock extends AntlersAbstractBlock {
             // otherwise, only indent if our foreign parent isn't indenting us
             if (foreignBlockParent.getNode() instanceof XmlTag) {
                 XmlTag xmlTag = (XmlTag) foreignBlockParent.getNode();
-                if (!myHtmlPolicy.indentChildrenOf(xmlTag)) {
+                if (!getMyHtmlPolicy().indentChildrenOf(xmlTag)) {
                     // no indent from xml parent, add our own
                     return Indent.getNormalIndent();
                 }
@@ -93,7 +93,7 @@ public class AntlersBlock extends AntlersAbstractBlock {
         // (unless that foreign element has been configured to not indent its children)
         DataLanguageBlockWrapper foreignParent = getForeignBlockParent(true);
         if (foreignParent != null) {
-            if (foreignParent.getNode() instanceof XmlTag && !myHtmlPolicy.indentChildrenOf((XmlTag) foreignParent.getNode())) {
+            if (foreignParent.getNode() instanceof XmlTag && !getMyHtmlPolicy().indentChildrenOf((XmlTag) foreignParent.getNode())) {
                 return Indent.getNoneIndent();
             }
             return Indent.getNormalIndent();

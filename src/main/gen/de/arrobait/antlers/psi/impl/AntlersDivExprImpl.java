@@ -5,9 +5,11 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import de.arrobait.antlers.psi.AntlersDivExpr;
+import de.arrobait.antlers.psi.AntlersDivOp;
 import de.arrobait.antlers.psi.AntlersExpr;
 import de.arrobait.antlers.psi.AntlersVisitor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -26,6 +28,12 @@ public class AntlersDivExprImpl extends AntlersExprImpl implements AntlersDivExp
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof AntlersVisitor) accept((AntlersVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public AntlersDivOp getDivOp() {
+    return findChildByClass(AntlersDivOp.class);
   }
 
   @Override

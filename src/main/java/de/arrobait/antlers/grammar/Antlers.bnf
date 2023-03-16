@@ -333,15 +333,17 @@ gte_expr             ::= expr '>=' expr
 null_coalescing_expr ::= expr '??' expr
 gatekeeper_expr      ::= expr '?=' expr
 spaceship_expr       ::= expr '<=>' expr
-tenary_expr          ::= expr '?' expr ':' expr
+tenary_expr          ::= expr '?' expr tenary_branch_op expr
+tenary_branch_op     ::= ':'
 
 // Math
 mul_expr ::= expr ('*' | '*=') expr
-div_expr ::= expr (T_SLASH | T_OP_SELF_ASSIGN_DIV) expr
+div_expr ::= expr (div_op | T_OP_SELF_ASSIGN_DIV) expr
 mod_expr ::= expr ('%' | '%=') expr
 add_expr ::= expr ('+' | '+=') expr
 sub_expr ::= expr ('-' | '-=') expr
 pow_expr ::= expr '**' expr
+div_op ::= T_SLASH
 
 // Concat
 concat_expr ::= string_literal '+' string_literal

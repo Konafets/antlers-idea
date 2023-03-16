@@ -16,21 +16,21 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public abstract class AntlersAbstractBlock extends TemplateLanguageBlock {
+public abstract class AntlersAbstractBlockOld extends TemplateLanguageBlock {
 
     @NotNull
     protected final HtmlPolicy myHtmlPolicy;
 
     protected final AntlersBlockContext myContext;
 
-    public AntlersAbstractBlock(@NotNull ASTNode node,
-                                @Nullable Wrap wrap,
-                                @Nullable Alignment alignment,
-                                @NotNull TemplateLanguageBlockFactory blockFactory,
-                                @NotNull CodeStyleSettings customSettings,
-                                @Nullable List<DataLanguageBlockWrapper> foreignChildren,
-                                @Nullable AntlersBlockContext context,
-                                @NotNull HtmlPolicy policy) {
+    public AntlersAbstractBlockOld(@NotNull ASTNode node,
+                                   @Nullable Wrap wrap,
+                                   @Nullable Alignment alignment,
+                                   @NotNull TemplateLanguageBlockFactory blockFactory,
+                                   @NotNull CodeStyleSettings customSettings,
+                                   @Nullable List<DataLanguageBlockWrapper> foreignChildren,
+                                   @Nullable AntlersBlockContext context,
+                                   @NotNull HtmlPolicy policy) {
         super(node, wrap, alignment, blockFactory, customSettings, foreignChildren);
 
         myContext = context;

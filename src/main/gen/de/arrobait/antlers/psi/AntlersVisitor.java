@@ -54,6 +54,10 @@ public class AntlersVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitDivOp(@NotNull AntlersDivOp o) {
+    visitPsiElement(o);
+  }
+
   public void visitDotPropertyAccess(@NotNull AntlersDotPropertyAccess o) {
     visitPsiElement(o);
   }
@@ -323,6 +327,10 @@ public class AntlersVisitor extends PsiElementVisitor {
   }
 
   public void visitTaxonomyTerm(@NotNull AntlersTaxonomyTerm o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTenaryBranchOp(@NotNull AntlersTenaryBranchOp o) {
     visitPsiElement(o);
   }
 

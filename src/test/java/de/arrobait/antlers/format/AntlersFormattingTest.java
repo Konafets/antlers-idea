@@ -54,6 +54,21 @@ public class AntlersFormattingTest extends FormatterTestCase implements AntlersF
     }
 
     @Test
+    public void testComment() throws Exception {
+        doTest();
+    }
+
+    @Test
+    public void testPhpEcho() throws Exception {
+        doTest();
+    }
+
+    @Test
+    public void testPhpRaw() throws Exception {
+        doTest();
+    }
+
+    @Test
     public void testSimpleAntlers() throws Exception {
         doTest();
     }

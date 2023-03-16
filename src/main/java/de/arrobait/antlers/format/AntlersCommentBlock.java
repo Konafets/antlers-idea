@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AntlersCommentBlock extends AntlersAbstractBlock {
+public class AntlersCommentBlock extends AntlersAbstractBlockOld {
 
     public AntlersCommentBlock(@NotNull ASTNode node,
                                @Nullable Wrap wrap,
