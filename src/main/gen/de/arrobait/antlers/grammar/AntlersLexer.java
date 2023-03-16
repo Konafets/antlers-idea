@@ -2959,9 +2959,7 @@ public class AntlersLexer implements FlexLexer {
 
                 // First we need to remove the matched `{{` characters from the match and put it back to the input string, so
                 // that the lexer can lex it again in a dedicated state.
-                while(yylength() > 0 && yytext().subSequence(yylength() - 1, yylength()).toString().equals("{")) {
-                    yypushback(1);
-                }
+                yypushback(2);
 
                 // Here we check if the char right before the `{{` is a `@`. If so, this is an escaped node, otherwise a
                 // regular Antlers node.
