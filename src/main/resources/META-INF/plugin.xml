@@ -10,6 +10,7 @@
     <depends>com.jetbrains.php</depends>
     <depends>com.intellij.css</depends>
     <depends>org.jetbrains.plugins.yaml</depends>
+    <depends>intellij.prettierJS</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- File type -->
