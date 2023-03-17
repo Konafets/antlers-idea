@@ -1,0 +1,8 @@
+Antlers File:ParsePhpRaw.antlers.html
+  AntlersTinesImpl(TINES)
+    AntlersPhpRawNodeImpl(PHP_RAW_NODE)
+      PsiElement({{?)('{{?')
+      PsiWhiteSpace(' ')
+      PsiElement(T_PHP_CONTENT)('phpinfo();')
+      PsiWhiteSpace(' ')
+      PsiElement(?}})('?}}')

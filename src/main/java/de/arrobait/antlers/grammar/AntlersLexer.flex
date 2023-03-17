@@ -383,12 +383,12 @@ FLOAT=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 
 <PHP_ECHO> {
     "$}}"   { popState(); return T_PHP_ECHO_CLOSE;}
-    ~"$}}"  { yypushback(3); return T_PHP_CONTENT;}
+    [^ }}]*   { return T_PHP_CONTENT;}
 }
 
 <PHP_RAW> {
     "?}}"   { popState(); return T_PHP_RAW_CLOSE;}
-    ~"?}}"  { yypushback(3); return T_PHP_CONTENT;}
+    [^ }}]*  { return T_PHP_CONTENT;}
 }
 
 <SINGLE_STRING, DOUBLE_STRING, RECURSIVE_CHILDREN, TAG_EXPRESSION_ATTRIBUTE_LIST, GROUP_BY, TAG_SHORTHAND, TAG_EXPRESSION, MODIFIER_LIST, PROPERTY_ACCESS, YAML_FRONT_MATTER> {
