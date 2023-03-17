@@ -5,6 +5,8 @@ import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper;
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlock;
 import com.intellij.formatting.templateLanguages.TemplateLanguageFormattingModelBuilder;
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.project.Project;
+import com.intellij.prettierjs.PrettierConfiguration;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.DocumentBasedFormattingModel;
@@ -23,6 +25,7 @@ import java.util.List;
 import static de.arrobait.antlers.psi.AntlersTypes.COMMENT_BLOCK;
 
 public class AntlersFormattingModelBuilder extends TemplateLanguageFormattingModelBuilder {
+    PsiFile myFile;
 
     /**
      * We have to override {@link TemplateLanguageFormattingModelBuilder#createModel} since after
@@ -33,6 +36,7 @@ public class AntlersFormattingModelBuilder extends TemplateLanguageFormattingMod
     @Override
     public @NotNull FormattingModel createModel(@NotNull FormattingContext context) {
         final PsiFile file = context.getContainingFile();
+        myFile = file;
         CodeStyleSettings settings = context.getCodeStyleSettings();
         final Block rootBlock;
 
@@ -79,6 +83,12 @@ public class AntlersFormattingModelBuilder extends TemplateLanguageFormattingMod
      */
     @Override
     public boolean dontFormatMyModel() {
+        if (myFile != null) {
+            Project project = myFile.getProject();
+            PrettierConfiguration prettierConfiguration = PrettierConfiguration.getInstance(project);
+            return prettierConfiguration.isRunOnReformat();
+        }
+
         return false;
     }
 }
