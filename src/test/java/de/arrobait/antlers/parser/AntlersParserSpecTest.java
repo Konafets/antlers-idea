@@ -106,6 +106,16 @@ public class AntlersParserSpecTest extends AntlersParsingTestCase {
     }
 
     @Test
+    public void testParsePhpEcho() {
+        doTest(true);
+    }
+
+    @Test
+    public void testParsePhpRaw() {
+        doTest(true);
+    }
+
+    @Test
     public void testParsePhp() {
         doTest(true);
     }

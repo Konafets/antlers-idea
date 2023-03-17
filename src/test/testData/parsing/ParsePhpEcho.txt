@@ -1,0 +1,8 @@
+Antlers File:ParsePhpEcho.antlers.html
+  AntlersTinesImpl(TINES)
+    AntlersPhpEchoNodeImpl(PHP_ECHO_NODE)
+      PsiElement({{$)('{{$')
+      PsiWhiteSpace(' ')
+      PsiElement(T_PHP_CONTENT)('phpinfo();')
+      PsiWhiteSpace(' ')
+      PsiElement($}})('$}}')
