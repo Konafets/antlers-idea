@@ -2,6 +2,7 @@ package de.arrobait.antlers.format
 
 import com.intellij.formatting.Alignment
 import com.intellij.formatting.Indent
+import com.intellij.formatting.SpacingBuilder
 import com.intellij.formatting.Wrap
 import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlockFactory
@@ -17,8 +18,9 @@ class AntlersConditionalBlock(
     customSettings: CodeStyleSettings,
     foreignChildren: MutableList<DataLanguageBlockWrapper>?,
     context: AntlersBlockContext?,
-    policy: HtmlPolicy
-) : AntlersAbstractBlock(node, wrap, alignment, blockFactory, customSettings, foreignChildren, context, policy) {
+    policy: HtmlPolicy,
+    spacingBuilder: SpacingBuilder,
+) : AntlersAbstractBlock(node, wrap, alignment, blockFactory, customSettings, foreignChildren, context, policy, spacingBuilder) {
 
     override fun getIndent(): Indent {
         return Indent.getNoneIndent()

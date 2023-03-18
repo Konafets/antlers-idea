@@ -5,15 +5,16 @@ import com.intellij.formatting.templateLanguages.BlockWithParent
 import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlockFactory
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiErrorElement
 import com.intellij.psi.codeStyle.CodeStyleSettings
 import com.intellij.psi.formatter.xml.HtmlPolicy
 import com.intellij.psi.formatter.xml.SyntheticBlock
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.xml.XmlTag
-import de.arrobait.antlers.format.processors.AntlersSpacingProcessor
 import de.arrobait.antlers.format.processors.AntlersWrappingProcessor
 import de.arrobait.antlers.psi.AntlersPsiUtil
 import de.arrobait.antlers.psi.AntlersTypes
+import de.arrobait.antlers.psi.AntlersTypes.*
 
 open class AntlersBlock(
     node: ASTNode,
@@ -23,18 +24,13 @@ open class AntlersBlock(
     settings: CodeStyleSettings,
     foreignChildren: MutableList<DataLanguageBlockWrapper>?,
     context: AntlersBlockContext?,
-    htmlPolicy: HtmlPolicy
-) : AntlersAbstractBlock(node, wrap, alignment, blockFactory, settings, foreignChildren, context, htmlPolicy) {
-    private val mySpacingProcessor: AntlersSpacingProcessor
+    htmlPolicy: HtmlPolicy,
+    spacingBuilder: SpacingBuilder,
+) : AntlersAbstractBlock(node, wrap, alignment, blockFactory, settings, foreignChildren, context, htmlPolicy, spacingBuilder) {
     private val myWrappingProcessor: AntlersWrappingProcessor
 
     init {
-        mySpacingProcessor = AntlersSpacingProcessor(node, context)
         myWrappingProcessor = AntlersWrappingProcessor(node)
-    }
-
-    override fun getSpacing(child1: Block?, child2: Block): Spacing? {
-        return mySpacingProcessor.getSpacing(child1, child2)
     }
 
     override fun getIndent(): Indent? {
@@ -67,7 +63,7 @@ open class AntlersBlock(
             if (foreignBlockParent.node is XmlTag) {
                 val xmlTag = foreignBlockParent.node as XmlTag
                 if (!myHtmlPolicy.indentChildrenOf(xmlTag)) {
-                    // no indent from xml parent, add out own
+                    // no indent from xml parent, add our own
                     return Indent.getNormalIndent()
                 }
             }
@@ -87,7 +83,8 @@ open class AntlersBlock(
         // (unless that foreign element has been configured to not indent its children)
         val foreignParent = getForeignBlockParent(true)
         if (foreignParent != null) {
-            if (foreignParent.node is XmlTag && !myHtmlPolicy.indentChildrenOf(foreignParent.node as XmlTag)) {
+            val foreignParentNode = foreignParent.node
+            if (foreignParentNode is XmlTag && !myHtmlPolicy.indentChildrenOf(foreignParentNode)) {
                 return Indent.getNoneIndent()
             }
             return Indent.getNormalIndent()
@@ -96,12 +93,47 @@ open class AntlersBlock(
         return Indent.getNoneIndent()
     }
 
+    override fun getChildAttributes(newChildIndex: Int): ChildAttributes {
+        val parent = parent
+        val elementType = myNode.elementType
+        val parentNode = myNode.treeParent
+        val parentIsInstanceOfDataLanguageBlockWrapper = parent is DataLanguageBlockWrapper
+
+        if (newChildIndex == 0) {
+            if (parentNode.elementType == IF_STATEMENT || parentNode.elementType == UNLESS_STATEMENT) {
+                if (elementType == TINES) {
+                    return ChildAttributes(Indent.getNoneIndent(), null)
+                } else {
+                    return ChildAttributes(Indent.getNormalIndent(), null)
+                }
+            }
+            if (parentNode.elementType == TAG_PAIR) {
+                return ChildAttributes(Indent.getNormalIndent(), null)
+            }
+            return ChildAttributes(Indent.getNoneIndent(), null)
+        }
+        if (elementType == BLOCK_WRAPPER || elementType == IF_STATEMENT || elementType == UNLESS_STATEMENT || elementType == TAG_PAIR
+            || (parentIsInstanceOfDataLanguageBlockWrapper && (elementType != TINES || elementType != TAG_SINGLE || myNode.treeNext is PsiErrorElement))) {
+            return ChildAttributes(Indent.getNormalIndent(), null)
+        }
+
+        return ChildAttributes(Indent.getNoneIndent(), null)
+    }
+
+    override fun getWrap(): Wrap? {
+        if (AntlersPsiUtil.hasElementType(myNode, BLOCK_WRAPPER)) {
+            return Wrap.createWrap(WrapType.ALWAYS, true)
+        }
+
+        return super.getWrap()
+    }
+
     private fun getForeignBlockParent(immediate: Boolean): DataLanguageBlockWrapper? {
         var foreignBlockParent: DataLanguageBlockWrapper? = null
         var parent: BlockWithParent? = parent
 
         while (parent != null) {
-            if (parent is DataLanguageBlockWrapper && !(parent.original is SyntheticBlock)) {
+            if (parent is DataLanguageBlockWrapper && parent.original !is SyntheticBlock) {
                 foreignBlockParent = parent
                 break
             } else if (immediate && parent is AntlersBlock) {

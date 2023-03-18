@@ -1,7 +1,6 @@
 package de.arrobait.antlers.format
 
-import com.intellij.formatting.Alignment
-import com.intellij.formatting.Wrap
+import com.intellij.formatting.*
 import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlock
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlockFactory
@@ -21,6 +20,7 @@ abstract class AntlersAbstractBlock(
     foreignChildren: MutableList<DataLanguageBlockWrapper>?,
     context: AntlersBlockContext?,
     htmlPolicy: HtmlPolicy,
+    private var spacingBuilder: SpacingBuilder,
 ) : TemplateLanguageBlock(node, wrap, alignment, blockFactory, settings, foreignChildren) {
     val myHtmlPolicy: HtmlPolicy
     private val myContext: AntlersBlockContext?
@@ -41,5 +41,9 @@ abstract class AntlersAbstractBlock(
 
     override fun isRequiredRange(range: TextRange?): Boolean {
         return false
+    }
+
+    override fun getSpacing(child1: Block?, child2: Block): Spacing? {
+        return spacingBuilder.getSpacing(this, child1, child2)
     }
 }
