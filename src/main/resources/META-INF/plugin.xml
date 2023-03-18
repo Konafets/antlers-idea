@@ -91,7 +91,7 @@
 
         <lang.formatter
                 language="Antlers"
-                implementationClass="de.arrobait.antlers.format.AntlersFormattingModelBuilderKt"/>
+                implementationClass="de.arrobait.antlers.format.AntlersFormattingModelBuilder"/>
 
         <fileIndentOptionsProvider
                 implementation="de.arrobait.antlers.format.AntlersFileIndentOptionsProvider"/>

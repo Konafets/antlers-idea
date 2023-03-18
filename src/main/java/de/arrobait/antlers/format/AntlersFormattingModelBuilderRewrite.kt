@@ -15,7 +15,7 @@ import de.arrobait.antlers.psi.AntlersFile
 import de.arrobait.antlers.psi.AntlersTokenSets
 import de.arrobait.antlers.psi.AntlersTypes
 
-class AntlersFormattingModelBuilderKt() : AbstractXmlTemplateFormattingModelBuilder(),
+class AntlersFormattingModelBuilderRewrite() : AbstractXmlTemplateFormattingModelBuilder(),
     DelegatingFormattingModelBuilder {
     var myFile: PsiFile? = null
 
@@ -40,7 +40,7 @@ class AntlersFormattingModelBuilderKt() : AbstractXmlTemplateFormattingModelBuil
         alignment: Alignment?,
         wrap: Wrap?
     ): Block {
-        return AntlersBlockKt(this, node, wrap, alignment, settings, xmlFormattingPolicy, indent, createSpacingBuilder(settings))
+        return AntlersBlockRewrite(this, node, wrap, alignment, settings, xmlFormattingPolicy, indent, createSpacingBuilder(settings))
     }
 
     companion object {
@@ -56,12 +56,13 @@ class AntlersFormattingModelBuilderKt() : AbstractXmlTemplateFormattingModelBuil
     }
 
     override fun dontFormatMyModel(): Boolean {
-        val project: Project? = myFile?.project
-        project!!
-        val prettierConfiguration = PrettierConfiguration.getInstance(project)
-        val isRunOnReformat = prettierConfiguration.isRunOnReformat
-        val isRunOnSave = prettierConfiguration.isRunOnReformat
+        if (myFile != null) {
+            val project: Project? = myFile?.project
+            project!!
+            val prettierConfiguration = PrettierConfiguration.getInstance(project)
+            return prettierConfiguration.isRunOnReformat
+        }
 
-        return isRunOnReformat || isRunOnSave
+        return false
     }
 }
