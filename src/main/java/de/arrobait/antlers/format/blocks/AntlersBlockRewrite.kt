@@ -1,4 +1,4 @@
-package de.arrobait.antlers.format
+package de.arrobait.antlers.format.blocks
 
 import com.intellij.formatting.*
 import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper

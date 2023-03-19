@@ -8,6 +8,7 @@ import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.common.AbstractBlock;
 import com.intellij.psi.formatter.xml.HtmlPolicy;
 import com.intellij.psi.tree.IElementType;
+import de.arrobait.antlers.format.blocks.AntlersBlock;
 import de.arrobait.antlers.psi.AntlersTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

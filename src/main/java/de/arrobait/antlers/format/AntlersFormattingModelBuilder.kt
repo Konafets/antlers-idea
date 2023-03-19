@@ -15,6 +15,9 @@ import com.intellij.psi.formatter.xml.HtmlPolicy
 import com.intellij.psi.templateLanguages.SimpleTemplateLanguageFormattingModelBuilder
 import com.intellij.psi.tree.TokenSet
 import de.arrobait.antlers.AntlersLanguage
+import de.arrobait.antlers.format.blocks.AntlersBlock
+import de.arrobait.antlers.format.blocks.AntlersSwitchCaseBlock
+import de.arrobait.antlers.format.blocks.AntlersSwitchCloseBlock
 import de.arrobait.antlers.format.settings.AntlersCodeStyleSettings
 import de.arrobait.antlers.psi.AntlersCustomElementTypes.OUTER_ANTLERS
 import de.arrobait.antlers.psi.AntlersFile
@@ -68,6 +71,10 @@ class AntlersFormattingModelBuilder: TemplateLanguageFormattingModelBuilder() {
             AntlersConditionalBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy, createSpacingBuilder(settings))
         } else if (elementType === AntlersTypes.COMMENT_BLOCK) {
             AntlersCommentBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy, createSpacingBuilder(settings))
+        } else if (elementType === AntlersTypes.SWITCH_CASE || elementType === AntlersTypes.DEFAULT_CASE) {
+            AntlersSwitchCaseBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy, createSpacingBuilder(settings))
+        } else if (elementType === AntlersTypes.SWITCH_CLOSE) {
+            AntlersSwitchCloseBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy, createSpacingBuilder(settings))
         } else {
             AntlersBlock(node, wrap, alignment, this, settings, foreignChildren, context, policy, createSpacingBuilder(settings))
         }
@@ -76,8 +83,8 @@ class AntlersFormattingModelBuilder: TemplateLanguageFormattingModelBuilder() {
     }
 
     /**
-         * This is double negation. So, two "no" means "yes".
-         */
+     * If the user uses Prettier to format the code, we do NOT format the code.
+     */
     override fun dontFormatMyModel(): Boolean {
         if (myFile !== null) {
             val project: Project? = myFile?.project
@@ -147,8 +154,13 @@ class AntlersFormattingModelBuilder: TemplateLanguageFormattingModelBuilder() {
                 .around(AntlersTypes.T_PIPE)
                 .spaceIf(mySettings.SPACE_AROUND_MODIFIER_PIPE)
 
-                .around(ASSIGNMENT_OPERATORS)
+                .aroundInside(ASSIGNMENT_OPERATORS, AntlersTypes.EXPR)
                 .spaceIf(commonSettings.SPACE_AROUND_ASSIGNMENT_OPERATORS)
+
+                .aroundInside(ASSIGNMENT_OPERATORS, AntlersTypes.VARIABLE_ASSIGNMENT_NODE)
+                .spaceIf(commonSettings.SPACE_AROUND_ASSIGNMENT_OPERATORS)
+
+
         }
     }
 }

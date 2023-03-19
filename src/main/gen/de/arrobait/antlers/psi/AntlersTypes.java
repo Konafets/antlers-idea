@@ -73,7 +73,9 @@ public interface AntlersTypes {
   IElementType SUB_EXPR = new AntlersElementType("SUB_EXPR");
   IElementType SUB_EXPRESSION = new AntlersElementType("SUB_EXPRESSION");
   IElementType SWITCH_CASE = new AntlersElementType("SWITCH_CASE");
+  IElementType SWITCH_CLOSE = new AntlersElementType("SWITCH_CLOSE");
   IElementType SWITCH_NODE = new AntlersElementType("SWITCH_NODE");
+  IElementType SWITCH_OPEN = new AntlersElementType("SWITCH_OPEN");
   IElementType SWITCH_TAG = new AntlersElementType("SWITCH_TAG");
   IElementType TAG = new AntlersElementType("TAG");
   IElementType TAG_ATTRIBUTE_ASSIGNMENT = new AntlersElementType("TAG_ATTRIBUTE_ASSIGNMENT");
@@ -393,8 +395,14 @@ public interface AntlersTypes {
       else if (type == SWITCH_CASE) {
         return new AntlersSwitchCaseImpl(node);
       }
+      else if (type == SWITCH_CLOSE) {
+        return new AntlersSwitchCloseImpl(node);
+      }
       else if (type == SWITCH_NODE) {
         return new AntlersSwitchNodeImpl(node);
+      }
+      else if (type == SWITCH_OPEN) {
+        return new AntlersSwitchOpenImpl(node);
       }
       else if (type == SWITCH_TAG) {
         return new AntlersSwitchTagImpl(node);

@@ -282,9 +282,11 @@ switch_node ::= node_opener switch_tag node_closer {
         getPresentation
     ]
 }
-switch_tag   ::= 'switch' '(' switch_case+ default_case? ')' { pin=1}
+switch_tag   ::= switch_open switch_case+ default_case? switch_close { pin=1}
 switch_case  ::= '(' group_comp ')' '=>' string_literal ','? { pin=4 }
 default_case ::= '(' ')' '=>' string_literal ','? { pin=4 }
+switch_open ::= 'switch' '('
+switch_close ::= ')'
 
 // Expressions
 expr ::= interpolated_statement

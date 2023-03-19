@@ -1,4 +1,4 @@
-package de.arrobait.antlers.format
+package de.arrobait.antlers.format.blocks
 
 import com.intellij.formatting.*
 import com.intellij.formatting.templateLanguages.BlockWithParent
@@ -11,7 +11,8 @@ import com.intellij.psi.formatter.xml.HtmlPolicy
 import com.intellij.psi.formatter.xml.SyntheticBlock
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.xml.XmlTag
-import de.arrobait.antlers.format.processors.AntlersWrappingProcessor
+import de.arrobait.antlers.format.AntlersAbstractBlock
+import de.arrobait.antlers.format.AntlersBlockContext
 import de.arrobait.antlers.psi.AntlersPsiUtil
 import de.arrobait.antlers.psi.AntlersTypes
 import de.arrobait.antlers.psi.AntlersTypes.*
@@ -27,11 +28,6 @@ open class AntlersBlock(
     htmlPolicy: HtmlPolicy,
     spacingBuilder: SpacingBuilder,
 ) : AntlersAbstractBlock(node, wrap, alignment, blockFactory, settings, foreignChildren, context, htmlPolicy, spacingBuilder) {
-    private val myWrappingProcessor: AntlersWrappingProcessor
-
-    init {
-        myWrappingProcessor = AntlersWrappingProcessor(node)
-    }
 
     override fun getIndent(): Indent? {
         // Ignore Whitespace
