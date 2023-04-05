@@ -7,7 +7,8 @@
 ### Added
 - Add support for LiveTemplates 
 - Add default LiveTemplates for `switch`, `if`, `if else` and `if elseif`. 
-- StructureView
+- Add StructureView
+- Respect Prettier formatter #137
 
 ### Changed
 - Optimize the Lexer by removing duplicate actions and use multiple states.
@@ -16,6 +17,10 @@
 - Changed grammar and lexer for `if` and `unless` statements to improve the PSI structure. Additionally, do not lex and parse the closing conditional node `{{ /if }}` as one token but as two separate tokens: `/` => `T_SLASH` and `if` => `T_IF`. This helps to highlight both tokens individually. Same for `/unless`.
 - Run all tests with JUnit4
 - Update to PhpStorm 2023.1 #143
+- Improve the lexing of PHP nodes #136
+- Improve Lexer readability and performance #135
+- Migrate to provider API adding configuration cache compatibility #134
+- Migrate class AntlersFileType to Kotlin #129
 
 ### Fixed
 - When creating a new Antles file via _New File_-Dialog do not append `.antlers.html` when the user already provides the extension in the dialog.
