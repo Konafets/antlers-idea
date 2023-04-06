@@ -21,6 +21,7 @@
 - Improve Lexer readability and performance #135
 - Migrate to provider API adding configuration cache compatibility #134
 - Migrate class AntlersFileType to Kotlin #129
+- Update Kotlin to 1.8.20
 
 ### Fixed
 - When creating a new Antles file via _New File_-Dialog do not append `.antlers.html` when the user already provides the extension in the dialog.
