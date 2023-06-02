@@ -53,6 +53,7 @@ public class AntlersCodeStyleSettingsProvider extends CodeStyleSettingsProvider 
             addIndentOptionsTab(settings);
             addSpacesTab(settings);
             addBlankLinesTab(settings);
+            addWrappingAndBracesTab(settings);
         }
 
         @Override

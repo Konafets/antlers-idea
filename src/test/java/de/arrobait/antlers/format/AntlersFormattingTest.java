@@ -54,6 +54,21 @@ public class AntlersFormattingTest extends FormatterTestCase implements AntlersF
     }
 
     @Test
+    public void testComment() throws Exception {
+        doTest();
+    }
+
+    @Test
+    public void testPhpEcho() throws Exception {
+        doTest();
+    }
+
+    @Test
+    public void testPhpRaw() throws Exception {
+        doTest();
+    }
+
+    @Test
     public void testSimpleAntlers() throws Exception {
         doTest();
     }
@@ -100,9 +115,17 @@ public class AntlersFormattingTest extends FormatterTestCase implements AntlersF
     }
 
     @Test
-    @Ignore
+    public void testIssue120() throws Exception {
+        doTest();
+    }
+
+    @Test
     public void testSwitch() throws Exception {
-        // TODO: The last braces is not indented correctly
+        doTest();
+    }
+
+    @Test
+    public void testSwitchInHtml() throws Exception {
         doTest();
     }
 }

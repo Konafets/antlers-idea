@@ -11,10 +11,6 @@ import org.jetbrains.annotations.Nullable;
 public class AntlersAstFactory extends ASTFactory {
     @Override
     public @Nullable LeafElement createLeaf(@NotNull IElementType type, @NotNull CharSequence text) {
-        if (type == AntlersCustomElementTypes.OUTER_ELEMENT_TYPE) {
-            return new OuterLanguageElementImpl(type, text);
-        }
-
         return super.createLeaf(type, text);
     }
 }

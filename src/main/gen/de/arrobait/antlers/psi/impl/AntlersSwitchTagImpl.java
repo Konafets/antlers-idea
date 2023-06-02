@@ -5,10 +5,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import de.arrobait.antlers.psi.AntlersDefaultCase;
-import de.arrobait.antlers.psi.AntlersSwitchCase;
-import de.arrobait.antlers.psi.AntlersSwitchTag;
-import de.arrobait.antlers.psi.AntlersVisitor;
+import de.arrobait.antlers.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,6 +37,18 @@ public class AntlersSwitchTagImpl extends ASTWrapperPsiElement implements Antler
   @NotNull
   public List<AntlersSwitchCase> getSwitchCaseList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersSwitchCase.class);
+  }
+
+  @Override
+  @Nullable
+  public AntlersSwitchClose getSwitchClose() {
+    return findChildByClass(AntlersSwitchClose.class);
+  }
+
+  @Override
+  @NotNull
+  public AntlersSwitchOpen getSwitchOpen() {
+    return findNotNullChildByClass(AntlersSwitchOpen.class);
   }
 
 }

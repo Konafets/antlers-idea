@@ -2,6 +2,7 @@ package de.arrobait.antlers.format;
 
 import com.intellij.formatting.Alignment;
 import com.intellij.formatting.Indent;
+import com.intellij.formatting.SpacingBuilder;
 import com.intellij.formatting.Wrap;
 import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper;
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlockFactory;
@@ -24,8 +25,9 @@ public class AntlersCommentBlock extends AntlersAbstractBlock {
                                @NotNull CodeStyleSettings customSettings,
                                @Nullable List<DataLanguageBlockWrapper> foreignChildren,
                                @NotNull AntlersBlockContext context,
-                               @NotNull HtmlPolicy policy) {
-        super(node, wrap, alignment, blockFactory, customSettings, foreignChildren, context, policy);
+                               @NotNull HtmlPolicy policy,
+                               @NotNull SpacingBuilder spacingBuilder) {
+        super(node, wrap, alignment, blockFactory, customSettings, foreignChildren, context, policy, spacingBuilder);
     }
 
     /**

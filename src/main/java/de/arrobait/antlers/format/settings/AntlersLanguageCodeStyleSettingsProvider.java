@@ -60,6 +60,8 @@ public class AntlersLanguageCodeStyleSettingsProvider extends LanguageCodeStyleS
             consumer.showStandardOptions("SPACE_AROUND_ASSIGNMENT_OPERATORS", "SPACE_AFTER_COMMA");
         } else if (settingsType == SettingsType.BLANK_LINES_SETTINGS) {
             consumer.showStandardOptions("KEEP_BLANK_LINES_IN_CODE");
+        } else if (settingsType == SettingsType.WRAPPING_AND_BRACES_SETTINGS) {
+            consumer.showStandardOptions("CASE_STATEMENT_ON_NEW_LINE", "INDENT_CASE_FROM_SWITCH");
         }
     }
 
@@ -68,6 +70,7 @@ public class AntlersLanguageCodeStyleSettingsProvider extends LanguageCodeStyleS
         if (settingsType == SettingsType.SPACING_SETTINGS
                 || settingsType == SettingsType.BLANK_LINES_SETTINGS
                 || settingsType == SettingsType.INDENT_SETTINGS
+                || settingsType == SettingsType.WRAPPING_AND_BRACES_SETTINGS
         ) {
             return loadSample(settingsType);
         }

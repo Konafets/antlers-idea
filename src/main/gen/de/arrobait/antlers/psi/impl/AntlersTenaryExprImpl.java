@@ -5,9 +5,11 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import de.arrobait.antlers.psi.AntlersExpr;
+import de.arrobait.antlers.psi.AntlersTenaryBranchOp;
 import de.arrobait.antlers.psi.AntlersTenaryExpr;
 import de.arrobait.antlers.psi.AntlersVisitor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -32,6 +34,12 @@ public class AntlersTenaryExprImpl extends AntlersExprImpl implements AntlersTen
   @NotNull
   public List<AntlersExpr> getExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AntlersExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public AntlersTenaryBranchOp getTenaryBranchOp() {
+    return findChildByClass(AntlersTenaryBranchOp.class);
   }
 
 }

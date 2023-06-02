@@ -1,6 +1,7 @@
 package de.arrobait.antlers.lexer;
 
 import de.arrobait.antlers.parser.AntlersLexerAdapter;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.intellij.psi.TokenType.WHITE_SPACE;
@@ -268,6 +269,62 @@ public class TagsLexerTest extends LexerTest {
                 T_TAG_METHOD_NAME, "collection",
                 T_COLON, ":",
                 T_TAG_METHOD_NAME, "pages",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
+
+    @Test
+    public void it_lexes_unknown_tag_from_addon_with_params() {
+        givenInput("{{ imagekit src=\"foo\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_TAG, "imagekit",
+                WHITE_SPACE, " ",
+                T_IDENTIFIER, "src",
+                T_OP_ASSIGN, "=",
+                T_DOUBLE_QUOTE, "\"",
+                T_STRING_CONTENT, "foo",
+                T_DOUBLE_QUOTE, "\"",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
+
+    @Test
+    public void it_lexes_unknown_tag_from_addon_with_dynamic_binding() {
+        givenInput("{{ imagekit :src=\"foo\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_TAG, "imagekit",
+                WHITE_SPACE, " ",
+                T_DYNAMIC_BINDING, ":",
+                T_IDENTIFIER, "src",
+                T_OP_ASSIGN, "=",
+                T_DOUBLE_QUOTE, "\"",
+                T_STRING_CONTENT, "foo",
+                T_DOUBLE_QUOTE, "\"",
+                WHITE_SPACE, " ",
+                T_RD, "}}"
+        );
+    }
+
+    @Test
+    public void it_lexes_unknown_tag_from_addon_with_dynamic_binding_and_multiple_spaces() {
+        givenInput("{{ imagekit  :src=\"foo\" }}");
+        thenTokensAre(
+                T_LD, "{{",
+                WHITE_SPACE, " ",
+                T_TAG, "imagekit",
+                WHITE_SPACE, "  ",
+                T_DYNAMIC_BINDING, ":",
+                T_IDENTIFIER, "src",
+                T_OP_ASSIGN, "=",
+                T_DOUBLE_QUOTE, "\"",
+                T_STRING_CONTENT, "foo",
+                T_DOUBLE_QUOTE, "\"",
                 WHITE_SPACE, " ",
                 T_RD, "}}"
         );

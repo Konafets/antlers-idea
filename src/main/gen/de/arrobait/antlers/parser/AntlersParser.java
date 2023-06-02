@@ -544,6 +544,18 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // T_SLASH
+  public static boolean div_op(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "div_op")) return false;
+    if (!nextTokenIs(b, T_SLASH)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_SLASH);
+    exit_section_(b, m, DIV_OP, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // '.' (T_INTEGER | T_IDENTIFIER | string_literal)
   public static boolean dot_property_access(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dot_property_access")) return false;
@@ -1344,15 +1356,14 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // regular_tag ':' tag_method_part
   static boolean shorthand_tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shorthand_tag")) return false;
-    if (!nextTokenIs(b, T_TAG)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_);
+    if (!nextTokenIs(b, "", T_TAG, T_UNKNOWN_TAG)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
     r = regular_tag(b, l + 1);
     r = r && consumeToken(b, T_COLON);
-    p = r; // pin = 2
     r = r && tag_method_part(b, l + 1);
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -1469,6 +1480,18 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // ')'
+  public static boolean switch_close(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_close")) return false;
+    if (!nextTokenIs(b, T_RP)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_RP);
+    exit_section_(b, m, SWITCH_CLOSE, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // node_opener switch_tag node_closer
   public static boolean switch_node(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "switch_node")) return false;
@@ -1484,39 +1507,51 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'switch' '(' switch_case+ default_case? ')'
+  // 'switch' '('
+  public static boolean switch_open(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_open")) return false;
+    if (!nextTokenIs(b, T_SWITCH)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, T_SWITCH, T_LP);
+    exit_section_(b, m, SWITCH_OPEN, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // switch_open switch_case+ default_case? switch_close
   public static boolean switch_tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "switch_tag")) return false;
     if (!nextTokenIs(b, T_SWITCH)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, SWITCH_TAG, null);
-    r = consumeTokens(b, 1, T_SWITCH, T_LP);
+    r = switch_open(b, l + 1);
     p = r; // pin = 1
-    r = r && report_error_(b, switch_tag_2(b, l + 1));
-    r = p && report_error_(b, switch_tag_3(b, l + 1)) && r;
-    r = p && consumeToken(b, T_RP) && r;
+    r = r && report_error_(b, switch_tag_1(b, l + 1));
+    r = p && report_error_(b, switch_tag_2(b, l + 1)) && r;
+    r = p && switch_close(b, l + 1) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
   // switch_case+
-  private static boolean switch_tag_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "switch_tag_2")) return false;
+  private static boolean switch_tag_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_tag_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = switch_case(b, l + 1);
     while (r) {
       int c = current_position_(b);
       if (!switch_case(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "switch_tag_2", c)) break;
+      if (!empty_element_parsed_guard_(b, "switch_tag_1", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
   }
 
   // default_case?
-  private static boolean switch_tag_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "switch_tag_3")) return false;
+  private static boolean switch_tag_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "switch_tag_2")) return false;
     default_case(b, l + 1);
     return true;
   }
@@ -1525,7 +1560,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // ['%'] (shorthand_tag | regular_tag)
   public static boolean tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag")) return false;
-    if (!nextTokenIs(b, "<tag>", T_PERCENT, T_TAG)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TAG, "<tag>");
     r = tag_0(b, l + 1);
@@ -1650,14 +1684,15 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_TAG
+  // T_TAG | T_UNKNOWN_TAG
   public static boolean tag_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_name")) return false;
-    if (!nextTokenIs(b, T_TAG)) return false;
+    if (!nextTokenIs(b, "<tag name>", T_TAG, T_UNKNOWN_TAG)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, TAG_NAME, "<tag name>");
     r = consumeToken(b, T_TAG);
-    exit_section_(b, m, TAG_NAME, r);
+    if (!r) r = consumeToken(b, T_UNKNOWN_TAG);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1755,7 +1790,6 @@ public class AntlersParser implements PsiParser, LightPsiParser {
   // tag (tag_attribute_assignment | tag_taxonomy_condition)*
   static boolean tag_with_attributes(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_with_attributes")) return false;
-    if (!nextTokenIs(b, "", T_PERCENT, T_TAG)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = tag(b, l + 1);
@@ -1819,6 +1853,18 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, TAXONOMY_TERM, "<taxonomy term>");
     r = string_literal(b, l + 1);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ':'
+  public static boolean tenary_branch_op(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tenary_branch_op")) return false;
+    if (!nextTokenIs(b, T_COLON)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COLON);
+    exit_section_(b, m, TENARY_BRANCH_OP, r);
     return r;
   }
 
@@ -2331,12 +2377,12 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ':' expr
+  // tenary_branch_op expr
   private static boolean tenary_expr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tenary_expr_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, T_COLON);
+    r = tenary_branch_op(b, l + 1);
     r = r && expr(b, l + 1, -1);
     exit_section_(b, m, null, r);
     return r;
@@ -2369,11 +2415,11 @@ public class AntlersParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // T_SLASH | T_OP_SELF_ASSIGN_DIV
+  // div_op | T_OP_SELF_ASSIGN_DIV
   private static boolean div_expr_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "div_expr_0")) return false;
     boolean r;
-    r = consumeTokenSmart(b, T_SLASH);
+    r = div_op(b, l + 1);
     if (!r) r = consumeTokenSmart(b, T_OP_SELF_ASSIGN_DIV);
     return r;
   }
