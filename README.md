@@ -1,3 +1,7 @@
+⚠️ This project is not under active development. ⚠️
+
+If someone wants to contribute, let me know. I will make you a co-maintainer.
+
 # Antlers Language Support
 
 ![Build](https://github.com/Konafets/antlers-idea/workflows/Build/badge.svg)
