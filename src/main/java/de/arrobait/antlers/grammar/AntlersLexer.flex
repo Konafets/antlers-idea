@@ -62,7 +62,9 @@ DOUBLE_QUOTED_STR_CONTENT = ([^\\\"]|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))+
 MODIFIERS=add|add_query_param|add_slashes|alias|ampersand_list|antlers|ascii|as|at|background_position|backspace|bard_html|bard_items|bard_text|bool_string|camelize|cdata|ceil|chunk|collapse|collapse_whitespace|compact|console_log|contains|contains_all|contains_any|count|count_substring|dashify|days_ago|dd|ddd|debug|decode|deslugify|diff_for_humans|diff_for_owls|divide|dl|dump|embed_url|ends_with|ensure_left|ensure_right|entities|excerpt|explode|extension|favicon|first|flatten|flip|floor|format|format_localized|format_number|format_translated|full_urls|get|gravatar|group_by|has_lower_case|has_upper_case|hours_ago|image|in_array|insert|is_after|is_alpha|is_alphanumeric|is_array|is_before|is_between|is_blank|is_email|is_embeddable|is_empty|is_future|is_iterable|is_json|is_leap_year|is_lowercase|is_numberwang|is_numeric|iso_format|is_past|is_today|is_tomorrow|is_uppercase|is_url|is_weekday|is_weekend|is_yesterday|join|joinplode|kebab|key_by|last|lcfirst|length|limit|link|list|localize|lower|macro|mailto|mark|markdown|md5|merge|minutes_ago|mod|modify_date|months_ago|multiply|neatify|nl2br|obfuscate|obfuscate_email|offset|ol|option_list|output|pad|parse_url|partial|pathinfo|pluck|piped|plural|random|raw|rawurlencode|ray|read_time|regex_mark|regex_replace|relative|remove_left|remove_query_param|remove_right|repeat|replace|reverse|round|scope|safe_truncate|sanitize|seconds_ago|segment|sentence_list|set_query_parm|shrug|shuffle|singular|slugify|smartypants|snake|sort|spaceless|split|starts_with|strip_tags|str_pad|str_pad_both|str_pad_left|str_pad_right|studly|substr|subtract|sum|surround|swap_case|table|tidy|timestamp|timezone|title|to_bool|to_json|to_spaces|to_string|to_tabs|trackable_embed_url|trans|trans_choice|trim|truncate|type_of|ucfirst|ul|underscored|unique|upper|url|urldecode|urlencode|url_info|weeks_ago|where|widont|word_count|wrap|years_ago
 
 TAG="%"?{TAG_NAMES}":"?
-TAG_NAMES=404|asset|assets|cache|can|collection|dd|dump|foreach|form|get_content|get_error|get_errors|get_files|glide|in|increment|installed|is|link|locales|loop|markdown|mix|mount_url|nav|nocache|not_found|oauth|obfuscate|parent|partial|protect|path|query|range|redirect|relate|rotate|route|scope|search|section|session|set|structure|svg|switch|taxonomy|theme|trans|trans_choice|user|users|vite|widont|yield|yields
+UNKNOWN_TAG=[[:jletter:]]*
+ADDON_TAGS=imagekit
+TAG_NAMES={ADDON_TAGS}|404|asset|assets|cache|can|collection|dd|dump|foreach|form|get_content|get_error|get_errors|get_files|glide|in|increment|installed|is|link|locales|loop|markdown|mix|mount_url|nav|nocache|not_found|oauth|obfuscate|parent|partial|protect|path|query|range|redirect|relate|rotate|route|scope|search|section|session|set|structure|svg|switch|taxonomy|theme|trans|trans_choice|user|users|vite|widont|yield|yields
 TAG_METHOD_NAME=[_A-Za-z][-_/0-9A-Za-z\.]*
 TAG_STRING_CONDITIONS=:contains|:doesnt_contain|:doesnt_end_with|:doesnt_exist|:doesnt_match|:doesnt_start_with|:ends_with|:equals|:exists|:gt|:gte|:in|:is|:is_after|:is_alpha|:is_alpha_numeric|:is_before|:is_email|:is_embeddable|:is_empty|:is_numberwang|:is_numeric|:is_url|:isnt|:isset|:lt|:lte|:matches|:not|:not_in|:null|:regex|:starts_with
 
@@ -76,9 +78,6 @@ IDENTIFIER_DOT={IDENTIFIER} "."
 IDENTIFIER_COLON={IDENTIFIER} ":"
 IDENTIFIER_BRACKET={IDENTIFIER} "["
 SLOT_COLON={SLOT} ":"
-
-UNLESS="unless"
-IF="if"
 
 YAML_FRONT_MATTER_DELIMITER="---"
 
@@ -261,9 +260,12 @@ FLOAT=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {RECURSIVE_CHILDREN} { yypushback(yylength()); pushState(RECURSIVE_CHILDREN); }
 
     {SLOT_COLON}         { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
+    {IDENTIFIER}         { return T_IDENTIFIER; }
     {IDENTIFIER_DOT}     { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
     {IDENTIFIER_COLON}   { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
     {IDENTIFIER_BRACKET} { yypushback(yylength()); pushState(PROPERTY_ACCESS); }
+    {IDENTIFIER} / ({WHITE_SPACE}* ":") { yypushback(yylength()); pushState(TAG_EXPRESSION); }
+//    {IDENTIFIER} / ({WHITE_SPACE}* {IDENTIFIER}"=") { yypushback(yylength()); pushState(TAG_EXPRESSION); }
 
     {INTEGER}            { return T_INTEGER; }
     {FLOAT}              { return T_FLOAT; }
@@ -321,11 +323,12 @@ FLOAT=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 }
 
 <TAG_EXPRESSION> {
-    {WHITE_SPACE}  { pushState(TAG_EXPRESSION_ATTRIBUTE_LIST); return TokenType.WHITE_SPACE; }
-    "%"            { return T_PERCENT; }
-    ":"            { pushState(TAG_SHORTHAND); return T_COLON; }
-    {SLASH}        { return T_SLASH; }
-    {TAG_NAMES}    { return T_TAG; }
+    {WHITE_SPACE}*  { pushState(TAG_EXPRESSION_ATTRIBUTE_LIST); return TokenType.WHITE_SPACE; }
+    "%"             { return T_PERCENT; }
+    ":"             { pushState(TAG_SHORTHAND); return T_COLON; }
+    {SLASH}         { return T_SLASH; }
+    {TAG_NAMES}     { return T_TAG; }
+    {UNKNOWN_TAG}   { return T_UNKNOWN_TAG; }
 }
 
 <TAG_SHORTHAND> {TAG_METHOD_NAME} { return T_TAG_METHOD_NAME; }
@@ -338,7 +341,7 @@ FLOAT=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     {SINGLE_QUOTE}  { pushState(SINGLE_STRING); return T_SINGLE_QUOTE; }
 }
 
-<ANTLERS_NODE, GROUP_BY, TAG_EXPRESSION_ATTRIBUTE_LIST, RECURSIVE_CHILDREN, PROPERTY_ACCESS, MODIFIER_LIST, TAG_EXPRESSION> {
+<GROUP_BY, RECURSIVE_CHILDREN, PROPERTY_ACCESS, MODIFIER_LIST> {
     {IDENTIFIER}  { return T_IDENTIFIER; }
 }
 
@@ -349,6 +352,7 @@ FLOAT=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
     "taxonomy:"              { return T_TAXONOMY; }
     "="                      { return T_OP_ASSIGN; }
     ":"                      { return T_DYNAMIC_BINDING; }
+    {IDENTIFIER}             { return T_IDENTIFIER; }
 }
 
 <RECURSIVE_CHILDREN> {
@@ -382,11 +386,13 @@ FLOAT=[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
 }
 
 <PHP_ECHO> {
+    {WHITE_SPACE}  { return WHITE_SPACE; }
     "$}}"   { popState(); return T_PHP_ECHO_CLOSE;}
     [^ }}]*   { return T_PHP_CONTENT;}
 }
 
 <PHP_RAW> {
+    {WHITE_SPACE}  { return WHITE_SPACE; }
     "?}}"   { popState(); return T_PHP_RAW_CLOSE;}
     [^ }}]*  { return T_PHP_CONTENT;}
 }

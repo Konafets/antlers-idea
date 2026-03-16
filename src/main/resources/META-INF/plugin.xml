@@ -29,9 +29,9 @@
                 language="Antlers"
                 implementationClass="de.arrobait.antlers.parser.AntlersParserDefinition"/>
 
-        <lang.ast.factory
-                language="Antlers"
-                implementationClass="de.arrobait.antlers.parser.AntlersAstFactory"/>
+<!--        <lang.ast.factory-->
+<!--                language="Antlers"-->
+<!--                implementationClass="de.arrobait.antlers.parser.AntlersAstFactory"/>-->
 
         <!-- Syntax highlighting -->
         <lang.syntaxHighlighterFactory

@@ -16,7 +16,7 @@ object AntlersPsiImplUtil {
 
         when (element) {
             is AntlersSwitchNode -> {
-                name = "{{ " + element.nameIdentifier!!.text + " }}"
+                name = "{{ " + element.nameIdentifier!!.text.replace("(", "") + " }}"
             }
 
             is AntlersVariableAssignmentNode, is AntlersPhpEchoNode, is AntlersPhpRawNode -> {

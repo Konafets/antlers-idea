@@ -1,9 +1,6 @@
 package de.arrobait.antlers.format;
 
-import com.intellij.formatting.Alignment;
-import com.intellij.formatting.Block;
-import com.intellij.formatting.ChildAttributes;
-import com.intellij.formatting.Wrap;
+import com.intellij.formatting.*;
 import com.intellij.formatting.templateLanguages.DataLanguageBlockWrapper;
 import com.intellij.formatting.templateLanguages.TemplateLanguageBlockFactory;
 import com.intellij.lang.ASTNode;
@@ -11,6 +8,7 @@ import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.common.AbstractBlock;
 import com.intellij.psi.formatter.xml.HtmlPolicy;
 import com.intellij.psi.tree.IElementType;
+import de.arrobait.antlers.format.blocks.AntlersBlock;
 import de.arrobait.antlers.psi.AntlersTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,8 +27,9 @@ public class AntlersNodeBlock extends AntlersBlock {
                             @NotNull CodeStyleSettings settings,
                             @Nullable List<DataLanguageBlockWrapper> foreignChildren,
                             @NotNull AntlersBlockContext context,
-                            @NotNull HtmlPolicy policy) {
-        super(node, wrap, alignment, blockFactory, settings, foreignChildren, context, policy);
+                            @NotNull HtmlPolicy policy,
+                            @NotNull SpacingBuilder spacingBuilder) {
+        super(node, wrap, alignment, blockFactory, settings, foreignChildren, context, policy, spacingBuilder);
 
         myChildAttributeAlignment = Alignment.createAlignment();
     }

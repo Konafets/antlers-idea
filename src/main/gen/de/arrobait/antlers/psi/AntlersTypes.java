@@ -20,6 +20,7 @@ public interface AntlersTypes {
   IElementType CONCAT_EXPR = new AntlersElementType("CONCAT_EXPR");
   IElementType DEFAULT_CASE = new AntlersElementType("DEFAULT_CASE");
   IElementType DIV_EXPR = new AntlersElementType("DIV_EXPR");
+  IElementType DIV_OP = new AntlersElementType("DIV_OP");
   IElementType DOT_PROPERTY_ACCESS = new AntlersElementType("DOT_PROPERTY_ACCESS");
   IElementType ELSEIF_NODE = new AntlersElementType("ELSEIF_NODE");
   IElementType ELSE_NODE = new AntlersElementType("ELSE_NODE");
@@ -72,7 +73,9 @@ public interface AntlersTypes {
   IElementType SUB_EXPR = new AntlersElementType("SUB_EXPR");
   IElementType SUB_EXPRESSION = new AntlersElementType("SUB_EXPRESSION");
   IElementType SWITCH_CASE = new AntlersElementType("SWITCH_CASE");
+  IElementType SWITCH_CLOSE = new AntlersElementType("SWITCH_CLOSE");
   IElementType SWITCH_NODE = new AntlersElementType("SWITCH_NODE");
+  IElementType SWITCH_OPEN = new AntlersElementType("SWITCH_OPEN");
   IElementType SWITCH_TAG = new AntlersElementType("SWITCH_TAG");
   IElementType TAG = new AntlersElementType("TAG");
   IElementType TAG_ATTRIBUTE_ASSIGNMENT = new AntlersElementType("TAG_ATTRIBUTE_ASSIGNMENT");
@@ -88,6 +91,7 @@ public interface AntlersTypes {
   IElementType TAKE = new AntlersElementType("TAKE");
   IElementType TAXONOMY_NAME = new AntlersElementType("TAXONOMY_NAME");
   IElementType TAXONOMY_TERM = new AntlersElementType("TAXONOMY_TERM");
+  IElementType TENARY_BRANCH_OP = new AntlersElementType("TENARY_BRANCH_OP");
   IElementType TENARY_EXPR = new AntlersElementType("TENARY_EXPR");
   IElementType TINE = new AntlersElementType("TINE");
   IElementType TINES = new AntlersElementType("TINES");
@@ -191,6 +195,7 @@ public interface AntlersTypes {
   IElementType T_TAXONOMY = new AntlersTokenType("taxonomy:");
   IElementType T_TRUE = new AntlersTokenType("true");
   IElementType T_UNCLOSED_COMMENT = new AntlersTokenType("T_UNCLOSED_COMMENT");
+  IElementType T_UNKNOWN_TAG = new AntlersTokenType("T_UNKNOWN_TAG");
   IElementType T_UNLESS = new AntlersTokenType("unless");
   IElementType T_WHERE = new AntlersTokenType("where");
   IElementType UNCLOSED_FRONT_MATTER = new AntlersTokenType("UNCLOSED_FRONT_MATTER");
@@ -233,6 +238,9 @@ public interface AntlersTypes {
       }
       else if (type == DIV_EXPR) {
         return new AntlersDivExprImpl(node);
+      }
+      else if (type == DIV_OP) {
+        return new AntlersDivOpImpl(node);
       }
       else if (type == DOT_PROPERTY_ACCESS) {
         return new AntlersDotPropertyAccessImpl(node);
@@ -387,8 +395,14 @@ public interface AntlersTypes {
       else if (type == SWITCH_CASE) {
         return new AntlersSwitchCaseImpl(node);
       }
+      else if (type == SWITCH_CLOSE) {
+        return new AntlersSwitchCloseImpl(node);
+      }
       else if (type == SWITCH_NODE) {
         return new AntlersSwitchNodeImpl(node);
+      }
+      else if (type == SWITCH_OPEN) {
+        return new AntlersSwitchOpenImpl(node);
       }
       else if (type == SWITCH_TAG) {
         return new AntlersSwitchTagImpl(node);
@@ -434,6 +448,9 @@ public interface AntlersTypes {
       }
       else if (type == TAXONOMY_TERM) {
         return new AntlersTaxonomyTermImpl(node);
+      }
+      else if (type == TENARY_BRANCH_OP) {
+        return new AntlersTenaryBranchOpImpl(node);
       }
       else if (type == TENARY_EXPR) {
         return new AntlersTenaryExprImpl(node);

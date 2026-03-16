@@ -14,4 +14,10 @@ public interface AntlersSwitchTag extends AntlersPsiElement {
   @NotNull
   List<AntlersSwitchCase> getSwitchCaseList();
 
+  @Nullable
+  AntlersSwitchClose getSwitchClose();
+
+  @NotNull
+  AntlersSwitchOpen getSwitchOpen();
+
 }

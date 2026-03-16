@@ -1,0 +1,20 @@
+{{ nocache }} {{ collection from="training_log" status:is="published" limit="20"
+    sort="date:desc" }}
+<div class="flex {{ index === 0 ? 'col-span-3 row-span-3 sm:col-span-2 sm:row-span-2' : '' }}">
+  <a class="group relative flex" href="{{ url }}">
+    {{ if images }} {{ images limit="1" }} <img class="object-cover relative z-0" src="{{
+    imagekit :src=" path" n="home_thumbnail" }}" alt=""/> {{ /images }} {{ /if }} {{ if
+    index===0 }}
+    <div
+      class="pointer-events-none absolute bottom-0 right-0 z-20 bg-black bg-opacity-75 px-4 py-2 text-xs font-semibold text-cfhsv-blue group-hover:text-cfhsv-light-blue"
+    >
+      {{ title }}
+    </div>
+    {{ /if }}
+
+    <div
+      class="pointer-events-none absolute inset-0 z-10 bg-black opacity-20 transition-all duration-200 group-hover:opacity-0"
+    ></div>
+  </a>
+</div>
+{{ /collection }} {{ /nocache }}
