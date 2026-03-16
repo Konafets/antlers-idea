@@ -4,9 +4,11 @@
 
 ## [Unreleased]
 
+## [0.0.6] - 2023-04-06
+
 ### Added
-- Add support for LiveTemplates 
-- Add default LiveTemplates for `switch`, `if`, `if else` and `if elseif`. 
+- Add support for LiveTemplates
+- Add default LiveTemplates for `switch`, `if`, `if else` and `if elseif`.
 - Add StructureView
 - Respect Prettier formatter #137
 
@@ -225,7 +227,8 @@
   - where
 - Add language support for HTML
 
-[Unreleased]: https://github.com/Konafets/antlers-idea/compare/v0.0.5...HEAD
+[Unreleased]: https://github.com/Konafets/antlers-idea/compare/v0.0.6...HEAD
+[0.0.6]: https://github.com/Konafets/antlers-idea/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/Konafets/antlers-idea/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/Konafets/antlers-idea/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/Konafets/antlers-idea/compare/v0.0.2...v0.0.3
